@@ -1,0 +1,19 @@
+import { ConfigType } from "../settings";
+
+export const defaultConfig: ConfigType = {
+    blockchainUrl: "https://blockchain-api-staging.tonomy.foundation",
+    theme: {
+        primaryColor: "#67D7ED",
+        secondaryColor: "#03dac4",
+        tertiaryColor: "white"
+    },
+    appLogoUrl: "./src/assets/tonomy/tonomy-logo48.png",
+    appName: "Tonomy ID Development",
+    ecosystemName: "Tonomy Development",
+    appSlogan: "Building ecosystems of trust",
+    images: {
+        "logo48": "./src/assets/tonomy/tonomy-logo48.png",
+        "logo1024": "./src/assets/tonomy/tonomy-logo1024.png"
+    },
+    ssoWebsiteOrigin: "https://tonomy-id-staging.tonomy.foundation"
+}
