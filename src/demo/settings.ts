@@ -3,6 +3,7 @@ import { stagingConfig } from "./config/config.staging";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.REACT_APP_NODE_ENV || 'development';
+console.log(import.meta.env)
 console.log(`REACT_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
@@ -52,14 +53,14 @@ switch (env) {
         throw new Error('Unknown environment: ' + env);
 }
 
-if (import.meta.env.REACT_APP_BLOCKCHAIN_URL) {
-    console.log(`Using BLOCKCHAIN_URL from env:  ${process.env.REACT_APP_BLOCKCHAIN_URL}`);
-    config.blockchainUrl = import.meta.env.REACT_APP_BLOCKCHAIN_URL;
+if (import.meta.env.VITE_BLOCKCHAIN_URL) {
+    console.log(`Using BLOCKCHAIN_URL from env:  ${import.meta.env.VITE_BLOCKCHAIN_URL}`);
+    config.blockchainUrl = import.meta.env.VITE_BLOCKCHAIN_URL;
 }
 
-if (import.meta.env.REACT_APP_SSO_WEBSITE_ORIGIN) {
-    console.log(`Using SSO_WEBSITE_ORIGIN from env:  ${process.env.REACT_APP_SSO_WEBSITE_ORIGIN}`);
-    config.ssoWebsiteOrigin = import.meta.env.REACT_APP_SSO_WEBSITE_ORIGIN;
+if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
+    console.log(`Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN}`);
+    config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
 }
 
 settings.config = config;
