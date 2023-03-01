@@ -2,9 +2,9 @@ import { defaultConfig } from "./config/config";
 import { stagingConfig } from "./config/config.staging";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
-const env = import.meta.env.REACT_APP_NODE_ENV || 'development';
+const env = import.meta.env.VITE_APP_NODE_ENV || 'development';
 console.log(import.meta.env)
-console.log(`REACT_APP_NODE_ENV=${env}`);
+console.log(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
     blockchainUrl: string;

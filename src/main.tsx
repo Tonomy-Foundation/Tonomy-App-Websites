@@ -13,6 +13,7 @@ const demoModule =  './demo'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
+console.log(window.location.href)
 try{
     import(demoModule).then(module=>{
         const demo = module.default
