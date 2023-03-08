@@ -8,22 +8,23 @@ import "./index.css";
  * this solution can also be done using multiple servers in vite to load root based on subdomain
  */
 
-console.log(window.location.port);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-console.log(window.location.href);
+const subdomain = window.location.host.split('.')[1] ? window.location.host.split('.')[0] : null;
+
 try {
-  if(parseInt(window.location.port) === 3001){
+  if(parseInt(window.location.port) === 3001 || subdomain === 'demo'){
     import("./demo/module-index.js").then((module) => {
       const demo = module.default;
       demo(root);
     });
-  }else if(parseInt(window.location.port) === 3000){
+  }else if(parseInt(window.location.port) === 3000 || subdomain === 'sso'){
     import("./demo/module-index.js").then((module) => {
-      const demo = module.default;
-      demo(root);
+      const sso = module.default;
+      sso(root);
     });
   }
   
