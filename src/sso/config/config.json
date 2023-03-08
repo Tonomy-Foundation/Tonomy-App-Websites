@@ -13,5 +13,11 @@
         "logo48": "./src/assets/tonomy/tonomy-logo48.png",
         "logo1024": "./src/assets/tonomy/tonomy-logo1024.png"
     },
-    "ssoWebsiteOrigin": "https://tonomy-id-staging.tonomy.foundation"
+    "links": {
+        "readMoreDownload": "#",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging&hl=en&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1",
+        "appleStoreDownload": "#"
+    },
+    "tonomyIdLink": "tonomy-id-development://SSO",
+    "communicationUrl": "ws://localhost:5000"
 }

@@ -16,7 +16,9 @@
     "@tonomy/tonomy-id-sdk": "github:Tonomy-Foundation/Tonomy-ID-SDK#development",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1"
+    "react-qr-code": "^2.0.11",
+    "react-router-dom": "^6.8.1",
+    "web-vitals": "^3.1.1"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.3",

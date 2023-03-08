@@ -22,7 +22,7 @@ try {
       demo(root);
     });
   }else if(parseInt(window.location.port) === 3000 || subdomain === 'sso'){
-    import("./demo/module-index.js").then((module) => {
+    import("./sso/module-index.js").then((module) => {
       const sso = module.default;
       sso(root);
     });

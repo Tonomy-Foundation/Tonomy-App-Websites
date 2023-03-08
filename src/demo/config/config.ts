@@ -15,5 +15,5 @@ export const defaultConfig: ConfigType = {
         "logo48": "./src/assets/tonomy/tonomy-logo48.png",
         "logo1024": "./src/assets/tonomy/tonomy-logo1024.png"
     },
-    ssoWebsiteOrigin: "https://tonomy-id-staging.tonomy.foundation"
+    ssoWebsiteOrigin: "localhost:3000"
 }
