@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { JWTLoginPayload, KeyManager, UserApps } from "tonomy-id-sdk";
+import { JWTLoginPayload, KeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
 import JsKeyManager from "../keymanager";
 import settings from "../settings";
 import "./callback.css";
