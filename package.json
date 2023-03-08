@@ -13,10 +13,10 @@
     "@emotion/styled": "^11.10.6",
     "@greymass/eosio": "^0.6.9",
     "@mui/material": "^5.11.10",
+    "@tonomy/tonomy-id-sdk": "github:Tonomy-Foundation/Tonomy-ID-SDK#development",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1",
-    "@tonomy/tonomy-id-sdk": "github:Tonomy-Foundation/Tonomy-ID-SDK#development"
+    "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.3",
