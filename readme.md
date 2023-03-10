@@ -10,6 +10,8 @@ This repo contains all the following react apps that the Tonomy-Foundation uses:
 
 - Linux debian distribution (Ubuntu 20.0.4 LTS used)
 - [Nodejs](https://nodejs.org) v18.0.0+ suggested installed with [nvm](https://github.com/nvm-sh/nvm) with corepack enabled. (installing yarn alone is also fine)
+- [docker](https://www.docker.com/) v20.10.16+
+- [docker-compose](https://docs.docker.com/compose/) v1.29.2+
 
 ## Usage
 
