@@ -1,20 +1,15 @@
-import { defaultConfig } from "./config/config";
-import { stagingConfig } from "./config/config.staging";
-
-// cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.VITE_APP_NODE_ENV || "development";
 
-console.log(import.meta.env);
-console.log(`VITE_APP_NODE_ENV=${env}`);
+import defaultConfig from "./config/config.json";
+import stagingConfig from "./config/config.staging.json";
 
-export type ConfigType = {
+type ConfigType = {
   blockchainUrl: string;
   theme: {
     primaryColor: string;
     secondaryColor: string;
     tertiaryColor: string;
   };
-  appLogoUrl: string;
   appName: string;
   ecosystemName: string;
   appSlogan: string;
@@ -22,7 +17,13 @@ export type ConfigType = {
     logo48: string;
     logo1024: string;
   };
-  ssoWebsiteOrigin: string;
+  links: {
+    readMoreDownload: string;
+    playStoreDownload: string;
+    appleStoreDownload: string;
+  };
+  tonomyIdLink: string;
+  communicationUrl: string;
 };
 
 type SettingsType = {
@@ -30,6 +31,7 @@ type SettingsType = {
   config: ConfigType;
   isProduction: () => boolean;
 };
+
 let config: ConfigType;
 const settings: SettingsType = {
   env,
@@ -53,20 +55,27 @@ switch (env) {
     throw new Error("Unknown environment: " + env);
 }
 
-if (import.meta.env.VITE_BLOCKCHAIN_URL) {
+if (import.meta.env.VITE_APP_BLOCKCHAIN_URL) {
   console.log(
-    `Using BLOCKCHAIN_URL from env:  ${import.meta.env.VITE_BLOCKCHAIN_URL}`
+    `Using BLOCKCHAIN_URL from env:  ${import.meta.env.VITE_APP_BLOCKCHAIN_URL}`
   );
-  config.blockchainUrl = import.meta.env.VITE_BLOCKCHAIN_URL;
+  config.blockchainUrl = import.meta.env.VITE_APP_BLOCKCHAIN_URL;
 }
 
-if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
+if (import.meta.env.VITE_APP_TONOMY_ID_LINK) {
   console.log(
-    `Using SSO_WEBSITE_ORIGIN from env:  ${
-      import.meta.env.VITE_SSO_WEBSITE_ORIGIN
+    `Using TONOMY_ID_LINK from env:  ${import.meta.env.VITE_APP_TONOMY_ID_LINK}`
+  );
+  config.tonomyIdLink = import.meta.env.VITE_APP_TONOMY_ID_LINK;
+}
+
+if (import.meta.env.VITE_APP_COMMUNICATION_URL) {
+  console.log(
+    `Using communication microService from env: ${
+      import.meta.env.VITE_APP_COMMUNICATION_URL
     }`
   );
-  config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
+  config.communicationUrl = import.meta.env.VITE_APP_COMMUNICATION_URL;
 }
 
 settings.config = config;

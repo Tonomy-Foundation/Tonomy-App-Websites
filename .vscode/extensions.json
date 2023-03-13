@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "DavidAnson.vscode-markdownlint",
+        "ms-azuretools.vscode-docker",
+        "dbaeumer.vscode-eslint",
+        "streetsidesoftware.code-spell-checker"
+    ]
+}

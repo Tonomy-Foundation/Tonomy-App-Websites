@@ -4,23 +4,22 @@ import {
   GetKeyOptions,
   KeyManager,
   KeyManagerLevel,
+  sha256,
   SignDataOptions,
   StoreKeyOptions,
 } from "@tonomy/tonomy-id-sdk";
 
 export default class JsKeyManager implements KeyManager {
   async signData(options: SignDataOptions): Promise<string | Signature> {
-    const strPrivateKey = localStorage.getItem("tonomy.id.app" + options.level);
+    const pv = localStorage.getItem("app." + options.level);
 
-    if (!strPrivateKey) throw new Error("No key for this level");
-    const privateKey = PrivateKey.from(strPrivateKey);
+    if (!pv) throw new Error("No key for this level");
 
-    console.log("publickey from private", privateKey.toPublic().toString());
+    const privateKey = PrivateKey.from(pv);
 
     if (options.outputType === "jwt") {
       if (typeof options.data !== "string")
         throw new Error("data must be a string");
-
       const signer = ES256KSigner(privateKey.data.array, true);
 
       return (await signer(options.data)) as string;
@@ -50,14 +49,14 @@ export default class JsKeyManager implements KeyManager {
   async storeKey(options: StoreKeyOptions): Promise<PublicKey> {
     if (options.level === KeyManagerLevel.BROWSERLOCALSTORAGE) {
       localStorage.setItem(
-        "tonomy.id.app" + options.level,
+        "app." + options.level,
         options.privateKey.toString()
       );
       return options.privateKey.toPublic();
     }
 
     sessionStorage.setItem(
-      "tonomy.id.app" + options.level,
+      "app." + options.level,
       options.privateKey.toString()
     );
     return options.privateKey.toPublic();
@@ -65,13 +64,13 @@ export default class JsKeyManager implements KeyManager {
 
   async getKey(options: GetKeyOptions): Promise<PublicKey | null> {
     if (options.level === KeyManagerLevel.BROWSERLOCALSTORAGE) {
-      const pv = localStorage.getItem("tonomy.id.app" + options.level);
+      const pv = localStorage.getItem("app." + options.level);
 
       if (!pv) throw new Error("no key found");
       return PrivateKey.from(pv).toPublic();
     }
 
-    const pv = sessionStorage.getItem("tonomy.id.app" + options.level);
+    const pv = sessionStorage.getItem("app." + options.level);
 
     if (!pv) throw new Error("no key found");
     return PrivateKey.from(pv).toPublic();
@@ -79,11 +78,11 @@ export default class JsKeyManager implements KeyManager {
 
   async removeKey(options: GetKeyOptions): Promise<void> {
     if (options.level === KeyManagerLevel.BROWSERLOCALSTORAGE) {
-      localStorage.removeItem("tonomy.id.app" + options.level);
+      localStorage.removeItem("app." + options.level);
       return;
     }
 
-    sessionStorage.removeItem("tonomy.id.app" + options.level);
+    sessionStorage.removeItem("app." + options.level);
     return;
   }
 }

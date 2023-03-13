@@ -6,17 +6,22 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
+    "lint:fix": "yarn lint --fix",
+    "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@greymass/eosio": "^0.6.9",
     "@mui/material": "^5.11.10",
+    "@tonomy/tonomy-id-sdk": "github:Tonomy-Foundation/Tonomy-ID-SDK#development",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.8.1",
-    "tonomy-id-sdk": "github:Tonomy-Foundation/Tonomy-ID-SDK#development"
+    "web-vitals": "^3.1.1"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.3",
@@ -31,9 +36,13 @@
     "eslint-config-standard-with-typescript": "^34.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.4",
     "typescript": "*",
     "vite": "^4.1.0"
-  }
+  },
+  "packageManager": "yarn@3.1.1"
 }
