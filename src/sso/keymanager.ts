@@ -47,7 +47,7 @@ export default class JsKeyManager implements KeyManager {
     throw new Error("Method not implemented.");
   }
   async storeKey(options: StoreKeyOptions): Promise<PublicKey> {
-    if (options.level === KeyManagerLevel.BROWSERLOCALSTORAGE) {
+    if (options.level === KeyManagerLevel.BROWSER_LOCAL_STORAGE) {
       localStorage.setItem(
         "app." + options.level,
         options.privateKey.toString()
@@ -63,7 +63,7 @@ export default class JsKeyManager implements KeyManager {
   }
 
   async getKey(options: GetKeyOptions): Promise<PublicKey | null> {
-    if (options.level === KeyManagerLevel.BROWSERLOCALSTORAGE) {
+    if (options.level === KeyManagerLevel.BROWSER_LOCAL_STORAGE) {
       const pv = localStorage.getItem("app." + options.level);
 
       if (!pv) throw new Error("no key found");
@@ -77,7 +77,7 @@ export default class JsKeyManager implements KeyManager {
   }
 
   async removeKey(options: GetKeyOptions): Promise<void> {
-    if (options.level === KeyManagerLevel.BROWSERLOCALSTORAGE) {
+    if (options.level === KeyManagerLevel.BROWSER_LOCAL_STORAGE) {
       localStorage.removeItem("app." + options.level);
       return;
     }
