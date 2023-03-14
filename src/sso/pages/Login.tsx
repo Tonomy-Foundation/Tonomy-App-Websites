@@ -74,7 +74,7 @@ function Login() {
               requests: jwtRequests,
             },
             new JsKeyManager(),
-            KeyManagerLevel.BROWSERLOCALSTORAGE,
+            KeyManagerLevel.BROWSER_LOCAL_STORAGE,
             message.getSender()
           );
 
