@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   UserApps,
   setSettings,
+  ExternalUser,
   Communication,
   Message,
   KeyManagerLevel,
@@ -94,13 +95,14 @@ function Login() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
 
-      const tonomyJwt = (await UserApps.onPressLogin(
+      const tonomyJwt = (await ExternalUser.loginWithTonomy(
         { callbackPath: "/callback", redirect: false },
         new JsKeyManager()
       )) as string;
 
       sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
     } catch (e) {
+      console.error(e);
       alert(e);
       // TODO handle error
 
