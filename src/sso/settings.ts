@@ -69,13 +69,13 @@ if (import.meta.env.VITE_APP_TONOMY_ID_LINK) {
   config.tonomyIdLink = import.meta.env.VITE_APP_TONOMY_ID_LINK;
 }
 
-if (import.meta.env.VITE_APP_COMMUNICATION_URL) {
+if (import.meta.env.VITE_COMMUNICATION_URL) {
   console.log(
     `Using communication microService from env: ${
-      import.meta.env.VITE_APP_COMMUNICATION_URL
+      import.meta.env.VITE_COMMUNICATION_URL
     }`
   );
-  config.communicationUrl = import.meta.env.VITE_APP_COMMUNICATION_URL;
+  config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
 }
 
 settings.config = config;
