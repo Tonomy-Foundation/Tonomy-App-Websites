@@ -16,7 +16,7 @@
     "@emotion/styled": "^11.10.6",
     "@greymass/eosio": "^0.6.9",
     "@mui/material": "^5.11.10",
-    "@tonomy/tonomy-id-sdk": "github:Tonomy-Foundation/Tonomy-ID-SDK#development",
+    "@tonomy/tonomy-id-sdk": "https://github.com/Tonomy-Foundation/Tonomy-ID-SDK.git#development",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-qr-code": "^2.0.11",
@@ -44,5 +44,8 @@
     "typescript": "*",
     "vite": "^4.1.0"
   },
-  "packageManager": "yarn@3.1.1"
+  "packageManager": "yarn@3.1.1",
+  "resolutions": {
+    "@greymass/eosio": "^0.6.4"
+  }
 }
