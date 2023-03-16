@@ -93,7 +93,7 @@ function Login() {
 
   async function handleRequests() {
     try {
-      const verifiedJwt = await UserApps.onRedirectLogin();
+      const verifiedJwt = await ExternalUser.onRedirectLogin();
 
       const tonomyJwt = (await ExternalUser.loginWithTonomy(
         { callbackPath: "/callback", redirect: false },

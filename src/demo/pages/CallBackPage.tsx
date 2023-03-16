@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { JWTLoginPayload, KeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
+import {
+  ExternalUser,
+  JWTLoginPayload,
+  KeyManager,
+  UserApps,
+} from "@tonomy/tonomy-id-sdk";
 
 import JsKeyManager from "../keymanager";
 import settings from "../settings";
@@ -15,7 +20,7 @@ export default function CallBackPage() {
 
   async function verifyLogin() {
     const { result, accountName } =
-      await UserApps.onAppRedirectVerifyRequests();
+      await ExternalUser.onAppRedirectVerifyRequests();
     const verifiedLoginSso = await UserApps.verifyKeyExistsForApp(
       accountName,
       new JsKeyManager() as unknown as KeyManager
