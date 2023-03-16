@@ -70,7 +70,7 @@ function Login() {
 
         if (message.getPayload().type === "ack") {
           //TODO: save the sender did
-          const requestMessage = await UserApps.signMessage(
+          const requestMessage = await ExternalUser.signMessage(
             {
               requests: jwtRequests,
             },
