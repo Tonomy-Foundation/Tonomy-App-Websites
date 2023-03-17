@@ -20,10 +20,6 @@ export default function CallBackPage() {
 
   async function verifyLogin() {
     const { result, accountName } = await ExternalUser.verifyLoginRequest();
-    const verifiedLoginSso = await ExternalUser.verifyKeyExistsForApp(
-      accountName,
-      new JsKeyManager() as unknown as KeyManager
-    );
 
     if (verifiedLoginSso && result) {
       setPayLoad(result[0].getPayload() as JWTLoginPayload);

@@ -11,7 +11,7 @@ export default function CallBackPage() {
   async function verifyRequests() {
     console.log("test");
     const { result, accountName, username } =
-      await ExternalUser.verifyLoginRequest();
+      await ExternalUser.verifyLoginRequest(false);
 
     console.log(result, accountName);
     const redirectJwt = result.find(
