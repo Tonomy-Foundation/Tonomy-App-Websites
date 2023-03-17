@@ -9,36 +9,19 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyRequests() {
-    console.log("test");
-    const { result, accountName, username } =
-      await ExternalUser.verifyLoginRequest(false);
+    await ExternalUser.verifyLoginRequest();
 
-    console.log(result, accountName);
+    const { requests, accountName, username } =
+      UserApps.getLoginRequestParams();
+    const result = await UserApps.verifyRequests(requests);
+
     const redirectJwt = result.find(
       (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
     );
-    const ssoJwt = result.find(
-      (jwtVerified) => jwtVerified.getPayload().origin === location.origin
-    );
 
     if (!redirectJwt) {
-      console.log("test");
-      throw new Error("JWT isn't correct");
+      throw new Error("Login request for external site was not found");
       //TODO: handle this here
-    }
-
-    if (ssoJwt) {
-      try {
-        const verifiedLoginSso = await UserApps.verifyKeyExistsForApp(
-          accountName,
-          new JsKeyManager()
-        );
-
-        if (verifiedLoginSso) localStorage.setItem("loggedIn", "true");
-      } catch (e) {
-        // TODO only catch the 404 error and show nothing
-        console.log(e);
-      }
     }
 
     const redirectJwtPayload = redirectJwt.getPayload();

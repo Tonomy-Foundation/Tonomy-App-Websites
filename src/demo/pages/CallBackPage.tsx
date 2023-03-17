@@ -19,13 +19,11 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    const { result, accountName } = await ExternalUser.verifyLoginRequest();
+    const externalUser = await ExternalUser.verifyLoginRequest();
 
-    if (verifiedLoginSso && result) {
-      setPayLoad(result[0].getPayload() as JWTLoginPayload);
-    }
+    setPayLoad(await externalUser.getLoginRequest());
 
-    setName(accountName);
+    setName(await externalUser.getAccountName());
   }
 
   const showJwt = () => {
