@@ -29,7 +29,7 @@ export default function CallBackPage() {
 
     if (ssoJwt) {
       try {
-        const verifiedLoginSso = await ExternalUser.verifyKeyExistsForApp(
+        const verifiedLoginSso = await UserApps.verifyKeyExistsForApp(
           accountName,
           new JsKeyManager()
         );
