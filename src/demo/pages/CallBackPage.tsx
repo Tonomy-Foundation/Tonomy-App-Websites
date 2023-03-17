@@ -19,7 +19,7 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    const { result, accountName } = await ExternalUser.verifyRequests();
+    const { result, accountName } = await ExternalUser.verifyLoginRequest();
     const verifiedLoginSso = await ExternalUser.verifyKeyExistsForApp(
       accountName,
       new JsKeyManager() as unknown as KeyManager
