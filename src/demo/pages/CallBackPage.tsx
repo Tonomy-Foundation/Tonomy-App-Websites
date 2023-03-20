@@ -19,11 +19,13 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    const externalUser = await ExternalUser.verifyLoginRequest();
+    const externalUser = await ExternalUser.verifyLoginRequest({
+      keyManager: new JsKeyManager(),
+    });
 
     setPayLoad(await externalUser.getLoginRequest());
 
-    setName(await externalUser.getAccountName());
+    setName((await externalUser.getAccountName()).toString());
   }
 
   const showJwt = () => {
@@ -49,12 +51,14 @@ export default function CallBackPage() {
 
           <a
             className="btn"
+            target={"_blank"}
             href={
               "https://local.bloks.io/account/" +
               name +
               "?nodeUrl=" +
               settings.config.blockchainUrl
             }
+            rel="noreferrer"
           >
             Check in blockchain
           </a>

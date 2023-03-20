@@ -9,7 +9,9 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyRequests() {
-    await ExternalUser.verifyLoginRequest();
+    await ExternalUser.verifyLoginRequest({
+      keyManager: new JsKeyManager(),
+    });
 
     const { requests, accountName, username } =
       UserApps.getLoginRequestParams();
