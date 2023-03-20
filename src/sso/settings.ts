@@ -55,11 +55,11 @@ switch (env) {
     throw new Error("Unknown environment: " + env);
 }
 
-if (import.meta.env.VITE_APP_BLOCKCHAIN_URL) {
+if (import.meta.env.VITE_BLOCKCHAIN_URL) {
   console.log(
-    `Using BLOCKCHAIN_URL from env:  ${import.meta.env.VITE_APP_BLOCKCHAIN_URL}`
+    `Using BLOCKCHAIN_URL from env:  ${import.meta.env.VITE_BLOCKCHAIN_URL}`
   );
-  config.blockchainUrl = import.meta.env.VITE_APP_BLOCKCHAIN_URL;
+  config.blockchainUrl = import.meta.env.VITE_BLOCKCHAIN_URL;
 }
 
 if (import.meta.env.VITE_APP_TONOMY_ID_LINK) {

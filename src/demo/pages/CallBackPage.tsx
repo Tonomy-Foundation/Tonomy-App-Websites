@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { JWTLoginPayload, KeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
+import {
+  ExternalUser,
+  JWTLoginPayload,
+  KeyManager,
+  UserApps,
+} from "@tonomy/tonomy-id-sdk";
 
 import JsKeyManager from "../keymanager";
 import settings from "../settings";
@@ -14,18 +19,13 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    const { result, accountName } =
-      await UserApps.onAppRedirectVerifyRequests();
-    const verifiedLoginSso = await UserApps.verifyKeyExistsForApp(
-      accountName,
-      new JsKeyManager() as unknown as KeyManager
-    );
+    const externalUser = await ExternalUser.verifyLoginRequest({
+      keyManager: new JsKeyManager(),
+    });
 
-    if (verifiedLoginSso && result) {
-      setPayLoad(result[0].getPayload() as JWTLoginPayload);
-    }
+    setPayLoad(await externalUser.getLoginRequest());
 
-    setName(accountName);
+    setName((await externalUser.getAccountName()).toString());
   }
 
   const showJwt = () => {
@@ -51,12 +51,14 @@ export default function CallBackPage() {
 
           <a
             className="btn"
+            target={"_blank"}
             href={
               "https://local.bloks.io/account/" +
               name +
               "?nodeUrl=" +
               settings.config.blockchainUrl
             }
+            rel="noreferrer"
           >
             Check in blockchain
           </a>
