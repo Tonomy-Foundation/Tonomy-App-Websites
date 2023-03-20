@@ -38,6 +38,65 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function sendRequestToMobile(jwtRequests: string[]) {
+    const requests = JSON.stringify(jwtRequests);
+
+    if (isMobile()) {
+      window.location.replace(
+        `${settings.config.tonomyIdLink}?requests=${requests}`
+      );
+
+      // TODO
+      // wait 1-2 seconds
+      // if this code runs then the link didnt work
+      setTimeout(() => {
+        alert("link didn't work");
+      }, 1000);
+    } else {
+      const communication = new Communication();
+      const logInMessage = new Message(jwtRequests[1]);
+      const did = logInMessage.getSender();
+
+      setShowQR(did);
+
+      /**
+       * sending login requests flow
+       * at first the website logins and wait for the login results
+       * then it subscribe for new messages from the server
+       * if the message has type ack which means other client is awaiting for message from this client
+       * then this client sends the requests to the ack client
+       * else means the requests are authenticated and we can redirect back to the callback request
+       */
+      await communication.login(logInMessage);
+
+      communication.subscribeMessage(async (responseMessage) => {
+        const message = new Message(responseMessage);
+
+        console.log("recieved", message);
+
+        if (message.getPayload().type === "ack") {
+          //TODO: save the sender did
+          const requestMessage = await ExternalUser.signMessage(
+            {
+              requests: jwtRequests,
+            },
+            new JsKeyManager(),
+            KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+            message.getSender()
+          );
+
+          communication.sendMessage(requestMessage);
+        } else {
+          window.location.replace(
+            `/callback?requests=${message.getPayload().requests}&accountName=${
+              message.getPayload().accountName
+            }&username=nousername`
+          );
+        }
+      });
+    }
+  }
+
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
@@ -61,91 +120,6 @@ function Login() {
 
       return;
     }
-
-    async function sendRequestToMobile(jwtRequests: string[]) {
-      const requests = JSON.stringify(jwtRequests);
-
-      if (isMobile()) {
-        window.location.replace(
-          `${settings.config.tonomyIdLink}?requests=${requests}`
-        );
-
-        // TODO
-        // wait 1-2 seconds
-        // if this code runs then the link didnt work
-        setTimeout(() => {
-          alert("link didn't work");
-        }, 1000);
-      } else {
-        const communication = new Communication();
-        const logInMessage = new Message(jwtRequests[1]);
-        const did = logInMessage.getSender();
-
-        setShowQR(did);
-
-        /**
-         * sending login requests flow
-         * at first the website logins and wait for the login results
-         * then it subscribe for new messages from the server
-         * if the message has type ack which means other client is awaiting for message from this client
-         * then this client sends the requests to the ack client
-         * else means the requests are authenticated and we can redirect back to the callback request
-         */
-        await communication.login(logInMessage);
-
-        communication.subscribeMessage(async (responseMessage) => {
-          const message = new Message(responseMessage);
-
-          console.log("recieved", message);
-
-          if (message.getPayload().type === "ack") {
-            //TODO: save the sender did
-
-            localStorage.setItem("tonomy.user.did", message.getSender());
-            const requestMessage = await UserApps.signMessage(
-              {
-                requests: jwtRequests,
-              },
-              new JsKeyManager(),
-              KeyManagerLevel.BROWSER_LOCAL_STORAGE,
-              message.getSender()
-            );
-
-            communication.sendMessage(requestMessage);
-          } else {
-            window.location.replace(
-              `/callback?requests=${
-                message.getPayload().requests
-              }&accountName=${
-                message.getPayload().accountName
-              }&username=nousername`
-            );
-          }
-        });
-      }
-    }
-
-    //TODO: change the qr to only one when user is loggedin
-    /*
-        let idTonomyJwt: string;
-        const loggedIn = user logged into id.tonomy.foundation (check local storage and validate key is still authorized)
-        if (loggedIn) {
-            idTonomyJwt = get from local storage
-        } else {
-            idTonomyJwt = TonomyApp.onPressLogin();
-        }
-
-        if (mobile) {
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], deeplink);
-        } else {
-            if (loggedIn) {
-                subscribe to the channel
-            } else {
-                create new channel by creating QR code with idTonomyJwt
-            }
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], communication channel);
-        }
-        */
   }
 
   function renderQROrLoading() {
