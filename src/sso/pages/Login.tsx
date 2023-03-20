@@ -81,7 +81,6 @@ function Login() {
               requests: jwtRequests,
             },
             new JsKeyManager(),
-            KeyManagerLevel.BROWSER_LOCAL_STORAGE,
             message.getSender()
           );
 
@@ -105,11 +104,15 @@ function Login() {
 
       if (user) {
         //TODO: send to the connect screen
+        alert("send to connect page");
       } else {
-        const tonomyJwt = (await ExternalUser.loginWithTonomy({
-          callbackPath: "/callback",
-          redirect: false,
-        })) as string;
+        const tonomyJwt = (await ExternalUser.loginWithTonomy(
+          {
+            callbackPath: "/callback",
+            redirect: false,
+          },
+          keymanager
+        )) as string;
 
         sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
       }
