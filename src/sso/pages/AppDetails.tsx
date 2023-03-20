@@ -41,7 +41,7 @@ const AppDetails = () => {
       <TH3>{"Jack"}</TH3>
       <fieldset style={styles.field}>
         <legend style={styles.legend}>
-          <CopyAllOutlined fontSize="10px" /> Copy Request Link
+          <CopyAllOutlined fontSize="small" /> Copy Request Link
         </legend>
         <div
           style={{
