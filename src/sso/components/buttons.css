@@ -2,3 +2,12 @@
   text-decoration: underline;
   color: #4FC2F1;
 }
+.contained-button{
+  color: white;
+  background-color: #67D7ED;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border-color: transparent;
+  width: 80%;
+  box-shadow: rgba(0, 0, 0, 0.288) 1px 1px 10px ;
+}

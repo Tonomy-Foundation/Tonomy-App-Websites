@@ -1,56 +1,63 @@
-import { useState } from 'react';
-import { TH1, TH3, TP } from '../components/THeadings';
-import TImage from '../components/TImage';
-import { TContainedButton } from '../components/TContainedButton';
-import { Button } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-
-const styles = {
-    container: {
-        flex: 1,
-        textAlign: 'center' as const,
-        alignSelf: 'center',
-    },
-    loadingSpace: {
-        marginTop: '100px',
-        marginBottom: '30px',
-    },
-};
+import { useEffect, useState } from "react";
+import { TH3, TH4, TP } from "../components/THeadings";
+import TImage from "../components/TImage";
+import { TContainedButton } from "../components/TContainedButton";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { TButton } from "../components/Tbutton";
+import { Communication, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import JsKeyManager from "../keymanager";
+import "./loading.css";
 
 const Loading = () => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [connected, setConnected] = useState<boolean>(true);
+  const [user, setUser] = useState<ExternalUser>();
+  const [username, setUsername] = useState<string>();
+  const communication = new Communication();
 
-    return (
-        <div style={styles.container}>
-            <TImage height={60} src={'src/sso/assets/tonomy/tonomy-logo1024.png'} alt="Tonomy Logo" />
-            <TH1>{'Tonomy'}</TH1>
-            {connected && <TH3>{'Jack'}</TH3>}
-            <div style={styles.loadingSpace}>
-                <TImage src={'src/sso/assets/tonomy/connecting.png'} alt="Connecting Phone-PC" />
-                <TP>Linking to phone and sending data. Please remain connected. </TP>
-            </div>
-            {loading && (
-                <div style={styles.loadingSpace}>
-                    <TContainedButton style={{ marginTop: '20px' }}>Cancel</TContainedButton>
-                </div>
-            )}
-            {connected && (
-                <div style={styles.loadingSpace}>
-                    <Button
-                        onClick={() => {
-                            setConnected(false);
-                            setLoading(true);
-                        }}
-                        variant="outlined"
-                        startIcon={<LogoutIcon></LogoutIcon>}
-                    >
-                        Logout
-                    </Button>
-                </div>
-            )}
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  async function getUser() {
+    ExternalUser.getUser(new JsKeyManager()).then((user) => {
+      setUser(user);
+      user.getUsername().then((uname) => setUsername(uname.username));
+    });
+  }
+
+  return (
+    <div className="container">
+      <TImage
+        height={60}
+        src={"src/sso/assets/tonomy/tonomy-logo1024.png"}
+        alt="Tonomy Logo"
+      />
+      <TH3>{"Tonomy"}</TH3>
+      {user && <TH4>{username}</TH4>}
+      <div>
+        <TImage
+          src={"src/sso/assets/tonomy/connecting.png"}
+          alt="Connecting Phone-PC"
+        />
+        <TP>Linking to phone and sending data. Please remain connected. </TP>
+      </div>
+      {!user && (
+        <div>
+          <TContainedButton>Cancel</TContainedButton>
         </div>
-    );
+      )}
+      {user && (
+        <TButton
+          className="logout"
+          onClick={() => {
+            //TODO: logout
+          }}
+          startIcon={<LogoutIcon></LogoutIcon>}
+        >
+          Logout
+        </TButton>
+      )}
+    </div>
+  );
 };
 
 export default Loading;

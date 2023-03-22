@@ -20,11 +20,11 @@ const router = createBrowserRouter([
     element: <DownloadApp />,
   },
   {
-    path: '/appDetails',
+    path: "/appDetails",
     element: <AppDetails />,
   },
   {
-    path: '/loading',
+    path: "/loading",
     element: <Loading />,
   },
   {

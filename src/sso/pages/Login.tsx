@@ -15,6 +15,7 @@ import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
 import JsKeyManager from "../keymanager";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { redirect, useNavigate } from "react-router-dom";
 
 setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -31,6 +32,7 @@ const styles = {
 
 function Login() {
   const [showQR, setShowQR] = useState<string>();
+  const navigation = useNavigate();
 
   useEffect(() => {
     // console.log();
@@ -69,12 +71,13 @@ function Login() {
        */
       await communication.login(logInMessage);
 
-      communication.subscribeMessage(async (responseMessage) => {
+      communication.subscribeMessage(async function (responseMessage) {
         const message = new Message(responseMessage);
 
         console.log("recieved", message);
 
         if (message.getPayload().type === "ack") {
+          communication.unsubscribeMessage(this);
           //TODO: save the sender did
           const requestMessage = await ExternalUser.signMessage(
             {
@@ -110,7 +113,8 @@ function Login() {
 
       if (user) {
         //TODO: send to the connect screen
-        alert("send to connect page");
+
+        navigation("/loading" + location.search);
       } else {
         const tonomyJwt = (await ExternalUser.loginWithTonomy(
           {
