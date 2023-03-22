@@ -100,7 +100,13 @@ function Login() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
       const keymanager = new JsKeyManager();
-      const user = await ExternalUser.getUser(keymanager);
+      let user: ExternalUser | false;
+
+      try {
+        user = await ExternalUser.getUser(keymanager);
+      } catch (e) {
+        user = false;
+      }
 
       if (user) {
         //TODO: send to the connect screen
