@@ -16,6 +16,7 @@ import { isMobile } from "../utills/IsMobile";
 import JsKeyManager from "../keymanager";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { redirect, useNavigate } from "react-router-dom";
+import { useCommunicationStore } from "../stores/communication.store";
 
 setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -33,6 +34,7 @@ const styles = {
 function Login() {
   const [showQR, setShowQR] = useState<string>();
   const navigation = useNavigate();
+  const communication = useCommunicationStore((state) => state.communication);
 
   useEffect(() => {
     // console.log();
@@ -55,7 +57,6 @@ function Login() {
         alert("link didn't work");
       }, 1000);
     } else {
-      const communication = new Communication();
       const logInMessage = new Message(jwtRequests[1]);
       const did = logInMessage.getSender();
 
@@ -77,7 +78,6 @@ function Login() {
         console.log("recieved", message);
 
         if (message.getPayload().type === "ack") {
-          communication.unsubscribeMessage(this);
           //TODO: save the sender did
           const requestMessage = await ExternalUser.signMessage(
             {
@@ -86,6 +86,8 @@ function Login() {
             new JsKeyManager(),
             message.getSender()
           );
+
+          localStorage.setItem("did", message.getSender());
 
           communication.sendMessage(requestMessage);
         } else {

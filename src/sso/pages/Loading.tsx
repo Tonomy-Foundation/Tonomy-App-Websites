@@ -4,24 +4,61 @@ import TImage from "../components/TImage";
 import { TContainedButton } from "../components/TContainedButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
-import { Communication, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import {
+  Communication,
+  ExternalUser,
+  Message,
+  UserApps,
+} from "@tonomy/tonomy-id-sdk";
 import JsKeyManager from "../keymanager";
 import "./loading.css";
+import { useCommunicationStore } from "../stores/communication.store";
+import { useNavigate } from "react-router-dom";
 
 const Loading = () => {
   const [user, setUser] = useState<ExternalUser>();
   const [username, setUsername] = useState<string>();
-  const communication = new Communication();
+  const communication = useCommunicationStore((state) => state.communication);
+  const navigation = useNavigate();
 
   useEffect(() => {
     getUser();
   }, []);
 
   async function getUser() {
-    ExternalUser.getUser(new JsKeyManager()).then((user) => {
+    const verifiedJwt = await UserApps.onRedirectLogin();
+    const keyManager = new JsKeyManager();
+
+    try {
+      const user = await ExternalUser.getUser(keyManager);
+      const did = await user.getDid();
+
       setUser(user);
-      user.getUsername().then((uname) => setUsername(uname.username));
-    });
+      const username = await user.getUsername();
+
+      setUsername(username.username);
+      const ssoMessage = await ExternalUser.signMessage(
+        await user.getLoginRequest(),
+        keyManager
+      );
+
+      const loggedInMessage = await ExternalUser.signMessage(
+        {
+          requests: [verifiedJwt.jwt, ssoMessage.jwt],
+        },
+        keyManager,
+        did
+      );
+
+      await communication.login(loggedInMessage);
+      const result = await communication.sendMessage(loggedInMessage);
+
+      if (result) {
+        navigation("/appDetails" + location.search);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -33,12 +70,14 @@ const Loading = () => {
       />
       <TH3>{"Tonomy"}</TH3>
       {user && <TH4>{username}</TH4>}
-      <div>
+      <div className="margin-top">
         <TImage
           src={"src/sso/assets/tonomy/connecting.png"}
           alt="Connecting Phone-PC"
         />
-        <TP>Linking to phone and sending data. Please remain connected. </TP>
+        <TP className="margin-top">
+          Linking to phone and sending data. Please remain connected.{" "}
+        </TP>
       </div>
       {!user && (
         <div>
@@ -47,7 +86,7 @@ const Loading = () => {
       )}
       {user && (
         <TButton
-          className="logout"
+          className="logout margin-top"
           onClick={() => {
             //TODO: logout
           }}
