@@ -85,4 +85,7 @@ export default class JsKeyManager implements KeyManager {
     sessionStorage.removeItem("app." + options.level);
     return;
   }
+  checkKey() {
+    throw new Error("function not implmented");
+  }
 }
