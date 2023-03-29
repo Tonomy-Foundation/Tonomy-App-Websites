@@ -1273,9 +1273,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:^0.3.19":
-  version: 0.3.19
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.19"
+"@tonomy/tonomy-id-sdk@npm:^0.3.22":
+  version: 0.3.22
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.22"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@greymass/eosio": ^0.6.4
@@ -1288,7 +1288,7 @@ __metadata:
     cross-fetch: ^3.1.5
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
-  checksum: f784bbbe75bc7e6a5501963c41b63ed2dd840ddeca154700fa5b6610455d2dc4aee6896294e33ec5673e2d60775941c2ca4a9bfe210cbcb318937ec3b643c2cc
+  checksum: cd5d97f51009ac942f48543f545d67868404348adb3ce7737e43bb84405da0550725cd056a4356640c55f796182183364187ca2e3d0a10981119f3aff109651d
   languageName: node
   linkType: hard
 
@@ -4276,6 +4276,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rc-highlight@npm:^2.5.6":
+  version: 2.5.6
+  resolution: "rc-highlight@npm:2.5.6"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: 1b2bd90cc700cc7e444d4de9f88ff4d5d134a301fc9f933e1c804502ef14a6e164efe852407ee63052fe9785d687057d9005ee5d0b1eabdcd6580374b3363d4d
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -4299,6 +4309,16 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
+  languageName: node
+  linkType: hard
+
+"react-prism@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "react-prism@npm:4.3.2"
+  peerDependencies:
+    prop-types: ^15.5.0
+    react: ^15.5.0 || ^16.0.0
+  checksum: 17cfa61528f457ce67c3eebf39c5548859dd72c6a95c6cd29936a400356b3cdb1e935f99b9654b5c91865add541bb45942f1122398f92219c1d037cd50d8cc3f
   languageName: node
   linkType: hard
 
@@ -4877,7 +4897,7 @@ __metadata:
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": ^0.3.19
+    "@tonomy/tonomy-id-sdk": ^0.3.22
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
@@ -4893,8 +4913,10 @@ __metadata:
     eslint-plugin-react: ^7.32.2
     eslint-plugin-react-hooks: ^4.6.0
     prettier: ^2.8.4
+    rc-highlight: ^2.5.6
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-prism: ^4.3.2
     react-qr-code: ^2.0.11
     react-router-dom: ^6.8.1
     typescript: "*"

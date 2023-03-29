@@ -86,4 +86,8 @@ export default class JsKeyManager implements KeyManager {
     sessionStorage.removeItem("tonomy.id.app" + options.level);
     return;
   }
+
+  async checkKey(): Promise<boolean> {
+    throw new Error("function not implmented");
+  }
 }
