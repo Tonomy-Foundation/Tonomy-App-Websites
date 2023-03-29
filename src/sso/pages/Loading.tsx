@@ -4,13 +4,7 @@ import TImage from "../components/TImage";
 import { TContainedButton } from "../components/TContainedButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
-import {
-  Communication,
-  ExternalUser,
-  Message,
-  UserApps,
-} from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
+import { ExternalUser, JsKeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";

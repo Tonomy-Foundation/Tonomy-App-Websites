@@ -3,9 +3,8 @@ import {
   UserApps,
   setSettings,
   ExternalUser,
-  Communication,
   Message,
-  KeyManagerLevel,
+  JsKeyManager,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -13,7 +12,6 @@ import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
 import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
-import JsKeyManager from "../keymanager";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { redirect, useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";

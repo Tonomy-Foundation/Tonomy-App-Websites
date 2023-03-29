@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   ExternalUser,
   JWTLoginPayload,
-  KeyManager,
-  UserApps,
+  JsKeyManager,
 } from "@tonomy/tonomy-id-sdk";
-
-import JsKeyManager from "../keymanager";
 import settings from "../settings";
 import "./callback.css";
 

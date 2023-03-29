@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
-import { ExternalUser, UserApps } from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
+import { ExternalUser, UserApps, JsKeyManager } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
   useEffect(() => {
