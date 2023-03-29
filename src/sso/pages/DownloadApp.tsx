@@ -1,5 +1,5 @@
 import React from "react";
-import { TA } from "../components/Tbuttons";
+import { TA } from "../components/TA";
 import { TH1, TH2, TH3, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import appStoreImage from "../assets/app-store.svg";

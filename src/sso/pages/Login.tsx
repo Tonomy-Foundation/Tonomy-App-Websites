@@ -15,6 +15,8 @@ import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
 import JsKeyManager from "../keymanager";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { redirect, useNavigate } from "react-router-dom";
+import { useCommunicationStore } from "../stores/communication.store";
 
 setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -31,6 +33,13 @@ const styles = {
 
 function Login() {
   const [showQR, setShowQR] = useState<string>();
+  const navigation = useNavigate();
+  const communication = useCommunicationStore((state) => state.communication);
+
+  useEffect(() => {
+    handleRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function sendRequestToMobile(jwtRequests: string[]) {
     const requests = JSON.stringify(jwtRequests);
@@ -47,7 +56,6 @@ function Login() {
         alert("link didn't work");
       }, 1000);
     } else {
-      const communication = new Communication();
       const logInMessage = new Message(jwtRequests[1]);
       const did = logInMessage.getSender();
 
@@ -63,21 +71,21 @@ function Login() {
        */
       await communication.login(logInMessage);
 
-      communication.subscribeMessage(async (responseMessage) => {
+      communication.subscribeMessage(async function (responseMessage) {
         const message = new Message(responseMessage);
 
         console.log("recieved", message);
 
         if (message.getPayload().type === "ack") {
-          //TODO: save the sender did
           const requestMessage = await ExternalUser.signMessage(
             {
               requests: jwtRequests,
             },
             new JsKeyManager(),
-            KeyManagerLevel.BROWSER_LOCAL_STORAGE,
             message.getSender()
           );
+
+          localStorage.setItem("did", message.getSender());
 
           communication.sendMessage(requestMessage);
         } else {
@@ -94,13 +102,30 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
+      const keymanager = new JsKeyManager();
+      let user: ExternalUser | false;
 
-      const tonomyJwt = (await ExternalUser.loginWithTonomy(
-        { callbackPath: "/callback", redirect: false },
-        new JsKeyManager()
-      )) as string;
+      try {
+        user = await ExternalUser.getUser(keymanager);
+      } catch (e) {
+        user = false;
+      }
 
-      sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
+      if (user) {
+        //TODO: send to the connect screen
+
+        navigation("/loading" + location.search);
+      } else {
+        const tonomyJwt = (await ExternalUser.loginWithTonomy(
+          {
+            callbackPath: "/callback",
+            redirect: false,
+          },
+          keymanager
+        )) as string;
+
+        sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
+      }
     } catch (e) {
       console.error(e);
       alert(e);
@@ -108,28 +133,6 @@ function Login() {
 
       return;
     }
-
-    //TODO: change the qr to only one when user is loggedin
-    /*
-        let idTonomyJwt: string;
-        const loggedIn = user logged into id.tonomy.foundation (check local storage and validate key is still authorized)
-        if (loggedIn) {
-            idTonomyJwt = get from local storage
-        } else {
-            idTonomyJwt = TonomyApp.onPressLogin();
-        }
-
-        if (mobile) {
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], deeplink);
-        } else {
-            if (loggedIn) {
-                subscribe to the channel
-            } else {
-                create new channel by creating QR code with idTonomyJwt
-            }
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], communication channel);
-        }
-        */
   }
 
   function renderQROrLoading() {
@@ -150,12 +153,6 @@ function Login() {
       );
     }
   }
-
-  useEffect(() => {
-    // console.log();
-    handleRequests();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div style={styles.container}>
