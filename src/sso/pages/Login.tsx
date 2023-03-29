@@ -79,8 +79,7 @@ function Login() {
             {
               requests: jwtRequests,
             },
-            new JsKeyManager(),
-            message.getSender()
+            { recipient: message.getSender() }
           );
 
           localStorage.setItem("did", message.getSender());
@@ -100,11 +99,10 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
-      const keymanager = new JsKeyManager();
       let user: ExternalUser | false;
 
       try {
-        user = await ExternalUser.getUser(keymanager);
+        user = await ExternalUser.getUser();
       } catch (e) {
         user = false;
       }
@@ -114,13 +112,10 @@ function Login() {
 
         navigation("/loading" + location.search);
       } else {
-        const tonomyJwt = (await ExternalUser.loginWithTonomy(
-          {
-            callbackPath: "/callback",
-            redirect: false,
-          },
-          keymanager
-        )) as string;
+        const tonomyJwt = (await ExternalUser.loginWithTonomy({
+          callbackPath: "/callback",
+          redirect: false,
+        })) as string;
 
         sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
       }

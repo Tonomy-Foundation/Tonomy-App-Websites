@@ -24,7 +24,7 @@ const Loading = () => {
     const keyManager = new JsKeyManager();
 
     try {
-      const user = await ExternalUser.getUser(keyManager);
+      const user = await ExternalUser.getUser({ keyManager });
       const did = await user.getDid();
 
       setUser(user);
@@ -33,18 +33,17 @@ const Loading = () => {
       setUsername(username.username);
       const ssoMessage = await ExternalUser.signMessage(
         await user.getLoginRequest(),
-        keyManager
+        { keyManager }
       );
       const communicationLoginMessage = await ExternalUser.signMessage(
         {},
-        keyManager
+        { keyManager }
       );
       const appLoginRequest = await ExternalUser.signMessage(
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
         },
-        keyManager,
-        did
+        { keyManager, recipient: did }
       );
 
       await communication.login(communicationLoginMessage);

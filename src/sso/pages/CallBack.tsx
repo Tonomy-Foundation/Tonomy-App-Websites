@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
-import { ExternalUser, UserApps, JsKeyManager } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, UserApps } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
   useEffect(() => {
@@ -8,9 +8,7 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyRequests() {
-    await ExternalUser.verifyLoginRequest({
-      keyManager: new JsKeyManager(),
-    });
+    await ExternalUser.verifyLoginRequest();
 
     const { requests, accountName, username } =
       UserApps.getLoginRequestParams();
