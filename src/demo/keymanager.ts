@@ -87,7 +87,7 @@ export default class JsKeyManager implements KeyManager {
     return;
   }
 
-  checkKey() {
+  async checkKey(): Promise<boolean> {
     throw new Error("function not implmented");
   }
 }
