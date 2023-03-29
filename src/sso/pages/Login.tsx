@@ -32,6 +32,12 @@ const styles = {
 function Login() {
   const [showQR, setShowQR] = useState<string>();
 
+  useEffect(() => {
+    // console.log();
+    handleRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function sendRequestToMobile(jwtRequests: string[]) {
     const requests = JSON.stringify(jwtRequests);
 
@@ -75,7 +81,6 @@ function Login() {
               requests: jwtRequests,
             },
             new JsKeyManager(),
-            KeyManagerLevel.BROWSER_LOCAL_STORAGE,
             message.getSender()
           );
 
@@ -94,13 +99,29 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
+      const keymanager = new JsKeyManager();
+      let user: ExternalUser | false;
 
-      const tonomyJwt = (await ExternalUser.loginWithTonomy(
-        { callbackPath: "/callback", redirect: false },
-        new JsKeyManager()
-      )) as string;
+      try {
+        user = await ExternalUser.getUser(keymanager);
+      } catch (e) {
+        user = false;
+      }
 
-      sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
+      if (user) {
+        //TODO: send to the connect screen
+        alert("send to connect page");
+      } else {
+        const tonomyJwt = (await ExternalUser.loginWithTonomy(
+          {
+            callbackPath: "/callback",
+            redirect: false,
+          },
+          keymanager
+        )) as string;
+
+        sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
+      }
     } catch (e) {
       console.error(e);
       alert(e);
@@ -108,28 +129,6 @@ function Login() {
 
       return;
     }
-
-    //TODO: change the qr to only one when user is loggedin
-    /*
-        let idTonomyJwt: string;
-        const loggedIn = user logged into id.tonomy.foundation (check local storage and validate key is still authorized)
-        if (loggedIn) {
-            idTonomyJwt = get from local storage
-        } else {
-            idTonomyJwt = TonomyApp.onPressLogin();
-        }
-
-        if (mobile) {
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], deeplink);
-        } else {
-            if (loggedIn) {
-                subscribe to the channel
-            } else {
-                create new channel by creating QR code with idTonomyJwt
-            }
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], communication channel);
-        }
-        */
   }
 
   function renderQROrLoading() {
@@ -150,12 +149,6 @@ function Login() {
       );
     }
   }
-
-  useEffect(() => {
-    // console.log();
-    handleRequests();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div style={styles.container}>
