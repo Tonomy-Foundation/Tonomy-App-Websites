@@ -41,8 +41,11 @@ const Loading = () => {
         await user.getLoginRequest(),
         keyManager
       );
-
-      const loggedInMessage = await ExternalUser.signMessage(
+      const communicationLoginMessage = await ExternalUser.signMessage(
+        {},
+        keyManager
+      );
+      const appLoginRequest = await ExternalUser.signMessage(
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
         },
@@ -50,8 +53,8 @@ const Loading = () => {
         did
       );
 
-      await communication.login(loggedInMessage);
-      const result = await communication.sendMessage(loggedInMessage);
+      await communication.login(communicationLoginMessage);
+      const result = await communication.sendMessage(appLoginRequest);
 
       if (result) {
         navigation("/appDetails" + location.search);

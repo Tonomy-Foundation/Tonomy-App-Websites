@@ -50,8 +50,6 @@ const AppDetails = () => {
 
   async function subscribeToMobile() {
     communication.subscribeMessage((m) => {
-      console.log("test");
-
       const message = new Message(m);
 
       window.location.replace(
@@ -62,10 +60,10 @@ const AppDetails = () => {
     });
   }
 
+  /**
+   * verify the requests and gets the app details to show the ui
+   */
   async function getApp() {
-    // await ExternalUser.verifyLoginRequest({
-    //   keyManager: new JsKeyManager(),
-    // });
     const requests = new URLSearchParams(location.search).get("requests");
     const result = await UserApps.verifyRequests(requests);
 
@@ -108,6 +106,12 @@ const AppDetails = () => {
             <TButton startIcon={<LogoutIcon></LogoutIcon>}>Logout</TButton>
           </div>
         </div>
+      )}
+      {!details && (
+        <>
+          <TP>Loading QR code request</TP>
+          <TProgressCircle />
+        </>
       )}
     </div>
   );

@@ -37,7 +37,6 @@ function Login() {
   const communication = useCommunicationStore((state) => state.communication);
 
   useEffect(() => {
-    // console.log();
     handleRequests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -78,7 +77,6 @@ function Login() {
         console.log("recieved", message);
 
         if (message.getPayload().type === "ack") {
-          //TODO: save the sender did
           const requestMessage = await ExternalUser.signMessage(
             {
               requests: jwtRequests,
