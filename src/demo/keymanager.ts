@@ -38,15 +38,7 @@ export default class JsKeyManager implements KeyManager {
       return signature;
     }
   }
-  generateRandomPrivateKey(): PrivateKey {
-    throw new Error("Method not implemented.");
-  }
-  generatePrivateKeyFromPassword(
-    password: string,
-    salt?: Checksum256 | undefined
-  ): Promise<{ privateKey: PrivateKey; salt: Checksum256 }> {
-    throw new Error("Method not implemented.");
-  }
+
   async storeKey(options: StoreKeyOptions): Promise<PublicKey> {
     if (options.level === KeyManagerLevel.BROWSER_LOCAL_STORAGE) {
       localStorage.setItem(
