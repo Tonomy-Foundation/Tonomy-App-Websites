@@ -1,25 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import reportWebVitals from './reportWebVitals';
-import { Container } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/root";
-
-const styles = {
-  container: {
-    display: "flex",
-    height: "100vh",
-    justifyContent: "center",
-  },
-};
 
 export default function initiate(root: ReactDOM.Root) {
   return root.render(
     <React.StrictMode>
-      <Container maxWidth="sm" style={styles.container}>
-        <RouterProvider router={router}></RouterProvider>
-      </Container>
+      <RouterProvider router={router}></RouterProvider>
     </React.StrictMode>
   );
 }

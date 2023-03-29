@@ -1,0 +1,41 @@
+body{
+    background: #FDFEFF;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    
+    align-items: center;
+    
+}
+
+.intro,.docs{
+    padding: 2rem 4rem;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    flex:1;
+    height: 100%;
+}
+
+header {
+    margin-bottom: auto;
+}
+.intro button {
+    margin-bottom: auto
+}
+h1{
+    text-align: left !important;
+}
+.docs{
+    padding: 2rem;
+    flex: 1;
+    background: #262828;
+    height: 100%;
+}
+h3 {
+    max-width: 60%;
+}

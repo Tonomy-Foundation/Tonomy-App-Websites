@@ -4302,6 +4302,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-prism@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "react-prism@npm:4.3.2"
+  peerDependencies:
+    prop-types: ^15.5.0
+    react: ^15.5.0 || ^16.0.0
+  checksum: 17cfa61528f457ce67c3eebf39c5548859dd72c6a95c6cd29936a400356b3cdb1e935f99b9654b5c91865add541bb45942f1122398f92219c1d037cd50d8cc3f
+  languageName: node
+  linkType: hard
+
 "react-qr-code@npm:^2.0.11":
   version: 2.0.11
   resolution: "react-qr-code@npm:2.0.11"
@@ -4895,6 +4905,7 @@ __metadata:
     prettier: ^2.8.4
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-prism: ^4.3.2
     react-qr-code: ^2.0.11
     react-router-dom: ^6.8.1
     typescript: "*"
