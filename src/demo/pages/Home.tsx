@@ -44,13 +44,13 @@ function Home() {
         <TH3 className="title">Code Snippet</TH3>
         <div className="highlighter">
           <Highlighter>
-            {` function onButtonPress() {
-    userApps.onPRessLogin(
-       { callbackPath: "/callback" }, 
-       new JsKeyManager()
-         );
-    }
-      
+            {`  function onButtonPress() {
+    setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
+    ExternalUser.loginWithTonomy(
+      { callbackPath: "/callback" },
+      new JsKeyManager() as unknown as KeyManager
+    );
+  }
     <button className="tonomy" 
     onClick={onButtonPress}> Login with {Your Platform Name Here}
      </button>
