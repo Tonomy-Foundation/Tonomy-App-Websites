@@ -5,6 +5,7 @@ import {
   ExternalUser,
   Message,
   JsKeyManager,
+  STORAGE_NAMESPACE,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -82,7 +83,10 @@ function Login() {
             { recipient: message.getSender() }
           );
 
-          localStorage.setItem("did", message.getSender());
+          localStorage.setItem(
+            STORAGE_NAMESPACE + ".tonomy.id.did",
+            message.getSender()
+          );
 
           communication.sendMessage(requestMessage);
         } else {
