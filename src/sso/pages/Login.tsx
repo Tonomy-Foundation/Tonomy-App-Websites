@@ -37,7 +37,9 @@ function Login() {
   let rendered = false;
 
   useEffect(() => {
-    // Prevent useEffect from running twice
+    // Prevent useEffect from running twice which causes a race condition of the
+    // async handleRequests() between which publicKey is sent in the request and this
+    // conflicts in the publicKey that is saved in localStorage
     if (!rendered) {
       rendered = true;
     } else {
