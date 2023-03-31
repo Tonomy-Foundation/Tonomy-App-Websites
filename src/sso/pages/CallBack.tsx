@@ -15,7 +15,8 @@ export default function CallBackPage() {
     const result = await UserApps.verifyRequests(requests);
 
     const redirectJwt = result.find(
-      (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
+      (jwtVerified) =>
+        jwtVerified.getPayload().origin !== window.location.origin
     );
 
     if (!redirectJwt) {

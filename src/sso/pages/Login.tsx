@@ -14,7 +14,7 @@ import TProgressCircle from "../components/TProgressCircle";
 import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
 
 setSettings({
@@ -34,8 +34,16 @@ function Login() {
   const [showQR, setShowQR] = useState<string>();
   const navigation = useNavigate();
   const communication = useCommunicationStore((state) => state.communication);
+  let rendered = false;
 
   useEffect(() => {
+    // Prevent useEffect from running twice
+    if (!rendered) {
+      rendered = true;
+    } else {
+      return;
+    }
+
     handleRequests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -73,8 +81,6 @@ function Login() {
       communication.subscribeMessage(async function (responseMessage) {
         const message = new Message(responseMessage);
 
-        console.log("recieved", message);
-
         if (message.getPayload().type === "ack") {
           const requestMessage = await ExternalUser.signMessage(
             {
@@ -103,19 +109,13 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
-      let user: ExternalUser | false;
 
       try {
-        user = await ExternalUser.getUser();
-      } catch (e) {
-        user = false;
-      }
-
-      if (user) {
+        await ExternalUser.getUser();
         //TODO: send to the connect screen
 
         navigation("/loading" + location.search);
-      } else {
+      } catch (e) {
         const tonomyJwt = (await ExternalUser.loginWithTonomy({
           callbackPath: "/callback",
           redirect: false,
