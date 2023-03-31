@@ -759,6 +759,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/icons-material@npm:^5.11.11":
+  version: 5.11.11
+  resolution: "@mui/icons-material@npm:5.11.11"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+  peerDependencies:
+    "@mui/material": ^5.0.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 6ec89f3c68aaedd521f6a5106964394c410b08cec6875166d3ee97dcbaf2983c67d3b19cd58113d767d9f934cc0e9439fb5856e45471f5094656c0f87bbefecd
+  languageName: node
+  linkType: hard
+
 "@mui/material@npm:^5.11.10":
   version: 5.11.13
   resolution: "@mui/material@npm:5.11.13"
@@ -1174,17 +1190,105 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:*":
-  version: 1.0.0
-  resolution: "@tonomy/tonomy-id-sdk@npm:1.0.0"
+"@tonomy/antelope-did-resolver@npm:^0.1.9":
+  version: 0.1.9
+  resolution: "@tonomy/antelope-did-resolver@npm:0.1.9"
+  dependencies:
+    base64url: ^3.0.1
+    eosjs: ^21.0.4
+  checksum: 3c83b5264b7324385f865465142e5de62c3c2a71950126e59dee3138427e39cb3980eeca8715c1707dcefea310a32ddca2c720ef1a91056786db54e20043cda0
+  languageName: node
+  linkType: hard
+
+"@tonomy/antelope-did-resolver@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@tonomy/antelope-did-resolver@npm:0.2.2"
+  dependencies:
+    base64url: ^3.0.1
+    eosjs: ^21.0.4
+  checksum: cf340c4ea0bb5a9f7fc1b6639f10bf5a5a95d531fa21a25788ecbc304bd25f968b6364ed843891ecec1a57ab942473f4c63680f1d7e87e89cd0b2c3db8fa6583
+  languageName: node
+  linkType: hard
+
+"@tonomy/antelope-did@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@tonomy/antelope-did@npm:0.1.5"
+  dependencies:
+    "@tonomy/antelope-did-resolver": ^0.1.9
+    "@tonomy/did-resolver": ^4.0.4
+    eosjs: ^22.0.0
+    node-fetch: ^2.6.1
+  checksum: fd3a84ab1015ab98196e7be8092492ac6135133448405a0b777d6fd0aa615e7f6504a86631be7947463ca07416a29b476efc9a1a9d0c16e02cb2f71bff666198
+  languageName: node
+  linkType: hard
+
+"@tonomy/antelope-ssi-toolkit@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@tonomy/antelope-ssi-toolkit@npm:1.1.0"
+  dependencies:
+    "@greymass/eosio": ^0.6.4
+    "@tonomy/antelope-did": ^0.1.5
+    "@tonomy/did-jwt": ^6.10.0
+    "@tonomy/did-jwt-vc": ^3.1.3
+    "@tonomy/did-resolver": ^4.0.4
+    cross-fetch: ^3.1.5
+  checksum: fe68d68fb828846f7207070a27fe632ca451210b9127ba497dc03e6cc74ac414542044d378a5a2dc0bd4359eb87807bce13802acae0f34d7dd7b051e80867a6a
+  languageName: node
+  linkType: hard
+
+"@tonomy/did-jwt-vc@npm:^3.1.3":
+  version: 3.1.3
+  resolution: "@tonomy/did-jwt-vc@npm:3.1.3"
+  dependencies:
+    "@tonomy/did-jwt": ^6.9.2
+    "@tonomy/did-resolver": ^4.0.4
+  checksum: aea7afdaba0bed3761f73c009a6f01eb16050b3f16928a028edcde5b0a3777720d6907010d996dcb1c8c5e1832cbc0fa172e8dfaed558cf6bd66bf5b004105df
+  languageName: node
+  linkType: hard
+
+"@tonomy/did-jwt@npm:^6.10.0, @tonomy/did-jwt@npm:^6.10.1, @tonomy/did-jwt@npm:^6.9.2":
+  version: 6.10.1
+  resolution: "@tonomy/did-jwt@npm:6.10.1"
+  dependencies:
+    "@stablelib/ed25519": ^1.0.2
+    "@stablelib/random": ^1.0.1
+    "@stablelib/sha256": ^1.0.1
+    "@stablelib/x25519": ^1.0.2
+    "@stablelib/xchacha20poly1305": ^1.0.1
+    "@tonomy/did-resolver": ^4.0.4
+    bech32: ^2.0.0
+    canonicalize: ^1.0.8
+    elliptic: ^6.5.4
+    js-sha3: ^0.8.0
+    multiformats: ^9.6.5
+    uint8arrays: ^3.0.0
+  checksum: 7b57947456e4a824c2a5d178a7d9d45a9553f6444bcf3d480eb89a0d7aa89cc450ecc1c9b0ec8cdfc0c3494d7900e6e496805c84e19aa32f70b8450e6e164fd3
+  languageName: node
+  linkType: hard
+
+"@tonomy/did-resolver@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "@tonomy/did-resolver@npm:4.0.4"
+  checksum: 63998b014fbb50b4fb4f6f854de41daad970a9ce96b3f4f48b776bde45861d1579ab5f82a44f414c5dfcd7c08a2a3e9e73e299f0106e6b9c1b5ef832952b9abe
+  languageName: node
+  linkType: hard
+
+"@tonomy/tonomy-id-sdk@npm:^0.3.22":
+  version: 0.3.22
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.22"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@greymass/eosio": ^0.6.4
+    "@tonomy/antelope-did": ^0.1.5
+    "@tonomy/antelope-did-resolver": ^0.2.2
+    "@tonomy/antelope-ssi-toolkit": ^1.1.0
+    "@tonomy/did-jwt": ^6.10.1
+    "@tonomy/did-jwt-vc": ^3.1.3
+    "@tonomy/did-resolver": ^4.0.4
     cross-fetch: ^3.1.5
-    did-jwt: ^6.10.1
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
-  checksum: 4b08129a8fbc4ba1caa1039299490a8461448e89858f6bd77adbf6002bcb670b98a50fee2d6399189af0ccfd78ac4463bd9282053956641c9cc0b92f6eec190a
+  checksum: cd5d97f51009ac942f48543f545d67868404348adb3ce7737e43bb84405da0550725cd056a4356640c55f796182183364187ca2e3d0a10981119f3aff109651d
   languageName: node
   linkType: hard
 
@@ -1647,10 +1751,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"base64url@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "base64url@npm:3.0.1"
+  checksum: a77b2a3a526b3343e25be424de3ae0aa937d78f6af7c813ef9020ef98001c0f4e2323afcd7d8b2d2978996bf8c42445c3e9f60c218c622593e5fdfd54a3d6e18
+  languageName: node
+  linkType: hard
+
 "bech32@npm:^2.0.0":
   version: 2.0.0
   resolution: "bech32@npm:2.0.0"
   checksum: fa15acb270b59aa496734a01f9155677b478987b773bf701f465858bf1606c6a970085babd43d71ce61895f1baa594cb41a2cd1394bd2c6698f03cc2d811300e
+  languageName: node
+  linkType: hard
+
+"bn.js@npm:5.2.0":
+  version: 5.2.0
+  resolution: "bn.js@npm:5.2.0"
+  checksum: 6117170393200f68b35a061ecbf55d01dd989302e7b3c798a3012354fa638d124f0b2f79e63f77be5556be80322a09c40339eda6413ba7468524c0b6d4b4cb7a
   languageName: node
   linkType: hard
 
@@ -1996,33 +2114,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"did-jwt@npm:^6.10.1":
-  version: 6.11.2
-  resolution: "did-jwt@npm:6.11.2"
-  dependencies:
-    "@stablelib/ed25519": ^1.0.2
-    "@stablelib/random": ^1.0.1
-    "@stablelib/sha256": ^1.0.1
-    "@stablelib/x25519": ^1.0.2
-    "@stablelib/xchacha20poly1305": ^1.0.1
-    bech32: ^2.0.0
-    canonicalize: ^1.0.8
-    did-resolver: ^4.0.0
-    elliptic: ^6.5.4
-    js-sha3: ^0.8.0
-    multiformats: ^9.6.5
-    uint8arrays: ^3.0.0
-  checksum: 3b73aaf879e0413fd794581b092eb42ca989f311744a06b91ee875d7ebe5158107fba5484329a416b92139058e26dec3a64677711e7ee869c72b2b3f7416717f
-  languageName: node
-  linkType: hard
-
-"did-resolver@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "did-resolver@npm:4.1.0"
-  checksum: 0b0f6c3502f877c2a3cb264befc2718b12efa8e7d39ef255b00cd79f8fe12303257ac8e84a030a49599415bce87192fef29388d9f695776d331d0139848d3d4c
-  languageName: node
-  linkType: hard
-
 "dir-glob@npm:^3.0.1":
   version: 3.0.1
   resolution: "dir-glob@npm:3.0.1"
@@ -2067,7 +2158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:^6.5.4":
+"elliptic@npm:6.5.4, elliptic@npm:^6.5.4":
   version: 6.5.4
   resolution: "elliptic@npm:6.5.4"
   dependencies:
@@ -2122,6 +2213,30 @@ __metadata:
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
+  languageName: node
+  linkType: hard
+
+"eosjs@npm:^21.0.4":
+  version: 21.0.4
+  resolution: "eosjs@npm:21.0.4"
+  dependencies:
+    bn.js: 5.2.0
+    elliptic: 6.5.4
+    hash.js: 1.1.7
+    pako: 2.0.3
+  checksum: a016f9c501cf1c05a7423d9f464ca310791e27f59a5ad82d96f455084a93c4037364a4b908f9a5e6892dc9993915154c78253a7d0dcbc67cb332db0c6f42a0f8
+  languageName: node
+  linkType: hard
+
+"eosjs@npm:^22.0.0":
+  version: 22.1.0
+  resolution: "eosjs@npm:22.1.0"
+  dependencies:
+    bn.js: 5.2.0
+    elliptic: 6.5.4
+    hash.js: 1.1.7
+    pako: 2.0.3
+  checksum: bcbceed56b474398bb44be1581ecd6c5c9b07fb703dc345df3375897061d1e513f63821108479504acc681b5fd02a053dbedca4e230353c33ab6e8edfb16520a
   languageName: node
   linkType: hard
 
@@ -3048,7 +3163,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hash.js@npm:^1.0.0, hash.js@npm:^1.0.3":
+"hash.js@npm:1.1.7, hash.js@npm:^1.0.0, hash.js@npm:^1.0.3":
   version: 1.1.7
   resolution: "hash.js@npm:1.1.7"
   dependencies:
@@ -3809,6 +3924,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:^2.6.1":
+  version: 2.6.9
+  resolution: "node-fetch@npm:2.6.9"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: acb04f9ce7224965b2b59e71b33c639794d8991efd73855b0b250921382b38331ffc9d61bce502571f6cc6e11a8905ca9b1b6d4aeb586ab093e2756a1fd190d0
+  languageName: node
+  linkType: hard
+
 "node-gyp@npm:latest":
   version: 9.3.1
   resolution: "node-gyp@npm:9.3.1"
@@ -3985,6 +4114,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pako@npm:2.0.3":
+  version: 2.0.3
+  resolution: "pako@npm:2.0.3"
+  checksum: 7008da1379db232d562e5ef0f7fb11f7fedc5672cbdf622fa8a9bf0af75e430c63250a3de1c3a6b128da52dc6196c2082a88184d882ff704ee80631136f7aa39
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -4140,6 +4276,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rc-highlight@npm:^2.5.6":
+  version: 2.5.6
+  resolution: "rc-highlight@npm:2.5.6"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: 1b2bd90cc700cc7e444d4de9f88ff4d5d134a301fc9f933e1c804502ef14a6e164efe852407ee63052fe9785d687057d9005ee5d0b1eabdcd6580374b3363d4d
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -4163,6 +4309,16 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
+  languageName: node
+  linkType: hard
+
+"react-prism@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "react-prism@npm:4.3.2"
+  peerDependencies:
+    prop-types: ^15.5.0
+    react: ^15.5.0 || ^16.0.0
+  checksum: 17cfa61528f457ce67c3eebf39c5548859dd72c6a95c6cd29936a400356b3cdb1e935f99b9654b5c91865add541bb45942f1122398f92219c1d037cd50d8cc3f
   languageName: node
   linkType: hard
 
@@ -4737,10 +4893,11 @@ __metadata:
     "@emotion/react": ^11.10.6
     "@emotion/styled": ^11.10.6
     "@greymass/eosio": ^0.6.9
+    "@mui/icons-material": ^5.11.11
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": "*"
+    "@tonomy/tonomy-id-sdk": ^0.3.22
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
@@ -4756,13 +4913,16 @@ __metadata:
     eslint-plugin-react: ^7.32.2
     eslint-plugin-react-hooks: ^4.6.0
     prettier: ^2.8.4
+    rc-highlight: ^2.5.6
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-prism: ^4.3.2
     react-qr-code: ^2.0.11
     react-router-dom: ^6.8.1
     typescript: "*"
     vite: ^4.1.0
     web-vitals: ^3.1.1
+    zustand: ^4.3.6
   languageName: unknown
   linkType: soft
 
@@ -4916,6 +5076,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
   languageName: node
   linkType: hard
 
@@ -5096,5 +5265,22 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.3.6":
+  version: 4.3.6
+  resolution: "zustand@npm:4.3.6"
+  dependencies:
+    use-sync-external-store: 1.2.0
+  peerDependencies:
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: 4d3cec03526f04ff3de6dc45b6f038c47f091836af9660fbf5f682cae1628221102882df20e4048dfe699a43f67424e5d6afc1116f3838a80eea5dd4f95ddaed
   languageName: node
   linkType: hard
