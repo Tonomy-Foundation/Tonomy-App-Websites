@@ -62,8 +62,7 @@ function Login() {
        */
       await communication.login(logInMessage);
 
-      communication.subscribeMessage(async (responseMessage) => {
-        const message = new Message(responseMessage);
+      communication.subscribeMessage(async (message) => {
 
         console.log("recieved", message);
 
