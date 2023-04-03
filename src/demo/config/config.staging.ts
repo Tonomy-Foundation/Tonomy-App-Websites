@@ -1,7 +1,7 @@
 import { ConfigType } from "../settings";
 
 export const stagingConfig: ConfigType = {
-  blockchainUrl: "https://stagingapi.staging.projects.tonomy.foundation",
+  blockchainUrl: "https://blockchain-api-staging.tonomy.foundation",
   theme: {
     primaryColor: "#6200ee",
     secondaryColor: "#03dac4",
