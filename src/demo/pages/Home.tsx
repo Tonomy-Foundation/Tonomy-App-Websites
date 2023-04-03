@@ -44,20 +44,13 @@ function Home() {
         <TH3 className="title">Code Snippet</TH3>
         <div className="highlighter">
           <Highlighter>
-            {`  function onButtonPress() {
-    setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
-    ExternalUser.loginWithTonomy(
-      { callbackPath: "/callback" },
-      new JsKeyManager() as unknown as KeyManager
-    );
-  }
-    <button className="tonomy" 
-    onClick={onButtonPress}> Login with {Your Platform Name Here}
-     </button>
-     <img src={"market.com.png"} />
-      <button className="tonomy" onClick={onButtonPress}>
-            Login with {settings.config.appName}
-    </button> `}
+            {`
+function onButtonPress() {
+  ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+}
+
+<button className="tonomy" onClick={onButtonPress}>Login with Tonomy ID</button>
+`}
           </Highlighter>
         </div>
 
