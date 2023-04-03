@@ -21,10 +21,9 @@ const Loading = () => {
 
   async function getUser() {
     const verifiedJwt = await UserApps.onRedirectLogin();
-    const keyManager = new JsKeyManager();
 
     try {
-      const user = await ExternalUser.getUser({ keyManager });
+      const user = await ExternalUser.getUser();
       const did = await user.getDid();
 
       setUser(user);
@@ -32,18 +31,14 @@ const Loading = () => {
 
       setUsername(username.username);
       const ssoMessage = await ExternalUser.signMessage(
-        await user.getLoginRequest(),
-        { keyManager }
+        await user.getLoginRequest()
       );
-      const communicationLoginMessage = await ExternalUser.signMessage(
-        {},
-        { keyManager }
-      );
+      const communicationLoginMessage = await ExternalUser.signMessage({});
       const appLoginRequest = await ExternalUser.signMessage(
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
         },
-        { keyManager, recipient: did }
+        { recipient: did }
       );
 
       await communication.login(communicationLoginMessage);
