@@ -78,8 +78,7 @@ function Login() {
        */
       await communication.login(logInMessage);
 
-      communication.subscribeMessage(async function (responseMessage) {
-        const message = new Message(responseMessage);
+      communication.subscribeMessage(async (message) => {
 
         if (message.getPayload().type === "ack") {
           const requestMessage = await api.ExternalUser.signMessage(
