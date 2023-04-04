@@ -40,8 +40,7 @@ const AppDetails = () => {
   }, []);
 
   async function subscribeToMobile() {
-    communication.subscribeMessage((m) => {
-      const message = new Message(m);
+    communication.subscribeMessage((message) => {
 
       window.location.replace(
         `/callback?requests=${message.getPayload().requests}&accountName=${
