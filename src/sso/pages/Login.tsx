@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   UserApps,
-  setSettings,
-  ExternalUser,
   Message,
-  JsKeyManager,
   STORAGE_NAMESPACE,
+  api,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -17,7 +15,7 @@ import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
 
-setSettings({
+api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
   communicationUrl: settings.config.communicationUrl,
 });
@@ -84,7 +82,7 @@ function Login() {
         const message = new Message(responseMessage);
 
         if (message.getPayload().type === "ack") {
-          const requestMessage = await ExternalUser.signMessage(
+          const requestMessage = await api.ExternalUser.signMessage(
             {
               requests: jwtRequests,
             },
@@ -113,12 +111,12 @@ function Login() {
       const verifiedJwt = await UserApps.onRedirectLogin();
 
       try {
-        await ExternalUser.getUser();
+        await api.ExternalUser.getUser();
         //TODO: send to the connect screen
 
         navigation("/loading" + location.search);
       } catch (e) {
-        const tonomyJwt = (await ExternalUser.loginWithTonomy({
+        const tonomyJwt = (await api.ExternalUser.loginWithTonomy({
           callbackPath: "/callback",
           redirect: false,
         })) as string;

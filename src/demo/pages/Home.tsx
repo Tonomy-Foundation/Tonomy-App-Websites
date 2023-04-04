@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  setSettings,
-  KeyManager,
-  JsKeyManager,
-  ExternalUser,
-} from "@tonomy/tonomy-id-sdk";
+import { api } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
 import { TH1, TH3, TH4, TP } from "../../sso/components/THeadings";
@@ -12,13 +7,11 @@ import { TContainedButton } from "../../sso/components/TContainedButton";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 
-function Home() {
+export default function Home() {
+  
   async function onButtonPress() {
-    setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
-    ExternalUser.loginWithTonomy(
-      { callbackPath: "/callback" },
-      new JsKeyManager() as unknown as KeyManager
-    );
+    api.setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
+    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
 
   return (
@@ -41,6 +34,7 @@ function Home() {
           <TContainedButton onClick={onButtonPress}>
             Login with {settings.config.appName}
           </TContainedButton>
+          <button className="tonomy-login-button">Test</button>
         </div>
       </div>
 
@@ -81,5 +75,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
