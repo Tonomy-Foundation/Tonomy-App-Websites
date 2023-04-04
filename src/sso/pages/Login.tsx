@@ -3,9 +3,9 @@ import {
   UserApps,
   setSettings,
   ExternalUser,
-  Communication,
   Message,
-  KeyManagerLevel,
+  JsKeyManager,
+  STORAGE_NAMESPACE,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -13,9 +13,8 @@ import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
 import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
-import JsKeyManager from "../keymanager";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
 
 setSettings({
@@ -35,8 +34,18 @@ function Login() {
   const [showQR, setShowQR] = useState<string>();
   const navigation = useNavigate();
   const communication = useCommunicationStore((state) => state.communication);
+  let rendered = false;
 
   useEffect(() => {
+    // Prevent useEffect from running twice which causes a race condition of the
+    // async handleRequests() between which publicKey is sent in the request and this
+    // conflicts in the publicKey that is saved in localStorage
+    if (!rendered) {
+      rendered = true;
+    } else {
+      return;
+    }
+
     handleRequests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -74,18 +83,18 @@ function Login() {
       communication.subscribeMessage(async function (responseMessage) {
         const message = new Message(responseMessage);
 
-        console.log("recieved", message);
-
         if (message.getPayload().type === "ack") {
           const requestMessage = await ExternalUser.signMessage(
             {
               requests: jwtRequests,
             },
-            new JsKeyManager(),
-            message.getSender()
+            { recipient: message.getSender() }
           );
 
-          localStorage.setItem("did", message.getSender());
+          localStorage.setItem(
+            STORAGE_NAMESPACE + ".tonomy.id.did",
+            message.getSender()
+          );
 
           communication.sendMessage(requestMessage);
         } else {
@@ -102,27 +111,17 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
-      const keymanager = new JsKeyManager();
-      let user: ExternalUser | false;
 
       try {
-        user = await ExternalUser.getUser(keymanager);
-      } catch (e) {
-        user = false;
-      }
-
-      if (user) {
+        await ExternalUser.getUser();
         //TODO: send to the connect screen
 
         navigation("/loading" + location.search);
-      } else {
-        const tonomyJwt = (await ExternalUser.loginWithTonomy(
-          {
-            callbackPath: "/callback",
-            redirect: false,
-          },
-          keymanager
-        )) as string;
+      } catch (e) {
+        const tonomyJwt = (await ExternalUser.loginWithTonomy({
+          callbackPath: "/callback",
+          redirect: false,
+        })) as string;
 
         sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
       }

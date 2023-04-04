@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   ExternalUser,
   JWTLoginPayload,
-  KeyManager,
-  UserApps,
+  setSettings,
 } from "@tonomy/tonomy-id-sdk";
-
-import JsKeyManager from "../keymanager";
 import settings from "../settings";
 import "./callback.css";
 
@@ -19,9 +16,8 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    const externalUser = await ExternalUser.verifyLoginRequest({
-      keyManager: new JsKeyManager(),
-    });
+    setSettings({ blockchainUrl: settings.config.blockchainUrl });
+    const externalUser = await ExternalUser.verifyLoginRequest();
 
     setPayLoad(await externalUser.getLoginRequest());
 
