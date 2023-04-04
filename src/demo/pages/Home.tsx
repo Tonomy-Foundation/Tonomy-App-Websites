@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { api } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
@@ -8,7 +8,11 @@ import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 
 export default function Home() {
-  
+
+  useEffect(() => {
+    api.modifyTonomyButton();
+  }, []);
+
   async function onButtonPress() {
     api.setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
@@ -31,10 +35,7 @@ export default function Home() {
           for both users and administrators.
         </TP>
         <div className="footer">
-          <TContainedButton onClick={onButtonPress}>
-            Login with {settings.config.appName}
-          </TContainedButton>
-          <button className="tonomy-login-button">Test</button>
+          <button className="tonomy-login-button" onClick={onButtonPress}>Login with {settings.config.appName}</button>
         </div>
       </div>
 
