@@ -1,6 +1,5 @@
 import React from "react";
 import { setSettings, KeyManager, ExternalUser } from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
 import settings from "../settings";
 import "./tonomy.css";
 
@@ -19,10 +18,7 @@ const styles = {
 export default function Login() {
   async function onButtonPress() {
     setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
-    ExternalUser.loginWithTonomy(
-      { callbackPath: "/callback" },
-      new JsKeyManager() as unknown as KeyManager
-    );
+    ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
 
   return (

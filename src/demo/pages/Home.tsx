@@ -1,6 +1,10 @@
 import React from "react";
-import { setSettings, KeyManager, ExternalUser } from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
+import {
+  setSettings,
+  KeyManager,
+  JsKeyManager,
+  ExternalUser,
+} from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
 import { TH1, TH3, TH4, TP } from "../../sso/components/THeadings";
