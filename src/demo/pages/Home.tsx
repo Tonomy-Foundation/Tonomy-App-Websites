@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { api } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
-import { TH1, TH3, TH4, TP } from "../../sso/components/THeadings";
-import { TContainedButton } from "../../sso/components/TContainedButton";
+import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
+import "@tonomy/tonomy-id-sdk/src/api/button.css";
 
 export default function Home() {
-
-  useEffect(() => {
-    api.modifyTonomyButton();
-  }, []);
-
   async function onButtonPress() {
     api.setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
@@ -35,7 +30,9 @@ export default function Home() {
           for both users and administrators.
         </TP>
         <div className="footer">
-          <button className="tonomy-login-button" onClick={onButtonPress}>Login with {settings.config.appName}</button>
+          <button className="tonomy-login-button" onClick={onButtonPress}>
+            Login with {settings.config.appName}
+          </button>
         </div>
       </div>
 
@@ -43,20 +40,13 @@ export default function Home() {
         <TH3 className="title">Code Snippet</TH3>
         <div className="highlighter">
           <Highlighter>
-            {`  function onButtonPress() {
-    setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
-    ExternalUser.loginWithTonomy(
-      { callbackPath: "/callback" },
-      new JsKeyManager() as unknown as KeyManager
-    );
-  }
-    <button className="tonomy" 
-    onClick={onButtonPress}> Login with {Your Platform Name Here}
-     </button>
-     <img src={"market.com.png"} />
-      <button className="tonomy" onClick={onButtonPress}>
-            Login with {settings.config.appName}
-    </button> `}
+            {`
+function onButtonPress() {
+  ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+}
+
+<button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
+`}
           </Highlighter>
         </div>
 
