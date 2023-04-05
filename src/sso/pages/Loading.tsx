@@ -4,13 +4,7 @@ import TImage from "../components/TImage";
 import { TContainedButton } from "../components/TContainedButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
-import {
-  Communication,
-  ExternalUser,
-  Message,
-  UserApps,
-} from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
+import { ExternalUser, JsKeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
@@ -29,10 +23,9 @@ const Loading = () => {
 
   async function getUser() {
     const verifiedJwt = await UserApps.onRedirectLogin();
-    const keyManager = new JsKeyManager();
 
     try {
-      const user = await ExternalUser.getUser(keyManager);
+      const user = await ExternalUser.getUser();
       const did = await user.getDid();
 
       setUser(user);
@@ -40,19 +33,14 @@ const Loading = () => {
 
       setUsername(username.username);
       const ssoMessage = await ExternalUser.signMessage(
-        await user.getLoginRequest(),
-        keyManager
+        await user.getLoginRequest()
       );
-      const communicationLoginMessage = await ExternalUser.signMessage(
-        {},
-        keyManager
-      );
+      const communicationLoginMessage = await ExternalUser.signMessage({});
       const appLoginRequest = await ExternalUser.signMessage(
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
         },
-        keyManager,
-        did
+        { recipient: did }
       );
 
       await communication.login(communicationLoginMessage);

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
 import { ExternalUser, UserApps } from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
 
 export default function CallBackPage() {
   useEffect(() => {
@@ -9,16 +8,15 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyRequests() {
-    await ExternalUser.verifyLoginRequest({
-      keyManager: new JsKeyManager(),
-    });
+    await ExternalUser.verifyLoginRequest();
 
     const { requests, accountName, username } =
       UserApps.getLoginRequestParams();
     const result = await UserApps.verifyRequests(requests);
 
     const redirectJwt = result.find(
-      (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
+      (jwtVerified) =>
+        jwtVerified.getPayload().origin !== window.location.origin
     );
 
     if (!redirectJwt) {

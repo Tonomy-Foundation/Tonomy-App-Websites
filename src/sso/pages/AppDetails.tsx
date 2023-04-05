@@ -1,18 +1,9 @@
 import { useEffect, useState } from "react";
-import { TH1, TH2, TH3, TH4, TP } from "../components/THeadings";
+import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import {
-  AppData,
-  ExternalUser,
-  UserApps,
-  App,
-  Message,
-} from "@tonomy/tonomy-id-sdk";
-import { Button } from "@mui/material";
+import { AppData, UserApps, App, Message } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { CopyAllOutlined } from "@mui/icons-material";
-import JsKeyManager from "../keymanager";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
@@ -50,8 +41,7 @@ const AppDetails = () => {
   }, []);
 
   async function subscribeToMobile() {
-    communication.subscribeMessage((m) => {
-      const message = new Message(m);
+    communication.subscribeMessage((message) => {
 
       window.location.replace(
         `/callback?requests=${message.getPayload().requests}&accountName=${
