@@ -15,6 +15,7 @@ import { CopyAllOutlined } from "@mui/icons-material";
 import JsKeyManager from "../keymanager";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
+import logo from "../assets/tonomy/tonomy-logo1024.png";
 
 const styles = {
   container: {
@@ -80,11 +81,7 @@ const AppDetails = () => {
     <div>
       {details && (
         <div style={styles.container}>
-          <TImage
-            width={100}
-            src={"src/sso/assets/tonomy/tonomy-logo1024.png"}
-            alt="Tonomy Logo"
-          />
+          <TImage width={100} src={logo} alt="Tonomy Logo" />
 
           {/* <legend style={styles.legend}>
             <CopyAllOutlined fontSize="small" /> Copy Request Link
