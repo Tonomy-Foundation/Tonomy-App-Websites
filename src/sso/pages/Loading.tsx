@@ -8,6 +8,8 @@ import { ExternalUser, JsKeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
+import connectionImage from "../assets/tonomy/connecting.png";
+import logo from "../assets/tonomy/tonomy-logo1024.png";
 
 const Loading = () => {
   const [user, setUser] = useState<ExternalUser>();
@@ -54,18 +56,11 @@ const Loading = () => {
 
   return (
     <div className="container">
-      <TImage
-        height={60}
-        src={"src/sso/assets/tonomy/tonomy-logo1024.png"}
-        alt="Tonomy Logo"
-      />
+      <TImage height={60} src={logo} alt="Tonomy Logo" />
       <TH3>{"Tonomy"}</TH3>
       {user && <TH4>{username}</TH4>}
       <div className="margin-top">
-        <TImage
-          src={"src/sso/assets/tonomy/connecting.png"}
-          alt="Connecting Phone-PC"
-        />
+        <TImage src={connectionImage} alt="Connecting Phone-PC" />
         <TP className="margin-top">
           Linking to phone and sending data. Please remain connected.{" "}
         </TP>
