@@ -4,7 +4,7 @@ import TImage from "../components/TImage";
 import { TContainedButton } from "../components/TContainedButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
-import { ExternalUser, JsKeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, MessageType, UserApps } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ const Loading = () => {
       const ssoMessage = await ExternalUser.signMessage(
         await user.getLoginRequest()
       );
-      const communicationLoginMessage = await ExternalUser.signMessage({});
+      const communicationLoginMessage = await ExternalUser.signMessage({}, { type: MessageType.SERVICE_LOGIN });
       const appLoginRequest = await ExternalUser.signMessage(
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
