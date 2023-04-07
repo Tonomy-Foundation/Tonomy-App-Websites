@@ -40,7 +40,10 @@ const Loading = () => {
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
         },
-        { recipient: did }
+        {
+          recipient: did,
+          type: MessageType.LOGIN_REQUEST
+        }
       );
 
       await communication.login(communicationLoginMessage);

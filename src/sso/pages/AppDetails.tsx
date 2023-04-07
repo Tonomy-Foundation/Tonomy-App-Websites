@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import { AppData, UserApps, App, Message } from "@tonomy/tonomy-id-sdk";
+import { AppData, UserApps, App, MessageType } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -44,11 +44,9 @@ const AppDetails = () => {
     communication.subscribeMessage((message) => {
 
       window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${
-          message.getPayload().accountName
-        }&username=nousername`
+        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
       );
-    });
+    }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
 
   /**

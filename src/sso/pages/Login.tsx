@@ -4,7 +4,7 @@ import {
   setSettings,
   ExternalUser,
   Message,
-  JsKeyManager,
+  MessageType,
   STORAGE_NAMESPACE,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
@@ -80,30 +80,32 @@ function Login() {
        */
       await communication.login(logInMessage);
 
+      // subscribe for connection from Tonomy ID, which will then send login request
       communication.subscribeMessage(async (message) => {
+        const requestMessage = await ExternalUser.signMessage(
+          {
+            requests: jwtRequests,
+          },
+          {
+            recipient: message.getSender(),
+            type: MessageType.LOGIN_REQUEST
+          }
+        );
 
-        if (message.getPayload().type === "ack") {
-          const requestMessage = await ExternalUser.signMessage(
-            {
-              requests: jwtRequests,
-            },
-            { recipient: message.getSender() }
-          );
+        localStorage.setItem(
+          STORAGE_NAMESPACE + ".tonomy.id.did",
+          message.getSender()
+        );
 
-          localStorage.setItem(
-            STORAGE_NAMESPACE + ".tonomy.id.did",
-            message.getSender()
-          );
+        communication.sendMessage(requestMessage);
+      }, MessageType.IDENTIFY);
 
-          communication.sendMessage(requestMessage);
-        } else {
-          window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${
-              message.getPayload().accountName
-            }&username=nousername`
-          );
-        }
-      });
+      // subscribe for login request response
+      communication.subscribeMessage(async (message) => {
+        window.location.replace(
+          `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
+        );
+      }, MessageType.LOGIN_REQUEST_RESPONSE);
     }
   }
 
