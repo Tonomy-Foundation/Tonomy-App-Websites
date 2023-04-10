@@ -34,7 +34,7 @@ export default function CallBackPage() {
               return (
                 <div className="code-line" key={index}>
                   <div className="key">{key}:&nbsp;</div>
-                  <div className="value">{value}</div>
+                  <div className="value">{value as string}</div>
                 </div>
               );
             })}

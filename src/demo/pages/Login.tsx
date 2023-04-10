@@ -1,5 +1,5 @@
 import React from "react";
-import { api } from "@tonomy/tonomy-id-sdk";
+import { api, setSettings } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./tonomy.css";
 
