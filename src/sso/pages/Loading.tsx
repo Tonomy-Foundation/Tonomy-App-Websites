@@ -4,7 +4,7 @@ import TImage from "../components/TImage";
 import { TContainedButton } from "../components/TContainedButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
-import { ExternalUser, JsKeyManager, UserApps } from "@tonomy/tonomy-id-sdk";
+import { api, UserApps } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import connectionImage from "../assets/tonomy/connecting.png";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 
 const Loading = () => {
-  const [user, setUser] = useState<ExternalUser>();
+  const [user, setUser] = useState<api.ExternalUser>();
   const [username, setUsername] = useState<string>();
   const communication = useCommunicationStore((state) => state.communication);
   const navigation = useNavigate();
@@ -25,18 +25,18 @@ const Loading = () => {
     const verifiedJwt = await UserApps.onRedirectLogin();
 
     try {
-      const user = await ExternalUser.getUser();
+      const user = await api.ExternalUser.getUser();
       const did = await user.getDid();
 
       setUser(user);
       const username = await user.getUsername();
 
       setUsername(username.username);
-      const ssoMessage = await ExternalUser.signMessage(
+      const ssoMessage = await api.ExternalUser.signMessage(
         await user.getLoginRequest()
       );
-      const communicationLoginMessage = await ExternalUser.signMessage({});
-      const appLoginRequest = await ExternalUser.signMessage(
+      const communicationLoginMessage = await api.ExternalUser.signMessage({});
+      const appLoginRequest = await api.ExternalUser.signMessage(
         {
           requests: [verifiedJwt.jwt, ssoMessage.jwt],
         },
