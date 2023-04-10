@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  ExternalUser,
-  JWTLoginPayload,
-  setSettings,
-} from "@tonomy/tonomy-id-sdk";
+import { api, JWTLoginPayload } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./callback.css";
 
@@ -16,8 +12,8 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    setSettings({ blockchainUrl: settings.config.blockchainUrl });
-    const externalUser = await ExternalUser.verifyLoginRequest();
+    api.setSettings({ blockchainUrl: settings.config.blockchainUrl });
+    const externalUser = await api.ExternalUser.verifyLoginRequest();
 
     setPayLoad(await externalUser.getLoginRequest());
 
@@ -38,7 +34,7 @@ export default function CallBackPage() {
               return (
                 <div className="code-line" key={index}>
                   <div className="key">{key}:&nbsp;</div>
-                  <div className="value">{value}</div>
+                  <div className="value">{value as string}</div>
                 </div>
               );
             })}

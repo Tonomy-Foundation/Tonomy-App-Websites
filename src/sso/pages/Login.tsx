@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
   UserApps,
-  setSettings,
-  ExternalUser,
   Message,
   MessageType,
   STORAGE_NAMESPACE,
+  api,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -17,7 +16,7 @@ import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
 
-setSettings({
+api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
   communicationUrl: settings.config.communicationUrl,
 });
@@ -82,13 +81,13 @@ function Login() {
 
       // subscribe for connection from Tonomy ID, which will then send login request
       communication.subscribeMessage(async (message) => {
-        const requestMessage = await ExternalUser.signMessage(
+        const requestMessage = await api.ExternalUser.signMessage(
           {
             requests: jwtRequests,
           },
           {
             recipient: message.getSender(),
-            type: MessageType.LOGIN_REQUEST
+            type: MessageType.LOGIN_REQUEST,
           }
         );
 
@@ -103,7 +102,8 @@ function Login() {
       // subscribe for login request response
       communication.subscribeMessage(async (message) => {
         window.location.replace(
-          `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
+          `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
+          }&username=nousername`
         );
       }, MessageType.LOGIN_REQUEST_RESPONSE);
     }
@@ -114,12 +114,12 @@ function Login() {
       const verifiedJwt = await UserApps.onRedirectLogin();
 
       try {
-        await ExternalUser.getUser();
+        await api.ExternalUser.getUser();
         //TODO: send to the connect screen
 
         navigation("/loading" + location.search);
       } catch (e) {
-        const tonomyJwt = (await ExternalUser.loginWithTonomy({
+        const tonomyJwt = (await api.ExternalUser.loginWithTonomy({
           callbackPath: "/callback",
           redirect: false,
         })) as string;

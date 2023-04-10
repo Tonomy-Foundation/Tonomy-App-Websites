@@ -1,24 +1,16 @@
 import React from "react";
-import {
-  setSettings,
-  KeyManager,
-  JsKeyManager,
-  ExternalUser,
-} from "@tonomy/tonomy-id-sdk";
+import { api } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
-import { TH1, TH3, TH4, TP } from "../../sso/components/THeadings";
-import { TContainedButton } from "../../sso/components/TContainedButton";
+import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
+import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 
-function Home() {
+export default function Home() {
   async function onButtonPress() {
-    setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
-    ExternalUser.loginWithTonomy(
-      { callbackPath: "/callback" },
-      new JsKeyManager() as unknown as KeyManager
-    );
+    api.setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
+    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
 
   return (
@@ -38,9 +30,9 @@ function Home() {
           for both users and administrators.
         </TP>
         <div className="footer">
-          <TContainedButton onClick={onButtonPress}>
+          <button className="tonomy-login-button" onClick={onButtonPress}>
             Login with {settings.config.appName}
-          </TContainedButton>
+          </button>
         </div>
       </div>
 
@@ -48,32 +40,29 @@ function Home() {
         <TH3 className="title">Code Snippet</TH3>
         <div className="highlighter">
           <Highlighter>
-            {`  function onButtonPress() {
-    setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
-    ExternalUser.loginWithTonomy(
-      { callbackPath: "/callback" },
-      new JsKeyManager() as unknown as KeyManager
-    );
-  }
-    <button className="tonomy" 
-    onClick={onButtonPress}> Login with {Your Platform Name Here}
-     </button>
-     <img src={"market.com.png"} />
-      <button className="tonomy" onClick={onButtonPress}>
-            Login with {settings.config.appName}
-    </button> `}
+            {`
+function onButtonPress() {
+  ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+}
+
+<button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
+`}
           </Highlighter>
         </div>
 
         <a
-          href="https://tonomy-id-sdk.readthedocs.io/en/latest/"
+          href="https://tonomy-id-sdk.readthedocs.io"
           className="link"
+          target="_blank"
+          rel="noreferrer"
         >
           View Documentation
         </a>
         <a
-          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/tree/master/src/demo"
+          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Login.tsx"
           className="link footer"
+          target="_blank"
+          rel="noreferrer"
         >
           View on GitHub
         </a>
@@ -81,5 +70,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
