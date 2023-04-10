@@ -5,7 +5,8 @@ import "./Home.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
-import "https://unpkg.com/@tonomy/tonomy-id-sdk/src/api/button.css";
+import "@tonomy/tonomy-id-sdk/src/api/tonomy.css";
+// import "https://unpkg.com/@tonomy/tonomy-id-sdk/src/api/button.css";
 
 export default function Home() {
   async function onButtonPress() {
@@ -51,14 +52,18 @@ function onButtonPress() {
         </div>
 
         <a
-          href="https://tonomy-id-sdk.readthedocs.io/en/latest/"
+          href="https://tonomy-id-sdk.readthedocs.io"
           className="link"
+          target="_blank"
+          rel="noreferrer"
         >
           View Documentation
         </a>
         <a
-          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/tree/master/src/demo"
+          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Login.tsx"
           className="link footer"
+          target="_blank"
+          rel="noreferrer"
         >
           View on GitHub
         </a>
