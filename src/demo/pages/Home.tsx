@@ -5,8 +5,7 @@ import "./Home.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
-import "@tonomy/tonomy-id-sdk/src/api/tonomy.css";
-// import "https://unpkg.com/@tonomy/tonomy-id-sdk/src/api/button.css";
+import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 
 export default function Home() {
   async function onButtonPress() {
