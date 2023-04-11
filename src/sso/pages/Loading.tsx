@@ -37,7 +37,7 @@ const Loading = () => {
       );
       const communicationLoginMessage = await ExternalUser.signMessage(
         {},
-        { type: MessageType.SERVICE_LOGIN }
+        { type: MessageType.COMMUNICATION_LOGIN }
       );
       const appLoginRequest = await api.ExternalUser.signMessage(
         {
