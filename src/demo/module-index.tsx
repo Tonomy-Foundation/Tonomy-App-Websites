@@ -2,6 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/root";
+import settings from "./settings";
+import { api } from "@tonomy/tonomy-id-sdk";
+
+api.setSettings({
+  ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
+  blockchainUrl: settings.config.blockchainUrl,
+});
 
 export default function initiate(root: ReactDOM.Root) {
   return root.render(

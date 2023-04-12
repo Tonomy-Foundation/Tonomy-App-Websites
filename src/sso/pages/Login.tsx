@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   UserApps,
   Message,
+  MessageType,
   STORAGE_NAMESPACE,
   api,
+  LoginWithTonomyMessages,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -48,44 +50,43 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function sendRequestToMobile(jwtRequests: string[]) {
-    const requests = JSON.stringify(jwtRequests);
+  async function sendRequestToMobile(
+    jwtRequests: string[],
+    loginMessage: Message
+  ) {
+    try {
+      const requests = JSON.stringify(jwtRequests);
 
-    if (isMobile()) {
-      window.location.replace(
-        `${settings.config.tonomyIdLink}?requests=${requests}`
-      );
+      if (isMobile()) {
+        window.location.replace(
+          `${settings.config.tonomyIdLink}?requests=${requests}`
+        );
 
-      // TODO
-      // wait 1-2 seconds
-      // if this code runs then the link didnt work
-      setTimeout(() => {
-        alert("link didn't work");
-      }, 1000);
-    } else {
-      const logInMessage = new Message(jwtRequests[1]);
-      const did = logInMessage.getSender();
+        // TODO
+        // wait 1-2 seconds
+        // if this code runs then the link didnt work
+        setTimeout(() => {
+          alert("link didn't work");
+        }, 1000);
+      } else {
+        const logInMessage = new Message(jwtRequests[1]);
+        const did = logInMessage.getSender();
 
-      setShowQR(did);
+        setShowQR(did);
 
-      /**
-       * sending login requests flow
-       * at first the website logins and wait for the login results
-       * then it subscribe for new messages from the server
-       * if the message has type ack which means other client is awaiting for message from this client
-       * then this client sends the requests to the ack client
-       * else means the requests are authenticated and we can redirect back to the callback request
-       */
-      await communication.login(logInMessage);
+        // Login to the communication server
+        await communication.login(loginMessage);
 
-      communication.subscribeMessage(async (message) => {
-
-        if (message.getPayload().type === "ack") {
+        // subscribe for connection from Tonomy ID, which will then send login request
+        communication.subscribeMessage(async (message) => {
           const requestMessage = await api.ExternalUser.signMessage(
             {
               requests: jwtRequests,
             },
-            { recipient: message.getSender() }
+            {
+              recipient: message.getSender(),
+              type: MessageType.LOGIN_REQUEST,
+            }
           );
 
           localStorage.setItem(
@@ -94,14 +95,19 @@ function Login() {
           );
 
           communication.sendMessage(requestMessage);
-        } else {
+        }, MessageType.IDENTIFY);
+
+        // subscribe for login request response
+        communication.subscribeMessage(async (message: Message) => {
           window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${
-              message.getPayload().accountName
+            `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
             }&username=nousername`
           );
-        }
-      });
+        }, MessageType.LOGIN_REQUEST_RESPONSE);
+      }
+    } catch (e) {
+      console.error(JSON.stringify(e, null, 2));
+      alert(e);
     }
   }
 
@@ -115,19 +121,21 @@ function Login() {
 
         navigation("/loading" + location.search);
       } catch (e) {
-        const tonomyJwt = (await api.ExternalUser.loginWithTonomy({
-          callbackPath: "/callback",
-          redirect: false,
-        })) as string;
+        const { loginRequest, loginToCommunication } =
+          (await api.ExternalUser.loginWithTonomy({
+            callbackPath: "/callback",
+            redirect: false,
+          })) as LoginWithTonomyMessages;
 
-        sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
+        sendRequestToMobile(
+          [verifiedJwt.jwt, loginRequest.jwt],
+          loginToCommunication
+        );
       }
     } catch (e) {
-      console.error(e);
+      console.error(JSON.stringify(e, null, 2));
       alert(e);
       // TODO handle error
-
-      return;
     }
   }
 

@@ -44,11 +44,9 @@ const AppDetails = () => {
     communication.subscribeMessage((message) => {
 
       window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${
-          message.getPayload().accountName
-        }&username=nousername`
+        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
       );
-    });
+    }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
 
   /**

@@ -3,7 +3,7 @@ import { api, JWTLoginPayload } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./callback.css";
 
-export default function CallBackPage() {
+export default function Callback() {
   const [payload, setPayLoad] = useState<JWTLoginPayload>();
   const [name, setName] = useState<string>();
 
@@ -12,7 +12,6 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyLogin() {
-    api.setSettings({ blockchainUrl: settings.config.blockchainUrl });
     const externalUser = await api.ExternalUser.verifyLoginRequest();
 
     setPayLoad(await externalUser.getLoginRequest());
