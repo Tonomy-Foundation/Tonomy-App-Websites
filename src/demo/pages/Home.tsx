@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
@@ -13,10 +13,13 @@ export default function Home() {
   }
 
   async function onRender() {
-    let user: api.ExternalUser;
-
     try {
-      user = await api.ExternalUser.getUser();
+      const user = await api.ExternalUser.getUser();
+
+      const accountName = await user.getAccountName();
+
+      console.log("Logged in as", accountName.toString());
+      // TODO take user to logged in page
     } catch (e) {
       if (e instanceof SdkError && e.code === SdkErrors.AccountNotFound) {
         // User not logged in
@@ -25,11 +28,6 @@ export default function Home() {
 
       alert(e);
     }
-
-    const accountName = await user.getAccountName();
-
-    console.log("Logged in as", accountName.toString());
-    // TODO take user to logged in page
   }
 
   useEffect(() => {
