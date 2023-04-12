@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Home from "../pages/Home";
-import CallBackPage from "../pages/CallBackPage";
+import Callback from "../pages/Callback";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
 
   {
     path: "/callback",
-    element: <CallBackPage />,
+    element: <Callback />,
   },
 ]);
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { api } from "@tonomy/tonomy-id-sdk";
+import React, { useEffect } from "react";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
@@ -9,9 +9,32 @@ import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 
 export default function Home() {
   async function onButtonPress() {
-    api.setSettings({ ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin });
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
+
+  async function onRender() {
+    let user: api.ExternalUser;
+
+    try {
+      user = await api.ExternalUser.getUser();
+    } catch (e) {
+      if (e instanceof SdkError && e.code === SdkErrors.AccountNotFound) {
+        // User not logged in
+        return;
+      }
+
+      alert(e);
+    }
+
+    const accountName = await user.getAccountName();
+
+    console.log("Logged in as", accountName.toString());
+    // TODO take user to logged in page
+  }
+
+  useEffect(() => {
+    onRender();
+  }, []);
 
   return (
     <div className="container">
@@ -51,7 +74,7 @@ function onButtonPress() {
         </div>
 
         <a
-          href="https://tonomy-id-sdk.readthedocs.io"
+          href="https://docs.tonomy.foundation"
           className="link"
           target="_blank"
           rel="noreferrer"
@@ -59,7 +82,7 @@ function onButtonPress() {
           View Documentation
         </a>
         <a
-          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Login.tsx"
+          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
           className="link footer"
           target="_blank"
           rel="noreferrer"
