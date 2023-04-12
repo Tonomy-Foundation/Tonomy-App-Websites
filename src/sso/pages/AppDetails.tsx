@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import { AppData, UserApps, App, Message } from "@tonomy/tonomy-id-sdk";
+import { AppData, UserApps, App, Message, api } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -90,7 +90,7 @@ const AppDetails = () => {
           </div>
 
           <div style={styles.logout}>
-            <TButton startIcon={<LogoutIcon></LogoutIcon>}>Logout</TButton>
+            <TButton startIcon={<LogoutIcon></LogoutIcon>} onClick={async () => {await api.ExternalUser.logout()}}>Logout</TButton>
           </div>
         </div>
       )}

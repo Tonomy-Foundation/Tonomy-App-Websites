@@ -73,8 +73,8 @@ const Loading = () => {
       {user && (
         <TButton
           className="logout margin-top"
-          onClick={() => {
-            //TODO: logout
+          onClick={async () => {
+            await user.logout();
           }}
           startIcon={<LogoutIcon></LogoutIcon>}
         >
