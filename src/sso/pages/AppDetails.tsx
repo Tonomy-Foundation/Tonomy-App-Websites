@@ -7,7 +7,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-
+import { useNavigate } from "react-router-dom";
+const LoginFailReason = {
+  UserCancelled: 'User cancelled the request',
+  UserLogout: 'User just logout the account'
+}
 const styles = {
   container: {
     display: "flex",
@@ -35,6 +39,7 @@ const AppDetails = () => {
   const [details, setDetails] = useState<AppData>();
   const communication = useCommunicationStore((state) => state.communication);
   const [user, setUser] = useState<ExternalUser>();
+  const navigation = useNavigate();
 
   useEffect(() => {
     subscribeToMobile();
@@ -44,7 +49,7 @@ const AppDetails = () => {
   async function subscribeToMobile() {
     
     communication.subscribeMessage((message) => {
-
+      
       window.location.replace(
         `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
       );
@@ -56,7 +61,7 @@ const AppDetails = () => {
    */
   async function getApp() {
     const user = await api.ExternalUser.getUser();
-
+  
     setUser(user);
 
     const requests = new URLSearchParams(location.search).get("requests");
@@ -73,7 +78,12 @@ const AppDetails = () => {
 
   const logout =  async () => {
     if(user) await user.logout();
-    window.location.href = document.referrer;
+    // window.location.href = document.referrer;
+    const response = {
+      success: false,
+      reason: LoginFailReason.UserLogout
+    }
+    navigation("/login" + location.search+ '&response='+JSON.stringify(response));
   }
 
   return (

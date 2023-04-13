@@ -28,7 +28,7 @@ export default function CallBackPage() {
     const url =
       redirectJwtPayload.origin +
       redirectJwtPayload.callbackPath +
-      `?username=${username}&accountName=${accountName}&requests=` +
+      `?status=${status}&username=${username}&accountName=${accountName}&requests=` +
       JSON.stringify([redirectJwt.jwt]);
 
     location.replace(url);

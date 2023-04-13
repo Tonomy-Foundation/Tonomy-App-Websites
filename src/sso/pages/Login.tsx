@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import {
   UserApps,
   Message,
@@ -29,11 +30,15 @@ const styles = {
     alignSelf: "center",
   },
 };
+
 function Login() {
   const [showQR, setShowQR] = useState<string>();
   const navigation = useNavigate();
   const communication = useCommunicationStore((state) => state.communication);
   let rendered = false;
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const response = searchParams.get('response');
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -53,10 +58,10 @@ function Login() {
     jwtRequests: string[],
     loginMessage: Message
   ) {
+    console.log("sendrequest")
     try {
-      const requests = JSON.stringify(jwtRequests);
-
       if (isMobile()) {
+        console.log("iff")
         window.location.replace(
           `${settings.config.tonomyIdLink}?requests=${requests}`
         );
@@ -68,42 +73,50 @@ function Login() {
           alert("link didn't work");
         }, 1000);
       } else {
-        const logInMessage = new Message(jwtRequests[1]);
-        const did = logInMessage.getSender();
+        
+        const requests = JSON.stringify(jwtRequests);
 
-        setShowQR(did);
-
-        // Login to the communication server
-        await communication.login(loginMessage);
-
-        // subscribe for connection from Tonomy ID, which will then send login request
-        communication.subscribeMessage(async (message) => {
-          const requestMessage = await api.ExternalUser.signMessage(
-            {
-              requests: jwtRequests,
-            },
-            {
-              recipient: message.getSender(),
-              type: MessageType.LOGIN_REQUEST,
-            }
-          );
-
-          localStorage.setItem(
-            STORAGE_NAMESPACE + ".tonomy.id.did",
-            message.getSender()
-          );
-
-          communication.sendMessage(requestMessage);
-        }, MessageType.IDENTIFY);
-
-        // subscribe for login request response
-        communication.subscribeMessage(async (message: Message) => {
-          window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
-            }&username=nousername`
-          );
-        }, MessageType.LOGIN_REQUEST_RESPONSE);
-      }
+          const logInMessage = new Message(jwtRequests[1]);
+          const did = logInMessage.getSender();
+  
+          setShowQR(did);
+  
+          // Login to the communication server
+          await communication.login(loginMessage);
+  
+          // subscribe for connection from Tonomy ID, which will then send login request
+          communication.subscribeMessage(async (message) => {
+            const requestMessage = await api.ExternalUser.signMessage(
+              {
+                requests: jwtRequests,
+              },
+              {
+                recipient: message.getSender(),
+                type: MessageType.LOGIN_REQUEST,
+              }
+            );
+  
+            localStorage.setItem(
+              STORAGE_NAMESPACE + ".tonomy.id.did",
+              message.getSender()
+            );
+  
+            communication.sendMessage(requestMessage);
+          }, MessageType.IDENTIFY);
+  
+          // subscribe for login request response
+          communication.subscribeMessage(async (message: Message) => {
+            console.log("callllll")
+            
+            window.location.replace(
+              `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
+              }&username=nousername`
+            );
+          }, MessageType.LOGIN_REQUEST_RESPONSE);
+        }
+        console.log("else")
+       
+      
     } catch (e) {
       console.error(JSON.stringify(e, null, 2));
       alert(e);
@@ -113,12 +126,18 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
+      const responseObj = response && JSON.parse(response);
+      if(responseObj && responseObj.success === false) {
+        alert(responseObj.reason);
+      }
+      console.log("handleRequest", verifiedJwt)
 
       try {
         await api.ExternalUser.getUser();
         //TODO: send to the connect screen
-
+        console.log("location.search", location.search)
         navigation("/loading" + location.search);
+        
       } catch (e) {
         const { loginRequest, loginToCommunication } =
           (await api.ExternalUser.loginWithTonomy({
@@ -140,6 +159,7 @@ function Login() {
 
   function renderQROrLoading() {
     if (!isMobile()) {
+      
       return (
         <>
           <TP>Scan the QR code with the Tonomy ID app</TP>
