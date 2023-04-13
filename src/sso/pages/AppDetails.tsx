@@ -44,7 +44,7 @@ const AppDetails = () => {
     communication.subscribeMessage((message) => {
 
       window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
+        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=${message.getPayload().username}`
       );
     }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
@@ -80,7 +80,6 @@ const AppDetails = () => {
             }}
           >
             <TImage src={details.logoUrl}></TImage>
-            <TH3>{details.appName}</TH3>
             <TH4>wants you to log in to their application</TH4>
             <TP style={{ margin: "10px" }}>
               Please proceed to login to Tonomy ID app on your phone.
