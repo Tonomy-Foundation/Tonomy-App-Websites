@@ -11,7 +11,7 @@ export default function CallBackPage() {
     await api.ExternalUser.verifyLoginRequest();
 
     const { requests, accountName, username } =
-      UserApps.getLoginRequestParams();
+      UserApps.getLoginRequestResponseFromUrl();
     const result = await UserApps.verifyRequests(requests);
 
     const redirectJwt = result.find(

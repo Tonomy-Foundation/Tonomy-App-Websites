@@ -42,9 +42,9 @@ const AppDetails = () => {
 
   async function subscribeToMobile() {
     communication.subscribeMessage((message) => {
-
       window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
+        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
+        }&username=nousername`
       );
     }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
@@ -53,7 +53,7 @@ const AppDetails = () => {
    * verify the requests and gets the app details to show the ui
    */
   async function getApp() {
-    const requests = new URLSearchParams(location.search).get("requests");
+    const { requests } = UserApps.getLoginRequestFromUrl();
     const result = await UserApps.verifyRequests(requests);
 
     const redirectJwt = result.find(

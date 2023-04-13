@@ -9,6 +9,9 @@ import {
   MessageType,
   UserApps,
   ExternalUser,
+  LoginRequest,
+  createVCSigner,
+  KeyManagerLevel,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -27,29 +30,43 @@ const Loading = () => {
   }, []);
 
   async function getUser() {
-    const verifiedJwt = await UserApps.onRedirectLogin();
+    const externalLoginRequest = await UserApps.onRedirectLogin();
 
     try {
       const user = await api.ExternalUser.getUser();
       const did = await user.getDid();
+      const issuer = {
+        did: did,
+        signer: createVCSigner(
+          user.keyManager,
+          KeyManagerLevel.BROWSER_LOCAL_STORAGE
+        ),
+        alg: "ES256K-R",
+      };
 
       setUser(user);
       const username = await user.getUsername();
 
       setUsername(username.username);
-      const ssoMessage = await api.ExternalUser.signMessage(
-        await user.getLoginRequest()
+      const ssoLoginRequest = await LoginRequest.sign(
+        user.getLoginRequest(),
+        issuer
       );
+
       const communicationLoginMessage = await api.ExternalUser.signMessage(
         {},
+        undefinded,
         { type: MessageType.COMMUNICATION_LOGIN }
       );
       const appLoginRequest = await api.ExternalUser.signMessage(
         {
-          requests: [verifiedJwt.toString(), ssoMessage.toString()],
+          requests: [
+            externalLoginRequest.toString(),
+            ssoLoginRequest.toString(),
+          ],
         },
+        did + "#local",
         {
-          recipient: did,
           type: MessageType.LOGIN_REQUEST,
         }
       );

@@ -83,8 +83,8 @@ function Login() {
             {
               requests: jwtRequests,
             },
+            message.getSender(),
             {
-              recipient: message.getSender(),
               type: MessageType.LOGIN_REQUEST,
             }
           );
@@ -113,7 +113,7 @@ function Login() {
 
   async function handleRequests() {
     try {
-      const verifiedJwt = await UserApps.onRedirectLogin();
+      const externalLoginRequest = await UserApps.onRedirectLogin();
 
       try {
         await api.ExternalUser.getUser();
@@ -128,7 +128,7 @@ function Login() {
           })) as LoginWithTonomyMessages;
 
         sendRequestToMobile(
-          [verifiedJwt.toString(), loginRequest.toString()],
+          [externalLoginRequest.toString(), loginRequest.toString()],
           loginToCommunication
         );
       }
