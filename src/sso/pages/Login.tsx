@@ -50,16 +50,27 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, []);
+
+  const checkUserLoggedIn = async () => {
+    const user = await api.ExternalUser.getUser();
+
+    if (user) navigation("/");
+    else localStorage.removeItem(STORAGE_NAMESPACE + ".tonomy.id.did");
+  };
+
   async function sendRequestToMobile(
     jwtRequests: string[],
-    loginMessage: Message
+    loginMessage: Message,
   ) {
     try {
       const requests = JSON.stringify(jwtRequests);
 
       if (isMobile()) {
         window.location.replace(
-          `${settings.config.tonomyIdLink}?requests=${requests}`
+          `${settings.config.tonomyIdLink}?requests=${requests}`,
         );
 
         // TODO
@@ -86,12 +97,12 @@ function Login() {
             {
               recipient: message.getSender(),
               type: MessageType.LOGIN_REQUEST,
-            }
+            },
           );
 
           localStorage.setItem(
             STORAGE_NAMESPACE + ".tonomy.id.did",
-            message.getSender()
+            message.getSender(),
           );
 
           communication.sendMessage(requestMessage);
@@ -100,8 +111,9 @@ function Login() {
         // subscribe for login request response
         communication.subscribeMessage(async (message: Message) => {
           window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
-            }&username=nousername`
+            `/callback?requests=${message.getPayload().requests}&accountName=${
+              message.getPayload().accountName
+            }&username=nousername`,
           );
         }, MessageType.LOGIN_REQUEST_RESPONSE);
       }
@@ -129,7 +141,7 @@ function Login() {
 
         sendRequestToMobile(
           [verifiedJwt.jwt, loginRequest.jwt],
-          loginToCommunication
+          loginToCommunication,
         );
       }
     } catch (e) {
