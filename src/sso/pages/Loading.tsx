@@ -86,6 +86,9 @@ const Loading = () => {
           className="logout margin-top"
           onClick={async () => {
             await user.logout();
+            window.location.replace(
+              `ws://localhost:3001?status=false`
+            );
           }}
           startIcon={<LogoutIcon></LogoutIcon>}
         >

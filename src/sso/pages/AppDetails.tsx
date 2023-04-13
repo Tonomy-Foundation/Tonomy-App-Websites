@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import { AppData, UserApps, App, Message, api } from "@tonomy/tonomy-id-sdk";
+import { AppData, UserApps, App, ExternalUser, api } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -34,6 +34,7 @@ const styles = {
 const AppDetails = () => {
   const [details, setDetails] = useState<AppData>();
   const communication = useCommunicationStore((state) => state.communication);
+  const [user, setUser] = useState<ExternalUser>();
 
   useEffect(() => {
     subscribeToMobile();
@@ -53,6 +54,9 @@ const AppDetails = () => {
    * verify the requests and gets the app details to show the ui
    */
   async function getApp() {
+    const user = await api.ExternalUser.getUser();
+    setUser(user);
+
     const requests = new URLSearchParams(location.search).get("requests");
     const result = await UserApps.verifyRequests(requests);
 
@@ -88,7 +92,7 @@ const AppDetails = () => {
           </div>
 
           <div style={styles.logout}>
-            <TButton startIcon={<LogoutIcon></LogoutIcon>} onClick={async () => {await api.ExternalUser.logout()}}>Logout</TButton>
+            <TButton startIcon={<LogoutIcon></LogoutIcon>} onClick={async () => {await user.logout()}}>Logout</TButton>
           </div>
         </div>
       )}
