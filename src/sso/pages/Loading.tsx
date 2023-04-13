@@ -46,7 +46,7 @@ const Loading = () => {
       );
       const appLoginRequest = await api.ExternalUser.signMessage(
         {
-          requests: [verifiedJwt.jwt, ssoMessage.jwt],
+          requests: [verifiedJwt.toString(), ssoMessage.toString()],
         },
         {
           recipient: did,

@@ -128,7 +128,7 @@ function Login() {
           })) as LoginWithTonomyMessages;
 
         sendRequestToMobile(
-          [verifiedJwt.jwt, loginRequest.jwt],
+          [verifiedJwt.toString(), loginRequest.toString()],
           loginToCommunication
         );
       }

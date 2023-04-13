@@ -29,7 +29,7 @@ export default function CallBackPage() {
       redirectJwtPayload.origin +
       redirectJwtPayload.callbackPath +
       `?username=${username}&accountName=${accountName}&requests=` +
-      JSON.stringify([redirectJwt.jwt]);
+      JSON.stringify([redirectJwt.toString()]);
 
     location.replace(url);
   }
