@@ -42,6 +42,7 @@ const AppDetails = () => {
   }, []);
 
   async function subscribeToMobile() {
+    
     communication.subscribeMessage((message) => {
 
       window.location.replace(
@@ -55,6 +56,7 @@ const AppDetails = () => {
    */
   async function getApp() {
     const user = await api.ExternalUser.getUser();
+
     setUser(user);
 
     const requests = new URLSearchParams(location.search).get("requests");
@@ -67,6 +69,11 @@ const AppDetails = () => {
     const app = await App.getApp(redirectJwt?.getPayload().origin);
 
     setDetails(app);
+  }
+
+  const logout =  async () => {
+    if(user) await user.logout();
+    window.location.href = document.referrer;
   }
 
   return (
@@ -92,7 +99,7 @@ const AppDetails = () => {
           </div>
 
           <div style={styles.logout}>
-            <TButton startIcon={<LogoutIcon></LogoutIcon>} onClick={async () => {await user.logout()}}>Logout</TButton>
+            <TButton startIcon={<LogoutIcon></LogoutIcon>} onClick={async () => await logout()}>Logout</TButton>
           </div>
         </div>
       )}

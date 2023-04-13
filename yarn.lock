@@ -1296,9 +1296,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:^0.3.37":
-  version: 0.3.37
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.37"
+"@tonomy/tonomy-id-sdk@npm:^0.3.39":
+  version: 0.3.39
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.39"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@greymass/eosio": ^0.6.4
@@ -1312,7 +1312,7 @@ __metadata:
     cross-fetch: ^3.1.5
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
-  checksum: a2051f57cd46f801d434573a528f0d36e4413135ff579f155d818d468a7f0a839a2ab70548cd7dfe5e470d4294f3c57e922d8b82d5106d709027f9b3a9250201
+  checksum: 3e581a4528532a24ca522b0368a7fad0f0fb9a8faad502295ad17d67858e0a268656bef4ba4b3fd5acb3ea3bffa92719f646b762e2043a1d0292cbeed5eaf536
   languageName: node
   linkType: hard
 
@@ -2204,9 +2204,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.359
-  resolution: "electron-to-chromium@npm:1.4.359"
-  checksum: ee8a6eae66a25200b6870dbd6b78d7c0cb2bbb873884d72141871f6e4080955135c16dcf46138158fc5aba5a5fa9177dc0aa37a7f0aaae54bb65305264f72c51
+  version: 1.4.361
+  resolution: "electron-to-chromium@npm:1.4.361"
+  checksum: 66b3210c9c5abec7812ce8b936a9e53fa49a2ccb8b4345e1e4d601dfff5e1e22d07ddddeaf84b0dd6bb01522e505dbb7fc91929a7028b02281e5928f36d2e4dc
   languageName: node
   linkType: hard
 
@@ -5007,7 +5007,7 @@ __metadata:
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": ^0.3.37
+    "@tonomy/tonomy-id-sdk": ^0.3.39
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10

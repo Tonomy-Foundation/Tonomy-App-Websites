@@ -78,7 +78,9 @@ const Loading = () => {
       </div>
       {!user && (
         <div>
-          <TContainedButton>Cancel</TContainedButton>
+          <TContainedButton  onClick={async () => {
+            window.location.href = document.referrer;
+          }}>Cancel</TContainedButton>
         </div>
       )}
       {user && (
@@ -86,9 +88,7 @@ const Loading = () => {
           className="logout margin-top"
           onClick={async () => {
             await user.logout();
-            window.location.replace(
-              `ws://localhost:3001?status=false`
-            );
+            window.location.href = document.referrer;
           }}
           startIcon={<LogoutIcon></LogoutIcon>}
         >

@@ -29,8 +29,9 @@ const styles = {
     alignSelf: "center",
   },
 };
-
+console.log(STORAGE_NAMESPACE,"STORAGE_NAMESPACE")
 function Login() {
+  console.log("windoww", window.location,window.localStorage)
   const [showQR, setShowQR] = useState<string>();
   const navigation = useNavigate();
   const communication = useCommunicationStore((state) => state.communication);
