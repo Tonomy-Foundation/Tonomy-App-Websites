@@ -68,7 +68,6 @@ const Loading = () => {
 
   const logout = async () => {
     if (user) await user.logout();
-    // window.location.href = document.referrer;
     const response = {
       success: false,
       reason: SdkErrors.UserLogout,

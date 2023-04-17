@@ -56,7 +56,7 @@ function Login() {
     jwtRequests: string[],
     loginMessage: Message
   ) {
-    console.log("sendrequest");
+    const requests = JSON.stringify(jwtRequests);
 
     try {
       if (isMobile()) {
@@ -123,7 +123,6 @@ function Login() {
       try {
         await api.ExternalUser.getUser();
         //TODO: send to the connect screen
-        console.log("location.search", location.search);
         navigation("/loading" + location.search);
       } catch (e) {
         const { loginRequest, loginToCommunication } =
