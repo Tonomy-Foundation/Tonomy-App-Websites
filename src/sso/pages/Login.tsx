@@ -37,8 +37,6 @@ function Login() {
   const communication = useCommunicationStore((state) => state.communication);
   let rendered = false;
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const response = searchParams.get("response");
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -62,7 +60,6 @@ function Login() {
 
     try {
       if (isMobile()) {
-        console.log("iff");
         window.location.replace(
           `${settings.config.tonomyIdLink}?requests=${requests}`
         );
@@ -106,8 +103,6 @@ function Login() {
 
         // subscribe for login request response
         communication.subscribeMessage(async (message: Message) => {
-          console.log("callllll");
-
           window.location.replace(
             `/callback?requests=${message.getPayload().requests}&accountName=${
               message.getPayload().accountName
@@ -115,8 +110,6 @@ function Login() {
           );
         }, MessageType.LOGIN_REQUEST_RESPONSE);
       }
-
-      console.log("else");
     } catch (e) {
       console.error(JSON.stringify(e, null, 2));
       alert(e);
@@ -126,13 +119,6 @@ function Login() {
   async function handleRequests() {
     try {
       const verifiedJwt = await UserApps.onRedirectLogin();
-      const responseObj = response && JSON.parse(response);
-
-      if (responseObj && responseObj.success === false) {
-        alert(responseObj.reason);
-      }
-
-      console.log("handleRequest", verifiedJwt);
 
       try {
         await api.ExternalUser.getUser();
