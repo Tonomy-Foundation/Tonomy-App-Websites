@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import { AppData, UserApps, App, ExternalUser, api } from "@tonomy/tonomy-id-sdk";
+import {
+  AppData,
+  UserApps,
+  App,
+  ExternalUser,
+  api,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { useNavigate } from "react-router-dom";
-const LoginFailReason = {
-  UserCancelled: 'User cancelled the request',
-  UserLogout: 'User just logout the account'
-}
+
 const styles = {
   container: {
     display: "flex",
@@ -39,7 +42,6 @@ const AppDetails = () => {
   const [details, setDetails] = useState<AppData>();
   const communication = useCommunicationStore((state) => state.communication);
   const [user, setUser] = useState<ExternalUser>();
-  const navigation = useNavigate();
 
   useEffect(() => {
     subscribeToMobile();
@@ -47,11 +49,11 @@ const AppDetails = () => {
   }, []);
 
   async function subscribeToMobile() {
-    
     communication.subscribeMessage((message) => {
-      
       window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
+        `/callback?requests=${message.getPayload().requests}&accountName=${
+          message.getPayload().accountName
+        }&username=nousername`
       );
     }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
@@ -61,7 +63,7 @@ const AppDetails = () => {
    */
   async function getApp() {
     const user = await api.ExternalUser.getUser();
-  
+
     setUser(user);
 
     const requests = new URLSearchParams(location.search).get("requests");
@@ -76,15 +78,16 @@ const AppDetails = () => {
     setDetails(app);
   }
 
-  const logout =  async () => {
-    if(user) await user.logout();
+  const logout = async () => {
+    if (user) await user.logout();
     // window.location.href = document.referrer;
     const response = {
       success: false,
-      reason: LoginFailReason.UserLogout
-    }
-    navigation("/login" + location.search+ '&response='+JSON.stringify(response));
-  }
+      reason: SdkErrors.UserLogout,
+    };
+
+    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+  };
 
   return (
     <div>
@@ -109,7 +112,12 @@ const AppDetails = () => {
           </div>
 
           <div style={styles.logout}>
-            <TButton startIcon={<LogoutIcon></LogoutIcon>} onClick={async () => await logout()}>Logout</TButton>
+            <TButton
+              startIcon={<LogoutIcon></LogoutIcon>}
+              onClick={async () => await logout()}
+            >
+              Logout
+            </TButton>
           </div>
         </div>
       )}

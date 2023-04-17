@@ -9,6 +9,7 @@ import {
   MessageType,
   UserApps,
   ExternalUser,
+  SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -65,6 +66,28 @@ const Loading = () => {
     }
   }
 
+  const logout = async () => {
+    if (user) await user.logout();
+    // window.location.href = document.referrer;
+    const response = {
+      success: false,
+      reason: SdkErrors.UserLogout,
+    };
+
+    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+  };
+
+  const cancelRequest = async () => {
+    if (user) await user.logout();
+    // window.location.href = document.referrer;
+    const response = {
+      success: false,
+      reason: SdkErrors.UserCancelled,
+    };
+
+    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+  };
+
   return (
     <div className="container">
       <TImage height={60} src={logo} alt="Tonomy Logo" />
@@ -78,17 +101,20 @@ const Loading = () => {
       </div>
       {!user && (
         <div>
-          <TContainedButton  onClick={async () => {
-            window.location.href = document.referrer;
-          }}>Cancel</TContainedButton>
+          <TContainedButton
+            onClick={async () => {
+              await cancelRequest();
+            }}
+          >
+            Cancel
+          </TContainedButton>
         </div>
       )}
       {user && (
         <TButton
           className="logout margin-top"
           onClick={async () => {
-            await user.logout();
-            window.location.href = document.referrer;
+            await logout();
           }}
           startIcon={<LogoutIcon></LogoutIcon>}
         >

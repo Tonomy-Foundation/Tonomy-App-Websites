@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
-import { api, UserApps } from "@tonomy/tonomy-id-sdk";
+import { api, UserApps, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
   useEffect(() => {
@@ -8,7 +8,19 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyRequests() {
-    await api.ExternalUser.verifyLoginRequest();
+    try {
+      await api.ExternalUser.verifyLoginRequest();
+    } catch (e) {
+      if (e instanceof SdkError && e.code === SdkErrors.UserLogout) {
+        alert("User logout the request");
+      }
+
+      if (e instanceof SdkError && e.code === SdkErrors.UserCancelled) {
+        alert("User cancelled the request");
+      }
+
+      window.location.href = document.referrer;
+    }
 
     const { requests, accountName, username } =
       UserApps.getLoginRequestParams();
