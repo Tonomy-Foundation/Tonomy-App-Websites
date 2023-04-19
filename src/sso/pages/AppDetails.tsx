@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import { AppData, UserApps, App, MessageType } from "@tonomy/tonomy-id-sdk";
+import {
+  AppData,
+  UserApps,
+  App,
+  MessageType,
+  api,
+  ExternalUser,
+} from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -32,6 +39,8 @@ const styles = {
 };
 
 const AppDetails = () => {
+  const [user, setUser] = useState<ExternalUser>();
+  const [username, setUsername] = useState<string>();
   const [details, setDetails] = useState<AppData>();
   const communication = useCommunicationStore((state) => state.communication);
 
@@ -42,9 +51,10 @@ const AppDetails = () => {
 
   async function subscribeToMobile() {
     communication.subscribeMessage((message) => {
-
       window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName}&username=nousername`
+        `/callback?requests=${message.getPayload().requests}&accountName=${
+          message.getPayload().accountName
+        }&username=${message.getPayload().username}`
       );
     }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
@@ -53,6 +63,13 @@ const AppDetails = () => {
    * verify the requests and gets the app details to show the ui
    */
   async function getApp() {
+    const user = await api.ExternalUser.getUser();
+
+    setUser(user);
+    const username = await user.getUsername();
+
+    setUsername(username.username);
+
     const requests = new URLSearchParams(location.search).get("requests");
     const result = await UserApps.verifyRequests(requests);
 
@@ -70,7 +87,7 @@ const AppDetails = () => {
       {details && (
         <div style={styles.container}>
           <TImage width={100} src={logo} alt="Tonomy Logo" />
-
+          {user && <TH4>{username}</TH4>}
           {/* <legend style={styles.legend}>
             <CopyAllOutlined fontSize="small" /> Copy Request Link
           </legend> */}
