@@ -16,6 +16,7 @@ import { isMobile } from "../utills/IsMobile";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
+import "./login.css";
 
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -145,8 +146,11 @@ function Login() {
       return (
         <>
           <TP>Scan the QR code with the Tonomy ID app</TP>
-          {!showQR && <TProgressCircle />}
-          {showQR && <QRCode value={showQR}></QRCode>}
+          <fieldset>
+            <legend></legend>
+            {!showQR && <TProgressCircle />}
+            {showQR && <QRCode value={showQR}></QRCode>}
+          </fieldset>
         </>
       );
     } else {
