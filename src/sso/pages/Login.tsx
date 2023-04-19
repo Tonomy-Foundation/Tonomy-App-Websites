@@ -8,7 +8,7 @@ import {
   LoginWithTonomyMessages,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
-import { TH1, TP } from "../components/THeadings";
+import { TH3, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
 import settings from "../settings";
@@ -100,7 +100,8 @@ function Login() {
         // subscribe for login request response
         communication.subscribeMessage(async (message: Message) => {
           window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
+            `/callback?requests=${message.getPayload().requests}&accountName=${
+              message.getPayload().accountName
             }&username=nousername`
           );
         }, MessageType.LOGIN_REQUEST_RESPONSE);
@@ -161,7 +162,7 @@ function Login() {
   return (
     <div style={styles.container}>
       <TImage height={62} src={logo} alt="Tonomy Logo" />
-      <TH1>{settings.config.appName}</TH1>
+      <TH3>Login with Tonomy</TH3>
       {renderQROrLoading()}
     </div>
   ) as any;
