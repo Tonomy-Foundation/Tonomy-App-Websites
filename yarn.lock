@@ -923,10 +923,10 @@
   resolved "https://registry.yarnpkg.com/@tonomy/did-resolver/-/did-resolver-4.0.4.tgz#4a0c5bc68e4498e992bca62914ec5d763eaacf82"
   integrity sha512-7sgPKUENMsGfq2TaAo4/hwthy45pvVnZep79o6BpmPK5xSwzPctglITkgfM7OY6hyS4le4wQC0LYI7mrGShD2A==
 
-"@tonomy/tonomy-id-sdk@^0.3.41":
-  version "0.3.41"
-  resolved "https://registry.yarnpkg.com/@tonomy/tonomy-id-sdk/-/tonomy-id-sdk-0.3.41.tgz#d4b6ea108f132f94cadde6fea1fbf59948b389e9"
-  integrity sha512-oxsYZx+cEaPkhx7wsg4YSrPIDJnvDmjaxAkbQVNmFcYlyx0jjuJyhKcsegiCWIJNaiGScAZ+MFix+ZTlNdHD2A==
+"@tonomy/tonomy-id-sdk@^0.3.42":
+  version "0.3.42"
+  resolved "https://registry.yarnpkg.com/@tonomy/tonomy-id-sdk/-/tonomy-id-sdk-0.3.42.tgz#21eaece9ef1b71ef05cce1f90f67d292d01c9b5c"
+  integrity sha512-JYhbMYNY+2zjOcRAn9lLoCU08VObYr9sKkJvLDmkTdYpY75xkb639BW9Tm3nESlcwpqjXaRuwtEyXDgw0iEyHg==
   dependencies:
     "@consento/sync-randombytes" "^1.0.5"
     "@greymass/eosio" "^0.6.4"
