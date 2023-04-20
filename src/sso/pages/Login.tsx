@@ -17,6 +17,8 @@ import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
 import "./login.css";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { TButton } from "../components/Tbutton";
 
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -146,8 +148,16 @@ function Login() {
       return (
         <>
           <TP>Scan the QR code with the Tonomy ID app</TP>
-          <fieldset>
-            <legend></legend>
+          <fieldset className="fieldset-view">
+            <legend className="legend-view">
+              {" "}
+              <TButton
+                startIcon={<ContentCopyIcon></ContentCopyIcon>}
+                onClick={() => navigation("/download")}
+              >
+                Copy request link
+              </TButton>
+            </legend>
             {!showQR && <TProgressCircle />}
             {showQR && <QRCode value={showQR}></QRCode>}
           </fieldset>
