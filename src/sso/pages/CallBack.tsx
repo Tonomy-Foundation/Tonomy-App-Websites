@@ -12,24 +12,24 @@ export default function CallBackPage() {
 
     const { requests, accountName, username } =
       UserApps.getLoginRequestResponseFromUrl();
-    const result = await UserApps.verifyRequests(requests);
 
-    const redirectJwt = result.find(
-      (jwtVerified) =>
-        jwtVerified.getPayload().origin !== window.location.origin
+    await UserApps.verifyRequests(requests);
+
+    const externalLoginRequest = requests.find(
+      (request) => request.getPayload().origin !== window.location.origin
     );
 
-    if (!redirectJwt) {
+    if (!externalLoginRequest) {
       throw new Error("Login request for external site was not found");
       //TODO: handle this here
     }
 
-    const redirectJwtPayload = redirectJwt.getPayload();
-    const url =
-      redirectJwtPayload.origin +
-      redirectJwtPayload.callbackPath +
-      `?username=${username}&accountName=${accountName}&requests=` +
-      JSON.stringify([redirectJwt.toString()]);
+    const redirectJwtPayload = externalLoginRequest.getPayload();
+    let url = redirectJwtPayload.origin + redirectJwtPayload.callbackPath;
+
+    url += `?requests=` + JSON.stringify([externalLoginRequest.toString()]);
+    url += `&accountName=${accountName}`;
+    url += `&?username=${username}`;
 
     location.replace(url);
   }

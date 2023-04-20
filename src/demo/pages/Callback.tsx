@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { api, JWTLoginPayload } from "@tonomy/tonomy-id-sdk";
+import { api, LoginRequestPayload } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./callback.css";
 
 export default function Callback() {
-  const [payload, setPayLoad] = useState<JWTLoginPayload>();
+  const [payload, setPayLoad] = useState<LoginRequestPayload>();
   const [name, setName] = useState<string>();
 
   useEffect(() => {

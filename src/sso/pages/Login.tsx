@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   UserApps,
   Message,
-  MessageType,
+  LoginRequest,
   STORAGE_NAMESPACE,
   api,
   LoginWithTonomyMessages,
+  AuthenticationMessage,
+  IdentifyMessage,
+  LoginRequestsMessage,
+  LoginRequestResponseMessage,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH1, TP } from "../components/THeadings";
@@ -51,15 +55,15 @@ function Login() {
   }, []);
 
   async function sendRequestToMobile(
-    jwtRequests: string[],
-    loginMessage: Message
+    requests: LoginRequest[],
+    loginToCommunication: AuthenticationMessage
   ) {
     try {
-      const requests = JSON.stringify(jwtRequests);
-
       if (isMobile()) {
+        const requestString = JSON.stringify(requests.map((r) => r.toString()));
+
         window.location.replace(
-          `${settings.config.tonomyIdLink}?requests=${requests}`
+          `${settings.config.tonomyIdLink}?requests=${requestString}`
         );
 
         // TODO
@@ -69,41 +73,63 @@ function Login() {
           alert("link didn't work");
         }, 1000);
       } else {
-        const logInMessage = new Message(jwtRequests[1]);
-        const did = logInMessage.getSender();
+        const logInMessage = new LoginRequest(requests[1]);
+        const did = logInMessage.getIssuer();
 
         setShowQR(did);
 
         // Login to the communication server
-        await communication.login(loginMessage);
+        await communication.login(loginToCommunication);
 
         // subscribe for connection from Tonomy ID, which will then send login request
         communication.subscribeMessage(async (message) => {
-          const requestMessage = await api.ExternalUser.signMessage(
+          const identifyMessage = new IdentifyMessage(message);
+
+          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const requestMessage = await LoginRequestsMessage.signMessage(
             {
-              requests: jwtRequests,
+              requests,
             },
-            message.getSender(),
-            {
-              type: MessageType.LOGIN_REQUEST,
-            }
+            jwkIssuer,
+            identifyMessage.getSender()
           );
 
           localStorage.setItem(
             STORAGE_NAMESPACE + ".tonomy.id.did",
-            message.getSender()
+            identifyMessage.getSender()
           );
 
           communication.sendMessage(requestMessage);
-        }, MessageType.IDENTIFY);
+        }, IdentifyMessage.getType());
 
         // subscribe for login request response
         communication.subscribeMessage(async (message: Message) => {
-          window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
-            }&username=nousername`
-          );
-        }, MessageType.LOGIN_REQUEST_RESPONSE);
+          const loginRequestResponsePayload = new LoginRequestResponseMessage(
+            message
+          ).getPayload();
+
+          if (!loginRequestResponsePayload.success) {
+            // TODO redirect back to external website and tell them what happened
+          }
+
+          const requests = loginRequestResponsePayload.requests;
+          const externalLoginRequest = requests?.find((r: LoginRequest) => {
+            return r.getPayload().origin !== window.location.origin;
+          });
+
+          if (!externalLoginRequest) {
+            throw new Error("No external login request found");
+          }
+
+          let callbackPath = externalLoginRequest.getPayload().callbackPath;
+
+          callbackPath += "?requests=" + JSON.stringify([externalLoginRequest]);
+          callbackPath +=
+            "&accountName=" + loginRequestResponsePayload.accountName;
+          callbackPath += "&username=" + loginRequestResponsePayload.username;
+
+          window.location.replace(callbackPath);
+        }, LoginRequestResponseMessage.getType());
       }
     } catch (e) {
       console.error(JSON.stringify(e, null, 2));
@@ -128,7 +154,7 @@ function Login() {
           })) as LoginWithTonomyMessages;
 
         sendRequestToMobile(
-          [externalLoginRequest.toString(), loginRequest.toString()],
+          [externalLoginRequest, loginRequest],
           loginToCommunication
         );
       }
@@ -167,4 +193,4 @@ function Login() {
   ) as any;
 }
 
-export default Login as any;
+export default Login;

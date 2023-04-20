@@ -6,18 +6,18 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import {
   api,
-  MessageType,
   UserApps,
   ExternalUser,
-  LoginRequest,
-  createVCSigner,
+  LoginRequestsMessage,
   KeyManagerLevel,
+  AuthenticationMessage,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
 import connectionImage from "../assets/tonomy/connecting.png";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { LoginRequest } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/request";
 
 const Loading = () => {
   const [user, setUser] = useState<ExternalUser>();
@@ -34,41 +34,28 @@ const Loading = () => {
 
     try {
       const user = await api.ExternalUser.getUser();
-      const did = await user.getDid();
-      const issuer = {
-        did: did,
-        signer: createVCSigner(
-          user.keyManager,
-          KeyManagerLevel.BROWSER_LOCAL_STORAGE
-        ),
-        alg: "ES256K-R",
-      };
+      const issuer = await user.getIssuer();
 
       setUser(user);
       const username = await user.getUsername();
 
       setUsername(username.username);
-      const ssoLoginRequest = await LoginRequest.sign(
-        user.getLoginRequest(),
+      const ssoLoginRequest = await LoginRequest.signRequest(
+        await user.getLoginRequest(),
         issuer
       );
 
-      const communicationLoginMessage = await api.ExternalUser.signMessage(
-        {},
-        undefinded,
-        { type: MessageType.COMMUNICATION_LOGIN }
-      );
-      const appLoginRequest = await api.ExternalUser.signMessage(
+      // get issuer from storage
+      const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+      const communicationLoginMessage =
+        await AuthenticationMessage.signMessageWithoutRecipient({}, jwkIssuer);
+
+      const appLoginRequest = await LoginRequestsMessage.signMessage(
         {
-          requests: [
-            externalLoginRequest.toString(),
-            ssoLoginRequest.toString(),
-          ],
+          requests: [externalLoginRequest, ssoLoginRequest],
         },
-        did + "#local",
-        {
-          type: MessageType.LOGIN_REQUEST,
-        }
+        jwkIssuer,
+        issuer.did + "#local"
       );
 
       await communication.login(communicationLoginMessage);
