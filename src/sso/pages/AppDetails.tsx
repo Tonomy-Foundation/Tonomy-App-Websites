@@ -6,6 +6,7 @@ import {
   AppData,
   UserApps,
   App,
+  SdkErrors,
   MessageType,
   api,
   ExternalUser,
@@ -82,6 +83,17 @@ const AppDetails = () => {
     setDetails(app);
   }
 
+  const logout = async () => {
+    if (user) await user.logout();
+    // window.location.href = document.referrer;
+    const response = {
+      success: false,
+      reason: SdkErrors.UserLogout,
+    };
+
+    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+  };
+
   return (
     <div>
       {details && (
@@ -105,7 +117,12 @@ const AppDetails = () => {
           </div>
 
           <div style={styles.logout}>
-            <TButton startIcon={<LogoutIcon></LogoutIcon>}>Logout</TButton>
+            <TButton
+              startIcon={<LogoutIcon></LogoutIcon>}
+              onClick={async () => await logout()}
+            >
+              Logout
+            </TButton>
           </div>
         </div>
       )}

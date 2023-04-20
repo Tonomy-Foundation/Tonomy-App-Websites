@@ -1296,9 +1296,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:^0.3.41":
-  version: 0.3.41
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.41"
+"@tonomy/tonomy-id-sdk@npm:^0.3.43":
+  version: 0.3.43
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.43"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@greymass/eosio": ^0.6.4
@@ -1312,7 +1312,7 @@ __metadata:
     cross-fetch: ^3.1.5
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
-  checksum: 978115042269f3a252f2f58cc4ec44521f2e1d22f794a901ba52d513898d99ab5a86438781d26ad47a44f14cef7fd473ef5e1e2542231528600ee8602afcc209
+  checksum: 65f20738527929ab9254a4244098e51e01439fa9008bdbb84d6457773f3dfab198a76137afb8349d02a8ffb2ffe49cb1e6e3894bd006b6ff5072a4870161acf9
   languageName: node
   linkType: hard
 
@@ -1345,9 +1345,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^18.14.2":
-  version: 18.15.11
-  resolution: "@types/node@npm:18.15.11"
-  checksum: 977b4ad04708897ff0eb049ecf82246d210939c82461922d20f7d2dcfd81bbc661582ba3af28869210f7e8b1934529dcd46bff7d448551400f9d48b9d3bddec3
+  version: 18.15.12
+  resolution: "@types/node@npm:18.15.12"
+  checksum: dff7596db8d0a18bcd8da542dc62ed4377cba39546ff53baaa06d106f1482bc3e4e5e03644f5d1e3cef0904ffbe8ebbc244b2b0851f8025ab2a3959ee0ace58f
   languageName: node
   linkType: hard
 
@@ -4623,7 +4623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^3.18.0":
+"rollup@npm:^3.20.2":
   version: 3.20.6
   resolution: "rollup@npm:3.20.6"
   dependencies:
@@ -5007,7 +5007,7 @@ __metadata:
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": ^0.3.41
+    "@tonomy/tonomy-id-sdk": ^0.3.43
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
@@ -5206,14 +5206,13 @@ __metadata:
   linkType: hard
 
 "vite@npm:^4.1.0":
-  version: 4.2.2
-  resolution: "vite@npm:4.2.2"
+  version: 4.3.0
+  resolution: "vite@npm:4.3.0"
   dependencies:
     esbuild: ^0.17.5
     fsevents: ~2.3.2
     postcss: ^8.4.21
-    resolve: ^1.22.1
-    rollup: ^3.18.0
+    rollup: ^3.20.2
   peerDependencies:
     "@types/node": ">= 14"
     less: "*"
@@ -5239,7 +5238,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 7fff9d046f6091c02e030aa5f45e68939b9bec1dd15d4e2c3c084d82ec185300295f3db26f537daf2e19f9ad191be260bf70e5fe0e2d9054f174a7ad457623f8
+  checksum: 9b6084c92e234e74c47514d864477abb7ad40cf53aa904f84b0a87c1b1238d64ea13ecc7595cf06df4aab1649bda8fa86671f40731a8fc00f4bca3b2c6d76f93
   languageName: node
   linkType: hard
 

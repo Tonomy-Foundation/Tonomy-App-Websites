@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   UserApps,
   Message,
@@ -38,6 +39,7 @@ function Login() {
   const navigation = useNavigate();
   const communication = useCommunicationStore((state) => state.communication);
   let rendered = false;
+  const location = useLocation();
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -57,9 +59,9 @@ function Login() {
     jwtRequests: string[],
     loginMessage: Message
   ) {
-    try {
-      const requests = JSON.stringify(jwtRequests);
+    const requests = JSON.stringify(jwtRequests);
 
+    try {
       if (isMobile()) {
         window.location.replace(
           `${settings.config.tonomyIdLink}?requests=${requests}`
@@ -72,6 +74,8 @@ function Login() {
           alert("link didn't work");
         }, 1000);
       } else {
+        const requests = JSON.stringify(jwtRequests);
+
         const logInMessage = new Message(jwtRequests[1]);
         const did = logInMessage.getSender();
 
@@ -122,7 +126,6 @@ function Login() {
       try {
         await api.ExternalUser.getUser();
         //TODO: send to the connect screen
-
         navigation("/loading" + location.search);
       } catch (e) {
         const { loginRequest, loginToCommunication } =
