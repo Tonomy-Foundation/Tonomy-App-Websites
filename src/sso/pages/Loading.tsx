@@ -17,7 +17,7 @@ import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
 import connectionImage from "../assets/tonomy/connecting.png";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { LoginRequest } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/request";
+import { LoginRequest } from "@tonomy/tonomy-id-sdk";
 
 const Loading = () => {
   const [user, setUser] = useState<ExternalUser>();

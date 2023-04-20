@@ -2,11 +2,19 @@ import { useEffect, useState } from "react";
 import { TH3, TH4, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
-import { AppData, UserApps, App, MessageType } from "@tonomy/tonomy-id-sdk";
+import {
+  AppData,
+  UserApps,
+  App,
+  LoginRequestResponseMessage,
+  TonomyUsername,
+} from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { LoginRequest } from "@tonomy/tonomy-id-sdk";
+import { Name } from "@greymass/eosio";
 
 const styles = {
   container: {
@@ -42,11 +50,35 @@ const AppDetails = () => {
 
   async function subscribeToMobile() {
     communication.subscribeMessage((message) => {
-      window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
-        }&username=nousername`
-      );
-    }, MessageType.LOGIN_REQUEST_RESPONSE);
+      const loginRequestResponsePayload = new LoginRequestResponseMessage(
+        message
+      ).getPayload();
+
+      if (!loginRequestResponsePayload.success) {
+        // TODO redirect back to external website and tell them what happened
+      }
+
+      const requests = loginRequestResponsePayload.requests;
+      const externalLoginRequest = requests?.find((r: LoginRequest) => {
+        return r.getPayload().origin !== window.location.origin;
+      });
+
+      if (!externalLoginRequest) {
+        throw new Error("No external login request found");
+      }
+
+      let callbackPath = externalLoginRequest.getPayload().callbackPath;
+
+      callbackPath += "?requests=" + JSON.stringify([externalLoginRequest]);
+      callbackPath +=
+        "&accountName=" +
+        (loginRequestResponsePayload.accountName as Name).toString();
+      callbackPath +=
+        "&username=" +
+        (loginRequestResponsePayload.username as TonomyUsername).toString();
+
+      window.location.replace(callbackPath);
+    }, LoginRequestResponseMessage.getType());
   }
 
   /**
@@ -54,13 +86,16 @@ const AppDetails = () => {
    */
   async function getApp() {
     const { requests } = UserApps.getLoginRequestFromUrl();
-    const result = await UserApps.verifyRequests(requests);
 
-    const redirectJwt = result.find(
+    await UserApps.verifyRequests(requests);
+
+    const loginRequest = requests.find(
       (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
     );
 
-    const app = await App.getApp(redirectJwt?.getPayload().origin);
+    if (!loginRequest) throw new Error("No login request found");
+
+    const app = await App.getApp(loginRequest.getPayload().origin);
 
     setDetails(app);
   }
