@@ -6,9 +6,10 @@ import {
   AppData,
   UserApps,
   App,
-  ExternalUser,
-  api,
   SdkErrors,
+  MessageType,
+  api,
+  ExternalUser,
 } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
@@ -39,9 +40,10 @@ const styles = {
 };
 
 const AppDetails = () => {
+  const [user, setUser] = useState<ExternalUser>();
+  const [username, setUsername] = useState<string>();
   const [details, setDetails] = useState<AppData>();
   const communication = useCommunicationStore((state) => state.communication);
-  const [user, setUser] = useState<ExternalUser>();
 
   useEffect(() => {
     subscribeToMobile();
@@ -53,7 +55,7 @@ const AppDetails = () => {
       window.location.replace(
         `/callback?requests=${message.getPayload().requests}&accountName=${
           message.getPayload().accountName
-        }&username=nousername`
+        }&username=${message.getPayload().username}`
       );
     }, MessageType.LOGIN_REQUEST_RESPONSE);
   }
@@ -65,6 +67,9 @@ const AppDetails = () => {
     const user = await api.ExternalUser.getUser();
 
     setUser(user);
+    const username = await user.getUsername();
+
+    setUsername(username.username);
 
     const requests = new URLSearchParams(location.search).get("requests");
     const result = await UserApps.verifyRequests(requests);
@@ -94,7 +99,7 @@ const AppDetails = () => {
       {details && (
         <div style={styles.container}>
           <TImage width={100} src={logo} alt="Tonomy Logo" />
-
+          {user && <TH4>{username}</TH4>}
           {/* <legend style={styles.legend}>
             <CopyAllOutlined fontSize="small" /> Copy Request Link
           </legend> */}
