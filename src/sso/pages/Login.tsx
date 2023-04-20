@@ -8,7 +8,7 @@ import {
   LoginWithTonomyMessages,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
-import { TH1, TP } from "../components/THeadings";
+import { TH3, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
 import settings from "../settings";
@@ -16,6 +16,9 @@ import { isMobile } from "../utills/IsMobile";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import { useCommunicationStore } from "../stores/communication.store";
+import "./login.css";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { TButton } from "../components/Tbutton";
 
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -100,7 +103,8 @@ function Login() {
         // subscribe for login request response
         communication.subscribeMessage(async (message: Message) => {
           window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${message.getPayload().accountName
+            `/callback?requests=${message.getPayload().requests}&accountName=${
+              message.getPayload().accountName
             }&username=nousername`
           );
         }, MessageType.LOGIN_REQUEST_RESPONSE);
@@ -144,8 +148,19 @@ function Login() {
       return (
         <>
           <TP>Scan the QR code with the Tonomy ID app</TP>
-          {!showQR && <TProgressCircle />}
-          {showQR && <QRCode value={showQR}></QRCode>}
+          <fieldset className="fieldset-view">
+            <legend className="legend-view">
+              {" "}
+              <TButton
+                startIcon={<ContentCopyIcon></ContentCopyIcon>}
+                onClick={() => navigation("/download")}
+              >
+                Copy request link
+              </TButton>
+            </legend>
+            {!showQR && <TProgressCircle />}
+            {showQR && <QRCode value={showQR}></QRCode>}
+          </fieldset>
         </>
       );
     } else {
@@ -161,7 +176,7 @@ function Login() {
   return (
     <div style={styles.container}>
       <TImage height={62} src={logo} alt="Tonomy Logo" />
-      <TH1>{settings.config.appName}</TH1>
+      <TH3>Login with Tonomy</TH3>
       {renderQROrLoading()}
     </div>
   ) as any;

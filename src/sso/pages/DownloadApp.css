@@ -7,6 +7,14 @@
   text-align: center;
 
 }
+.paragraph {
+  line-height: 26px;
+  margin-top: 20px;
+}
+
+.margin-bottom {
+  margin-bottom: 20px;
+}
 
 .icon {
   display: block;
