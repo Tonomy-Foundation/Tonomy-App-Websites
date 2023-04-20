@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
 import { api, UserApps, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { useNavigate } from "react-router-dom";
 
 export default function CallBackPage() {
+  const navigation = useNavigate();
+
   useEffect(() => {
     verifyRequests();
   }, []);
@@ -19,7 +22,7 @@ export default function CallBackPage() {
         alert("User cancelled the request");
       }
 
-      window.location.href = document.referrer;
+      navigation("/loading" + location.search);
     }
 
     const { requests, accountName, username } =
