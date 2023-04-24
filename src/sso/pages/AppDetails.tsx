@@ -6,14 +6,16 @@ import {
   AppData,
   UserApps,
   App,
+  LoginRequest,
   LoginRequestResponseMessage,
   TonomyUsername,
+  SdkErrors,
+  ExternalUser,
 } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { LoginRequest } from "@tonomy/tonomy-id-sdk";
 import { Name } from "@greymass/eosio";
 
 const styles = {
@@ -40,6 +42,8 @@ const styles = {
 };
 
 const AppDetails = () => {
+  const [user, setUser] = useState<ExternalUser>();
+  const [username, setUsername] = useState<string>();
   const [details, setDetails] = useState<AppData>();
   const communication = useCommunicationStore((state) => state.communication);
 
@@ -88,6 +92,12 @@ const AppDetails = () => {
     const { requests } = UserApps.getLoginRequestFromUrl();
 
     await UserApps.verifyRequests(requests);
+    const user = await ExternalUser.getUser();
+
+    setUser(user);
+    const username = await user.getUsername();
+
+    setUsername(username.username);
 
     const loginRequest = requests.find(
       (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
@@ -100,12 +110,23 @@ const AppDetails = () => {
     setDetails(app);
   }
 
+  const logout = async () => {
+    if (user) await user.logout();
+    // window.location.href = document.referrer;
+    const response = {
+      success: false,
+      reason: SdkErrors.UserLogout,
+    };
+
+    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+  };
+
   return (
     <div>
       {details && (
         <div style={styles.container}>
           <TImage width={100} src={logo} alt="Tonomy Logo" />
-
+          {user && <TH4>{username}</TH4>}
           {/* <legend style={styles.legend}>
             <CopyAllOutlined fontSize="small" /> Copy Request Link
           </legend> */}
@@ -123,7 +144,12 @@ const AppDetails = () => {
           </div>
 
           <div style={styles.logout}>
-            <TButton startIcon={<LogoutIcon></LogoutIcon>}>Logout</TButton>
+            <TButton
+              startIcon={<LogoutIcon></LogoutIcon>}
+              onClick={async () => await logout()}
+            >
+              Logout
+            </TButton>
           </div>
         </div>
       )}
