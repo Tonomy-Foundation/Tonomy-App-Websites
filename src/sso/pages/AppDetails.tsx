@@ -72,11 +72,11 @@ const AppDetails = () => {
       }
 
       let callbackPath = externalLoginRequest.getPayload().callbackPath;
+      const accountName = loginRequestResponsePayload.accountName;
 
+      if (!accountName) throw new Error("Account name not defined");
       callbackPath += "?requests=" + JSON.stringify([externalLoginRequest]);
-      callbackPath +=
-        "&accountName=" +
-        (loginRequestResponsePayload.accountName as Name).toString();
+      callbackPath += "&accountName=" + accountName.toString();
       callbackPath +=
         "&username=" +
         (loginRequestResponsePayload.username as TonomyUsername).toString();
