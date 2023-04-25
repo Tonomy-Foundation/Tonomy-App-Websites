@@ -8,15 +8,15 @@ import {
   App,
   LoginRequest,
   LoginRequestResponseMessage,
-  TonomyUsername,
   SdkErrors,
   ExternalUser,
+  throwError,
 } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { Name } from "@greymass/eosio";
+import { encodeBase64url } from "@tonomy/did-jwt/lib/util";
 
 const styles = {
   container: {
@@ -68,18 +68,22 @@ const AppDetails = () => {
       });
 
       if (!externalLoginRequest) {
-        throw new Error("No external login request found");
+        throwError(
+          "Login request for external site was not found",
+          SdkErrors.OriginMismatch
+        );
       }
 
       let callbackPath = externalLoginRequest.getPayload().callbackPath;
       const accountName = loginRequestResponsePayload.accountName;
 
       if (!accountName) throw new Error("Account name not defined");
-      callbackPath += "?requests=" + JSON.stringify([externalLoginRequest]);
-      callbackPath += "&accountName=" + accountName.toString();
-      callbackPath +=
-        "&username=" +
-        (loginRequestResponsePayload.username as TonomyUsername).toString();
+
+      const base64UrlPayload = encodeBase64url(
+        JSON.stringify(loginRequestResponsePayload)
+      );
+
+      callbackPath += "?payload=" + base64UrlPayload;
 
       window.location.replace(callbackPath);
     }, LoginRequestResponseMessage.getType());
@@ -112,13 +116,18 @@ const AppDetails = () => {
 
   const logout = async () => {
     if (user) await user.logout();
-    // window.location.href = document.referrer;
-    const response = {
-      success: false,
-      reason: SdkErrors.UserLogout,
-    };
 
-    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+    // TODO also need to add the requests to the payload
+    const payload = {
+      success: false,
+      error: {
+        reason: "User logout",
+        code: SdkErrors.UserLogout,
+      },
+    };
+    const base64UrlPayload = encodeBase64url(JSON.stringify(payload));
+
+    window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
 
   return (

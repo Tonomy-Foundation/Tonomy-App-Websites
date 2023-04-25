@@ -11,6 +11,7 @@ import {
   IdentifyMessage,
   LoginRequestsMessage,
   LoginRequestResponseMessage,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH3, TP } from "../components/THeadings";
@@ -65,10 +66,14 @@ function Login() {
   ) {
     try {
       if (isMobile()) {
-        const requestString = JSON.stringify(requests.map((r) => r.toString()));
+        const payload = {
+          requests,
+        };
+
+        const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
 
         window.location.replace(
-          `${settings.config.tonomyIdLink}?requests=${requestString}`
+          `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
         );
 
         // TODO
@@ -128,12 +133,13 @@ function Login() {
 
           let callbackPath = externalLoginRequest.getPayload().callbackPath;
 
-          callbackPath += "?requests=" + JSON.stringify([externalLoginRequest]);
-          callbackPath +=
-            "&accountName=" + loginRequestResponsePayload.accountName;
-          callbackPath += "&username=" + loginRequestResponsePayload.username;
+          const base64UrlPayload = strToBase64Url(
+            JSON.stringify(loginRequestResponsePayload)
+          );
 
-          window.location.replace(callbackPath);
+          callbackPath += "?payload=" + base64UrlPayload;
+
+          window.location.href = callbackPath;
         }, LoginRequestResponseMessage.getType());
       }
     } catch (e) {
