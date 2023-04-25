@@ -11,7 +11,7 @@ import {
   LoginRequestsMessage,
   AuthenticationMessage,
   SdkErrors,
-  base64url,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -71,28 +71,33 @@ const Loading = () => {
   }
 
   const logout = async () => {
-    // TODO
     if (user) await user.logout();
     const response = {
       success: false,
       error: {
         message: "User logged out",
         code: SdkErrors.UserLogout,
-      }
+      },
     };
-    const base64UrlPayload = base64url.encode(JSON.stringify(response);
+    const base64UrlPayload = strToBase64Url(JSON.stringify(response));
+
+    // TODO this should send back to external website
     window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
 
   const cancelRequest = async () => {
     if (user) await user.logout();
-    // window.location.href = document.referrer;
     const response = {
       success: false,
-      reason: SdkErrors.UserCancelled,
+      error: {
+        message: "User cancelled login out",
+        code: SdkErrors.UserCancelled,
+      },
     };
+    const base64UrlPayload = strToBase64Url(JSON.stringify(response));
 
-    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+    // TODO this should send back to external website
+    window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
 
   return (

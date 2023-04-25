@@ -1,57 +1,80 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
-import { api, UserApps, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import { useNavigate } from "react-router-dom";
-import { encodeBase64url } from "@tonomy/did-jwt/lib/util";
+import {
+  api,
+  UserApps,
+  SdkError,
+  SdkErrors,
+  strToBase64Url,
+} from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
-  const navigation = useNavigate();
-
   useEffect(() => {
     verifyRequests();
   }, []);
 
   async function verifyRequests() {
-    let url = "";
-
     try {
       await api.ExternalUser.verifyLoginRequest();
 
       const { success, error, requests, accountName, username } =
         UserApps.getLoginRequestResponseFromUrl();
 
-      await UserApps.verifyRequests(requests);
+      if (success) {
+        if (!requests || !accountName || !username) {
+          throw new Error("Invalid response");
+        }
 
-      const externalLoginRequest = requests.find(
-        (request) => request.getPayload().origin !== window.location.origin
-      );
+        await UserApps.verifyRequests(requests);
 
-      if (!externalLoginRequest) {
-        throw new Error("Login request for external site was not found");
-        //TODO: handle this here
-      }
-
-      const redirectJwtPayload = externalLoginRequest.getPayload();
-
-      let url += redirectJwtPayload.origin + redirectJwtPayload.callbackPath;
-
-      url +=
-        "?payload=" +
-        encodeBase64url(
-          JSON.stringify({
-            success: true,
-            accountName,
-            username,
-            requests: [externalLoginRequest],
-          })
+        const externalLoginRequest = requests.find(
+          (request) => request.getPayload().origin !== window.location.origin
         );
-      window.location.href = url;
+
+        if (!externalLoginRequest) {
+          throw new Error("Login request for external site was not found");
+          //TODO: handle this here
+        }
+
+        const loginRequestPayload = externalLoginRequest.getPayload();
+
+        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
+
+        url +=
+          "?payload=" +
+          strToBase64Url(
+            JSON.stringify({
+              success: true,
+              accountName,
+              username,
+              requests: [externalLoginRequest],
+            })
+          );
+        window.location.href = url;
+      } else {
+        // TODO handle error case which came from Tonomy ID
+      }
     } catch (e) {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
       ) {
-        const base64UrlPayload = encodeBase64url(
+        const { requests } = UserApps.getLoginRequestFromUrl();
+
+        const externalLoginRequest = requests.find(
+          (request) => request.getPayload().origin !== window.location.origin
+        );
+
+        if (!externalLoginRequest) {
+          throw new Error("Login request for external site was not found");
+          //TODO: handle this here
+        }
+
+        const loginRequestPayload = externalLoginRequest.getPayload();
+
+        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
+
+        const base64UrlPayload = strToBase64Url(
           JSON.stringify({
             success: false,
             error: {
@@ -61,7 +84,7 @@ export default function CallBackPage() {
           })
         );
 
-        url += base64UrlPayload;
+        url += "?payload=" + base64UrlPayload;
         window.location.href = url;
       } else {
         console.error(e);

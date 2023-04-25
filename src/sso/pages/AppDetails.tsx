@@ -11,12 +11,12 @@ import {
   SdkErrors,
   ExternalUser,
   throwError,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import { useCommunicationStore } from "../stores/communication.store";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
-import { encodeBase64url } from "@tonomy/did-jwt/lib/util";
 
 const styles = {
   container: {
@@ -79,7 +79,7 @@ const AppDetails = () => {
 
       if (!accountName) throw new Error("Account name not defined");
 
-      const base64UrlPayload = encodeBase64url(
+      const base64UrlPayload = strToBase64Url(
         JSON.stringify(loginRequestResponsePayload)
       );
 
@@ -125,7 +125,7 @@ const AppDetails = () => {
         code: SdkErrors.UserLogout,
       },
     };
-    const base64UrlPayload = encodeBase64url(JSON.stringify(payload));
+    const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
 
     window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
