@@ -131,15 +131,11 @@ function Login() {
             throw new Error("No external login request found");
           }
 
-          let callbackPath = externalLoginRequest.getPayload().callbackPath;
-
           const base64UrlPayload = strToBase64Url(
             JSON.stringify(loginRequestResponsePayload)
           );
 
-          callbackPath += "?payload=" + base64UrlPayload;
-
-          window.location.href = callbackPath;
+          window.location.replace("/callback?payload=" + base64UrlPayload);
         }, LoginRequestResponseMessage.getType());
       }
     } catch (e) {
@@ -149,6 +145,8 @@ function Login() {
   }
 
   async function handleRequests() {
+    return;
+
     try {
       const externalLoginRequest = await UserApps.onRedirectLogin();
 
