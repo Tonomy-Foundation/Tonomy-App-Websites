@@ -43,11 +43,16 @@ const Loading = () => {
       setUsername(username.username);
       const request = await user.getLoginRequest();
 
-      // TODO we do not need to login again if we are already logged in...
-      const ssoLoginRequest = await LoginRequest.signRequest(request, issuer);
-
       // get issuer from storage
       const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+
+      // TODO we do not need to login again if we are already logged in...
+      const ssoLoginRequest = await LoginRequest.signRequest(
+        request,
+        // TODO this should be signed by the did:antelope now
+        jwkIssuer
+      );
+
       const communicationLoginMessage =
         await AuthenticationMessage.signMessageWithoutRecipient({}, jwkIssuer);
 
@@ -56,7 +61,7 @@ const Loading = () => {
           requests: [externalLoginRequest, ssoLoginRequest],
         },
         jwkIssuer,
-        issuer.did + "#local"
+        issuer.did
       );
 
       await communication.login(communicationLoginMessage);
