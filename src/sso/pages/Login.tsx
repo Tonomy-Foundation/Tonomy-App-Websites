@@ -145,8 +145,6 @@ function Login() {
   }
 
   async function handleRequests() {
-    return;
-
     try {
       const externalLoginRequest = await UserApps.onRedirectLogin();
 
