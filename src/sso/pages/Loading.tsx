@@ -31,9 +31,9 @@ const Loading = () => {
   }, []);
 
   async function getUser() {
-    const externalLoginRequest = await UserApps.onRedirectLogin();
-
     try {
+      const externalLoginRequest = await UserApps.onRedirectLogin();
+
       const user = await api.ExternalUser.getUser();
       const issuer = await user.getIssuer();
 
@@ -41,10 +41,10 @@ const Loading = () => {
       const username = await user.getUsername();
 
       setUsername(username.username);
-      const ssoLoginRequest = await LoginRequest.signRequest(
-        await user.getLoginRequest(),
-        issuer
-      );
+      const request = await user.getLoginRequest();
+
+      // TODO we do not need to login again if we are already logged in...
+      const ssoLoginRequest = await LoginRequest.signRequest(request, issuer);
 
       // get issuer from storage
       const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
