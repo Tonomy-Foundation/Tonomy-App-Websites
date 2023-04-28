@@ -55,17 +55,6 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    checkUserLoggedIn();
-  }, []);
-
-  const checkUserLoggedIn = async () => {
-    const user = await api.ExternalUser.getUser();
-
-    if (user) navigation("/");
-    else localStorage.removeItem(STORAGE_NAMESPACE + ".tonomy.id.did");
-  };
-
   async function sendRequestToMobile(
     jwtRequests: string[],
     loginMessage: Message

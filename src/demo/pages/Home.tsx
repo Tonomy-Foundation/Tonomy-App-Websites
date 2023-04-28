@@ -6,11 +6,14 @@ import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
+
+  const navigation = useNavigate();
 
   async function onRender() {
     try {
@@ -33,6 +36,17 @@ export default function Home() {
   useEffect(() => {
     onRender();
   }, []);
+
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, []);
+
+  const checkUserLoggedIn = async () => {
+    const user = await api.ExternalUser.getUser();
+
+    if (user) navigation("/"); // this should be the route to user's home.
+    else localStorage.removeItem(STORAGE_NAMESPACE + ".tonomy.id.did");
+  };
 
   return (
     <div className="container">
