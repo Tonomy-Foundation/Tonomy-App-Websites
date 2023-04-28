@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import settings from "../settings";
+
 import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
