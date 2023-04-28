@@ -3,10 +3,15 @@ import { useLocation } from "react-router-dom";
 import {
   UserApps,
   Message,
-  MessageType,
+  LoginRequest,
   STORAGE_NAMESPACE,
   api,
   LoginWithTonomyMessages,
+  AuthenticationMessage,
+  IdentifyMessage,
+  LoginRequestsMessage,
+  LoginRequestResponseMessage,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH3, TP } from "../components/THeadings";
@@ -56,15 +61,19 @@ function Login() {
   }, []);
 
   async function sendRequestToMobile(
-    jwtRequests: string[],
-    loginMessage: Message
+    requests: LoginRequest[],
+    loginToCommunication: AuthenticationMessage
   ) {
-    const requests = JSON.stringify(jwtRequests);
-
     try {
       if (isMobile()) {
+        const payload = {
+          requests,
+        };
+
+        const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
+
         window.location.replace(
-          `${settings.config.tonomyIdLink}?requests=${requests}`
+          `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
         );
 
         // TODO
@@ -74,44 +83,60 @@ function Login() {
           alert("link didn't work");
         }, 1000);
       } else {
-        const requests = JSON.stringify(jwtRequests);
-
-        const logInMessage = new Message(jwtRequests[1]);
-        const did = logInMessage.getSender();
+        const logInMessage = new LoginRequest(requests[1]);
+        const did = logInMessage.getIssuer();
 
         setShowQR(did);
 
         // Login to the communication server
-        await communication.login(loginMessage);
+        await communication.login(loginToCommunication);
 
         // subscribe for connection from Tonomy ID, which will then send login request
         communication.subscribeMessage(async (message) => {
-          const requestMessage = await api.ExternalUser.signMessage(
+          const identifyMessage = new IdentifyMessage(message);
+
+          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const requestMessage = await LoginRequestsMessage.signMessage(
             {
-              requests: jwtRequests,
+              requests,
             },
-            {
-              recipient: message.getSender(),
-              type: MessageType.LOGIN_REQUEST,
-            }
+            jwkIssuer,
+            identifyMessage.getSender()
           );
 
           localStorage.setItem(
             STORAGE_NAMESPACE + ".tonomy.id.did",
-            message.getSender()
+            identifyMessage.getSender()
           );
 
           communication.sendMessage(requestMessage);
-        }, MessageType.IDENTIFY);
+        }, IdentifyMessage.getType());
 
         // subscribe for login request response
         communication.subscribeMessage(async (message: Message) => {
-          window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${
-              message.getPayload().accountName
-            }&username=nousername`
+          const loginRequestResponsePayload = new LoginRequestResponseMessage(
+            message
+          ).getPayload();
+
+          if (!loginRequestResponsePayload.success) {
+            // TODO redirect back to external website and tell them what happened
+          }
+
+          const requests = loginRequestResponsePayload.requests;
+          const externalLoginRequest = requests?.find((r: LoginRequest) => {
+            return r.getPayload().origin !== window.location.origin;
+          });
+
+          if (!externalLoginRequest) {
+            throw new Error("No external login request found");
+          }
+
+          const base64UrlPayload = strToBase64Url(
+            JSON.stringify(loginRequestResponsePayload)
           );
-        }, MessageType.LOGIN_REQUEST_RESPONSE);
+
+          window.location.replace("/callback?payload=" + base64UrlPayload);
+        }, LoginRequestResponseMessage.getType());
       }
     } catch (e) {
       console.error(JSON.stringify(e, null, 2));
@@ -121,7 +146,7 @@ function Login() {
 
   async function handleRequests() {
     try {
-      const verifiedJwt = await UserApps.onRedirectLogin();
+      const externalLoginRequest = await UserApps.onRedirectLogin();
 
       try {
         await api.ExternalUser.getUser();
@@ -135,7 +160,7 @@ function Login() {
           })) as LoginWithTonomyMessages;
 
         sendRequestToMobile(
-          [verifiedJwt.jwt, loginRequest.jwt],
+          [externalLoginRequest, loginRequest],
           loginToCommunication
         );
       }
@@ -185,4 +210,4 @@ function Login() {
   ) as any;
 }
 
-export default Login as any;
+export default Login;
