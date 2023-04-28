@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
-import "./LoggedIn.css";
+import "./Login.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 
-export default function LoggedIn() {
+export default function Login() {
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
