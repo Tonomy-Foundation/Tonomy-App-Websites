@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
@@ -79,7 +80,6 @@ export default function Home() {
 function onButtonPress() {
   ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
 }
-
 <button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
 `}
           </Highlighter>

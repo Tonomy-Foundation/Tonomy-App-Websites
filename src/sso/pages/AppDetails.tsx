@@ -6,10 +6,12 @@ import {
   AppData,
   UserApps,
   App,
+  LoginRequest,
+  LoginRequestResponseMessage,
   SdkErrors,
-  MessageType,
-  api,
   ExternalUser,
+  throwError,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
@@ -52,46 +54,80 @@ const AppDetails = () => {
 
   async function subscribeToMobile() {
     communication.subscribeMessage((message) => {
-      window.location.replace(
-        `/callback?requests=${message.getPayload().requests}&accountName=${
-          message.getPayload().accountName
-        }&username=${message.getPayload().username}`
+      const loginRequestResponsePayload = new LoginRequestResponseMessage(
+        message
+      ).getPayload();
+
+      if (!loginRequestResponsePayload.success) {
+        // TODO redirect back to external website and tell them what happened
+      }
+
+      const requests = loginRequestResponsePayload.requests;
+      const externalLoginRequest = requests?.find((r: LoginRequest) => {
+        return r.getPayload().origin !== window.location.origin;
+      });
+
+      if (!externalLoginRequest) {
+        throwError(
+          "Login request for external site was not found",
+          SdkErrors.OriginMismatch
+        );
+      }
+
+      let callbackPath = externalLoginRequest.getPayload().callbackPath;
+      const accountName = loginRequestResponsePayload.accountName;
+
+      if (!accountName) throw new Error("Account name not defined");
+
+      const base64UrlPayload = strToBase64Url(
+        JSON.stringify(loginRequestResponsePayload)
       );
-    }, MessageType.LOGIN_REQUEST_RESPONSE);
+
+      callbackPath += "?payload=" + base64UrlPayload;
+
+      window.location.replace(callbackPath);
+    }, LoginRequestResponseMessage.getType());
   }
 
   /**
    * verify the requests and gets the app details to show the ui
    */
   async function getApp() {
-    const user = await api.ExternalUser.getUser();
+    const { requests } = UserApps.getLoginRequestFromUrl();
+
+    await UserApps.verifyRequests(requests);
+    const user = await ExternalUser.getUser();
 
     setUser(user);
     const username = await user.getUsername();
 
     setUsername(username.username);
 
-    const requests = new URLSearchParams(location.search).get("requests");
-    const result = await UserApps.verifyRequests(requests);
-
-    const redirectJwt = result.find(
+    const loginRequest = requests.find(
       (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
     );
 
-    const app = await App.getApp(redirectJwt?.getPayload().origin);
+    if (!loginRequest) throw new Error("No login request found");
+
+    const app = await App.getApp(loginRequest.getPayload().origin);
 
     setDetails(app);
   }
 
   const logout = async () => {
     if (user) await user.logout();
-    // window.location.href = document.referrer;
-    const response = {
-      success: false,
-      reason: SdkErrors.UserLogout,
-    };
 
-    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+    // TODO also need to add the requests to the payload
+    const payload = {
+      success: false,
+      error: {
+        reason: "User logout",
+        code: SdkErrors.UserLogout,
+      },
+    };
+    const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
+
+    window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
 
   return (

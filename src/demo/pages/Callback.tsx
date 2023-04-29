@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { api, JWTLoginPayload } from "@tonomy/tonomy-id-sdk";
+import { api, LoginRequestPayload } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./callback.css";
 
 export default function Callback() {
-  const [payload, setPayLoad] = useState<JWTLoginPayload>();
+  const [payload, setPayLoad] = useState<LoginRequestPayload>();
   const [name, setName] = useState<string>();
+  const [username, setUsername] = useState<string>();
 
   useEffect(() => {
     verifyLogin();
@@ -13,10 +14,13 @@ export default function Callback() {
 
   async function verifyLogin() {
     const externalUser = await api.ExternalUser.verifyLoginRequest();
+    const request: any = await externalUser.getLoginRequest();
 
-    setPayLoad(await externalUser.getLoginRequest());
+    request.publicKey = request.publicKey.toString();
 
+    setPayLoad(request);
     setName((await externalUser.getAccountName()).toString());
+    setUsername((await externalUser.getUsername()).toString());
   }
 
   const showJwt = () => {
@@ -27,6 +31,7 @@ export default function Callback() {
         <div>
           <h1>Logged in</h1>
           <h2>Account: {name}</h2>
+          <h2>Username: {username}</h2>
           <div className="code">
             <span className="braces">&#123;</span>
             {Object.entries(payload).map(([key, value], index: number) => {

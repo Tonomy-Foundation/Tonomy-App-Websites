@@ -6,16 +6,19 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { TButton } from "../components/Tbutton";
 import {
   api,
-  MessageType,
   UserApps,
   ExternalUser,
+  LoginRequestsMessage,
+  AuthenticationMessage,
   SdkErrors,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
 import { useNavigate } from "react-router-dom";
 import connectionImage from "../assets/tonomy/connecting.png";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { LoginRequest } from "@tonomy/tonomy-id-sdk";
 
 const Loading = () => {
   const [user, setUser] = useState<ExternalUser>();
@@ -28,31 +31,37 @@ const Loading = () => {
   }, []);
 
   async function getUser() {
-    const verifiedJwt = await UserApps.onRedirectLogin();
-
     try {
+      const externalLoginRequest = await UserApps.onRedirectLogin();
+
       const user = await api.ExternalUser.getUser();
-      const did = await user.getDid();
+      const issuer = await user.getIssuer();
 
       setUser(user);
       const username = await user.getUsername();
 
       setUsername(username.username);
-      const ssoMessage = await api.ExternalUser.signMessage(
-        await user.getLoginRequest()
+      const request = await user.getLoginRequest();
+
+      // get issuer from storage
+      const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+
+      // TODO we do not need to login again if we are already logged in...
+      const ssoLoginRequest = await LoginRequest.signRequest(
+        request,
+        // TODO this should be signed by the did:antelope now
+        jwkIssuer
       );
-      const communicationLoginMessage = await api.ExternalUser.signMessage(
-        {},
-        { type: MessageType.COMMUNICATION_LOGIN }
-      );
-      const appLoginRequest = await api.ExternalUser.signMessage(
+
+      const communicationLoginMessage =
+        await AuthenticationMessage.signMessageWithoutRecipient({}, jwkIssuer);
+
+      const appLoginRequest = await LoginRequestsMessage.signMessage(
         {
-          requests: [verifiedJwt.jwt, ssoMessage.jwt],
+          requests: [externalLoginRequest, ssoLoginRequest],
         },
-        {
-          recipient: did,
-          type: MessageType.LOGIN_REQUEST,
-        }
+        jwkIssuer,
+        issuer.did
       );
 
       await communication.login(communicationLoginMessage);
@@ -70,21 +79,30 @@ const Loading = () => {
     if (user) await user.logout();
     const response = {
       success: false,
-      reason: SdkErrors.UserLogout,
+      error: {
+        message: "User logged out",
+        code: SdkErrors.UserLogout,
+      },
     };
+    const base64UrlPayload = strToBase64Url(JSON.stringify(response));
 
-    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+    // TODO this should send back to external website
+    window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
 
   const cancelRequest = async () => {
     if (user) await user.logout();
-    // window.location.href = document.referrer;
     const response = {
       success: false,
-      reason: SdkErrors.UserCancelled,
+      error: {
+        message: "User cancelled login out",
+        code: SdkErrors.UserCancelled,
+      },
     };
+    const base64UrlPayload = strToBase64Url(JSON.stringify(response));
 
-    window.location.replace(`/callback?response=${JSON.stringify(response)}`);
+    // TODO this should send back to external website
+    window.location.replace(`/callback?payload=${base64UrlPayload}`);
   };
 
   return (
