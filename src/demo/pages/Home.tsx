@@ -46,7 +46,7 @@ export default function Home() {
     const user = await api.ExternalUser.getUser();
 
     if (user) navigation("/"); // this should be the route to user's home.
-    else localStorage.removeItem(STORAGE_NAMESPACE + ".tonomy.id.did");
+    // else localStorage.removeItem(STORAGE_NAMESPACE + ".tonomy.id.did"); This cannot still be added there's no items set on local storage on demo website.
   };
 
   return (
