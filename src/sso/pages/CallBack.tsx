@@ -5,7 +5,7 @@ import {
   UserApps,
   SdkError,
   SdkErrors,
-  strToBase64Url,
+  objToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
@@ -42,14 +42,12 @@ export default function CallBackPage() {
 
         url +=
           "?payload=" +
-          strToBase64Url(
-            JSON.stringify({
-              success: true,
-              accountName,
-              username,
-              requests: [externalLoginRequest],
-            })
-          );
+          objToBase64Url({
+            success: true,
+            accountName,
+            username,
+            requests: [externalLoginRequest],
+          });
         window.location.href = url;
       } else {
         // TODO handle error case which came from Tonomy ID
@@ -74,15 +72,13 @@ export default function CallBackPage() {
 
         let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
 
-        const base64UrlPayload = strToBase64Url(
-          JSON.stringify({
-            success: false,
-            error: {
-              code: e.code,
-              reason: e.message,
-            },
-          })
-        );
+        const base64UrlPayload = objToBase64Url({
+          success: false,
+          error: {
+            code: e.code,
+            reason: e.message,
+          },
+        });
 
         url += "?payload=" + base64UrlPayload;
         window.location.href = url;

@@ -11,7 +11,7 @@ import {
   IdentifyMessage,
   LoginRequestsMessage,
   LoginRequestResponseMessage,
-  strToBase64Url,
+  objToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH3, TP } from "../components/THeadings";
@@ -70,7 +70,7 @@ function Login() {
           requests,
         };
 
-        const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
+        const base64UrlPayload = objToBase64Url(payload);
 
         window.location.replace(
           `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
@@ -131,9 +131,7 @@ function Login() {
             throw new Error("No external login request found");
           }
 
-          const base64UrlPayload = strToBase64Url(
-            JSON.stringify(loginRequestResponsePayload)
-          );
+          const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
 
           window.location.replace("/callback?payload=" + base64UrlPayload);
         }, LoginRequestResponseMessage.getType());

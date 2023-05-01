@@ -11,7 +11,7 @@ import {
   LoginRequestsMessage,
   AuthenticationMessage,
   SdkErrors,
-  strToBase64Url,
+  objToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -84,7 +84,7 @@ const Loading = () => {
         code: SdkErrors.UserLogout,
       },
     };
-    const base64UrlPayload = strToBase64Url(JSON.stringify(response));
+    const base64UrlPayload = objToBase64Url(response);
 
     // TODO this should send back to external website
     window.location.replace(`/callback?payload=${base64UrlPayload}`);
@@ -99,7 +99,7 @@ const Loading = () => {
         code: SdkErrors.UserCancelled,
       },
     };
-    const base64UrlPayload = strToBase64Url(JSON.stringify(response));
+    const base64UrlPayload = objToBase64Url(response);
 
     // TODO this should send back to external website
     window.location.replace(`/callback?payload=${base64UrlPayload}`);
