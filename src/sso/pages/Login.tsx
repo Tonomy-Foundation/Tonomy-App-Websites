@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   UserApps,
-  setSettings,
-  Communication,
   Message,
-  KeyManagerLevel,
+  LoginRequest,
+  STORAGE_NAMESPACE,
+  api,
+  LoginWithTonomyMessages,
+  AuthenticationMessage,
+  IdentifyMessage,
+  LoginRequestsMessage,
+  LoginRequestResponseMessage,
+  strToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
-import { TH1, TP } from "../components/THeadings";
+import { TH3, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import TProgressCircle from "../components/TProgressCircle";
 import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
-import JsKeyManager from "../keymanager";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { useNavigate } from "react-router-dom";
+import { useCommunicationStore } from "../stores/communication.store";
+import "./login.css";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { TButton } from "../components/Tbutton";
 
-setSettings({
+api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
   communicationUrl: settings.config.communicationUrl,
 });
@@ -30,104 +41,134 @@ const styles = {
 
 function Login() {
   const [showQR, setShowQR] = useState<string>();
+  const navigation = useNavigate();
+  const communication = useCommunicationStore((state) => state.communication);
+  let rendered = false;
+  const location = useLocation();
 
-  async function sendRequestToMobile(jwtRequests: string[]) {
-    const requests = JSON.stringify(jwtRequests);
-
-    if (isMobile()) {
-      window.location.replace(
-        `${settings.config.tonomyIdLink}?requests=${requests}`
-      );
-
-      // TODO
-      // wait 1-2 seconds
-      // if this code runs then the link didnt work
-      setTimeout(() => {
-        alert("link didn't work");
-      }, 1000);
+  useEffect(() => {
+    // Prevent useEffect from running twice which causes a race condition of the
+    // async handleRequests() between which publicKey is sent in the request and this
+    // conflicts in the publicKey that is saved in localStorage
+    if (!rendered) {
+      rendered = true;
     } else {
-      const communication = new Communication();
-      const logInMessage = new Message(jwtRequests[1]);
-      const did = logInMessage.getSender();
+      return;
+    }
 
-      setShowQR(did);
+    handleRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      /**
-       * sending login requests flow
-       * at first the website logins and wait for the login results
-       * then it subscribe for new messages from the server
-       * if the message has type ack which means other client is awaiting for message from this client
-       * then this client sends the requests to the ack client
-       * else means the requests are authenticated and we can redirect back to the callback request
-       */
-      await communication.login(logInMessage);
+  async function sendRequestToMobile(
+    requests: LoginRequest[],
+    loginToCommunication: AuthenticationMessage
+  ) {
+    try {
+      if (isMobile()) {
+        const payload = {
+          requests,
+        };
 
-      communication.subscribeMessage(async (responseMessage) => {
-        const message = new Message(responseMessage);
+        const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
 
-        console.log("recieved", message);
+        window.location.replace(
+          `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
+        );
 
-        if (message.getPayload().type === "ack") {
-          //TODO: save the sender did
-          const requestMessage = await UserApps.signMessage(
+        // TODO
+        // wait 1-2 seconds
+        // if this code runs then the link didnt work
+        setTimeout(() => {
+          alert("link didn't work");
+        }, 1000);
+      } else {
+        const logInMessage = new LoginRequest(requests[1]);
+        const did = logInMessage.getIssuer();
+
+        setShowQR(did);
+
+        // Login to the communication server
+        await communication.login(loginToCommunication);
+
+        // subscribe for connection from Tonomy ID, which will then send login request
+        communication.subscribeMessage(async (message) => {
+          const identifyMessage = new IdentifyMessage(message);
+
+          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const requestMessage = await LoginRequestsMessage.signMessage(
             {
-              requests: jwtRequests,
+              requests,
             },
-            new JsKeyManager(),
-            KeyManagerLevel.BROWSERLOCALSTORAGE,
-            message.getSender()
+            jwkIssuer,
+            identifyMessage.getSender()
+          );
+
+          localStorage.setItem(
+            STORAGE_NAMESPACE + ".tonomy.id.did",
+            identifyMessage.getSender()
           );
 
           communication.sendMessage(requestMessage);
-        } else {
-          window.location.replace(
-            `/callback?requests=${message.getPayload().requests}&accountName=${
-              message.getPayload().accountName
-            }&username=nousername`
+        }, IdentifyMessage.getType());
+
+        // subscribe for login request response
+        communication.subscribeMessage(async (message: Message) => {
+          const loginRequestResponsePayload = new LoginRequestResponseMessage(
+            message
+          ).getPayload();
+
+          if (!loginRequestResponsePayload.success) {
+            // TODO redirect back to external website and tell them what happened
+          }
+
+          const requests = loginRequestResponsePayload.requests;
+          const externalLoginRequest = requests?.find((r: LoginRequest) => {
+            return r.getPayload().origin !== window.location.origin;
+          });
+
+          if (!externalLoginRequest) {
+            throw new Error("No external login request found");
+          }
+
+          const base64UrlPayload = strToBase64Url(
+            JSON.stringify(loginRequestResponsePayload)
           );
-        }
-      });
+
+          window.location.replace("/callback?payload=" + base64UrlPayload);
+        }, LoginRequestResponseMessage.getType());
+      }
+    } catch (e) {
+      console.error(JSON.stringify(e, null, 2));
+      alert(e);
     }
   }
 
   async function handleRequests() {
     try {
-      const verifiedJwt = await UserApps.onRedirectLogin();
+      const externalLoginRequest = await UserApps.onRedirectLogin();
 
-      const tonomyJwt = (await UserApps.onPressLogin(
-        { callbackPath: "/callback", redirect: false },
-        new JsKeyManager()
-      )) as string;
+      try {
+        await api.ExternalUser.getUser();
+        //TODO: send to the connect screen
+        navigation("/loading" + location.search);
+      } catch (e) {
+        const { loginRequest, loginToCommunication } =
+          (await api.ExternalUser.loginWithTonomy({
+            callbackPath: "/callback",
+            redirect: false,
+          })) as LoginWithTonomyMessages;
 
-      sendRequestToMobile([verifiedJwt.jwt, tonomyJwt]);
+        sendRequestToMobile(
+          [externalLoginRequest, loginRequest],
+          loginToCommunication
+        );
+      }
     } catch (e) {
+      console.error(JSON.stringify(e, null, 2));
       alert(e);
       // TODO handle error
-
-      return;
     }
-
-    //TODO: change the qr to only one when user is loggedin
-    /*
-        let idTonomyJwt: string;
-        const loggedIn = user logged into id.tonomy.foundation (check local storage and validate key is still authorized)
-        if (loggedIn) {
-            idTonomyJwt = get from local storage
-        } else {
-            idTonomyJwt = TonomyApp.onPressLogin();
-        }
-
-        if (mobile) {
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], deeplink);
-        } else {
-            if (loggedIn) {
-                subscribe to the channel
-            } else {
-                create new channel by creating QR code with idTonomyJwt
-            }
-            sendRequestToMobile([idTonomyJwt, verifiedJwt], communication channel);
-        }
-        */
   }
 
   function renderQROrLoading() {
@@ -135,8 +176,19 @@ function Login() {
       return (
         <>
           <TP>Scan the QR code with the Tonomy ID app</TP>
-          {!showQR && <TProgressCircle />}
-          {showQR && <QRCode value={showQR}></QRCode>}
+          <fieldset className="fieldset-view">
+            <legend className="legend-view">
+              {" "}
+              <TButton
+                startIcon={<ContentCopyIcon></ContentCopyIcon>}
+                onClick={() => navigation("/download")}
+              >
+                Copy request link
+              </TButton>
+            </legend>
+            {!showQR && <TProgressCircle />}
+            {showQR && <QRCode value={showQR}></QRCode>}
+          </fieldset>
         </>
       );
     } else {
@@ -149,19 +201,13 @@ function Login() {
     }
   }
 
-  useEffect(() => {
-    // console.log();
-    handleRequests();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div style={styles.container}>
       <TImage height={62} src={logo} alt="Tonomy Logo" />
-      <TH1>{settings.config.appName}</TH1>
+      <TH3>Login with Tonomy</TH3>
       {renderQROrLoading()}
     </div>
   ) as any;
 }
 
-export default Login as any;
+export default Login;

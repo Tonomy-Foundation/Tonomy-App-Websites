@@ -2,3 +2,25 @@
   text-decoration: underline;
   color: #4FC2F1;
 }
+.contained-button{
+  color: white;
+  background-color: #67D7ED;
+  border-radius: 1.5rem;
+  padding: .5rem 2.5rem;
+  border-color: transparent;
+  font-size: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.288) 1px 1px 10px ;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .5s ease;
+}
+.contained-button:hover{
+  background-color: hsl(190, 79%, 57%);
+}
+
+
+@media only screen and (max-width: 768px) {
+  .contained-button{
+    font-size: 14px;
+  }
+}

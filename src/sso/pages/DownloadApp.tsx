@@ -1,6 +1,6 @@
 import React from "react";
-import { TA } from "../components/Tbuttons";
-import { TH1, TH2, TH3, TP } from "../components/THeadings";
+import { TA } from "../components/TA";
+import { TH1, TH4, TH3, TP } from "../components/THeadings";
 import TImage from "../components/TImage";
 import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
@@ -12,15 +12,15 @@ export default function DownloadApp() {
   return (
     <div className="container">
       <TImage src={appleStoreBadge} height={86}></TImage>
-      <TH1>Tonomy ID</TH1>
-      <TH3>The easiest and safest way to access Tonomy apps</TH3>
-      <TP>
+      <TH3>Tonomy ID</TH3>
+      <TH4>The easiest and safest way to access Tonomy apps</TH4>
+      <TP className="paragraph">
         Tonomy ID is a self-sovereign identity digital wallet that protects your
         security and privacy. &nbsp;
         <TA href={settings.config.links.readMoreDownload}>Learn more</TA>
       </TP>
 
-      <TP>
+      <TP className="margin-bottom paragraph">
         It is open-source and maintained by the Tonomy Foundation.{" "}
         <TA>Learn more</TA>
       </TP>

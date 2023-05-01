@@ -1,7 +1,7 @@
 import { ConfigType } from "../settings";
 
 export const stagingConfig: ConfigType = {
-  blockchainUrl: "https://stagingapi.staging.projects.tonomy.foundation",
+  blockchainUrl: "https://blockchain-api-staging.tonomy.foundation",
   theme: {
     primaryColor: "#6200ee",
     secondaryColor: "#03dac4",
@@ -15,5 +15,5 @@ export const stagingConfig: ConfigType = {
     logo48: "./src/assets/tonomy/tonomy-logo48.png",
     logo1024: "./src/assets/tonomy/tonomy-logo1024.png",
   },
-  ssoWebsiteOrigin: "https://tonomy-id-staging.tonomy.foundation",
+  ssoWebsiteOrigin: "https://sso.staging.tonomy.foundation",
 };

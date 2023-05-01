@@ -1,4 +1,9 @@
 import React from "react";
+import "./Theadings.css";
+
+type PProps = React.HTMLAttributes<HTMLParagraphElement> & {
+  size?: 2;
+};
 
 export function TH1(props: React.HTMLAttributes<HTMLHeadingElement>) {
   return <h1 {...props} />;
@@ -12,6 +17,13 @@ export function TH3(props: React.HTMLAttributes<HTMLHeadingElement>) {
   return <h3 {...props} />;
 }
 
-export function TP(props: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p {...props} />;
+export function TH4(props: React.HTMLAttributes<HTMLHeadingElement>) {
+  return <h4 {...props} />;
+}
+
+export function TP(props: PProps) {
+  return (
+    // eslint-disable-next-line react/prop-types
+    <p {...props} className={"size" + props.size + " " + props.className} />
+  );
 }

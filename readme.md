@@ -2,8 +2,8 @@
 
 This repo contains all the following react apps that the Tonomy-Foundation uses:
 
-- Demo website: this app demonstrate the demo flows of the tonomy id
-- SSO website: this website manages the user SSO system and helps tonomy Id user to connect to multiple websites.
+- Demo website: this app demonstrate the demo flows of the tonomy id. Available at [https://demo.staging.tonomy.foundation](https://demo.staging.tonomy.foundation)
+- SSO website: this website manages the user SSO system and helps tonomy Id user to connect to multiple websites. Available at [https://sso.staging.tonomy.foundation](https://sso.staging.tonomy.foundation)
 <!-- - App Manager Website: developers portal to get Oauth access -->
 
 ## Dependencies

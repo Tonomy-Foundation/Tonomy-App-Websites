@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../components/TProgressCircle";
-import { UserApps } from "@tonomy/tonomy-id-sdk";
-import JsKeyManager from "../keymanager";
+import {
+  api,
+  UserApps,
+  SdkError,
+  SdkErrors,
+  strToBase64Url,
+} from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
   useEffect(() => {
@@ -9,46 +14,83 @@ export default function CallBackPage() {
   }, []);
 
   async function verifyRequests() {
-    console.log("test");
-    const { result, accountName, username } =
-      await UserApps.onAppRedirectVerifyRequests();
+    try {
+      await api.ExternalUser.verifyLoginRequest();
 
-    console.log(result, accountName);
-    const redirectJwt = result.find(
-      (jwtVerified) => jwtVerified.getPayload().origin !== location.origin
-    );
-    const ssoJwt = result.find(
-      (jwtVerified) => jwtVerified.getPayload().origin === location.origin
-    );
+      const { success, error, requests, accountName, username } =
+        UserApps.getLoginRequestResponseFromUrl();
 
-    if (!redirectJwt) {
-      console.log("test");
-      throw new Error("JWT isn't correct");
-      //TODO: handle this here
-    }
+      if (success) {
+        if (!requests || !accountName || !username) {
+          throw new Error("Invalid response");
+        }
 
-    if (ssoJwt) {
-      try {
-        const verifiedLoginSso = await UserApps.verifyKeyExistsForApp(
-          accountName,
-          new JsKeyManager()
+        await UserApps.verifyRequests(requests);
+
+        const externalLoginRequest = requests.find(
+          (request) => request.getPayload().origin !== window.location.origin
         );
 
-        if (verifiedLoginSso) localStorage.setItem("loggedIn", "true");
-      } catch (e) {
-        // TODO only catch the 404 error and show nothing
-        console.log(e);
+        if (!externalLoginRequest) {
+          throw new Error("Login request for external site was not found");
+          //TODO: handle this here
+        }
+
+        const loginRequestPayload = externalLoginRequest.getPayload();
+
+        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
+
+        url +=
+          "?payload=" +
+          strToBase64Url(
+            JSON.stringify({
+              success: true,
+              accountName,
+              username,
+              requests: [externalLoginRequest],
+            })
+          );
+        window.location.href = url;
+      } else {
+        // TODO handle error case which came from Tonomy ID
+      }
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
+      ) {
+        const { requests } = UserApps.getLoginRequestFromUrl();
+
+        const externalLoginRequest = requests.find(
+          (request) => request.getPayload().origin !== window.location.origin
+        );
+
+        if (!externalLoginRequest) {
+          throw new Error("Login request for external site was not found");
+          //TODO: handle this here
+        }
+
+        const loginRequestPayload = externalLoginRequest.getPayload();
+
+        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
+
+        const base64UrlPayload = strToBase64Url(
+          JSON.stringify({
+            success: false,
+            error: {
+              code: e.code,
+              reason: e.message,
+            },
+          })
+        );
+
+        url += "?payload=" + base64UrlPayload;
+        window.location.href = url;
+      } else {
+        console.error(e);
+        alert("Error occured");
       }
     }
-
-    const redirectJwtPayload = redirectJwt.getPayload();
-    const url =
-      redirectJwtPayload.origin +
-      redirectJwtPayload.callbackPath +
-      `?username=${username}&accountName=${accountName}&requests=` +
-      JSON.stringify([redirectJwt.jwt]);
-
-    location.replace(url);
   }
 
   return (

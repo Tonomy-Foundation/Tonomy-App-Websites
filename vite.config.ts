@@ -8,14 +8,14 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     plugins: [react()],
     server: {
       port: 5174,
-      strictPort: true
-    }
+      strictPort: true,
+    },
   };
 
-  if (process.env.VITE_APP_NODE_ENV == "local") {
+  if (process.env.VITE_APP_NODE_ENV === "local") {
     config.resolve = {
       alias: {
-        "tonomy-id-sdk": __dirname + "/../Tonomy-ID-SDK",
+        "@tonomy/tonomy-id-sdk": __dirname + "/../Tonomy-ID-SDK",
       },
     };
   }
