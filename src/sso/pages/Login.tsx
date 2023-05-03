@@ -144,11 +144,13 @@ function Login() {
             );
 
             window.location.href = url;
+          } else {
+            const base64UrlPayload = objToBase64Url(
+              loginRequestResponsePayload
+            );
+
+            window.location.replace("/callback?payload=" + base64UrlPayload);
           }
-
-          const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
-
-          window.location.replace("/callback?payload=" + base64UrlPayload);
         }, LoginRequestResponseMessage.getType());
       }
     } catch (e) {
