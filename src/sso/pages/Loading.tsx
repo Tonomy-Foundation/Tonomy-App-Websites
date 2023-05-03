@@ -76,33 +76,65 @@ const Loading = () => {
   }
 
   const logout = async () => {
-    if (user) await user.logout();
-    const response = {
-      success: false,
-      error: {
-        message: "User logged out",
-        code: SdkErrors.UserLogout,
-      },
-    };
-    const base64UrlPayload = objToBase64Url(response);
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+      const externalLoginRequest = requests.find(
+        (r) => r.getPayload().origin !== window.location.origin
+      );
 
-    // TODO this should send back to external website
-    window.location.replace(`/callback?payload=${base64UrlPayload}`);
+      if (!externalLoginRequest)
+        throw new Error("No external login request found");
+
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        [externalLoginRequest],
+        "url",
+        {
+          code: SdkErrors.UserLogout,
+          reason: "User logged out",
+        },
+        {
+          callbackOrigin: externalLoginRequest.getPayload().origin,
+          callbackPath: externalLoginRequest.getPayload().callbackPath,
+        }
+      );
+
+      if (user) await user.logout();
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const cancelRequest = async () => {
-    if (user) await user.logout();
-    const response = {
-      success: false,
-      error: {
-        message: "User cancelled login out",
-        code: SdkErrors.UserCancelled,
-      },
-    };
-    const base64UrlPayload = objToBase64Url(response);
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+      const externalLoginRequest = requests.find(
+        (r) => r.getPayload().origin !== window.location.origin
+      );
 
-    // TODO this should send back to external website
-    window.location.replace(`/callback?payload=${base64UrlPayload}`);
+      if (!externalLoginRequest)
+        throw new Error("No external login request found");
+
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        [externalLoginRequest],
+        "url",
+        {
+          code: SdkErrors.UserCancelled,
+          reason: "User cancelled login",
+        },
+        {
+          callbackOrigin: externalLoginRequest.getPayload().origin,
+          callbackPath: externalLoginRequest.getPayload().callbackPath,
+        }
+      );
+
+      if (user) await user.logout();
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

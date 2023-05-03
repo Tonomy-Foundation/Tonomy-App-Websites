@@ -50,41 +50,62 @@ export default function CallBackPage() {
           });
         window.location.href = url;
       } else {
-        // TODO handle error case which came from Tonomy ID
+        const externalLoginRequest = requests.find(
+          (r) => r.getPayload().origin !== window.location.origin
+        );
+
+        if (!externalLoginRequest)
+          throw new Error("No external login request found");
+
+        if (!error) throw new Error("Error not defined");
+        const callbackUrl = await UserApps.terminateLoginRequest(
+          [externalLoginRequest],
+          "url",
+          error,
+          {
+            callbackOrigin: externalLoginRequest.getPayload().origin,
+            callbackPath: externalLoginRequest.getPayload().callbackPath,
+          }
+        );
+
+        window.location.href = callbackUrl;
       }
     } catch (e) {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
       ) {
-        const { requests } = UserApps.getLoginRequestFromUrl();
+        try {
+          const { requests } = await UserApps.getLoginRequestFromUrl();
+          const externalLoginRequest = requests.find(
+            (r) => r.getPayload().origin !== window.location.origin
+          );
 
-        const externalLoginRequest = requests.find(
-          (request) => request.getPayload().origin !== window.location.origin
-        );
+          if (!externalLoginRequest)
+            throw new Error("No external login request found");
 
-        if (!externalLoginRequest) {
-          throw new Error("Login request for external site was not found");
-          //TODO: handle this here
+          const callbackUrl = await UserApps.terminateLoginRequest(
+            [externalLoginRequest],
+            "url",
+            {
+              code: e.code,
+              reason:
+                e.code === SdkErrors.UserLogout
+                  ? "User logged out"
+                  : "User cancelled login",
+            },
+            {
+              callbackOrigin: externalLoginRequest.getPayload().origin,
+              callbackPath: externalLoginRequest.getPayload().callbackPath,
+            }
+          );
+
+          window.location.href = callbackUrl;
+        } catch (e) {
+          console.error(e);
         }
-
-        const loginRequestPayload = externalLoginRequest.getPayload();
-
-        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
-
-        const base64UrlPayload = objToBase64Url({
-          success: false,
-          error: {
-            code: e.code,
-            reason: e.message,
-          },
-        });
-
-        url += "?payload=" + base64UrlPayload;
-        window.location.href = url;
       } else {
         console.error(e);
-        alert("Error occured");
       }
     }
   }

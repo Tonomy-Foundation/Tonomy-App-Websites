@@ -58,10 +58,6 @@ const AppDetails = () => {
         message
       ).getPayload();
 
-      if (!loginRequestResponsePayload.success) {
-        // TODO redirect back to external website and tell them what happened
-      }
-
       const requests = loginRequestResponsePayload.requests;
       const externalLoginRequest = requests?.find((r: LoginRequest) => {
         return r.getPayload().origin !== window.location.origin;
@@ -75,9 +71,13 @@ const AppDetails = () => {
       }
 
       let callbackPath = externalLoginRequest.getPayload().callbackPath;
-      const accountName = loginRequestResponsePayload.accountName;
 
-      if (!accountName) throw new Error("Account name not defined");
+      if (loginRequestResponsePayload.success) {
+        const accountName = loginRequestResponsePayload.accountName;
+
+        if (!accountName) throw new Error("Account name not defined");
+        // TODO something with accountName
+      }
 
       const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
 
@@ -113,19 +113,34 @@ const AppDetails = () => {
   }
 
   const logout = async () => {
-    if (user) await user.logout();
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+      const externalLoginRequest = requests.find(
+        (r) => r.getPayload().origin !== window.location.origin
+      );
 
-    // TODO also need to add the requests to the payload
-    const payload = {
-      success: false,
-      error: {
-        reason: "User logout",
-        code: SdkErrors.UserLogout,
-      },
-    };
-    const base64UrlPayload = objToBase64Url(payload);
+      if (!externalLoginRequest)
+        throw new Error("No external login request found");
 
-    window.location.replace(`/callback?payload=${base64UrlPayload}`);
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        [externalLoginRequest],
+        "url",
+        {
+          code: SdkErrors.UserLogout,
+          reason: "User logged out",
+        },
+        {
+          callbackOrigin: externalLoginRequest.getPayload().origin,
+          callbackPath: externalLoginRequest.getPayload().callbackPath,
+        }
+      );
+
+      if (user) await user.logout();
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
