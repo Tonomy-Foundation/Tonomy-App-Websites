@@ -5,7 +5,7 @@ import {
   UserApps,
   SdkError,
   SdkErrors,
-  strToBase64Url,
+  objToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
@@ -42,53 +42,70 @@ export default function CallBackPage() {
 
         url +=
           "?payload=" +
-          strToBase64Url(
-            JSON.stringify({
-              success: true,
-              accountName,
-              username,
-              requests: [externalLoginRequest],
-            })
-          );
+          objToBase64Url({
+            success: true,
+            accountName,
+            username,
+            requests: [externalLoginRequest],
+          });
         window.location.href = url;
       } else {
-        // TODO handle error case which came from Tonomy ID
+        const externalLoginRequest = requests.find(
+          (r) => r.getPayload().origin !== window.location.origin
+        );
+
+        if (!externalLoginRequest)
+          throw new Error("No external login request found");
+
+        if (!error) throw new Error("Error not defined");
+        const callbackUrl = await UserApps.terminateLoginRequest(
+          [externalLoginRequest],
+          "url",
+          error,
+          {
+            callbackOrigin: externalLoginRequest.getPayload().origin,
+            callbackPath: externalLoginRequest.getPayload().callbackPath,
+          }
+        );
+
+        window.location.href = callbackUrl;
       }
     } catch (e) {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
       ) {
-        const { requests } = UserApps.getLoginRequestFromUrl();
+        try {
+          const { requests } = await UserApps.getLoginRequestFromUrl();
+          const externalLoginRequest = requests.find(
+            (r) => r.getPayload().origin !== window.location.origin
+          );
 
-        const externalLoginRequest = requests.find(
-          (request) => request.getPayload().origin !== window.location.origin
-        );
+          if (!externalLoginRequest)
+            throw new Error("No external login request found");
 
-        if (!externalLoginRequest) {
-          throw new Error("Login request for external site was not found");
-          //TODO: handle this here
-        }
-
-        const loginRequestPayload = externalLoginRequest.getPayload();
-
-        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
-
-        const base64UrlPayload = strToBase64Url(
-          JSON.stringify({
-            success: false,
-            error: {
+          const callbackUrl = await UserApps.terminateLoginRequest(
+            [externalLoginRequest],
+            "url",
+            {
               code: e.code,
-              reason: e.message,
+              reason:
+                e.code === SdkErrors.UserLogout
+                  ? "User logged out"
+                  : "User cancelled login",
             },
-          })
-        );
+            {
+              callbackOrigin: externalLoginRequest.getPayload().origin,
+              callbackPath: externalLoginRequest.getPayload().callbackPath,
+            }
+          );
 
-        url += "?payload=" + base64UrlPayload;
-        window.location.href = url;
+          window.location.href = callbackUrl;
+        } catch (e) {
+          console.error(e);
+        }
       } else {
         console.error(e);
-        alert("Error occured");
       }
     }
   }

@@ -11,7 +11,9 @@ import {
   IdentifyMessage,
   LoginRequestsMessage,
   LoginRequestResponseMessage,
-  strToBase64Url,
+  objToBase64Url,
+  SdkError,
+  SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH3, TP } from "../components/THeadings";
@@ -70,17 +72,16 @@ function Login() {
           requests,
         };
 
-        const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
+        const base64UrlPayload = objToBase64Url(payload);
 
         window.location.replace(
           `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
         );
 
-        // TODO
-        // wait 1-2 seconds
-        // if this code runs then the link didnt work
+        // wait 1 second
+        // if this code runs then the redirect didn't work
         setTimeout(() => {
-          alert("link didn't work");
+          throw new Error("Redirect to Tonomy ID failed");
         }, 1000);
       } else {
         const logInMessage = new LoginRequest(requests[1]);
@@ -118,11 +119,8 @@ function Login() {
             message
           ).getPayload();
 
-          if (!loginRequestResponsePayload.success) {
-            // TODO redirect back to external website and tell them what happened
-          }
-
           const requests = loginRequestResponsePayload.requests;
+
           const externalLoginRequest = requests?.find((r: LoginRequest) => {
             return r.getPayload().origin !== window.location.origin;
           });
@@ -131,11 +129,28 @@ function Login() {
             throw new Error("No external login request found");
           }
 
-          const base64UrlPayload = strToBase64Url(
-            JSON.stringify(loginRequestResponsePayload)
-          );
+          if (!loginRequestResponsePayload.success) {
+            const error = loginRequestResponsePayload.error;
 
-          window.location.replace("/callback?payload=" + base64UrlPayload);
+            if (!error) throw new Error("No error message found");
+            const url = await UserApps.terminateLoginRequest(
+              [externalLoginRequest],
+              "url",
+              error,
+              {
+                callbackOrigin: externalLoginRequest.getPayload().origin,
+                callbackPath: externalLoginRequest.getPayload().callbackPath,
+              }
+            );
+
+            window.location.href = url;
+          } else {
+            const base64UrlPayload = objToBase64Url(
+              loginRequestResponsePayload
+            );
+
+            window.location.replace("/callback?payload=" + base64UrlPayload);
+          }
         }, LoginRequestResponseMessage.getType());
       }
     } catch (e) {
@@ -146,28 +161,32 @@ function Login() {
 
   async function handleRequests() {
     try {
-      const externalLoginRequest = await UserApps.onRedirectLogin();
-
-      try {
-        await api.ExternalUser.getUser();
-        //TODO: send to the connect screen
-        navigation("/loading" + location.search);
-      } catch (e) {
+      // check if user is already logged in
+      await api.ExternalUser.getUser();
+      navigation("/loading" + location.search);
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
+        // if the user is not logged in, then send the login requests to Tonomy ID
         const { loginRequest, loginToCommunication } =
           (await api.ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
             redirect: false,
           })) as LoginWithTonomyMessages;
 
+        const externalLoginRequest = await UserApps.onRedirectLogin();
+
         sendRequestToMobile(
           [externalLoginRequest, loginRequest],
           loginToCommunication
         );
+      } else {
+        console.error(JSON.stringify(e, null, 2));
+        // TODO handle error
       }
-    } catch (e) {
-      console.error(JSON.stringify(e, null, 2));
-      alert(e);
-      // TODO handle error
     }
   }
 

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { api, LoginRequestPayload } from "@tonomy/tonomy-id-sdk";
+import {
+  api,
+  LoginRequestPayload,
+  SdkError,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./callback.css";
 
@@ -13,14 +18,26 @@ export default function Callback() {
   }, []);
 
   async function verifyLogin() {
-    const externalUser = await api.ExternalUser.verifyLoginRequest();
-    const request: any = await externalUser.getLoginRequest();
+    try {
+      const externalUser = await api.ExternalUser.verifyLoginRequest();
+      const request: any = await externalUser.getLoginRequest();
 
-    request.publicKey = request.publicKey.toString();
+      request.publicKey = request.publicKey.toString();
 
-    setPayLoad(request);
-    setName((await externalUser.getAccountName()).toString());
-    setUsername((await externalUser.getUsername()).toString());
+      setPayLoad(request);
+      setName((await externalUser.getAccountName()).toString());
+      setUsername((await externalUser.getUsername()).toString());
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.UserCancelled || SdkErrors.UserLogout)
+      ) {
+        alert("User cancelled login");
+        window.location.replace("/");
+      } else {
+        console.error(e);
+      }
+    }
   }
 
   const showJwt = () => {
