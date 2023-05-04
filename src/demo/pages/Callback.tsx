@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  api,
-  LoginRequestPayload,
-  SdkError,
-  SdkErrors,
-} from "@tonomy/tonomy-id-sdk";
-import settings from "../settings";
+import React, { useEffect } from "react";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./callback.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Callback() {
-  const [payload, setPayLoad] = useState<LoginRequestPayload>();
-  const [name, setName] = useState<string>();
-  const [username, setUsername] = useState<string>();
+  const navigation = useNavigate();
 
   useEffect(() => {
     verifyLogin();
@@ -19,66 +12,21 @@ export default function Callback() {
 
   async function verifyLogin() {
     try {
-      const externalUser = await api.ExternalUser.verifyLoginRequest();
-      const request: any = await externalUser.getLoginRequest();
-
-      request.publicKey = request.publicKey.toString();
-
-      setPayLoad(request);
-      setName((await externalUser.getAccountName()).toString());
-      setUsername((await externalUser.getUsername()).toString());
+      await api.ExternalUser.verifyLoginRequest();
+      navigation("/user-home");
     } catch (e) {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.UserCancelled || SdkErrors.UserLogout)
       ) {
         alert("User cancelled login");
-        window.location.replace("/");
+        navigation("/");
       } else {
         console.error(e);
+        alert(e);
       }
     }
   }
 
-  const showJwt = () => {
-    if (!payload) {
-      return <h1>Loading...</h1>;
-    } else {
-      return (
-        <div>
-          <h1>Logged in</h1>
-          <h2>Account: {name}</h2>
-          <h2>Username: {username}</h2>
-          <div className="code">
-            <span className="braces">&#123;</span>
-            {Object.entries(payload).map(([key, value], index: number) => {
-              return (
-                <div className="code-line" key={index}>
-                  <div className="key">{key}:&nbsp;</div>
-                  <div className="value">{value as string}</div>
-                </div>
-              );
-            })}
-            <span className="braces">&#125;</span>
-          </div>
-
-          <a
-            className="btn"
-            target={"_blank"}
-            href={
-              "https://local.bloks.io/account/" +
-              name +
-              "?nodeUrl=" +
-              settings.config.blockchainUrl
-            }
-            rel="noreferrer"
-          >
-            Check in blockchain
-          </a>
-        </div>
-      );
-    }
-  };
-
-  return <div>{showJwt()}</div>;
+  return <h1>Loading...</h1>;
 }
