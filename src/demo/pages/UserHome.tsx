@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
-import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
-import "./Login.css";
+import React, { useEffect, useState } from "react";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import "./UserHome.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [accountName, setAccountName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const navigation = useNavigate();
 
   async function onRender() {
@@ -15,8 +17,10 @@ export default function Login() {
 
       const accountName = await user.getAccountName();
 
-      console.log("Logged in as", accountName.toString());
-      // TODO take user to logged in page
+      setAccountName(accountName.toString());
+      const username = await user.getUsername();
+
+      setUsername(username.getBaseUsername());
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -40,6 +44,22 @@ export default function Login() {
     <div className="container">
       <div className="intro">
         <TP className="head-subtitle">You are now logged in with Tonomy ID.</TP>
+        <TP size={1}>
+          Anonymous account: {accountName} (
+          <a
+            target={"_blank"}
+            href={
+              "https://local.bloks.io/account/" +
+              accountName +
+              "?nodeUrl=http://localhost:8888"
+            }
+            rel="noreferrer"
+          >
+            view on the blockchain
+          </a>
+          )
+        </TP>
+        <TP size={1}>Username: {username}</TP>
         <TH3 className="text-title">Home</TH3>
         <TP className="text-header">
           Our demo site showcases the benefits of Tonomy ID for both users and
