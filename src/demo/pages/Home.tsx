@@ -23,9 +23,13 @@ export default function Home() {
       const accountName = await user.getAccountName();
 
       console.log("Logged in as", accountName.toString());
-      // TODO take user to logged in page
+      navigation("/"); // TODO take user to logged in page
     } catch (e) {
-      if (e instanceof SdkError && e.code === SdkErrors.AccountNotFound) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist)
+      ) {
         // User not logged in
         return;
       }
@@ -37,17 +41,6 @@ export default function Home() {
   useEffect(() => {
     onRender();
   }, []);
-
-  useEffect(() => {
-    checkUserLoggedIn();
-  }, []);
-
-  const checkUserLoggedIn = async () => {
-    const user = await api.ExternalUser.getUser();
-
-    if (user) navigation("/"); // this should be the route to user's home.
-    // else localStorage.removeItem(STORAGE_NAMESPACE + ".tonomy.id.did"); This cannot be done yet since there's no information stored on local storage on demo website.
-  };
 
   return (
     <div className="container">
