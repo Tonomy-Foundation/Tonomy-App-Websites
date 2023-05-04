@@ -60,7 +60,7 @@ export default function Login() {
     <div className="container">
       <div className="intro">
         <TP className="head-subtitle">You are now logged in with Tonomy ID.</TP>
-        <TP size={1}>
+        <TP>
           Anonymous account: {accountName} (
           <a
             target={"_blank"}
@@ -75,7 +75,7 @@ export default function Login() {
           </a>
           )
         </TP>
-        <TP size={1}>Username: {username}</TP>
+        <TP>Username: {username}</TP>
         <TButton onClick={onLogout}>Logout</TButton>
         <TH3 className="text-title">Home</TH3>
         <TP className="text-header">
