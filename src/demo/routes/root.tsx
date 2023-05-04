@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Callback from "../pages/Callback";
-import Login from "../pages/Login";
+import UserHome from "../pages/UserHome";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <Callback />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/user-home",
+    element: <UserHome />,
   },
 ]);
 

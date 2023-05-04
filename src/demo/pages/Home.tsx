@@ -18,12 +18,9 @@ export default function Home() {
 
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
-
-      const accountName = await user.getAccountName();
-
-      console.log("Logged in as", accountName.toString());
-      navigation("/"); // TODO take user to logged in page
+      await api.ExternalUser.getUser();
+      // User is logged in
+      navigation("/user-home");
     } catch (e) {
       if (
         e instanceof SdkError &&

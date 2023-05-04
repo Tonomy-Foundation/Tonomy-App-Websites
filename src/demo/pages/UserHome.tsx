@@ -4,11 +4,10 @@ import "./Login.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
-  }
+  const navigation = useNavigate();
 
   async function onRender() {
     try {
@@ -19,8 +18,13 @@ export default function Login() {
       console.log("Logged in as", accountName.toString());
       // TODO take user to logged in page
     } catch (e) {
-      if (e instanceof SdkError && e.code === SdkErrors.AccountNotFound) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist)
+      ) {
         // User not logged in
+        navigation("/");
         return;
       }
 
