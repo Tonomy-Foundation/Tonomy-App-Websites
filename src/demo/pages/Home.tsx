@@ -25,12 +25,14 @@ export default function Home() {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist)
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
         return;
       }
 
+      console.error(e);
       alert(e);
     }
   }

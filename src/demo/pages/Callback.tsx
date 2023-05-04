@@ -22,6 +22,7 @@ export default function Callback() {
         alert("User cancelled login");
         navigation("/");
       } else {
+        console.error(e);
         alert(e);
       }
     }

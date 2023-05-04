@@ -29,13 +29,15 @@ export default function Login() {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist)
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
         navigation("/");
         return;
       }
 
+      console.error(e);
       alert(e);
     }
   }
@@ -49,6 +51,7 @@ export default function Login() {
       await user?.logout();
       navigation("/");
     } catch (e) {
+      console.error(e);
       alert(e);
     }
   }
