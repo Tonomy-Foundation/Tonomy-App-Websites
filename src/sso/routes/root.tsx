@@ -6,6 +6,16 @@ import Login from "../pages/Login";
 import Loading from "../pages/Loading";
 import AppDetails from "../pages/AppDetails";
 
+/* Navigation flow:
+  /login
+  --> /loading (logged in)
+    --> external website (on logout / cancel)
+    --> /appDetails (app requests sent)
+      --> external website (on logout) **
+  --> /callback (after QR code scanned and the request response received)
+    --> ** external website (with the response)
+*/
+
 const router = createBrowserRouter([
   {
     path: "/",
