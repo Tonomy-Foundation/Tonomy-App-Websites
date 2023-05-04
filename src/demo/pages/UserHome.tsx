@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./UserHome.css";
 import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
+import { TButton } from "../../sso/components/Tbutton";
 
 export default function Login() {
+  const [user, setUser] = useState<ExternalUser | null>(null);
   const [accountName, setAccountName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const navigation = useNavigate();
@@ -14,6 +16,8 @@ export default function Login() {
   async function onRender() {
     try {
       const user = await api.ExternalUser.getUser();
+
+      setUser(user);
 
       const accountName = await user.getAccountName();
 
@@ -40,6 +44,15 @@ export default function Login() {
     onRender();
   }, []);
 
+  async function onLogout() {
+    try {
+      await user?.logout();
+      navigation("/");
+    } catch (e) {
+      alert(e);
+    }
+  }
+
   return (
     <div className="container">
       <div className="intro">
@@ -60,6 +73,7 @@ export default function Login() {
           )
         </TP>
         <TP size={1}>Username: {username}</TP>
+        <TButton onClick={onLogout}>Logout</TButton>
         <TH3 className="text-title">Home</TH3>
         <TP className="text-header">
           Our demo site showcases the benefits of Tonomy ID for both users and
