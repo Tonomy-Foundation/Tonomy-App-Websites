@@ -7,11 +7,14 @@ import { TH1, TH3, TP } from "../../sso/components/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
+
+  const navigation = useNavigate();
 
   async function onRender() {
     try {
@@ -20,9 +23,13 @@ export default function Home() {
       const accountName = await user.getAccountName();
 
       console.log("Logged in as", accountName.toString());
-      // TODO take user to logged in page
+      navigation("/"); // TODO take user to logged in page
     } catch (e) {
-      if (e instanceof SdkError && e.code === SdkErrors.AccountNotFound) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist)
+      ) {
         // User not logged in
         return;
       }
