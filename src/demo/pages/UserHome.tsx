@@ -6,6 +6,7 @@ import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import { TButton } from "../../sso/components/Tbutton";
+import settings from "../settings";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);
@@ -66,8 +67,11 @@ export default function Login() {
             target={"_blank"}
             href={
               "https://local.bloks.io/account/" +
-              accountName +
-              "?nodeUrl=http://localhost:8888"
+                accountName +
+                "?nodeUrl=" +
+                settings.isProduction()
+                ? settings.config.blockchainUrl
+                : "https://localhost:8000"
             }
             rel="noreferrer"
           >
