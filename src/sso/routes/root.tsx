@@ -29,14 +29,14 @@ const router = createBrowserRouter([
     path: "/download",
     element: <DownloadApp />,
   },
-  {
-    path: "/appDetails",
-    element: <AppDetails />,
-  },
-  {
-    path: "/loading",
-    element: <Loading />,
-  },
+  // {
+  //   path: "/appDetails",
+  //   element: <AppDetails />,
+  // },
+  // {
+  //   path: "/loading",
+  //   element: <Loading />,
+  // },
   {
     path: "/callback",
     element: <CallBackPage />,
