@@ -20,8 +20,9 @@ export default function CallBackPage() {
       const { success, error, requests, accountName, username } =
         UserApps.getLoginRequestResponseFromUrl();
 
-      if (success) {
-        if (!requests || !accountName || !username) {
+      if (success === true) {
+        // sucessfully logged in
+        if (!accountName || !username) {
           throw new Error("Invalid response");
         }
 
@@ -33,7 +34,6 @@ export default function CallBackPage() {
 
         if (!externalLoginRequest) {
           throw new Error("Login request for external site was not found");
-          //TODO: handle this here
         }
 
         const loginRequestPayload = externalLoginRequest.getPayload();
@@ -50,6 +50,7 @@ export default function CallBackPage() {
           });
         window.location.href = url;
       } else {
+        // failed to login
         const externalLoginRequest = requests.find(
           (r) => r.getPayload().origin !== window.location.origin
         );
@@ -75,6 +76,7 @@ export default function CallBackPage() {
         e instanceof SdkError &&
         (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
       ) {
+        // User logged out or cancelled login in Tonomy ID
         try {
           const { requests } = await UserApps.getLoginRequestFromUrl();
           const externalLoginRequest = requests.find(
@@ -102,9 +104,11 @@ export default function CallBackPage() {
 
           window.location.href = callbackUrl;
         } catch (e) {
+          // Some error while trying to terminate login request
           console.error(e);
         }
       } else {
+        // Some other error while trying to verify login
         console.error(e);
       }
     }

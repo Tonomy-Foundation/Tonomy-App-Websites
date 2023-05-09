@@ -96,7 +96,7 @@ function Login() {
         communication.subscribeMessage(async (message) => {
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const jwkIssuer = await api.ExternalUser.getJwkIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,

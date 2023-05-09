@@ -11,7 +11,8 @@ import {
   LoginRequestsMessage,
   AuthenticationMessage,
   SdkErrors,
-  objToBase64Url,
+  randomString,
+  KeyManagerLevel,
 } from "@tonomy/tonomy-id-sdk";
 import "./loading.css";
 import { useCommunicationStore } from "../stores/communication.store";
@@ -36,32 +37,33 @@ const Loading = () => {
 
       const user = await api.ExternalUser.getUser();
       const issuer = await user.getIssuer();
+      const publicKey = await user.keyManager.getKey({
+        level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+      });
 
       setUser(user);
       const username = await user.getUsername();
 
       setUsername(username.username);
-      const request = await user.getLoginRequest();
 
-      // get issuer from storage
-      const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+      const payload = {
+        randomString: randomString(32),
+        origin: window.location.origin,
+        publicKey: publicKey,
+        callbackPath: "/callback",
+      };
 
-      // TODO we do not need to login again if we are already logged in...
-      const ssoLoginRequest = await LoginRequest.signRequest(
-        request,
-        // TODO this should be signed by the did:antelope now
-        jwkIssuer
-      );
+      const ssoLoginRequest = await LoginRequest.signRequest(payload, issuer);
 
       const communicationLoginMessage =
-        await AuthenticationMessage.signMessageWithoutRecipient({}, jwkIssuer);
+        await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
 
       const appLoginRequest = await LoginRequestsMessage.signMessage(
         {
           requests: [externalLoginRequest, ssoLoginRequest],
         },
-        jwkIssuer,
-        issuer.did
+        issuer,
+        await user.getWalletDid()
       );
 
       await communication.login(communicationLoginMessage);
