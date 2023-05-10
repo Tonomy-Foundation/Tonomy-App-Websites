@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
@@ -95,6 +96,10 @@ const MainLayout = ({ content }) => {
       <div className="main-content">{content}</div>
     </div>
   );
+};
+
+MainLayout.propTypes = {
+  content: PropTypes.any,
 };
 
 export default MainLayout;
