@@ -36,7 +36,7 @@ export default function DownloadApp() {
         </a>
       </div>
       <TP>
-        Already have Tonomy? <TA>Log in here</TA>
+        Already have Tonomy? <TA href="/login">Log in here</TA>
       </TP>
     </div>
   );
