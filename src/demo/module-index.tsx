@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes/root";
 import settings from "./settings";
 import { api } from "@tonomy/tonomy-id-sdk";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 api.setSettings({
   ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
@@ -13,7 +14,9 @@ api.setSettings({
 export default function initiate(root: ReactDOM.Root) {
   return root.render(
     <React.StrictMode>
-      <RouterProvider router={router}></RouterProvider>
+      <ProSidebarProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </ProSidebarProvider>
     </React.StrictMode>
   );
 }
