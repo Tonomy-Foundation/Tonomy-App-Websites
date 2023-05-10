@@ -278,22 +278,8 @@ function Login() {
       return (
         <>
           <TP>Scan the QR code with the Tonomy ID app</TP>
-          <fieldset className="fieldset-view">
-            {/* <legend className="legend-view">
-              {" "}
-              <TButton
-                startIcon={<ContentCopyIcon></ContentCopyIcon>}
-                onClick={() => navigation("/download")}
-              >
-                Copy request link
-              </TButton>
-          </legend> */}
-            {!showQR && <TProgressCircle />}
-            {showQR && <QRCode value={showQR}></QRCode>}
-          </fieldset>
-          <TContainedButton onClick={() => navigation("/download")}>
-            Don't have Tonomy ID yet?
-          </TContainedButton>
+          {!showQR && <TProgressCircle />}
+          {showQR && <QRCode value={showQR}></QRCode>}
         </>
       );
     } else {
@@ -360,38 +346,47 @@ function Login() {
     <div style={styles.container}>
       <TImage height={62} src={logo} alt="Tonomy Logo" />
       <TH3>Login with Tonomy</TH3>
-      {status === "qr" && renderQROrLoading()}
       {(status === "connecting" || status === "app") && (
         <>{username && <TH4>{username}</TH4>}</>
       )}
-      {status === "connecting" && (
-        <>
-          <LinkingPhone />
-        </>
-      )}
-      {status === "app" && (
-        <>
-          {app && (
-            <div
-              style={{
-                ...styles.detailContainer,
-              }}
-            >
-              <TImage src={app.logoUrl}></TImage>
-              <TH3>{app.appName}</TH3>
-              <TH4>wants you to log in to their application</TH4>
-              <TP style={{ margin: "10px" }}>
-                Please proceed to login to Tonomy ID app on your phone.
-              </TP>
-            </div>
-          )}
-          {!app && (
-            <div className="detail-container">
-              <TH4>Loading app details</TH4>
-              <TProgressCircle />
-            </div>
-          )}
-        </>
+
+      <div
+        style={{
+          ...styles.detailContainer,
+        }}
+      >
+        {status === "qr" && renderQROrLoading()}
+
+        {status === "connecting" && (
+          <>
+            <LinkingPhone />
+          </>
+        )}
+        {status === "app" && (
+          <>
+            {app && (
+              <>
+                <TImage src={app.logoUrl}></TImage>
+                <TH3>{app.appName}</TH3>
+                <TH4>wants you to log in to their application</TH4>
+                <TP style={{ margin: "10px" }}>
+                  Please proceed to login to Tonomy ID app on your phone.
+                </TP>
+              </>
+            )}
+            {!app && (
+              <div className="detail-container">
+                <TH4>Loading app details</TH4>
+                <TProgressCircle />
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      {status === "qr" && (
+        <TContainedButton onClick={() => navigation("/download")}>
+          Don't have Tonomy ID yet?
+        </TContainedButton>
       )}
       {(status === "connecting" || status === "app") && (
         <>
