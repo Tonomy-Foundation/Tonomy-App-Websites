@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
   UserApps,
@@ -16,7 +15,6 @@ import {
   SdkError,
   SdkErrors,
   ExternalUser,
-  User,
   App,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
@@ -27,8 +25,7 @@ import settings from "../settings";
 import { isMobile } from "../utills/IsMobile";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
-import { useCommunicationStore } from "../stores/communication.store";
-import "./login.css";
+import "./Login.css";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { TButton } from "../components/Tbutton";
 import { TContainedButton } from "../components/TContainedButton";
@@ -45,6 +42,12 @@ const styles = {
     flex: 1,
     textAlign: "center" as const,
     alignSelf: "center",
+  },
+  detailContainer: {
+    marginTop: "20px",
+    padding: "40px 10px",
+    border: "2px solid #EFF1F7",
+    borderRadius: "20px",
   },
 };
 
@@ -369,7 +372,11 @@ function Login() {
       {status === "app" && (
         <>
           {app && (
-            <div className="detailContainer">
+            <div
+              style={{
+                ...styles.detailContainer,
+              }}
+            >
               <TImage src={app.logoUrl}></TImage>
               <TH3>{app.appName}</TH3>
               <TH4>wants you to log in to their application</TH4>
@@ -379,7 +386,7 @@ function Login() {
             </div>
           )}
           {!app && (
-            <div className="detailContainer">
+            <div className="detail-container">
               <TH4>Loading app details</TH4>
               <TProgressCircle />
             </div>
