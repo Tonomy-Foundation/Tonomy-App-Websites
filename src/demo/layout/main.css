@@ -46,6 +46,13 @@
     color: #BEBEBE;
   }
 
+  a {
+    color: #BEBEBE;
+    &:hover{
+      color: #ffffff;
+    }
+  }
+
   .ps-menuitem-root{
     line-height: 3.3;
   }
