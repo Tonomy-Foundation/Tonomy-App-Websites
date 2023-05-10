@@ -102,39 +102,67 @@ function Login() {
     // Login to the communication server
     await communication.login(loginToCommunication);
 
-    // subscribe for connection from Tonomy ID, which will then send login request
-    communication.subscribeMessage(async (message) => {
-      try {
-        setStatus("connecting");
+    if (userStore.isLoggedIn()) {
+      console.log("isLoggedIn() === true");
+      setStatus("connecting");
+      const tonomyIDDid = localStorage.getItem(
+        STORAGE_NAMESPACE + ".tonomy.id.did"
+      );
 
-        const identifyMessage = new IdentifyMessage(message);
+      if (!tonomyIDDid) throw new Error("No Tonomy ID DID found");
 
-        const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
-        const requestMessage = await LoginRequestsMessage.signMessage(
-          {
-            requests,
-          },
-          jwkIssuer,
-          identifyMessage.getSender()
-        );
+      const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+      const requestMessage = await LoginRequestsMessage.signMessage(
+        {
+          requests,
+        },
+        jwkIssuer,
+        tonomyIDDid
+      );
 
-        localStorage.setItem(
-          STORAGE_NAMESPACE + ".tonomy.id.did",
-          identifyMessage.getSender()
-        );
+      await communication.sendMessage(requestMessage);
 
-        communication.sendMessage(requestMessage);
-        setStatus("app");
-      } catch (e) {
-        console.error(e);
-        alert(e);
-      }
-    }, IdentifyMessage.getType());
+      setStatus("app");
+    } else {
+      console.log("isLoggedIn() === false");
+      // subscribe for connection from Tonomy ID, which will then send login request
+      communication.subscribeMessage(async (message) => {
+        console.log("IdentifyMessage");
+
+        try {
+          setStatus("connecting");
+
+          const identifyMessage = new IdentifyMessage(message);
+
+          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const requestMessage = await LoginRequestsMessage.signMessage(
+            {
+              requests,
+            },
+            jwkIssuer,
+            identifyMessage.getSender()
+          );
+
+          localStorage.setItem(
+            STORAGE_NAMESPACE + ".tonomy.id.did",
+            identifyMessage.getSender()
+          );
+
+          await communication.sendMessage(requestMessage);
+          setStatus("app");
+        } catch (e) {
+          console.error(e);
+          alert(e);
+        }
+      }, IdentifyMessage.getType());
+    }
   }
 
   // waits for the login request response from Tonomy ID then redirects to the callback url
   async function subscribeToLoginRequestResponse() {
     communication.subscribeMessage(async (message: Message) => {
+      console.log("LoginRequestResponseMessage");
+
       try {
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
           message
@@ -184,7 +212,10 @@ function Login() {
   }
 
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
-  async function loginToTonomyAndSendRequests(loggedIn = false) {
+  async function loginToTonomyAndSendRequests(
+    loggedIn = false,
+    user?: ExternalUser
+  ) {
     try {
       const externalLoginRequest = await UserApps.onRedirectLogin();
 
@@ -202,8 +233,7 @@ function Login() {
         requests.push(loginRequest);
         loginToCommunication = loginToCommunicationVal;
       } else {
-        const user = userStore.user as ExternalUser;
-
+        if (!user) throw new Error("No user found");
         const loginRequestPayload = await user.getLoginRequest();
 
         // get issuer from storage
@@ -233,11 +263,14 @@ function Login() {
 
         setShowQR(did);
 
+        console.log("1");
         await connectToTonomyId(requests, loginToCommunication);
+        console.log("2");
         await subscribeToLoginRequestResponse();
+        console.log("3");
       }
     } catch (e) {
-      console.error(JSON.stringify(e, null, 2));
+      console.error(e);
       alert(e);
     }
   }
@@ -252,7 +285,7 @@ function Login() {
 
     setUsername(username.getBaseUsername());
 
-    loginToTonomyAndSendRequests(true);
+    loginToTonomyAndSendRequests(true, user);
   }
 
   // check if user logged in and if not starts login process from URL parameters
@@ -273,23 +306,24 @@ function Login() {
     }
   }
 
-  function renderQROrLoading() {
-    if (!isMobile()) {
-      return (
-        <>
-          <TP>Scan the QR code with the Tonomy ID app</TP>
-          {!showQR && <TProgressCircle />}
-          {showQR && <QRCode value={showQR}></QRCode>}
-        </>
-      );
-    } else {
-      return (
-        <>
-          <TP>Loading QR code request</TP>
-          <TProgressCircle />
-        </>
-      );
-    }
+  function QROrLoading() {
+    return (
+      <>
+        {!isMobile() && (
+          <>
+            <TP>Scan the QR code with the Tonomy ID app</TP>
+            {!showQR && <TProgressCircle />}
+            {showQR && <QRCode value={showQR}></QRCode>}
+          </>
+        )}
+        {isMobile() && (
+          <>
+            <TP>Redirecting to Tonomy ID</TP>
+            <TProgressCircle />
+          </>
+        )}
+      </>
+    );
   }
 
   const logout = async () => {
@@ -310,6 +344,7 @@ function Login() {
       );
 
       if (userStore.user) await userStore.user.logout();
+      await userStore.clearStorage();
 
       window.location.href = callbackUrl;
     } catch (e) {
@@ -334,7 +369,10 @@ function Login() {
         }
       );
 
-      if (userStore.user) await userStore.user.logout();
+      if (userStore.user) {
+        // TODO send a message to Tonomy ID telling it the request is cancelled
+        await userStore.user.logout();
+      }
 
       window.location.href = callbackUrl;
     } catch (e) {
@@ -355,7 +393,7 @@ function Login() {
           ...styles.detailContainer,
         }}
       >
-        {status === "qr" && renderQROrLoading()}
+        {status === "qr" && <QROrLoading />}
 
         {status === "connecting" && (
           <>
