@@ -344,7 +344,6 @@ function Login() {
       );
 
       if (userStore.user) await userStore.user.logout();
-      await userStore.clearStorage();
 
       window.location.href = callbackUrl;
     } catch (e) {
