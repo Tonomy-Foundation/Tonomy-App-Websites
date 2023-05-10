@@ -31,6 +31,7 @@ import { TButton } from "../components/Tbutton";
 import { TContainedButton } from "../components/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";
+import QROrLoading from "../molecules/ShowQr";
 
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -51,7 +52,7 @@ const styles = {
   },
 };
 
-function Login() {
+export default function Login() {
   const [status, setStatus] = useState<"qr" | "connecting" | "app">("qr");
   const [username, setUsername] = useState<string>();
   const [showQR, setShowQR] = useState<string>();
@@ -306,26 +307,6 @@ function Login() {
     }
   }
 
-  function QROrLoading() {
-    return (
-      <>
-        {!isMobile() && (
-          <>
-            <TP>Scan the QR code with the Tonomy ID app</TP>
-            {!showQR && <TProgressCircle />}
-            {showQR && <QRCode value={showQR}></QRCode>}
-          </>
-        )}
-        {isMobile() && (
-          <>
-            <TP>Redirecting to Tonomy ID</TP>
-            <TProgressCircle />
-          </>
-        )}
-      </>
-    );
-  }
-
   const logout = async () => {
     try {
       const { requests } = await UserApps.getLoginRequestFromUrl();
@@ -392,7 +373,7 @@ function Login() {
           ...styles.detailContainer,
         }}
       >
-        {status === "qr" && <QROrLoading />}
+        {status === "qr" && <QROrLoading showQr={showQR} />}
 
         {status === "connecting" && (
           <>
@@ -448,7 +429,5 @@ function Login() {
         </>
       )}
     </div>
-  ) as any;
+  );
 }
-
-export default Login;
