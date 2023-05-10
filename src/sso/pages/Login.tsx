@@ -119,7 +119,8 @@ function Login() {
         );
 
         communication.sendMessage(requestMessage);
-        setStatus("app");
+        console.log("here");
+        // setStatus("app");
       } catch (e) {
         console.error(e);
         alert(e);
@@ -335,7 +336,7 @@ function Login() {
         }
       );
 
-      if (user) await user.logout();
+      if (userStore.user) await userStore.user.logout();
 
       window.location.href = callbackUrl;
     } catch (e) {
