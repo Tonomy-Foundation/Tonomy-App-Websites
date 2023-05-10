@@ -104,7 +104,6 @@ export default function Login() {
     await communication.login(loginToCommunication);
 
     if (userStore.isLoggedIn()) {
-      console.log("isLoggedIn() === true");
       setStatus("connecting");
       const tonomyIDDid = localStorage.getItem(
         STORAGE_NAMESPACE + ".tonomy.id.did"
@@ -125,11 +124,8 @@ export default function Login() {
 
       setStatus("app");
     } else {
-      console.log("isLoggedIn() === false");
       // subscribe for connection from Tonomy ID, which will then send login request
       communication.subscribeMessage(async (message) => {
-        console.log("IdentifyMessage");
-
         try {
           setStatus("connecting");
 
@@ -162,8 +158,6 @@ export default function Login() {
   // waits for the login request response from Tonomy ID then redirects to the callback url
   async function subscribeToLoginRequestResponse() {
     communication.subscribeMessage(async (message: Message) => {
-      console.log("LoginRequestResponseMessage");
-
       try {
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
           message
@@ -264,11 +258,8 @@ export default function Login() {
 
         setShowQR(did);
 
-        console.log("1");
         await connectToTonomyId(requests, loginToCommunication);
-        console.log("2");
         await subscribeToLoginRequestResponse();
-        console.log("3");
       }
     } catch (e) {
       console.error(e);
