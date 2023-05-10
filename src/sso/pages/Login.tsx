@@ -298,7 +298,7 @@ export default function Login() {
     }
   }
 
-  const logout = async () => {
+  const onLogout = async () => {
     try {
       const { requests } = await UserApps.getLoginRequestFromUrl();
 
@@ -323,7 +323,7 @@ export default function Login() {
     }
   };
 
-  const cancelRequest = async () => {
+  const onCancel = async () => {
     try {
       const { requests } = await UserApps.getLoginRequestFromUrl();
 
@@ -342,7 +342,6 @@ export default function Login() {
 
       if (userStore.user) {
         // TODO send a message to Tonomy ID telling it the request is cancelled
-        await userStore.user.logout();
       }
 
       window.location.href = callbackUrl;
@@ -402,7 +401,7 @@ export default function Login() {
           <div>
             <TContainedButton
               onClick={async () => {
-                await cancelRequest();
+                await onCancel();
               }}
             >
               Cancel
@@ -411,7 +410,7 @@ export default function Login() {
           {userStore.user && (
             <TButton
               className="logout margin-top"
-              onClick={logout}
+              onClick={onLogout}
               startIcon={<LogoutIcon></LogoutIcon>}
             >
               Logout
