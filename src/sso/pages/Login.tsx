@@ -17,6 +17,7 @@ import {
   SdkErrors,
   ExternalUser,
   User,
+  App,
 } from "@tonomy/tonomy-id-sdk";
 import QRCode from "react-qr-code";
 import { TH3, TH4, TP } from "../components/THeadings";
@@ -51,6 +52,7 @@ function Login() {
   const [status, setStatus] = useState<"qr" | "connecting" | "app">("qr");
   const [username, setUsername] = useState<string>();
   const [showQR, setShowQR] = useState<string>();
+  const [app, setApp] = useState<App>();
   const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
   const userStore = useUserStore();
@@ -119,8 +121,7 @@ function Login() {
         );
 
         communication.sendMessage(requestMessage);
-        console.log("here");
-        // setStatus("app");
+        setStatus("app");
       } catch (e) {
         console.error(e);
         alert(e);
@@ -173,10 +174,18 @@ function Login() {
     }, LoginRequestResponseMessage.getType());
   }
 
+  async function getAppDetails(loginRequest: LoginRequest) {
+    const app = await App.getApp(loginRequest.getPayload().origin);
+
+    setApp(app);
+  }
+
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(loggedIn = false) {
     try {
       const externalLoginRequest = await UserApps.onRedirectLogin();
+
+      getAppDetails(externalLoginRequest);
       const requests = [externalLoginRequest];
       let loginToCommunication: AuthenticationMessage;
 
@@ -311,7 +320,7 @@ function Login() {
         }
       );
 
-      if (user) await user.logout();
+      if (userStore.user) await userStore.user.logout();
 
       window.location.href = callbackUrl;
     } catch (e) {
@@ -355,6 +364,26 @@ function Login() {
       {status === "connecting" && (
         <>
           <LinkingPhone />
+        </>
+      )}
+      {status === "app" && (
+        <>
+          {app && (
+            <div className="detailContainer">
+              <TImage src={app.logoUrl}></TImage>
+              <TH3>{app.appName}</TH3>
+              <TH4>wants you to log in to their application</TH4>
+              <TP style={{ margin: "10px" }}>
+                Please proceed to login to Tonomy ID app on your phone.
+              </TP>
+            </div>
+          )}
+          {!app && (
+            <div className="detailContainer">
+              <TH4>Loading app details</TH4>
+              <TProgressCircle />
+            </div>
+          )}
         </>
       )}
       {(status === "connecting" || status === "app") && (
