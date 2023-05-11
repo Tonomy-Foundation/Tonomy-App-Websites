@@ -1,5 +1,5 @@
 import React from "react";
-import "./Theadings.css";
+import "./THeadings.css";
 
 type PProps = React.HTMLAttributes<HTMLParagraphElement> & {
   size?: 2;

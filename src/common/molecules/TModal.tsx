@@ -1,7 +1,7 @@
 import React from "react";
 import { TButton } from "../atoms/TButton";
 import { Box, Modal } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import TIcon from "../atoms/TIcon";
 
 export type ModalProps = React.ComponentProps<typeof Modal> & {
   onPress: () => void;
@@ -48,9 +48,7 @@ export default function TModal(props: ModalProps) {
       <Box sx={styles.modal}>
         <Box sx={styles.modalContent}>
           <div style={{ textAlign: "center" }}>
-            <div>
-              <DeleteIcon />
-            </div>
+            <TIcon icon={props.icon} />
             <div style={styles.title}>{props.title}</div>
             {props.children}
             <div style={styles.buttonView}>

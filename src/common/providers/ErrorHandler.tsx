@@ -26,6 +26,7 @@ export default function ErrorHandlerProvider() {
             // subscribe to errorStore changes to update the modal
             // using the `errorStore` variable does not work as changes do not force a re-render
             useErrorStore.subscribe((state) => {
+                console.log('error received', state.title)
                 errorRef.current.error = state.error;
                 errorRef.current.title = state.title;
                 errorRef.current.expected = state.expected;
@@ -38,20 +39,21 @@ export default function ErrorHandlerProvider() {
     );
 
     return (
-        // <TErrorModal
-        //     open={showModal}
-        //     onPress={onModalPress}
-        //     error={errorRef.current.error}
-        //     title={errorRef.current.title}
-        //     expected={errorRef.current.expected}
-        // />
-        <TModal
+        <TErrorModal
             open={showModal}
-            onPress={() => setShowModal(false)}
-            icon="abc"
-            title="Whats app"
-        >
-            <div>hello</div>
-        </TModal >
+            onPress={onModalPress}
+            icon="error"
+            error={errorRef.current.error}
+            title={errorRef.current.title ?? "Something went wrong"}
+            expected={errorRef.current.expected}
+        />
+        // <TModal
+        //     open={showModal}
+        //     onPress={() => setShowModal(false)}
+        //     icon="error"
+        //     title="Whats app"
+        // >
+        //     <div>hello</div>
+        // </TModal >
     );
 }
