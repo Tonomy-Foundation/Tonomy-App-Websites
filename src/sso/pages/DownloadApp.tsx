@@ -4,7 +4,7 @@ import { TH1, TH4, TH3, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
-import settings from "../settings";
+import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
 import appleStoreBadge from "../assets/tonomy/tonomy-logo1024.png";
 

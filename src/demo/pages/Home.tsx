@@ -4,11 +4,10 @@ import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TH1, TH3, TP } from "../../common/atoms/THeadings";
-import logo from "../assets/tonomy/tonomy-logo48.png";
+import logo from "/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
-import useErrorStore from "../../common/stores/errorStore";
 
 export default function Home() {
   async function onButtonPress() {
