@@ -22,7 +22,7 @@ export default function TestEnd() {
             }
         } catch (e: any) {
             if (e?.message?.startsWith("invalid_signature: no matching public key found")) {
-                // console.log('Bug caught', e);
+                console.log('Bug caught in end', e);
 
                 const keyPair = await localStorage.getItem(STORAGE_NAMESPACE + "key." + KeyManagerLevel.BROWSER_LOCAL_STORAGE)
                 const { publicKey, privateKey } = JSON.parse(keyPair as string);

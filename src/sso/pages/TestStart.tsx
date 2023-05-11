@@ -25,7 +25,6 @@ export default function TestStart() {
         } catch (e) {
             if (e?.message?.startsWith("invalid_signature: no matching public key found")) {
                 console.log('Bug caught in start', e);
-                return;
             } else {
                 console.error('error', e)
             }
