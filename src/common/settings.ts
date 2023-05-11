@@ -1,5 +1,5 @@
-import { defaultConfig } from "./config/config.json";
-import { stagingConfig } from "./config/config.staging.json";
+import defaultConfig from "./config/config.json";
+import stagingConfig from "./config/config.staging.json";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.VITE_APP_NODE_ENV || "development";
