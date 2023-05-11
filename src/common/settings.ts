@@ -1,15 +1,19 @@
-const env = import.meta.env.VITE_APP_NODE_ENV || "development";
-
 import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
 
-type ConfigType = {
-  blockchainUrl: string;
+// cannot use NODE_ENV as it is always "production" on `npm run build`
+const env = import.meta.env.VITE_APP_NODE_ENV || "development";
+
+console.log(import.meta.env);
+console.log(`VITE_APP_NODE_ENV=${env}`);
+
+export type ConfigType = {
   theme: {
     primaryColor: string;
     secondaryColor: string;
     tertiaryColor: string;
   };
+  appLogoUrl: string;
   appName: string;
   ecosystemName: string;
   appSlogan: string;
@@ -19,11 +23,13 @@ type ConfigType = {
   };
   links: {
     readMoreDownload: string;
-    playStoreDownload: string;
     appleStoreDownload: string;
-  };
-  tonomyIdLink: string;
-  communicationUrl: string;
+    playStoreDownload: string;
+  },
+  tonomyIdLink: string,
+  communicationUrl: string,
+  ssoWebsiteOrigin: string;
+  blockchainUrl: string;
 };
 
 type SettingsType = {
@@ -31,7 +37,6 @@ type SettingsType = {
   config: ConfigType;
   isProduction: () => boolean;
 };
-
 let config: ConfigType;
 const settings: SettingsType = {
   env,
@@ -62,20 +67,12 @@ if (import.meta.env.VITE_BLOCKCHAIN_URL) {
   config.blockchainUrl = import.meta.env.VITE_BLOCKCHAIN_URL;
 }
 
-if (import.meta.env.VITE_APP_TONOMY_ID_LINK) {
+if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
   console.log(
-    `Using TONOMY_ID_LINK from env:  ${import.meta.env.VITE_APP_TONOMY_ID_LINK}`
-  );
-  config.tonomyIdLink = import.meta.env.VITE_APP_TONOMY_ID_LINK;
-}
-
-if (import.meta.env.VITE_COMMUNICATION_URL) {
-  console.log(
-    `Using communication microService from env: ${
-      import.meta.env.VITE_COMMUNICATION_URL
+    `Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN
     }`
   );
-  config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
+  config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
 }
 
 settings.config = config;
