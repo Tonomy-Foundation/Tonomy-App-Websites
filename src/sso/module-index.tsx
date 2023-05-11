@@ -4,6 +4,7 @@ import { Container } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import router from "./routes/root";
+import ErrorHandlerProvider from "../common/providers/ErrorHandlerProvider";
 
 const styles = {
   container: {
@@ -18,6 +19,7 @@ export default function initiate(root: ReactDOM.Root) {
     // this will make components render twice in development to catch errors
     <React.StrictMode>
       <Container maxWidth="sm" style={styles.container}>
+        <ErrorHandlerProvider />
         <RouterProvider router={router}></RouterProvider>
       </Container>
     </React.StrictMode>
