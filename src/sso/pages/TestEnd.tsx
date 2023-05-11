@@ -39,8 +39,7 @@ export default function TestEnd() {
                 const loginRequestFromUrl = JSON.stringify(loginRequest)
 
                 console.log('loginRequest are the same', loginRequestFromUrl === loginRequestFromStorage)
-                // false = Login requests are NOT the same!!!
-
+                // true
             }
         }
     }
