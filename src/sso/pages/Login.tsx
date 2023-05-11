@@ -30,6 +30,7 @@ import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
+import useErrorStore from "../../common/stores/errorStore";
 
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
@@ -58,6 +59,7 @@ export default function Login() {
   const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
   const userStore = useUserStore();
+  const errorStore = useErrorStore();
 
   let rendered = false;
 
@@ -146,8 +148,10 @@ export default function Login() {
           await communication.sendMessage(requestMessage);
           setStatus("app");
         } catch (e) {
-          console.error(e);
-          alert(e);
+          errorStore.setError({
+            error: e,
+            expected: false,
+          });
         }
       }, IdentifyMessage.getType());
     }
@@ -192,8 +196,10 @@ export default function Login() {
           window.location.replace("/callback?payload=" + base64UrlPayload);
         }
       } catch (e) {
-        console.error(e);
-        alert(e);
+        errorStore.setError({
+          error: e,
+          expected: false,
+        });
       }
     }, LoginRequestResponseMessage.getType());
   }
@@ -260,8 +266,10 @@ export default function Login() {
         await subscribeToLoginRequestResponse();
       }
     } catch (e) {
-      console.error(e);
-      alert(e);
+      errorStore.setError({
+        error: e,
+        expected: false,
+      });
     }
   }
 
@@ -290,8 +298,10 @@ export default function Login() {
       ) {
         loginToTonomyAndSendRequests(false);
       } else {
-        console.error(JSON.stringify(e, null, 2));
-        alert(e);
+        errorStore.setError({
+          error: e,
+          expected: false,
+        });
       }
     }
   }

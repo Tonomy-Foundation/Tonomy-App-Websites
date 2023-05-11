@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./callback.css";
 import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function Callback() {
   const navigation = useNavigate();
+  const errorStore = useErrorStore();
 
   useEffect(() => {
     verifyLogin();
@@ -22,8 +24,10 @@ export default function Callback() {
         alert("User cancelled login");
         navigation("/");
       } else {
-        console.error(e);
-        alert(e);
+        errorStore.setError({
+          error: e,
+          expected: false,
+        });
       }
     }
   }

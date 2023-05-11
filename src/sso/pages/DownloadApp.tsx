@@ -7,8 +7,11 @@ import "./DownloadApp.css";
 import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
 import appleStoreBadge from "../assets/app-store.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function DownloadApp() {
+  const navigation = useNavigate();
+
   return (
     <div className="container">
       <TImage src={appleStoreBadge} height={86}></TImage>
@@ -36,7 +39,7 @@ export default function DownloadApp() {
         </a>
       </div>
       <TP>
-        Already have Tonomy? <TA href="/login">Log in here</TA>
+        Already have Tonomy? <TA onClick={() => navigation("/login")}>Log in here</TA>
       </TP>
     </div>
   );

@@ -6,12 +6,14 @@ import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import { TButton } from "../../common/atoms/TButton";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);
   const [accountName, setAccountName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const navigation = useNavigate();
+  const errorStore = useErrorStore()
 
   async function onRender() {
     try {
@@ -37,8 +39,10 @@ export default function Login() {
         return;
       }
 
-      console.error(e);
-      alert(e);
+      errorStore.setError({
+        error: e,
+        expected: false,
+      });
     }
   }
 
@@ -51,8 +55,10 @@ export default function Login() {
       await user?.logout();
       navigation("/");
     } catch (e) {
-      console.error(e);
-      alert(e);
+      errorStore.setError({
+        error: e,
+        expected: false,
+      });
     }
   }
 
