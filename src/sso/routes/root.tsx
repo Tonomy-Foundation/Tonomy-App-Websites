@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import CallBackPage from "../pages/CallBack";
 import DownloadApp from "../pages/DownloadApp";
 import Login from "../pages/Login";
+import TestStart from "../pages/TestStart";
+import TestEnd from "../pages/TestEnd";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
   {
     path: "/callback",
     element: <CallBackPage />,
+  },
+  {
+    path: "/test-start",
+    element: <TestStart />,
+  },
+  {
+    path: "/test-end",
+    element: <TestEnd />,
   },
 ]);
 
