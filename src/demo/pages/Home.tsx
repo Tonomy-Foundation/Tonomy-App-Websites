@@ -9,27 +9,35 @@ import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
+import { useUserStore } from "../../sso/stores/user.store";
 
 export default function Home() {
   const errorStore = useErrorStore();
+  const userStore = useUserStore();
 
   async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+    try {
+      api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+    } catch (e) {
+      errorStore.setError({
+        error: e,
+        expected: false,
+      });
+    }
   }
 
   const navigation = useNavigate();
 
   async function onRender() {
     try {
-      await api.ExternalUser.getUser();
-      // User is logged in
+      const user = await api.ExternalUser.getUser();
+
+      userStore.setUser(user);
       navigation("/user-home");
     } catch (e) {
       if (
         e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
+        (e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
         return;

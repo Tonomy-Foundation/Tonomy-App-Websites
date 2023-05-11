@@ -42,7 +42,7 @@ export default function ErrorHandlerProvider() {
         <TErrorModal
             open={showModal}
             onPress={onModalPress}
-            icon="error"
+            icon={errorRef.current.expected ? "info" : "error"}
             error={errorRef.current.error}
             title={errorRef.current.title ?? "Something went wrong"}
             expected={errorRef.current.expected}

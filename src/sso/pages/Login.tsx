@@ -91,7 +91,10 @@ export default function Login() {
     // wait 1 second
     // if this code runs then the redirect didn't work
     setTimeout(() => {
-      throw new Error("Redirect to Tonomy ID failed");
+      errorStore.setError({
+        error: new Error("Redirect to Tonomy ID failed"),
+        expected: false,
+      });
     }, 1000);
   }
 
@@ -327,7 +330,10 @@ export default function Login() {
 
       window.location.href = callbackUrl;
     } catch (e) {
-      console.error(e);
+      errorStore.setError({
+        error: e,
+        expected: false,
+      });
     }
   };
 
@@ -354,7 +360,10 @@ export default function Login() {
 
       window.location.href = callbackUrl;
     } catch (e) {
-      console.error(e);
+      errorStore.setError({
+        error: e,
+        expected: false,
+      })
     }
   };
 

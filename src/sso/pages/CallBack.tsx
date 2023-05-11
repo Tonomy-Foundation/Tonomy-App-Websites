@@ -7,8 +7,11 @@ import {
   SdkErrors,
   objToBase64Url,
 } from "@tonomy/tonomy-id-sdk";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function CallBackPage() {
+  const errorStore = useErrorStore();
+
   useEffect(() => {
     verifyRequests();
   }, []);
@@ -102,10 +105,16 @@ export default function CallBackPage() {
 
           window.location.href = callbackUrl;
         } catch (e) {
-          console.error(e);
+          errorStore.setError({
+            error: e,
+            expected: false,
+          });
         }
       } else {
-        console.error(e);
+        errorStore.setError({
+          error: e,
+          expected: false,
+        });
       }
     }
   }
