@@ -17,30 +17,30 @@ const MainLayout = ({ content }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
 
-  async function onRender() {
-    try {
-      const user = await api.ExternalUser.getUser();
+  // async function onRender() {
+  //   try {
+  //     const user = await api.ExternalUser.getUser();
 
-      setUser(user);
-    } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
-      ) {
-        // User not logged in
-        navigation("/");
-        return;
-      }
+  //     setUser(user);
+  //   } catch (e) {
+  //     if (
+  //       e instanceof SdkError &&
+  //       (e.code === SdkErrors.AccountNotFound ||
+  //         e.code === SdkErrors.AccountDoesntExist ||
+  //         e.code === SdkErrors.UserNotLoggedIn)
+  //     ) {
+  //       // User not logged in
+  //       navigation("/");
+  //       return;
+  //     }
 
-      console.error(e);
-      alert(e);
-    }
-  }
+  //     console.error(e);
+  //     alert(e);
+  //   }
+  // }
 
   useEffect(() => {
-    onRender();
+    // onRender();
     collapseSidebar();
   }, []);
 

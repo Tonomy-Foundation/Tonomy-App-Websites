@@ -10,7 +10,7 @@ import Messages from "../pages/messages";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <BlockchainTx />,
   },
   {
     path: "/callback",
