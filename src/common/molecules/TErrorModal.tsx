@@ -67,14 +67,16 @@ export default function TErrorModal(props: TErrorModalProps) {
       return (
         <div>
           <TP size={2}>Trx error:</TP>
-          {error.code && (
-            <div style={styles.greyText}>HTTP Code: {error.code}</div>
-          )}
-          <div style={styles.greyText}>Antelope Code: {trxError.code}</div>
-          <div style={styles.greyText}>Name: {trxError.name}</div>
-          <div style={styles.greyText}>What: {trxError.what}</div>
           <div style={styles.greyText}>
-            Details: {JSON.stringify(trxError.details, null, 2)}
+            {error.code && (
+              <div>HTTP Code: {error.code}</div>
+            )}
+            <div>Antelope Code: {trxError.code}</div>
+            <div>Name: {trxError.name}</div>
+            <div>What: {trxError.what}</div>
+            <div>
+              Details: {JSON.stringify(trxError.details, null, 2)}
+            </div>
           </div>
         </div>
       );
@@ -84,9 +86,11 @@ export default function TErrorModal(props: TErrorModalProps) {
       return (
         <div>
           <TP size={2}>Communication error:</TP>
-          <div style={styles.greyText}>Message: {exception.message}</div>
-          <div style={styles.greyText}>Status: {exception.status}</div>
-          <div style={styles.greyText}>Name: {exception.name}</div>
+          <div style={styles.greyText}>
+            <div>Message: {exception.message}</div>
+            <div>Status: {exception.status}</div>
+            <div>Name: {exception.name}</div>
+          </div>
         </div>
       );
     }
