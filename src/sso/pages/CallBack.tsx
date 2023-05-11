@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import TProgressCircle from "../components/TProgressCircle";
+import TProgressCircle from "../../common/atoms/TProgressCircle";
 import {
   api,
   UserApps,

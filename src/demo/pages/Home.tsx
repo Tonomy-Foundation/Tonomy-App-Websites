@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../settings";
 import "./Home.css";
-import { TH1, TH3, TP } from "../../sso/components/THeadings";
+import { TH1, TH3, TP } from "../../common/atoms/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";

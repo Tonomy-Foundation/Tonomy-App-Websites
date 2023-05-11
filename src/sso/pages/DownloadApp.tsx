@@ -1,7 +1,7 @@
 import React from "react";
-import { TA } from "../components/TA";
-import { TH1, TH4, TH3, TP } from "../components/THeadings";
-import TImage from "../components/TImage";
+import { TA } from "../../common/atoms/TA";
+import { TH1, TH4, TH3, TP } from "../../common/atoms/THeadings";
+import TImage from "../../common/atoms/TImage";
 import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
 import settings from "../settings";
