@@ -36,11 +36,16 @@ export default function Home() {
       navigation("/user-home");
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.UserNotLoggedIn)
-      ) {
-        // User not logged in
-        return;
+        e instanceof SdkError) {
+        switch (e.code) {
+          case SdkErrors.UserNotLoggedIn:
+            // User not logged in
+            return;
+          case SdkErrors.AccountDoesntExist:
+          case SdkErrors.AccountNotFound:
+            // Could not find account, ignore (storage has now been cleared automatically)
+            return;
+        }
       }
 
       errorStore.setError({
