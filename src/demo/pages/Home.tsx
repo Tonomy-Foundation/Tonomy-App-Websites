@@ -15,8 +15,6 @@ export default function Home() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
 
-  const errorStore = useErrorStore();
-
   const navigation = useNavigate();
 
   async function onRender() {
@@ -41,15 +39,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    errorStore.setError({
-      error: new Error("I am an error"),
-      title: "Error",
-      expected: false,
-      onClose: async () => {
-        alert("hello");
-        console.log("hello");
-      },
-    });
     onRender();
   }, []);
 
