@@ -92,7 +92,7 @@ export default function TestStart() {
         }
     }
 
-    function compareStrings(str1: string, str2: string): number {
+    function printDifferences(str1: string, str2: string): number {
         let changeCount = 0;
         let testLength = 0;
 
@@ -112,7 +112,8 @@ export default function TestStart() {
             }
         }
 
-        if (str1.length !== str2.length) console.log("length different:", str1.length, str2.length)
+        console.log("str1:               ", str1, str1.length);
+        console.log("str2:               ", str2 + " ", str2.length);
         console.log("character different:", printStr);
         return changeCount;
     }
@@ -123,9 +124,6 @@ export default function TestStart() {
                 console.log('i', i)
                 const { privateKey, publicKey } = generateRandomKeyPair();
 
-                const signer = ES256KSigner(privateKey.data.array, true);
-                const jwk = await createJWK(publicKey);
-
                 const ecKey = toElliptic(publicKey);
                 const pubKey = ecKey.getPublic();
 
@@ -134,11 +132,14 @@ export default function TestStart() {
                 const yBigNum = pubKey.getY();
                 const yBase64Url = bnToBase64Url(yBigNum);
 
+                const signer = ES256KSigner(privateKey.data.array, true);
+                const jwk = await createJWK(publicKey);
                 const issuer = {
                     did: toDid(jwk),
                     signer: signer as any,
                     alg: 'ES256K-R',
                 };
+
                 const loginRequest = await VerifiableCredential.sign("id", ["VerifiableCredential"], { foo: "bar" }, issuer);
 
                 // Check if did is the same
@@ -146,14 +147,13 @@ export default function TestStart() {
 
                 if (didFromVc !== issuer.did) throw new Error('didFromVc !== issuer.did')
 
-
                 // Check if the JWK is the same
                 const didDocument = (await resolve(didFromVc)).didDocument;
                 const jwkFromVc = didDocument.verificationMethod[0].publicKeyJwk;
 
                 if (JSON.stringify(jwk) !== JSON.stringify(jwkFromVc)) throw new Error('jwk !== jwkFromVc')
 
-                // Check if the public key is the same
+                // Check if the public key is the same. This is called in extractPublicKeyBytes() in VerifierAlgorithm.ts in did-jwt
                 const ecKeyFromVc = secp256k1.keyFromPublic({
                     x: bytesToHex(base64ToBytes(jwkFromVc.x)),
                     y: bytesToHex(base64ToBytes(jwkFromVc.y)),
@@ -162,20 +162,25 @@ export default function TestStart() {
                 if (ecKey.getPublic('hex') !== ecKeyFromVc.getPublic('hex')) {
                     console.error('ecKey !== ecKeyFromVc')
                     // this is sometimes failing!
-
-                    const pubKeyFromVc = ecKeyFromVc.getPublic();
-
-                    if (pubKey.getX().toString('hex') !== pubKeyFromVc.getX().toString('hex')) console.error('pubKey.getX() !== pubKeyFromVc.getX()', pubKey.getX().toString('hex'), pubKeyFromVc.getX().toString('hex'), compareStrings(pubKey.getX().toString('hex'), pubKeyFromVc.getX().toString('hex')));
-                    if (pubKey.getY().toString('hex') !== pubKeyFromVc.getY().toString('hex')) console.error('pubKey.getY() !== pubKeyFromVc.getY()', pubKey.getY().toString('hex'), pubKeyFromVc.getY().toString('hex'), compareStrings(pubKey.getY().toString('hex'), pubKeyFromVc.getY().toString('hex')));
-                    // sometimes it is X, and sometimes it is Y
-
-                    const xBase64FromVc = jwkFromVc.x;
-                    const yBase64FromVc = jwkFromVc.y;
-
-                    if (xBase64FromVc !== xBase64Url) throw new Error('xBase64FromVc !== xBase64Url');
-                    if (yBase64FromVc !== yBase64Url) throw new Error('yBase64FromVc !== yBase64Url');
-
                 }
+
+                const pubKeyFromVc = ecKeyFromVc.getPublic();
+
+                if (pubKey.getX().toString('hex').length !== 64 || pubKeyFromVc.getX().toString('hex').length !== 64) console.error(pubKey.getX().toString('hex').length, pubKeyFromVc.getX().toString('hex').length, "X length !== 64");
+                if (pubKey.getY().toString('hex').length !== 64 || pubKeyFromVc.getY().toString('hex').length !== 64) console.error(pubKey.getY().toString('hex').length, pubKeyFromVc.getY().toString('hex').length, "Y length !== 64");
+                if (pubKey.getX().toString('hex') !== pubKeyFromVc.getX().toString('hex')) printDifferences(pubKey.getX().toString('hex'), pubKeyFromVc.getX().toString('hex'));
+                if (pubKey.getY().toString('hex') !== pubKeyFromVc.getY().toString('hex')) printDifferences(pubKey.getY().toString('hex'), pubKeyFromVc.getY().toString('hex'));
+                // sometimes it is X, and sometimes it is Y
+                // the difference is always 1 character, the last hex character
+                // createJWK X/Y hex value has 63 chars, while from the VC it has 62 chars
+                // Neither value is correct.
+                // X and Y have 64 characters when not failing!
+
+                const xBase64FromVc = jwkFromVc.x;
+                const yBase64FromVc = jwkFromVc.y;
+
+                if (xBase64FromVc !== xBase64Url) throw new Error('xBase64FromVc !== xBase64Url');
+                if (yBase64FromVc !== yBase64Url) throw new Error('yBase64FromVc !== yBase64Url');
 
                 await loginRequest.verify();
             }
@@ -188,6 +193,24 @@ export default function TestStart() {
         }
     }
 
+    async function main5() {
+        try {
+            for (let i = 0; i < 100; i++) {
+                console.log('i', i)
+                const { privateKey, publicKey } = generateRandomKeyPair();
+
+                const ecKey = toElliptic(publicKey);
+                const pubKey = ecKey.getPublic();
+
+                if (pubKey.getX().toString('hex').length !== 64) throw new Error('pubKey.getX().toString(\'hex\').length !== 64')
+                if (pubKey.getY().toString('hex').length !== 64) throw new Error('pubKey.getY().toString(\'hex\').length !== 64')
+            }
+        } catch (e) {
+            console.error('error', e)
+        }
+    }
+
+
     useEffect(() => {
         if (!rendered) {
             rendered = true;
@@ -195,7 +218,7 @@ export default function TestStart() {
             return;
         }
 
-        main4();
+        main5();
     });
 
     return <h1> tonomy website</h1>;
