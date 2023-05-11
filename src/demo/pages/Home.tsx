@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
-import settings from "../settings";
+import settings from "../../common/settings";
 import "./Home.css";
 import { TH1, TH3, TP } from "../../common/atoms/THeadings";
 import logo from "../assets/tonomy/tonomy-logo48.png";

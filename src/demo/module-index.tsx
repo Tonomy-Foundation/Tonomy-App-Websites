@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/root";
-import settings from "./settings";
+import settings from "../common/settings";
 import { api } from "@tonomy/tonomy-id-sdk";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
 
