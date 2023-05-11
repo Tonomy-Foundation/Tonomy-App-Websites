@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import useErrorStore from "../stores/errorStore";
 import TErrorModal from "../molecules/TErrorModal";
-import TModal from "../molecules/TModal";
 
 export default function ErrorHandlerProvider() {
     const [showModal, setShowModal] = useState(false);
@@ -47,13 +46,5 @@ export default function ErrorHandlerProvider() {
             title={errorRef.current.title ?? "Something went wrong"}
             expected={errorRef.current.expected}
         />
-        // <TModal
-        //     open={showModal}
-        //     onPress={() => setShowModal(false)}
-        //     icon="error"
-        //     title="Whats app"
-        // >
-        //     <div>hello</div>
-        // </TModal >
     );
 }

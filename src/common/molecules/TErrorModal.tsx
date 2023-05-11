@@ -45,61 +45,60 @@ export default function TErrorModal(props: TErrorModalProps) {
     return isExpandableErrorType() || props?.code || props?.cause;
   }
 
-  // function ErrorDetails() {
-  //   if (props.error instanceof HttpError) {
-  //     const error = props.error as HttpError;
+  function ErrorDetails() {
+    if (props.error instanceof HttpError) {
+      const error = props.error as HttpError;
 
-  //     return (
-  //       <View>
-  //         <TP size={1}>Http error:</TP>
-  //         {error.code && (
-  //           <Text style={styles.greyText}>HTTP Code: {error.code}</Text>
-  //         )}
-  //         <Text>Path: {error.path}</Text>
-  //         <Text>Response: {JSON.stringify(error.response, null, 2)}</Text>
-  //         <Text>SourceUrl: {error.sourceURL}</Text>
-  //       </View>
-  //     );
-  //   } else if (props.error instanceof AntelopePushTransactionError) {
-  //     const error = props.error as AntelopePushTransactionError;
-  //     const trxError = error.error;
+      return (
+        <div>
+          <TP size={2}>Http error:</TP>
+          {error.code && (
+            <div style={styles.greyText}>HTTP Code: {error.code}</div>
+          )}
+          <div>Path: {error.path}</div>
+          <div>Response: {JSON.stringify(error.response, null, 2)}</div>
+          <div>SourceUrl: {error.sourceURL}</div>
+        </div>
+      );
+    } else if (props.error instanceof AntelopePushTransactionError) {
+      const error = props.error as AntelopePushTransactionError;
+      const trxError = error.error;
 
-  //     return (
-  //       <View>
-  //         <TP size={1}>Trx error:</TP>
-  //         {error.code && (
-  //           <Text style={styles.greyText}>HTTP Code: {error.code}</Text>
-  //         )}
-  //         <Text style={styles.greyText}>Antelope Code: {trxError.code}</Text>
-  //         <Text style={styles.greyText}>Name: {trxError.name}</Text>
-  //         <Text style={styles.greyText}>What: {trxError.what}</Text>
-  //         <Text style={styles.greyText}>
-  //           Details: {JSON.stringify(trxError.details, null, 2)}
-  //         </Text>
-  //       </View>
-  //     );
-  //   } else if (props.error instanceof CommunicationError) {
-  //     const exception = (props.error as CommunicationError).exception;
+      return (
+        <div>
+          <TP size={2}>Trx error:</TP>
+          {error.code && (
+            <div style={styles.greyText}>HTTP Code: {error.code}</div>
+          )}
+          <div style={styles.greyText}>Antelope Code: {trxError.code}</div>
+          <div style={styles.greyText}>Name: {trxError.name}</div>
+          <div style={styles.greyText}>What: {trxError.what}</div>
+          <div style={styles.greyText}>
+            Details: {JSON.stringify(trxError.details, null, 2)}
+          </div>
+        </div>
+      );
+    } else if (props.error instanceof CommunicationError) {
+      const exception = (props.error as CommunicationError).exception;
 
-  //     return (
-  //       <View>
-  //         <TP size={1}>Communication error:</TP>
-  //         <Text style={styles.greyText}>Message: {exception.message}</Text>
-  //         <Text style={styles.greyText}>Status: {exception.status}</Text>
-  //         <Text style={styles.greyText}>Name: {exception.name}</Text>
-  //       </View>
-  //     );
-  //   }
+      return (
+        <div>
+          <TP size={2}>Communication error:</TP>
+          <div style={styles.greyText}>Message: {exception.message}</div>
+          <div style={styles.greyText}>Status: {exception.status}</div>
+          <div style={styles.greyText}>Name: {exception.name}</div>
+        </div>
+      );
+    }
 
-  //   throw new Error("Other error types should not be expandable");
-  // }
+  }
 
-  console.log(props)
   return (
     <TModal
       open={props.open}
       onPress={props.onPress}
       icon={props.icon}
+      iconColor="error"
       title={props.title ?? "Something went wrong"}
       buttonLabel="Close"
     >
@@ -117,20 +116,20 @@ export default function TErrorModal(props: TErrorModalProps) {
               </div>
             )}
 
-            {/* {isExpandable() && (
-            <>
-              {expanded && (
-                <>
-                  <ErrorDetails />
-                </>
-              )}
-              <div>
-                <TButton onPress={switchExpanded}>
-                  {expanded ? "Hide Error" : "View Error"}
-                </TButton>
-              </div>
-            </>
-          )} */}
+            {isExpandable() && (
+              <>
+                {expanded && (
+                  <>
+                    <ErrorDetails />
+                  </>
+                )}
+                <div>
+                  <TButton onClick={switchExpanded}>
+                    {expanded ? "Hide Error" : "Show Error"}
+                  </TButton>
+                </div>
+              </>
+            )}
           </>
         )}
       </>
@@ -142,4 +141,7 @@ const styles = {
   boldText: {
     fontWeight: "bold",
   },
+  greyText: {
+    color: "#888",
+  }
 };
