@@ -1,6 +1,16 @@
-import { ES256KSigner, createJWK, toDid, LoginWithTonomyMessages, VerifiableCredential, api, objToBase64Url, generateRandomKeyPair, LoginRequest, randomString, LoginRequestPayload } from "@tonomy/tonomy-id-sdk";
+import { ES256KSigner, createJWK, toDid, LoginWithTonomyMessages, VerifiableCredential, resolve, api, objToBase64Url, generateRandomKeyPair, LoginRequest, randomString, LoginRequestPayload, toElliptic, bnToBase64Url } from "@tonomy/tonomy-id-sdk";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import elliptic from 'elliptic';
+import { base64ToBytes } from '@tonomy/did-jwt';
+import * as u8a from 'uint8arrays'
+
+export function bytesToHex(b: Uint8Array): string {
+    return u8a.toString(b, 'base16')
+}
+
+const secp256k1 = new elliptic.ec('secp256k1');
+
 
 export default function TestStart() {
     console.log('TestStart')
@@ -82,6 +92,31 @@ export default function TestStart() {
         }
     }
 
+    function compareStrings(str1: string, str2: string): number {
+        let changeCount = 0;
+        let testLength = 0;
+
+        if (str1.length > str2.length) {
+            testLength = str1.length;
+        }
+        else testLength = str2.length;
+
+        let printStr = "";
+
+        for (let i = 0; i < testLength; i++) {
+            if (str1[i] !== str2[i]) {
+                changeCount++;
+                printStr += str1[i];
+            } else {
+                printStr += "_"
+            }
+        }
+
+        if (str1.length !== str2.length) console.log("length different:", str1.length, str2.length)
+        console.log("character different:", printStr);
+        return changeCount;
+    }
+
     async function main4() {
         try {
             for (let i = 0; i < 100; i++) {
@@ -91,12 +126,56 @@ export default function TestStart() {
                 const signer = ES256KSigner(privateKey.data.array, true);
                 const jwk = await createJWK(publicKey);
 
+                const ecKey = toElliptic(publicKey);
+                const pubKey = ecKey.getPublic();
+
+                const xBigNum = pubKey.getX();
+                const xBase64Url = bnToBase64Url(xBigNum);
+                const yBigNum = pubKey.getY();
+                const yBase64Url = bnToBase64Url(yBigNum);
+
                 const issuer = {
                     did: toDid(jwk),
                     signer: signer as any,
                     alg: 'ES256K-R',
                 };
                 const loginRequest = await VerifiableCredential.sign("id", ["VerifiableCredential"], { foo: "bar" }, issuer);
+
+                // Check if did is the same
+                const didFromVc = loginRequest.getIssuer();
+
+                if (didFromVc !== issuer.did) throw new Error('didFromVc !== issuer.did')
+
+
+                // Check if the JWK is the same
+                const didDocument = (await resolve(didFromVc)).didDocument;
+                const jwkFromVc = didDocument.verificationMethod[0].publicKeyJwk;
+
+                if (JSON.stringify(jwk) !== JSON.stringify(jwkFromVc)) throw new Error('jwk !== jwkFromVc')
+
+                // Check if the public key is the same
+                const ecKeyFromVc = secp256k1.keyFromPublic({
+                    x: bytesToHex(base64ToBytes(jwkFromVc.x)),
+                    y: bytesToHex(base64ToBytes(jwkFromVc.y)),
+                })
+
+                if (ecKey.getPublic('hex') !== ecKeyFromVc.getPublic('hex')) {
+                    console.error('ecKey !== ecKeyFromVc')
+                    // this is sometimes failing!
+
+                    const pubKeyFromVc = ecKeyFromVc.getPublic();
+
+                    if (pubKey.getX().toString('hex') !== pubKeyFromVc.getX().toString('hex')) console.error('pubKey.getX() !== pubKeyFromVc.getX()', pubKey.getX().toString('hex'), pubKeyFromVc.getX().toString('hex'), compareStrings(pubKey.getX().toString('hex'), pubKeyFromVc.getX().toString('hex')));
+                    if (pubKey.getY().toString('hex') !== pubKeyFromVc.getY().toString('hex')) console.error('pubKey.getY() !== pubKeyFromVc.getY()', pubKey.getY().toString('hex'), pubKeyFromVc.getY().toString('hex'), compareStrings(pubKey.getY().toString('hex'), pubKeyFromVc.getY().toString('hex')));
+                    // sometimes it is X, and sometimes it is Y
+
+                    const xBase64FromVc = jwkFromVc.x;
+                    const yBase64FromVc = jwkFromVc.y;
+
+                    if (xBase64FromVc !== xBase64Url) throw new Error('xBase64FromVc !== xBase64Url');
+                    if (yBase64FromVc !== yBase64Url) throw new Error('yBase64FromVc !== yBase64Url');
+
+                }
 
                 await loginRequest.verify();
             }
