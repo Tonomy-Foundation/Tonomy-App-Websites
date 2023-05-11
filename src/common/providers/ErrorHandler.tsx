@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import useErrorStore from "../store/errorStore";
-// import TErrorModal from "../components/TErrorModal";
+import useErrorStore from "../stores/errorStore";
+import TErrorModal from "../molecules/TErrorModal";
+import TModal from "../molecules/TModal";
 
 export default function ErrorHandlerProvider() {
     const [showModal, setShowModal] = useState(false);
@@ -38,11 +39,19 @@ export default function ErrorHandlerProvider() {
 
     return (
         // <TErrorModal
-        //     visible={showModal}
+        //     open={showModal}
         //     onPress={onModalPress}
         //     error={errorRef.current.error}
         //     title={errorRef.current.title}
         //     expected={errorRef.current.expected}
         // />
+        <TModal
+            open={showModal}
+            onPress={() => setShowModal(false)}
+            icon="abc"
+            title="Whats app"
+        >
+            <div>hello</div>
+        </TModal >
     );
 }

@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes/root";
 import settings from "./settings";
 import { api } from "@tonomy/tonomy-id-sdk";
-import ErrorHandlerProvider from "../common/providers/ErrorHandlerProvider";
+import ErrorHandlerProvider from "../common/providers/ErrorHandler";
 
 api.setSettings({
   ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,

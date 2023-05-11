@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import router from "./routes/root";
-import ErrorHandlerProvider from "../common/providers/ErrorHandlerProvider";
+import ErrorHandlerProvider from "../common/providers/ErrorHandler";
 
 const styles = {
   container: {

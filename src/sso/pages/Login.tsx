@@ -17,7 +17,6 @@ import {
   ExternalUser,
   App,
 } from "@tonomy/tonomy-id-sdk";
-import QRCode from "react-qr-code";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
@@ -26,8 +25,7 @@ import { isMobile } from "../utills/IsMobile";
 import logo from "../assets/tonomy/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { TButton } from "../../common/atoms/Tbutton";
+import { TButton } from "../../common/atoms/TButton";
 import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";

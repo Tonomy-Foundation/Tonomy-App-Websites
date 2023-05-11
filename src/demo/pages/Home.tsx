@@ -8,11 +8,14 @@ import logo from "../assets/tonomy/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function Home() {
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
+
+  const errorStore = useErrorStore();
 
   const navigation = useNavigate();
 
@@ -38,6 +41,15 @@ export default function Home() {
   }
 
   useEffect(() => {
+    errorStore.setError({
+      error: new Error("I am an error"),
+      title: "Error",
+      expected: false,
+      onClose: async () => {
+        alert("hello");
+        console.log("hello");
+      },
+    });
     onRender();
   }, []);
 

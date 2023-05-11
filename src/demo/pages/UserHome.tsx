@@ -5,7 +5,7 @@ import { TH1, TH3, TP } from "../../common/atoms/THeadings";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
-import { TButton } from "../../common/atoms/Tbutton";
+import { TButton } from "../../common/atoms/TButton";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);
