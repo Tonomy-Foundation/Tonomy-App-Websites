@@ -6,7 +6,7 @@ import TIcon from "../atoms/TIcon";
 export type ModalProps = React.ComponentProps<typeof Modal> & {
   onPress: () => void;
   icon: string;
-  iconColor?: string;
+  iconColor?: "inherit" | "action" | "disabled" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
   title: string;
   buttonLabel?: string;
   open: boolean;
@@ -48,7 +48,7 @@ export default function TModal(props: ModalProps) {
       <Box sx={styles.modal}>
         <Box sx={styles.modalContent}>
           <div style={{ textAlign: "center" }}>
-            <TIcon icon={props.icon} />
+            <TIcon color={props.iconColor} icon={props.icon} />
             <div style={styles.title}>{props.title}</div>
             {props.children}
             <div style={styles.buttonView}>

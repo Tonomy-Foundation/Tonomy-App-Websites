@@ -1,6 +1,9 @@
+import React from "react";
 import Icon from '@mui/material/Icon';
 
-export default function TIcon({ icon }: { icon: string }) {
+type Props = React.ComponentProps<typeof Icon> & { icon: string };
+
+export default function TIcon(props: Props) {
     // https://fonts.google.com/icons
-    return <Icon>{icon}</Icon>;
+    return <Icon {...props}>{props.icon}</Icon>;
 }

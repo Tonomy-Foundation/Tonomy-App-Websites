@@ -2,7 +2,7 @@ import React from "react";
 import "./THeadings.css";
 
 type PProps = React.HTMLAttributes<HTMLParagraphElement> & {
-  size?: 2;
+  size?: 1 | 2;
 };
 
 export function TH1(props: React.HTMLAttributes<HTMLHeadingElement>) {
