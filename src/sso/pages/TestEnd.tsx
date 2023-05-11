@@ -1,5 +1,5 @@
 import { PublicKey } from "@greymass/eosio";
-import { JsKeyManager, createJWK, toDid, KeyManagerLevel, STORAGE_NAMESPACE, UserApps, api, LoginRequest } from "@tonomy/tonomy-id-sdk";
+import { createJWK, toDid, KeyManagerLevel, STORAGE_NAMESPACE, UserApps, api, LoginRequest } from "@tonomy/tonomy-id-sdk";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function TestEnd() {
     console.log('TestEnd')
     const navigation = useNavigate();
+    let rendered = false;
 
     async function main() {
         const { requests } = UserApps.getLoginRequestFromUrl();
@@ -26,19 +27,31 @@ export default function TestEnd() {
                 const keyPair = await localStorage.getItem(STORAGE_NAMESPACE + "key." + KeyManagerLevel.BROWSER_LOCAL_STORAGE)
                 const { publicKey, privateKey } = JSON.parse(keyPair as string);
 
-                console.log('keyPair', publicKey, privateKey)
-
                 const jwk = await createJWK(PublicKey.from(publicKey));
-                const parsedIssuer = toDid(jwk);
+                const issuerFromStorage = toDid(jwk);
 
-                const issuer = loginRequest.getIssuer()
+                const issuerFromUrl = loginRequest.getIssuer()
 
-                console.log('issuer', issuer === parsedIssuer)
+                console.log('issuer are the same', issuerFromUrl === issuerFromStorage)
+                // true
+
+                const loginRequestFromStorage = await localStorage.getItem('loginRequest')
+                const loginRequestFromUrl = JSON.stringify(loginRequest)
+
+                console.log('loginRequest are the same', loginRequestFromUrl === loginRequestFromStorage)
+                // false = Login requests are NOT the same!!!
+
             }
         }
     }
 
     useEffect(() => {
+        if (!rendered) {
+            rendered = true;
+        } else {
+            return;
+        }
+
         main();
     });
 
