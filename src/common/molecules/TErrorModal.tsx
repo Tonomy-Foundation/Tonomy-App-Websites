@@ -10,7 +10,7 @@ import {
 } from "@tonomy/tonomy-id-sdk";
 import { Modal } from "@mui/material";
 
-export type TErrorModalProps = React.ComponentProps<typeof Modal> & {
+export type TErrorModalProps = Omit<React.ComponentProps<typeof Modal> & {
   onPress: () => void;
   title?: string;
   icon: string;
@@ -19,7 +19,7 @@ export type TErrorModalProps = React.ComponentProps<typeof Modal> & {
   open?: boolean;
   code?: number;
   cause?: string;
-};
+}, "children">;
 
 export default function TErrorModal(props: TErrorModalProps) {
   const [expanded, setExpanded] = useState(false);
@@ -91,6 +91,7 @@ export default function TErrorModal(props: TErrorModalProps) {
       );
     }
 
+    throw new Error("Unexpected error type")
   }
 
   return (

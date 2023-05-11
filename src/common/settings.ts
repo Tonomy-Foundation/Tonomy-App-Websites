@@ -8,7 +8,6 @@ console.log(import.meta.env);
 console.log(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
-  blockchainUrl: string;
   theme: {
     primaryColor: string;
     secondaryColor: string;
@@ -22,7 +21,15 @@ export type ConfigType = {
     logo48: string;
     logo1024: string;
   };
+  links: {
+    readMoreDownload: string;
+    appleStoreDownload: string;
+    playStoreDownload: string;
+  },
+  tonomyIdLink: string,
+  communicationUrl: string,
   ssoWebsiteOrigin: string;
+  blockchainUrl: string;
 };
 
 type SettingsType = {

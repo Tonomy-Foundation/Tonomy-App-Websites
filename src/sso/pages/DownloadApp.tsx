@@ -6,7 +6,7 @@ import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
 import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
-import appleStoreBadge from "../assets/tonomy/tonomy-logo1024.png";
+import appleStoreBadge from "../assets/app-store.svg";
 
 export default function DownloadApp() {
   return (

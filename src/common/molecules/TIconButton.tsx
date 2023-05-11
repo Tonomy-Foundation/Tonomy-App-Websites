@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 
-export type IconButtonProps = React.ComponentProps<typeof IconButton> & { icon: Element, color?: string };
+export type IconButtonProps = React.ComponentProps<typeof IconButton> & { icon: string, color?: string };
 
 export default function TIconButton(props: IconButtonProps) {
     // https://mui.com/material-ui/material-icons/

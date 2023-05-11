@@ -32,11 +32,7 @@ const styles = {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 16,
-  },
-  buttonView: {
-    marginTop: 16,
-    textAlign: "right",
-  },
+  }
 };
 
 export default function TModal(props: ModalProps) {
@@ -51,7 +47,10 @@ export default function TModal(props: ModalProps) {
             <TIcon color={props.iconColor} icon={props.icon} />
             <div style={styles.title}>{props.title}</div>
             {props.children}
-            <div style={styles.buttonView}>
+            <div style={{
+              marginTop: 16,
+              textAlign: "right",
+            }}>
               <TButton onClick={props.onPress}>
                 {props.buttonLabel ?? "OK"}
               </TButton>

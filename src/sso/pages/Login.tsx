@@ -22,7 +22,7 @@ import TImage from "../../common/atoms/TImage";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
 import { isMobile } from "../utills/IsMobile";
-import logo from "../assets/tonomy/tonomy-logo1024.png";
+import logo from "/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { TButton } from "../../common/atoms/TButton";
