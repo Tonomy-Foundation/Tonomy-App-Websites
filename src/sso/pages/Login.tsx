@@ -21,7 +21,7 @@ import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
-import { isMobile } from "../utills/IsMobile";
+import { isMobile } from "../utils/IsMobile";
 import logo from "/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
