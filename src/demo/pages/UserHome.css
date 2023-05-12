@@ -1,4 +1,4 @@
-body {
+/* body {
   background: var(---bg);
 }
 
@@ -54,8 +54,6 @@ h1 {
 }
 
 .docs .title {
-  margin-top: auto;
-  /* margin-bottom: 1rem; */
   color: var(---bg);
 }
 
@@ -141,4 +139,4 @@ h1 {
   .link.footer {
     margin-top: 2rem;
   }
-}
+} */

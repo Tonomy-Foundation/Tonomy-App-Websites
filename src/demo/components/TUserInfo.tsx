@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./UserHome.css";
+import "./TUserInfo.css";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-
+import { useNavigate } from "react-router-dom";
 import { TH3, TP } from "../../sso/components/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { TButton } from "../../sso/components/Tbutton";
@@ -45,10 +45,10 @@ export default function TPageLeftView() {
     onRender();
   }, []);
   return (
-    <>
-      <TP className="head-subtitle">You are now logged in with Tonomy ID.</TP>
+    <div className="head-subtitle">
+      <TP>You are now logged in with Tonomy ID.</TP>
       <TP>
-        Anonymous account: {accountName} (
+        View your account on the blockchain{" "}
         <a
           target={"_blank"}
           href={
@@ -58,11 +58,9 @@ export default function TPageLeftView() {
           }
           rel="noreferrer"
         >
-          view on the blockchain
+          here
         </a>
-        )
       </TP>
-      <TP>Username: {username}</TP>
-    </>
+    </div>
   );
 }

@@ -14,6 +14,7 @@ import "./main.css";
 
 const MainLayout = ({ content }) => {
   const { collapseSidebar } = useProSidebar();
+  const [collapse, setCollapse] = useState(false);
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
 
@@ -61,7 +62,10 @@ const MainLayout = ({ content }) => {
           <Menu>
             <MenuItem
               icon={<img src={logo} alt="" />}
-              onClick={() => collapseSidebar()}
+              onClick={() => {
+                setCollapse(!collapse);
+                collapseSidebar();
+              }}
               className="heading"
             >
               <h4 className="whiteColor">Tonomy ID</h4>{" "}
@@ -93,7 +97,9 @@ const MainLayout = ({ content }) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content">{content}</div>
+      <div className="main-content" style={{ zIndex: collapse ? -1 : 0 }}>
+        {content}
+      </div>
     </div>
   );
 };

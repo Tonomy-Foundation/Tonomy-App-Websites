@@ -18,6 +18,11 @@
     height: 95%;
   }
 
+  .ps-sidebar-root{
+    height: 100%;
+  }
+
+
   .ps-menu-root ul {
     display: flex;
     flex-direction: column;
@@ -29,18 +34,23 @@
   }
   
   .sidebar {
-    flex: 0 0 auto;
-    order: 1;
+    position: fixed;
+    display: flex;
+    align-items: flex-start;
+    width: 5%;
+    height: 100vh;
   }
   
   .main-content {
-    flex: 1 0 auto;
-    margin-left: 1rem;
-    order: 2;
+    position: fixed;
+    right: 0;
+    width: 95%;
+    height: 100%;
+    overflow: auto;
+    /* z-index: -1; */
   }
 
   .ps-sidebar-container , h3{
-    /* background-color: black !important; */
     background-image: url("../assets/tonomy/background.jpeg");
 
     color: #BEBEBE;

@@ -1,0 +1,239 @@
+body {
+    background: var(---bg);
+    padding: 0px;
+    margin: 0px;
+  }
+  .MuiGrid-container  {
+    height: 100%;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    
+  }
+
+  .container p {
+    line-height: 30px;
+    max-width: 900px;
+  }
+
+  .intro {
+    max-height: 100vh;
+                overflow: auto;
+                padding-top: 0.2rem !important;
+               padding-bottom:2rem !important;
+               display: inline !important;
+  }
+  .intro,
+  .docs {
+    padding: 0rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    flex: 1;
+    height: 100%;
+  }
+  
+  header {
+    align-self: flex-start;
+    margin-bottom: auto;
+  }
+  
+  .intro .footer {
+    margin-bottom: auto;
+    margin-top: 2rem;
+  }
+  
+  .text-body {
+    max-width: 34vw;
+  }
+  
+  h1 {
+    text-align: left !important;
+    margin-bottom: 1rem;
+  }
+  
+  .text-header {
+    margin-bottom: 1rem;
+  }
+
+  .nftImage {
+    float: left;
+    background: #CCE9CC;
+    border-radius: 120px;
+    margin-left: 10px;
+    padding-left: 1.4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    width: 150px;
+    height: 300px;
+    margin-right: 3rem;
+
+  }
+  .tryAgainbtn {
+    background-color: #67D7ED !important;
+    color: #FFF !important;
+    padding: 0.3rem 1rem !important;
+    border-radius: 20px;
+    margin-top: 1rem !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+  }
+
+  .nftImageCenter{
+    float: none;
+    margin-right:0rem;
+  }
+
+  .centerAlign{
+    text-align: center !important;
+  }
+  .nftImageColumn p {
+    line-height: 2.5rem;
+  }
+  
+  .docs {
+    background-image: url("../assets/tonomy/background.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+  }
+  .title {
+    background-color: transparent;
+    text-align: left
+  }
+  .docs .title {
+    /* margin-top: auto; */
+    /* margin-bottom: 1rem; */
+    color: var(---bg);
+  }
+  
+  .highlighter {
+    transform: scale(0.9);
+    margin: 1rem 0;
+    min-width: 600px;
+  }
+  
+  .floating-copy-button {
+    display: flex;
+  }
+  
+  .link {
+    font-size: 20px;
+    color: var(---bg);
+    font-weight: 500;
+  }
+  
+  .link.footer {
+    align-self: flex-end;
+    margin-top: 9rem;
+  }
+  
+  .example-container {
+    text-align: center;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 2rem 4rem 0rem;
+    padding: 2rem 2rem 7.5rem 2rem;
+    border: 1px solid #E4E4E4;
+    
+  }
+
+  .nftImageColumn {
+    margin-top: 2rem;
+  }
+  
+  
+  .head-subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+   
+  }
+
+  .head-subtitle a {
+        color: #0057B2;
+  }
+  
+  .example-container p {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: justify;
+  }
+
+  .head-subtitle p{
+    line-height: 32px;
+}
+.list {
+    margin-top: 2rem;
+}
+
+.marginTop {
+  margin-top: 1.5rem;
+}
+.tbuttonstyle {
+  background: #7660E7 !important;
+  color: #FAFAFA !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  padding: 0.3rem 1.8rem !important;
+  float: right;
+  margin-top: 3rem !important;
+  margin-right: 2rem !important;
+}
+
+.list li{
+    margin-left: 2rem;
+}
+  
+  @media only screen and (max-width: 768px) {
+    .container {
+      height: initial;
+    }
+  
+    .intro,
+    .docs {
+      padding: 1rem;
+    }
+  
+    header {
+      margin-bottom: 3rem;
+    }
+  
+    .intro {
+      align-items: center;
+      text-align: center;
+     
+    }
+  
+    h1 {
+      text-align: center !important;
+    }
+  
+    .text-body {
+      max-width: 80%;
+    }
+  
+    .intro .footer {
+      margin-bottom: 2rem;
+    }
+  
+    .highlighter {
+      transform: scale(0.8);
+      margin: 0;
+    }
+  
+    .link {
+      font-size: 16px;
+    }
+  
+    .link.footer {
+      margin-top: 2rem;
+    }
+    
+  }
