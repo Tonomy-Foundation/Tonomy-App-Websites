@@ -27,7 +27,8 @@ export default function TestEnd() {
                 const keyPair = await localStorage.getItem(STORAGE_NAMESPACE + "key." + KeyManagerLevel.BROWSER_LOCAL_STORAGE)
                 const { publicKey, privateKey } = JSON.parse(keyPair as string);
 
-                const jwk = await createJWK(PublicKey.from(publicKey));
+                // @ts-expect-error some issue here
+                const jwk = createJWK(PublicKey.from(publicKey));
                 const issuerFromStorage = toDid(jwk);
 
                 const issuerFromUrl = loginRequest.getIssuer()

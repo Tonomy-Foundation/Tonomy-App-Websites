@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import elliptic from 'elliptic';
 import { base64ToBytes } from '@tonomy/did-jwt';
 import * as u8a from 'uint8arrays'
+import { BN } from 'bn.js';
 
 export function bytesToHex(b: Uint8Array): string {
     return u8a.toString(b, 'base16')
@@ -128,9 +129,9 @@ export default function TestStart() {
                 const pubKey = ecKey.getPublic();
 
                 const xBigNum = pubKey.getX();
-                const xBase64Url = bnToBase64Url(xBigNum);
+                const xBase64Url = bnToBase64Url(xBigNum as any);
                 const yBigNum = pubKey.getY();
-                const yBase64Url = bnToBase64Url(yBigNum);
+                const yBase64Url = bnToBase64Url(yBigNum as any);
 
                 const signer = ES256KSigner(privateKey.data.array, true);
                 const jwk = await createJWK(publicKey);
@@ -149,7 +150,7 @@ export default function TestStart() {
 
                 // Check if the JWK is the same
                 const didDocument = (await resolve(didFromVc)).didDocument;
-                const jwkFromVc = didDocument.verificationMethod[0].publicKeyJwk;
+                const jwkFromVc = (didDocument as any).verificationMethod[0].publicKeyJwk;
 
                 if (JSON.stringify(jwk) !== JSON.stringify(jwkFromVc)) throw new Error('jwk !== jwkFromVc')
 
@@ -210,6 +211,65 @@ export default function TestStart() {
         }
     }
 
+    async function main6() {
+        try {
+            for (let i = 0; i < 100; i++) {
+                console.log('i', i)
+                const { publicKey } = generateRandomKeyPair();
+
+                const ecKey = toElliptic(publicKey);
+                const pubKey = ecKey.getPublic();
+
+                // createJWK
+                const x = bnToBase64Url(pubKey.getX() as any)
+
+                //toDID
+                //             const { d, p, q, dp, dq, qi, ...publicKeyJwk } = jwk;
+                // // TODO replace with base64url encoder for web
+                // const id = utf8ToB64(JSON.stringify(publicKeyJwk));
+                const jwk = await createJWK(publicKey);
+                const did = toDid(jwk)
+
+                // Check if the JWK is the same
+                const didDocument = (await resolve(did)).didDocument;
+
+                const jwkFromDidDoc = (didDocument as any).verificationMethod[0].publicKeyJwk;
+
+                if (JSON.stringify(jwk) !== JSON.stringify(jwkFromDidDoc)) throw new Error('jwk !== jwkFromVc')
+
+                // Check if the public key is the same. This is called in extractPublicKeyBytes() in VerifierAlgorithm.ts in did-jwt
+                const ecKeyFromDidDoc = secp256k1.keyFromPublic({
+                    x: bytesToHex(base64ToBytes(jwkFromDidDoc.x)),
+                    y: bytesToHex(base64ToBytes(jwkFromDidDoc.y)),
+                })
+
+                if (ecKey.getPublic('hex') !== ecKeyFromDidDoc.getPublic('hex')) {
+                    console.error('ecKey !== ecKeyFromVc')
+                    // this is sometimes failing!
+
+                    const pubKeyFromDidDoc = ecKeyFromDidDoc.getPublic();
+                    const xFromKey = pubKey.getX();
+                    const xFromKey_base64Url = bnToBase64Url(xFromKey as any);
+                    const xFromJwk = new BN(bytesToHex(base64ToBytes(jwkFromDidDoc.x)), 16);
+                    const xFromDidDoc = pubKeyFromDidDoc.getX();
+
+                    if (!xFromKey.eq(xFromDidDoc)) {
+                        // X key was not encoded/decoded correctly
+                        printDifferences(xFromKey.toString(), xFromDidDoc.toString());
+                        printDifferences(xFromKey.toString('hex'), xFromDidDoc.toString('hex'));
+
+                        printDifferences(xFromKey_base64Url, jwkFromDidDoc.x);
+                        console.log(xFromJwk.eq(xFromKey), xFromJwk.eq(xFromDidDoc), xFromKey.eq(xFromDidDoc))
+                        //          false                  true                      false
+                        throw new Error('X values are not equal')
+                    }
+                }
+            }
+        } catch (e) {
+            console.error('error', e)
+        }
+    }
+
 
     useEffect(() => {
         if (!rendered) {
@@ -218,7 +278,8 @@ export default function TestStart() {
             return;
         }
 
-        main5();
+        main2();
+        // main6();
     });
 
     return <h1> tonomy website</h1>;
