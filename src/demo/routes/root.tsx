@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import Callback from "../pages/Callback";
 import UserHome from "../pages/UserHome";
+import Test from "../pages/Test";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/user-home",
     element: <UserHome />,
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ]);
 
