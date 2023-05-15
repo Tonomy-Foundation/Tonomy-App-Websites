@@ -2,7 +2,7 @@ import { ES256KSigner, createJWK, toDid, LoginWithTonomyMessages, VerifiableCred
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import elliptic from 'elliptic';
-import { base64ToBytes } from '@tonomy/did-jwt';
+import { base64ToBytes } from 'did-jwt';
 import * as u8a from 'uint8arrays'
 import { BN } from 'bn.js';
 
@@ -149,7 +149,7 @@ export default function TestStart() {
                 if (didFromVc !== issuer.did) throw new Error('didFromVc !== issuer.did')
 
                 // Check if the JWK is the same
-                const didDocument = (await resolve(didFromVc)).didDocument;
+                const didDocument = (await resolve(didFromVc));
                 const jwkFromVc = (didDocument as any).verificationMethod[0].publicKeyJwk;
 
                 if (JSON.stringify(jwk) !== JSON.stringify(jwkFromVc)) throw new Error('jwk !== jwkFromVc')
@@ -231,7 +231,7 @@ export default function TestStart() {
                 const did = toDid(jwk)
 
                 // Check if the JWK is the same
-                const didDocument = (await resolve(did)).didDocument;
+                const didDocument = (await resolve(did));
 
                 const jwkFromDidDoc = (didDocument as any).verificationMethod[0].publicKeyJwk;
 
@@ -270,6 +270,21 @@ export default function TestStart() {
         }
     }
 
+    async function main7() {
+        try {
+            for (let i = 0; i < 100; i++) {
+                console.log('i', i)
+                const bn = new BN(Math.random() * 1000000)
+
+                const val1 = bnToBase64Url(bn);
+                const val2 = bnToBase64Url(bn);
+
+                if (val1 !== val2) throw new Error('val1 !== val2')
+            }
+        } catch (e) {
+            console.error('error', e)
+        }
+    }
 
     useEffect(() => {
         if (!rendered) {
@@ -278,8 +293,8 @@ export default function TestStart() {
             return;
         }
 
-        main2();
-        // main6();
+        // main7();
+        main7();
     });
 
     return <h1> tonomy website</h1>;
