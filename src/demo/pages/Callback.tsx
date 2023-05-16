@@ -35,6 +35,9 @@ export default function Callback() {
             setErrorTitle("User logged out");
             setErrorVisible(true);
             break;
+          case SdkErrors.UserRefreshed:
+            navigation("/");
+            break;
         }
       } else {
         errorStore.setError({ error: e });

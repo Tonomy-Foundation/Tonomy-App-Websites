@@ -30,7 +30,7 @@ import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
-import { log } from "console";
+import useErrorStore from "../../common/stores/errorStore";
 
 const styles = {
   container: {
@@ -54,6 +54,7 @@ export default function Login() {
   const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
   const userStore = useUserStore();
+  const errorStore = useErrorStore();
 
   let rendered = false;
 
@@ -143,8 +144,7 @@ export default function Login() {
 
           setStatus("app");
         } catch (e) {
-          console.error(e);
-          alert(e);
+          errorStore.setError({ error: e, expected: false });
         }
       }, IdentifyMessage.getType());
     }
@@ -189,8 +189,7 @@ export default function Login() {
           window.location.replace("/callback?payload=" + base64UrlPayload);
         }
       } catch (e) {
-        console.error(e);
-        alert(e);
+        errorStore.setError({ error: e, expected: false });
       }
     }, LoginRequestResponseMessage.getType());
   }
@@ -256,8 +255,18 @@ export default function Login() {
         await connectToTonomyId(requests, loginToCommunication);
       }
     } catch (e) {
-      console.error(e);
-      alert(e);
+      if (e instanceof SdkError && e.code === SdkErrors.ReferrerEmpty) {
+        errorStore.setError({
+          error: new Error(
+            "Please try again and do not refresh this website during login"
+          ),
+          expected: true,
+          title: "Login unsuccessful",
+          onClose: async () => onRefresh(),
+        });
+      } else {
+        errorStore.setError({ error: e, expected: false });
+      }
     }
   }
 
@@ -286,8 +295,7 @@ export default function Login() {
       ) {
         loginToTonomyAndSendRequests(false);
       } else {
-        console.error(JSON.stringify(e, null, 2));
-        alert(e);
+        errorStore.setError({ error: e, expected: false });
       }
     }
   }
@@ -313,7 +321,7 @@ export default function Login() {
 
       window.location.href = callbackUrl;
     } catch (e) {
-      console.error(e);
+      errorStore.setError({ error: e, expected: false });
     }
   };
 
@@ -340,7 +348,30 @@ export default function Login() {
 
       window.location.href = callbackUrl;
     } catch (e) {
-      console.error(e);
+      errorStore.setError({ error: e, expected: false });
+    }
+  };
+
+  const onRefresh = async () => {
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        requests,
+        "url",
+        {
+          code: SdkErrors.UserRefreshed,
+          reason: "User refreshed during login",
+        },
+        {
+          callbackOrigin: requests[0].getPayload().origin,
+          callbackPath: requests[0].getPayload().callbackPath,
+        }
+      );
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
     }
   };
 
