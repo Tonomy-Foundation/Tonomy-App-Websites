@@ -3,17 +3,17 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import mainRoutes from "./mainRoutes";
 import authRoutes from "./authRoutes";
 import MainLayout from "../layout/main";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 
-const LoggedInRoutes = () => {
+const LoggedInRoutes = ({ onLogout }) => {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/" element={<MainLayout onLogout={onLogout} />}>
         {mainRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/user-home" />} />
     </Routes>
   );
 };
@@ -32,13 +32,15 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<ExternalUser | null>(null);
 
   async function onRender() {
     try {
       const user = await api.ExternalUser.getUser();
 
-      if (user) setIsLoggedIn(true);
+      setUser(user);
+      setIsLoggedIn(true);
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -58,11 +60,22 @@ const Router: React.FC = () => {
   }
 
   useEffect(() => {
-    // onRender();
-  }, []);
+    onRender();
+  }, [isLoggedIn]);
+
+  const handleLogout = async () => {
+    try {
+      await user?.logout();
+      setIsLoggedIn(false);
+    } catch (e) {
+      console.error(e);
+      alert(e);
+    }
+  };
+
   return (
     <BrowserRouter>
-      {isLoggedIn ? LoggedInRoutes() : AuthRoutes()}
+      {isLoggedIn ? <LoggedInRoutes onLogout={handleLogout} /> : <AuthRoutes />}
     </BrowserRouter>
   );
 };

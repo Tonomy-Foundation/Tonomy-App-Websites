@@ -14,48 +14,38 @@ import logo from "../assets/tonomy-logo48.png";
 import "./main.css";
 import "./pageLayout.css";
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ onLogout }) => {
   const { collapseSidebar } = useProSidebar();
   const [collapse, setCollapse] = useState(false);
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
 
-  // async function onRender() {
-  //   try {
-  //     const user = await api.ExternalUser.getUser();
-
-  //     setUser(user);
-  //   } catch (e) {
-  //     if (
-  //       e instanceof SdkError &&
-  //       (e.code === SdkErrors.AccountNotFound ||
-  //         e.code === SdkErrors.AccountDoesntExist ||
-  //         e.code === SdkErrors.UserNotLoggedIn)
-  //     ) {
-  //       // User not logged in
-  //       navigation("/");
-  //       return;
-  //     }
-
-  //     console.error(e);
-  //     alert(e);
-  //   }
-  // }
-
-  useEffect(() => {
-    // onRender();
-    collapseSidebar();
-  }, []);
-
-  async function onLogout() {
+  async function onRender() {
     try {
-      await user?.logout();
-      navigation("/");
+      const user = await api.ExternalUser.getUser();
+
+      setUser(user);
     } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
+        // User not logged in
+        navigation("/");
+        return;
+      }
+
       console.error(e);
       alert(e);
     }
   }
+
+  useEffect(() => {
+    onRender();
+    collapseSidebar();
+  }, []);
 
   return (
     <div className="wrapper">
@@ -100,7 +90,6 @@ const MainLayout = ({ children }) => {
         </Sidebar>
       </div>
       <div className="main-content" style={{ zIndex: collapse ? -1 : 0 }}>
-        {/* {children} */}
         <Outlet />
       </div>
     </div>
@@ -108,7 +97,7 @@ const MainLayout = ({ children }) => {
 };
 
 MainLayout.propTypes = {
-  children: PropTypes.any,
+  onLogout: PropTypes.any,
 };
 
 export default MainLayout;
