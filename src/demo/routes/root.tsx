@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import mainRoutes from "./mainRoutes";
 import authRoutes from "./authRoutes";
 import MainLayout from "../layout/main";
-import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 
 const LoggedInRoutes = () => {
   return (
@@ -13,6 +13,7 @@ const LoggedInRoutes = () => {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
@@ -25,6 +26,7 @@ const AuthRoutes = () => {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
@@ -46,6 +48,7 @@ const Router: React.FC = () => {
       ) {
         // User not logged in
         setIsLoggedIn(false);
+
         return;
       }
 
