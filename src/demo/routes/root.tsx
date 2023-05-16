@@ -5,12 +5,6 @@ import authRoutes from "./authRoutes";
 import MainLayout from "../layout/main";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 
-const isLoggedIn = (): boolean => {
-  // Your logic to determine if the user is logged in or not
-  // Return true if logged in, false otherwise
-  // For example, you can check if a token or user object exists in local storage
-  return false; // Replace with your own logic
-};
 
 const LoggedInRoutes = () => {
   return (
