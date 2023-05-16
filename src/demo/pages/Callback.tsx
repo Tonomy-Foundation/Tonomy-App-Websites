@@ -49,7 +49,7 @@ export default function Callback() {
           navigation("/");
           setErrorVisible(false);
         }}
-        icon="star"
+        icon="block"
         iconColor="warning"
         title={errorTitle}
         buttonLabel="Try again"
@@ -57,12 +57,24 @@ export default function Callback() {
       >
         <></>
       </TModal>
-      <div className="container">
-        <div>
-          <TH2>Logging in...</TH2>
-        </div>
-        <div>
-          <TProgressCircle />
+      <div
+        style={{
+          display: "flex",
+          height: "100%",
+        }}
+      >
+        <div
+          style={{
+            margin: "auto",
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <TH2>Logging in...</TH2>
+          </div>
+          <div>
+            <TProgressCircle />
+          </div>
         </div>
       </div>
     </>

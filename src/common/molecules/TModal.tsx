@@ -33,7 +33,7 @@ const styles = {
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    maxWidth: 400,
+    // maxWidth: 400,
     backgroundColor: "white",
     borderRadius: 1,
     padding: 3,
