@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Outlet } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
@@ -93,7 +94,7 @@ const MainLayout = ({ content }) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content">{content}</div>
+      <div className="main-content"><Outlet /></div>
     </div>
   );
 };
