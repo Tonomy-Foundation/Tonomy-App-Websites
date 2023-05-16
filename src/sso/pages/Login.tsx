@@ -30,11 +30,7 @@ import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
-
-api.setSettings({
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-});
+import { log } from "console";
 
 const styles = {
   container: {
@@ -144,6 +140,7 @@ export default function Login() {
           );
 
           await communication.sendMessage(requestMessage);
+
           setStatus("app");
         } catch (e) {
           console.error(e);
@@ -255,9 +252,8 @@ export default function Login() {
         const did = logInMessage.getIssuer();
 
         setShowQR(did);
-
-        await connectToTonomyId(requests, loginToCommunication);
         await subscribeToLoginRequestResponse();
+        await connectToTonomyId(requests, loginToCommunication);
       }
     } catch (e) {
       console.error(e);
