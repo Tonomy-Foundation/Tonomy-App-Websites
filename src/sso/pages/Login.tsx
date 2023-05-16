@@ -17,26 +17,20 @@ import {
   ExternalUser,
   App,
 } from "@tonomy/tonomy-id-sdk";
-import QRCode from "react-qr-code";
-import { TH3, TH4, TP } from "../components/THeadings";
-import TImage from "../components/TImage";
-import TProgressCircle from "../components/TProgressCircle";
-import settings from "../settings";
-import { isMobile } from "../utills/IsMobile";
-import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { TH3, TH4, TP } from "../../common/atoms/THeadings";
+import TImage from "../../common/atoms/TImage";
+import TProgressCircle from "../../common/atoms/TProgressCircle";
+import settings from "../../common/settings";
+import { isMobile } from "../utils/IsMobile";
+import logo from "/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { TButton } from "../components/Tbutton";
-import { TContainedButton } from "../components/TContainedButton";
+import { TButton } from "../../common/atoms/TButton";
+import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
-
-api.setSettings({
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-});
+import { log } from "console";
 
 const styles = {
   container: {
@@ -146,6 +140,7 @@ export default function Login() {
           );
 
           await communication.sendMessage(requestMessage);
+
           setStatus("app");
         } catch (e) {
           console.error(e);
@@ -257,9 +252,8 @@ export default function Login() {
         const did = logInMessage.getIssuer();
 
         setShowQR(did);
-
-        await connectToTonomyId(requests, loginToCommunication);
         await subscribeToLoginRequestResponse();
+        await connectToTonomyId(requests, loginToCommunication);
       }
     } catch (e) {
       console.error(e);

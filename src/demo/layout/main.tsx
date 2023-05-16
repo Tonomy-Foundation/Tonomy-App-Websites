@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Outlet } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
@@ -9,7 +10,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import logo from "../assets/tonomy/tonomy-logo48.png";
+import logo from "../assets/tonomy-logo48.png";
 import "./main.css";
 
 const MainLayout = ({ content }) => {
@@ -97,8 +98,8 @@ const MainLayout = ({ content }) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content" style={{ zIndex: collapse ? -1 : 0 }}>
-        {content}
+      <div className="main-content">
+        <Outlet />
       </div>
     </div>
   );

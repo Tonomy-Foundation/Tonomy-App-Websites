@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./TUserInfo.css";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import { useNavigate } from "react-router-dom";
-import { TH3, TP } from "../../sso/components/THeadings";
+import { TH3, TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
-import { TButton } from "../../sso/components/Tbutton";
+import { TButton } from "../../common/atoms/TButton";
 
 export default function TPageLeftView() {
   const [user, setUser] = useState<ExternalUser | null>(null);
@@ -42,7 +42,7 @@ export default function TPageLeftView() {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
   return (
     <div className="head-subtitle">

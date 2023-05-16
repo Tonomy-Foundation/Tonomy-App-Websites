@@ -45,7 +45,7 @@ h1 {
 }
 
 .docs {
-  background-image: url("../assets/tonomy/background.jpeg");
+  background-image: url("../assets/background.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   flex: 1;

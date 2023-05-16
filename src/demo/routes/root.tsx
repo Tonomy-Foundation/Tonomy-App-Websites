@@ -1,37 +1,70 @@
-import { createBrowserRouter } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import mainRoutes from "./mainRoutes";
+import authRoutes from "./authRoutes";
+import MainLayout from "../layout/main";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 
-import Home from "../pages/Home";
-import Callback from "../pages/Callback";
-import UserHome from "../pages/UserHome";
-import W3CVCs from "../pages/W3CVCs";
-import BlockchainTx from "../pages/blockchainTx";
-import Messages from "../pages/messages";
+const LoggedInRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        {mainRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Route>
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <BlockchainTx />,
-  },
-  {
-    path: "/callback",
-    element: <Callback />,
-  },
-  {
-    path: "/user-home",
-    element: <UserHome />,
-  },
-  {
-    path: "/w3c-vcs",
-    element: <W3CVCs />,
-  },
-  {
-    path: "/blockchain-tx",
-    element: <BlockchainTx />,
-  },
-  {
-    path: "/messages",
-    element: <Messages />,
-  },
-]);
+const AuthRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/">
+        {authRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Route>
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};
 
-export default router;
+const Router: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  async function onRender() {
+    try {
+      const user = await api.ExternalUser.getUser();
+
+      if (user) setIsLoggedIn(true);
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
+        // User not logged in
+        setIsLoggedIn(false);
+
+        return;
+      }
+
+      console.error(e);
+      alert(e);
+    }
+  }
+
+  useEffect(() => {
+    // onRender();
+  }, []);
+  return (
+    <BrowserRouter>
+      {isLoggedIn ? LoggedInRoutes() : AuthRoutes()}
+    </BrowserRouter>
+  );
+};
+
+export default Router;
