@@ -10,7 +10,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import logo from "../assets/tonomy/tonomy-logo48.png";
+import logo from "../assets/tonomy-logo48.png";
 import "./main.css";
 
 const MainLayout = ({ content }) => {
@@ -94,7 +94,9 @@ const MainLayout = ({ content }) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content"><Outlet /></div>
+      <div className="main-content">
+        <Outlet />
+      </div>
     </div>
   );
 };

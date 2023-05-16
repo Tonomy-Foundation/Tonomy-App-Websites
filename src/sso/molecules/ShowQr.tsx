@@ -1,7 +1,7 @@
 import QRCode from "react-qr-code";
-import TProgressCircle from "../components/TProgressCircle";
-import { TP } from "../components/THeadings";
-import { isMobile } from "../utills/IsMobile";
+import TProgressCircle from "../../common/atoms/TProgressCircle";
+import { TP } from "../../common/atoms/THeadings";
+import { isMobile } from "../utils/IsMobile";
 
 export default function QROrLoading({
     showQr,

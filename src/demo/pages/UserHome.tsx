@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./UserHome.css";
-import { TH1, TH3, TP } from "../../sso/components/THeadings";
+import { TH1, TH3, TP } from "../../common/atoms/THeadings";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
-import { TButton } from "../../sso/components/Tbutton";
+import { TButton } from "../../common/atoms/TButton";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);
