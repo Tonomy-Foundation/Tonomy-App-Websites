@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import router from "./routes/root";
+import Router from "./routes/root";
+import { ProSidebarProvider } from "react-pro-sidebar";
 import settings from "../common/settings";
 import { api } from "@tonomy/tonomy-id-sdk";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
@@ -15,7 +15,10 @@ export default function initiate(root: ReactDOM.Root) {
   return root.render(
     <React.StrictMode>
       <ErrorHandlerProvider />
-      <RouterProvider router={router} />
+
+      <ProSidebarProvider>
+        <Router />
+      </ProSidebarProvider>
     </React.StrictMode>
   );
 }
