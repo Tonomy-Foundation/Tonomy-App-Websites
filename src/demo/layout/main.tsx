@@ -12,8 +12,9 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/tonomy-logo48.png";
 import "./main.css";
+import "./pageLayout.css";
 
-const MainLayout = ({ content }) => {
+const MainLayout = ({ children }) => {
   const { collapseSidebar } = useProSidebar();
   const [collapse, setCollapse] = useState(false);
   const [user, setUser] = useState<ExternalUser | null>(null);
@@ -98,7 +99,8 @@ const MainLayout = ({ content }) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content">
+      <div className="main-content" style={{ zIndex: collapse ? -1 : 0 }}>
+        {/* {children} */}
         <Outlet />
       </div>
     </div>
@@ -106,7 +108,7 @@ const MainLayout = ({ content }) => {
 };
 
 MainLayout.propTypes = {
-  content: PropTypes.any,
+  children: PropTypes.any,
 };
 
 export default MainLayout;

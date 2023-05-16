@@ -1,6 +1,5 @@
 import MainLayout from "../layout/main";
 import TUserInfo from "../components/TUserInfo";
-import "./blockchainTx.css";
 import React, { useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TP } from "../../common/atoms/THeadings";
@@ -13,13 +12,14 @@ import connectionImage from "../assets/nft1.png";
 import { TContainedButton } from "../../common/atoms/TContainedButton";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import HighlightedPageView from "../components/TPageHighlighted";
 
 export default function BlockchainTx() {
   const [buy, setBuy] = useState(false);
 
   return (
     <div className="container">
-      <div className="intro">
+      <div className="pageIntro">
         <TUserInfo></TUserInfo>
         <TP className="text-header marginTop">
           Demo feature of how to use Tonomy ID to
@@ -92,43 +92,23 @@ export default function BlockchainTx() {
           )}
         </div>
       </div>
-      <div className="docs">
-        <TH2 className="title">Code Snippet</TH2>
-        <div className="highlighter">
-          <Highlighter>
-            {`
-              function onButtonPress() {
-                userApps.onPressLogin(
-                { callbackPath: "/callback" },
-                new JsKeyManager()
-                );
-                ...
-              }
-              <button className="tonomy-login-button"
-              onClick={onButtonPress}>
-              Login with {Your Platform Name Here}
-              </button>
-            `}
-          </Highlighter>
-        </div>
-
-        <a
-          href="https://docs.tonomy.foundation"
-          className="link"
-          target="_blank"
-          rel="noreferrer"
-        >
-          View Documentation
-        </a>
-        <a
-          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
-          className="link footer"
-          target="_blank"
-          rel="noreferrer"
-        >
-          View on GitHub
-        </a>
-      </div>
+      <HighlightedPageView
+        highlighterText={`
+            function onButtonPress() {
+              userApps.onPressLogin(
+              { callbackPath: "/callback" },
+              new JsKeyManager()
+              );
+              ...
+            }
+            <button className="tonomy-login-button"
+            onClick={onButtonPress}>
+            Login with {Your Platform Name Here}
+            </button>
+          `}
+        documentLink="https://docs.tonomy.foundation"
+        githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
+      />
     </div>
   );
 }

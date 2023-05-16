@@ -20,15 +20,15 @@ body {
     max-width: 900px;
   }
 
-  .intro {
+  .pageIntro {
     max-height: 100vh;
                 overflow: auto;
                 padding-top: 0.2rem !important;
                padding-bottom:2rem !important;
                display: inline !important;
   }
-  .intro,
-  .docs {
+  .pageIntro,
+  .rightDocs {
     padding: 0rem 1.2rem;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ body {
     margin-bottom: auto;
   }
   
-  .intro .footer {
+  .pageIntro .footer {
     margin-bottom: auto;
     margin-top: 2rem;
   }
@@ -96,8 +96,8 @@ body {
     line-height: 2.5rem;
   }
   
-  .docs {
-    background-image: url("../assets/tonomy/background.jpeg");
+  .rightDocs {
+    background-image: url("../assets/background.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     flex: 1;
@@ -108,7 +108,7 @@ body {
     background-color: transparent;
     text-align: left
   }
-  .docs .title {
+  .rightDocs .title {
     /* margin-top: auto; */
     /* margin-bottom: 1rem; */
     color: var(---bg);
@@ -196,8 +196,8 @@ body {
       height: initial;
     }
   
-    .intro,
-    .docs {
+    .pageIntro,
+    .rightDocs {
       padding: 1rem;
     }
   
@@ -205,7 +205,7 @@ body {
       margin-bottom: 3rem;
     }
   
-    .intro {
+    .pageIntro {
       align-items: center;
       text-align: center;
      
@@ -219,7 +219,7 @@ body {
       max-width: 80%;
     }
   
-    .intro .footer {
+    .pageIntro .footer {
       margin-bottom: 2rem;
     }
   
