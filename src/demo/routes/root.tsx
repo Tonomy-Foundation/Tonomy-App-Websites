@@ -32,7 +32,7 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   async function onRender() {
     try {
@@ -58,7 +58,7 @@ const Router: React.FC = () => {
   }
 
   useEffect(() => {
-    // onRender();
+    onRender();
   }, []);
   return (
     <BrowserRouter>
