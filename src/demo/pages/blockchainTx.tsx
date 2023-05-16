@@ -1,17 +1,10 @@
-import MainLayout from "../layout/main";
+import React, { useState } from "react";
 import TUserInfo from "../components/TUserInfo";
-import React, { useEffect, useState } from "react";
-import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import { TH2, TH3, TP } from "../../common/atoms/THeadings";
-import { Highlighter } from "rc-highlight";
+import { TH2, TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
-import { useNavigate } from "react-router-dom";
 import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
-import { TContainedButton } from "../../common/atoms/TContainedButton";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
 import HighlightedPageView from "../components/TPageHighlighted";
 
 export default function BlockchainTx() {

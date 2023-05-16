@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import MainLayout from "../layout/main";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import { TH1, TH3, TP } from "../../common/atoms/THeadings";
-import { Highlighter } from "rc-highlight";
+import { TH3, TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import { TButton } from "../../common/atoms/TButton";
@@ -58,67 +56,63 @@ export default function Login() {
   }
 
   return (
-    <MainLayout
-      content={
-        <div className="container">
-          <div className="pageIntro">
-            <TP className="head-subtitle">
-              You are now logged in with Tonomy ID.
-            </TP>
-            <TP>
-              Anonymous account: {accountName} (
-              <a
-                target={"_blank"}
-                href={
-                  "https://local.bloks.io/account/" +
-                  accountName +
-                  "?nodeUrl=http://localhost:8888"
-                }
-                rel="noreferrer"
-              >
-                view on the blockchain
-              </a>
-              )
-            </TP>
-            <TP>Username: {username}</TP>
-            <TButton onClick={onLogout}>Logout</TButton>
-            <TH3 className="text-title">Home</TH3>
-            <TP className="text-header">
-              Our demo site showcases the benefits of Tonomy ID for both users
-              and administrators. <br />
-              As a user, you now have access to a variety of features.
-            </TP>
-            <div className="example-container">
-              <TP>
-                You can create a verifiable data by using our built-in tools to
-                create and manage your own digital certificates
-              </TP>
-              <button className="tonomy-login-button">
-                SIGN W3C VERIFIABLE CREDENTIALS
-              </button>
-            </div>
-            <div className="example-container">
-              <TP>
-                You can sign blockchain transactions using our secure system and
-                your private key.
-              </TP>
-              <button className="tonomy-login-button">
-                SIGN BLOCKCHAIN TRANSACTIONS
-              </button>
-            </div>
-            <div className="example-container">
-              <TP>
-                Additionally, you can send messages to other users of Tonomy ID,
-                allowing for easy communication and collaboration.
-              </TP>
-              <button className="tonomy-login-button">
-                SEND PEER TO PEER MESSAGES
-              </button>
-            </div>
-          </div>
+    <div className="container">
+      <div className="pageIntro">
+        <TP className="head-subtitle">You are now logged in with Tonomy ID.</TP>
+        <TP>
+          Anonymous account: {accountName} (
+          <a
+            target={"_blank"}
+            href={
+              "https://local.bloks.io/account/" +
+              accountName +
+              "?nodeUrl=http://localhost:8888"
+            }
+            rel="noreferrer"
+          >
+            view on the blockchain
+          </a>
+          )
+        </TP>
+        <TP>Username: {username}</TP>
+        <TButton onClick={onLogout}>Logout</TButton>
+        <TH3 className="text-title">Home</TH3>
+        <TP className="text-header">
+          Our demo site showcases the benefits of Tonomy ID for both users and
+          administrators. <br />
+          As a user, you now have access to a variety of features.
+        </TP>
+        <div className="example-container">
+          <TP>
+            You can create a verifiable data by using our built-in tools to
+            create and manage your own digital certificates
+          </TP>
+          <button className="tonomy-login-button">
+            SIGN W3C VERIFIABLE CREDENTIALS
+          </button>
+        </div>
+        <div className="example-container">
+          <TP>
+            You can sign blockchain transactions using our secure system and
+            your private key.
+          </TP>
+          <button className="tonomy-login-button">
+            SIGN BLOCKCHAIN TRANSACTIONS
+          </button>
+        </div>
+        <div className="example-container">
+          <TP>
+            Additionally, you can send messages to other users of Tonomy ID,
+            allowing for easy communication and collaboration.
+          </TP>
+          <button className="tonomy-login-button">
+            SEND PEER TO PEER MESSAGES
+          </button>
+        </div>
+      </div>
 
-          <HighlightedPageView
-            highlighterText={`
+      <HighlightedPageView
+        highlighterText={`
             function onButtonPress() {
               userApps.onPressLogin(
               { callbackPath: "/callback" },
@@ -131,11 +125,9 @@ export default function Login() {
             Login with {Your Platform Name Here}
             </button>
           `}
-            documentLink="https://docs.tonomy.foundation"
-            githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
-          />
-        </div>
-      }
-    />
+        documentLink="https://docs.tonomy.foundation"
+        githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
+      />
+    </div>
   );
 }
