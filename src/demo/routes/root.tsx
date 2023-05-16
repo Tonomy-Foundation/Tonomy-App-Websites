@@ -5,7 +5,6 @@ import authRoutes from "./authRoutes";
 import MainLayout from "../layout/main";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 
-
 const LoggedInRoutes = () => {
   return (
     <Routes>
@@ -31,7 +30,7 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   async function onRender() {
     try {

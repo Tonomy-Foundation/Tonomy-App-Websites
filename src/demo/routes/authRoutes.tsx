@@ -8,10 +8,6 @@ const authRoutes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: "/user-home",
-    element: <Home />,
-  },
-  {
     path: "/callback",
     element: <Callback />,
   },
