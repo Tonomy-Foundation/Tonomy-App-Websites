@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
-import BlockchainTx from "../pages/blockchainTx";
-import Messages from "../pages/messages";
+import BlockchainTx from "../pages/BlockchainTx";
+import Messages from "../pages/Messages";
 import UserHome from "../pages/UserHome";
 import W3CVCs from "../pages/W3CVCs";
 

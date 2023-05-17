@@ -6,6 +6,7 @@ import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
 import HighlightedPageView from "../components/TPageHighlighted";
+import "./PageLayout.css";
 
 export default function BlockchainTx() {
   const [buy, setBuy] = useState(false);

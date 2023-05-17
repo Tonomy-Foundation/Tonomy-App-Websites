@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Outlet } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
@@ -11,35 +10,24 @@ import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/tonomy-logo48.png";
-import "./main.css";
-import "./pageLayout.css";
+import { useUserStore } from "../../sso/stores/user.store";
+import "./MainLayout.css";
 
-const MainLayout = ({ onLogout }) => {
+export type MainLayoutProps = {
+  onLogout: () => void;
+};
+
+const MainLayout = (props: MainLayoutProps) => {
   const { collapseSidebar } = useProSidebar();
   const [collapse, setCollapse] = useState(false);
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
+  const userStore = useUserStore();
 
   async function onRender() {
-    try {
-      const user = await api.ExternalUser.getUser();
+    const user = await api.ExternalUser.getUser();
 
-      setUser(user);
-    } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
-      ) {
-        // User not logged in
-        navigation("/");
-        return;
-      }
-
-      console.error(e);
-      alert(e);
-    }
+    userStore.setUser(user);
   }
 
   useEffect(() => {
@@ -82,7 +70,7 @@ const MainLayout = ({ onLogout }) => {
             <MenuItem
               icon={<LogoutIcon />}
               className="logoutMenu"
-              onClick={onLogout}
+              onClick={props.onLogout}
             >
               Logout{" "}
             </MenuItem>
@@ -94,10 +82,6 @@ const MainLayout = ({ onLogout }) => {
       </div>
     </div>
   );
-};
-
-MainLayout.propTypes = {
-  onLogout: PropTypes.any,
 };
 
 export default MainLayout;

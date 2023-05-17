@@ -5,6 +5,7 @@ import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import { TButton } from "../../common/atoms/TButton";
 import HighlightedPageView from "../components/TPageHighlighted";
+import "./PageLayout.css";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);

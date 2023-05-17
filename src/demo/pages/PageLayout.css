@@ -22,13 +22,12 @@ body {
 
   .pageIntro {
     max-height: 100vh;
-                overflow: auto;
-                padding-top: 0.2rem !important;
-               padding-bottom:2rem !important;
-               display: inline !important;
+    overflow: auto;
+    padding-top: 0.2rem !important;
+    padding-bottom:2rem !important;
+    display: inline !important;
   }
-  .pageIntro,
-  .rightDocs {
+  .pageIntro {
     padding: 0rem 1.2rem;
     display: flex;
     flex-direction: column;
@@ -96,29 +95,17 @@ body {
     line-height: 2.5rem;
   }
   
-  .rightDocs {
-    background-image: url("../assets/background.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    flex: 1;
-    height: 100%;
-    align-items: center;
-  }
   .title {
     background-color: transparent;
     text-align: left
   }
-  .rightDocs .title {
+   .title {
     /* margin-top: auto; */
     /* margin-bottom: 1rem; */
     color: var(---bg);
   }
   
-  .highlighter {
-    transform: scale(0.9);
-    margin: 1rem 0;
-    min-width: 600px;
-  }
+  
   
   .floating-copy-button {
     display: flex;
@@ -150,25 +137,12 @@ body {
   }
   
   
-  .head-subtitle {
-    text-align: center;
-    margin-bottom: 20px;
-   
-  }
-
-  .head-subtitle a {
-        color: #0057B2;
-  }
-  
   .example-container p {
     max-width: 600px;
     margin: 0 auto;
     text-align: justify;
   }
 
-  .head-subtitle p{
-    line-height: 32px;
-}
 .list {
     margin-top: 2rem;
 }
@@ -196,8 +170,7 @@ body {
       height: initial;
     }
   
-    .pageIntro,
-    .rightDocs {
+    .pageIntro {
       padding: 1rem;
     }
   
@@ -223,10 +196,7 @@ body {
       margin-bottom: 2rem;
     }
   
-    .highlighter {
-      transform: scale(0.8);
-      margin: 0;
-    }
+    
   
     .link {
       font-size: 16px;

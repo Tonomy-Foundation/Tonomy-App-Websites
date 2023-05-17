@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import mainRoutes from "./mainRoutes";
 import authRoutes from "./authRoutes";
-import MainLayout from "../layout/main";
-import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import MainLayout from "../layout/MainLayout";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { useUserStore } from "../../sso/stores/user.store";
+import useErrorStore from "../../common/stores/errorStore";
 
 const LoggedInRoutes = ({ onLogout }) => {
   return (
@@ -32,14 +34,15 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<ExternalUser | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const userStore = useUserStore();
+  const errorStore = useErrorStore();
 
   async function onRender() {
     try {
       const user = await api.ExternalUser.getUser();
 
-      setUser(user);
+      userStore.setUser(user);
       setIsLoggedIn(true);
     } catch (e) {
       if (
@@ -54,22 +57,20 @@ const Router: React.FC = () => {
         return;
       }
 
-      console.error(e);
-      alert(e);
+      errorStore.setError({ error: e, expected: false });
     }
   }
 
   useEffect(() => {
     onRender();
-  }, [isLoggedIn]);
+  }, []);
 
   const handleLogout = async () => {
     try {
-      await user?.logout();
+      await userStore?.logout();
       setIsLoggedIn(false);
     } catch (e) {
-      console.error(e);
-      alert(e);
+      errorStore.setError({ error: e, expected: false });
     }
   };
 
