@@ -2,13 +2,13 @@ import { TH2 } from "../../common/atoms/THeadings";
 import { Highlighter } from "rc-highlight";
 import "./TPageHighlighted.css";
 
-export type HighlightedPageViewProps = {
+export type TPageHighlightedProps = {
   highlighterText: string;
   documentLink: string;
   githubLink: string;
 };
 
-const HighlightedPageView = (props: HighlightedPageViewProps) => {
+const TPageHighlighted = (props: TPageHighlightedProps) => {
   return (
     <div className="rightDocs">
       <TH2 className="title">Code Snippet</TH2>
@@ -36,4 +36,4 @@ const HighlightedPageView = (props: HighlightedPageViewProps) => {
   );
 };
 
-export default HighlightedPageView;
+export default TPageHighlighted;
