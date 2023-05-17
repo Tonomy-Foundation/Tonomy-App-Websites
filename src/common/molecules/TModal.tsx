@@ -3,6 +3,14 @@ import { TButton } from "../atoms/TButton";
 import { Box, Modal } from "@mui/material";
 import TIcon from "../atoms/TIcon";
 
+/**
+ * @property {function} onPress - function to be called when the modal is closed
+ * @property {string} icon - icon to be displayed from https://fonts.google.com/icons
+ * @property {string} iconColor - color of the icon from the theme
+ * @property {string} title - title of the modal
+ * @property {string} buttonLabel - label of the close button
+ * @property {boolean} open - whether the modal is open or not
+ */
 export type ModalProps = React.ComponentProps<typeof Modal> & {
   onPress: () => void;
   icon: string;
@@ -19,9 +27,6 @@ export type ModalProps = React.ComponentProps<typeof Modal> & {
   title: string;
   buttonLabel?: string;
   open: boolean;
-  enableLinkButton?: boolean;
-  linkButtonText?: string;
-  linkOnPress?: () => void;
 };
 
 const styles = {
@@ -33,7 +38,6 @@ const styles = {
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    // maxWidth: 400,
     backgroundColor: "white",
     borderRadius: 1,
     padding: 3,
