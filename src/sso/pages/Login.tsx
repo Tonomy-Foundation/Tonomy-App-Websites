@@ -28,7 +28,7 @@ import "./Login.css";
 import { TButton } from "../../common/atoms/TButton";
 import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
-import { useUserStore } from "../stores/user.store";
+import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import { log } from "console";
 

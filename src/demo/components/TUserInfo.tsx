@@ -3,7 +3,7 @@ import "./TUserInfo.css";
 import { api } from "@tonomy/tonomy-id-sdk";
 import { TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
-import { useUserStore } from "../../sso/stores/user.store";
+import { useUserStore } from "../../common/stores/user.store";
 import useErrorStore from "../../common/stores/errorStore";
 import settings from "../../common/settings";
 

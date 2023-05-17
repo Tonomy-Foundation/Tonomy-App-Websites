@@ -4,7 +4,7 @@ import mainRoutes from "./mainRoutes";
 import authRoutes from "./authRoutes";
 import MainLayout from "../layout/MainLayout";
 import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import { useUserStore } from "../../sso/stores/user.store";
+import { useUserStore } from "../../common/stores/user.store";
 import useErrorStore from "../../common/stores/errorStore";
 
 const LoggedInRoutes = ({ onLogout }) => {

@@ -10,7 +10,7 @@ import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/tonomy-logo48.png";
-import { useUserStore } from "../../sso/stores/user.store";
+import { useUserStore } from "../../common/stores/user.store";
 import "./MainLayout.css";
 
 export type MainLayoutProps = {
