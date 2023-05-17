@@ -6,6 +6,12 @@ import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
 import HighlightedPageView from "../components/TPageHighlighted";
+import Ticket from "../assets/blockchain/ticket.png";
+import Handshake from "../assets/blockchain/handshake.png";
+import Money from "../assets/blockchain/money.png";
+import Vote from "../assets/blockchain/vote.png";
+import Cruise from "../assets/blockchain/cruise.png";
+
 import "./PageLayout.css";
 
 export default function BlockchainTx() {
@@ -33,11 +39,26 @@ export default function BlockchainTx() {
         <TP className="list">
           Other examples of how to use credentials with Tonomy ID include:
           <ul>
-            <li>employment contracts</li>
-            <li>shipping and logistics</li>
-            <li>events payments and payment metadata</li>
-            <li>votes event</li>
-            <li>ticketsand much more!</li>
+            <li>
+              <TImage src={Handshake} alt="ticket" className="listIcon" />
+              employment contracts
+            </li>
+            <li>
+              <TImage src={Cruise} alt="ticket" className="listIcon" />
+              shipping and logistics
+            </li>
+            <li>
+              <TImage src={Money} alt="ticket" className="listIcon" />
+              events payments and payment metadata
+            </li>
+            <li>
+              <TImage src={Vote} alt="ticket" className="listIcon" />
+              votes event
+            </li>
+            <li>
+              <TImage src={Ticket} alt="ticket" className="listIcon" />
+              tickets and much more!
+            </li>
           </ul>
         </TP>
         <div className="example-container">

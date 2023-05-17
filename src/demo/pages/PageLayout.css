@@ -104,8 +104,17 @@ body {
     /* margin-bottom: 1rem; */
     color: var(---bg);
   }
-  
-  
+
+  .list li {
+    display: flex; 
+    align-items: center;
+  }
+
+  .listIcon {
+    width: 22px;
+    margin-right: 8px;
+
+  }
   
   .floating-copy-button {
     display: flex;
