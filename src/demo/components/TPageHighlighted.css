@@ -1,6 +1,6 @@
 .rightDocs {
     padding: 0rem 1.2rem;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
@@ -10,7 +10,8 @@
     flex: 1;
     height: 100%;
     align-items: center;
-  }
+    margin-top: auto;
+}
 
   .rightDocs, .title {
     color: var(---bg);
@@ -26,15 +27,17 @@
     margin: 1rem 0;
     min-width: 600px;
   }
-  .link {
+  .alink {
     font-size: 20px;
     color: var(---bg);
     font-weight: 500;
   }
   
-  .link.footer {
+  .alink.footer {
     align-self: flex-end;
-    margin-top: 9rem;
+    position: absolute;
+    bottom: 5rem;
+    right: 4rem;
   }
   
 
@@ -46,11 +49,11 @@
         transform: scale(0.8);
         margin: 0;
     }
-    .link {
+    .alink {
         font-size: 16px;
     }
     
-    .link.footer {
+    .alink.footer {
         margin-top: 2rem;
     }
 }

@@ -37,15 +37,19 @@ export default function TUserInfo() {
       <TP>
         View your account on the blockchain{" "}
         <a
-            target={"_blank"}
-            href={
-              "https://local.bloks.io/account/" +
-              accountName +
-              "?nodeUrl=" +
-              settings.isProduction() ? settings.config.blockchainUrl : "http://localhost:8888"
-            }
-            rel="noreferrer"
-          >
+          target={"_blank"}
+          href={
+            "https://local.bloks.io/account/" +
+            accountName +
+            "?nodeUrl=" +
+            settings.isProduction()
+              ? settings.config.blockchainUrl
+              : "http://localhost:8888"
+          }
+          rel="noreferrer"
+        >
+          here
+        </a>
       </TP>
     </div>
   );

@@ -18,7 +18,7 @@ const TPageHighlighted = (props: TPageHighlightedProps) => {
 
       <a
         href={props.documentLink}
-        className="link"
+        className="alink"
         target="_blank"
         rel="noreferrer"
       >
@@ -26,7 +26,7 @@ const TPageHighlighted = (props: TPageHighlightedProps) => {
       </a>
       <a
         href={props.githubLink}
-        className="link footer"
+        className="alink footer"
         target="_blank"
         rel="noreferrer"
       >

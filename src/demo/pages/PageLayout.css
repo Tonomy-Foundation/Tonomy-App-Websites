@@ -123,11 +123,7 @@ body {
     color: var(---bg);
     font-weight: 500;
   }
-  
-  .link.footer {
-    align-self: flex-end;
-    margin-top: 9rem;
-  }
+
   
   .example-container {
     text-align: center;
