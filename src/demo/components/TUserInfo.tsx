@@ -18,11 +18,11 @@ export default function TUserInfo() {
     try {
       const username = await user?.getUsername();
 
-      setUsername(username?.getBaseUsername());
+      if (username) setUsername(username?.getBaseUsername());
 
       const accountName = await user?.getAccountName();
 
-      setAccountName(accountName?.toString());
+      if (accountName) setAccountName(accountName?.toString());
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
