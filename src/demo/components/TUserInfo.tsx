@@ -9,18 +9,20 @@ import settings from "../../common/settings";
 
 export default function TUserInfo() {
   const [username, setUsername] = useState<string>("");
+  const [accountName, setAccountName] = useState<string>("");
   const userStore = useUserStore();
+  const user = userStore.user;
   const errorStore = useErrorStore();
 
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
+      const username = await user?.getUsername();
 
-      userStore.setUser(user);
+      setUsername(username?.getBaseUsername());
 
-      const username = await user.getUsername();
+      const accountName = await user?.getAccountName();
 
-      setUsername(username.getBaseUsername());
+      setAccountName(accountName?.toString());
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -35,12 +37,15 @@ export default function TUserInfo() {
       <TP>
         View your account on the blockchain{" "}
         <a
-          target={"_blank"}
-          href={settings.config.blockchainUrl}
-          rel="noreferrer"
-        >
-          here
-        </a>
+            target={"_blank"}
+            href={
+              "https://local.bloks.io/account/" +
+              accountName +
+              "?nodeUrl=" +
+              settings.isProduction() ? settings.config.blockchainUrl : "http://localhost:8888"
+            }
+            rel="noreferrer"
+          >
       </TP>
     </div>
   );

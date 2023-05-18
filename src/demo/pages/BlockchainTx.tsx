@@ -6,11 +6,11 @@ import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
 import HighlightedPageView from "../components/TPageHighlighted";
-import Ticket from "../assets/blockchain/ticket.png";
-import Handshake from "../assets/blockchain/handshake.png";
-import Money from "../assets/blockchain/money.png";
-import Vote from "../assets/blockchain/vote.png";
-import Cruise from "../assets/blockchain/cruise.png";
+import Ticket from "../assets/emojis/ticket.png";
+import Handshake from "../assets/emojis/handshake.png";
+import Money from "../assets/emojis/money.png";
+import Vote from "../assets/emojis/vote.png";
+import Cruise from "../assets/emojis/cruise.png";
 
 import "./PageLayout.css";
 

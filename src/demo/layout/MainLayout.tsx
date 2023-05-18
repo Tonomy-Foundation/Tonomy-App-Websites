@@ -25,9 +25,11 @@ const MainLayout = (props: MainLayoutProps) => {
   const userStore = useUserStore();
 
   async function onRender() {
-    const user = await api.ExternalUser.getUser();
+    const user = userStore.user;
 
-    userStore.setUser(user);
+    if (!user) {
+      navigation("/");
+    }
   }
 
   useEffect(() => {
