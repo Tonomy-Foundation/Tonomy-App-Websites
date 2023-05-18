@@ -34,16 +34,17 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userStore = useUserStore();
   const errorStore = useErrorStore();
 
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
-
-      userStore.setUser(user);
-      setIsLoggedIn(true);
+      if (userStore.user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -62,7 +63,7 @@ const Router: React.FC = () => {
   }
 
   useEffect(() => {
-    // onRender();
+    onRender();
   }, []);
 
   const handleLogout = async () => {
