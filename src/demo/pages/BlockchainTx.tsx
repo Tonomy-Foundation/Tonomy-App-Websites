@@ -11,15 +11,19 @@ import Handshake from "../assets/emojis/handshake.png";
 import Money from "../assets/emojis/money.png";
 import Vote from "../assets/emojis/vote.png";
 import Cruise from "../assets/emojis/cruise.png";
-
-import "./PageLayout.css";
+import {
+  ContainerStyle,
+  PageIntroStyle,
+  BoxContainer,
+} from "../components/styles";
+import "./BlockchainTx.css";
 
 export default function BlockchainTx() {
   const [buy, setBuy] = useState(false);
 
   return (
-    <div className="container">
-      <div className="pageIntro">
+    <ContainerStyle>
+      <PageIntroStyle>
         <TUserInfo></TUserInfo>
         <TP className="text-header marginTop">
           Demo feature of how to use Tonomy ID to
@@ -61,7 +65,7 @@ export default function BlockchainTx() {
             </li>
           </ul>
         </TP>
-        <div className="example-container">
+        <BoxContainer className="boxStyle1">
           {!buy ? (
             <>
               <TH2>#85456</TH2>
@@ -105,8 +109,8 @@ export default function BlockchainTx() {
               </TButton>
             </>
           )}
-        </div>
-      </div>
+        </BoxContainer>
+      </PageIntroStyle>
       <HighlightedPageView
         highlighterText={`
             function onButtonPress() {
@@ -124,6 +128,6 @@ export default function BlockchainTx() {
         documentLink="https://docs.tonomy.foundation"
         githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/development/src/demo/pages/blockchainTx.tsx"
       />
-    </div>
+    </ContainerStyle>
   );
 }

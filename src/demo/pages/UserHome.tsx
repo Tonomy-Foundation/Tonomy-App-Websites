@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import { TH3, TP } from "../../common/atoms/THeadings";
+import { TH2, TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import { TButton } from "../../common/atoms/TButton";
 import HighlightedPageView from "../components/TPageHighlighted";
-import "./PageLayout.css";
+import {
+  ContainerStyle,
+  PageIntroStyle,
+  BoxContainer,
+} from "../components/styles";
+import TUserInfo from "../components/TUserInfo";
+import "./UserHome.css";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);
@@ -43,7 +49,7 @@ export default function Login() {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
 
   async function onLogout() {
@@ -57,33 +63,16 @@ export default function Login() {
   }
 
   return (
-    <div className="container">
-      <div className="pageIntro">
-        <TP className="head-subtitle">You are now logged in with Tonomy ID.</TP>
-        <TP>
-          Anonymous account: {accountName} (
-          <a
-            target={"_blank"}
-            href={
-              "https://local.bloks.io/account/" +
-              accountName +
-              "?nodeUrl=http://localhost:8888"
-            }
-            rel="noreferrer"
-          >
-            view on the blockchain
-          </a>
-          )
-        </TP>
-        <TP>Username: {username}</TP>
-        <TButton onClick={onLogout}>Logout</TButton>
-        <TH3 className="text-title">Home</TH3>
+    <ContainerStyle>
+      <PageIntroStyle>
+        <TUserInfo></TUserInfo>
+        <TH2> Home</TH2>
         <TP className="text-header">
           Our demo site showcases the benefits of Tonomy ID for both users and
           administrators. <br />
           As a user, you now have access to a variety of features.
         </TP>
-        <div className="example-container">
+        <BoxContainer className="boxStyle">
           <TP>
             You can create a verifiable data by using our built-in tools to
             create and manage your own digital certificates
@@ -91,8 +80,8 @@ export default function Login() {
           <button className="tonomy-login-button">
             SIGN W3C VERIFIABLE CREDENTIALS
           </button>
-        </div>
-        <div className="example-container">
+        </BoxContainer>
+        <BoxContainer className="boxStyle">
           <TP>
             You can sign blockchain transactions using our secure system and
             your private key.
@@ -100,8 +89,8 @@ export default function Login() {
           <button className="tonomy-login-button">
             SIGN BLOCKCHAIN TRANSACTIONS
           </button>
-        </div>
-        <div className="example-container">
+        </BoxContainer>
+        <BoxContainer className="boxStyle">
           <TP>
             Additionally, you can send messages to other users of Tonomy ID,
             allowing for easy communication and collaboration.
@@ -109,8 +98,8 @@ export default function Login() {
           <button className="tonomy-login-button">
             SEND PEER TO PEER MESSAGES
           </button>
-        </div>
-      </div>
+        </BoxContainer>
+      </PageIntroStyle>
 
       <HighlightedPageView
         highlighterText={`
@@ -129,6 +118,6 @@ export default function Login() {
         documentLink="https://docs.tonomy.foundation"
         githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
       />
-    </div>
+    </ContainerStyle>
   );
 }
