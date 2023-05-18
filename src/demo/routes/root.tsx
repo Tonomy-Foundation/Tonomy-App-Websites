@@ -34,7 +34,7 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const userStore = useUserStore();
   const errorStore = useErrorStore();
 
@@ -62,7 +62,7 @@ const Router: React.FC = () => {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
 
   const handleLogout = async () => {

@@ -169,9 +169,24 @@ body {
   margin-top: 3rem !important;
   margin-right: 2rem !important;
 }
+.backgroundGrey{
+  background-color: #F9F9F9;
+  padding: 0.4rem 3rem ;
+
+}
 
 .list li{
     margin-left: 2rem;
+}
+
+.formView {
+  margin-top: 2rem;
+}
+
+.security-message {
+  background: rgba(76, 175, 80, 0.17);
+border-radius: 8px;
+
 }
   
   @media only screen and (max-width: 768px) {
