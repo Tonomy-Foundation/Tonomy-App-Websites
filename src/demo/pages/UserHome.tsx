@@ -6,10 +6,12 @@ import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import { TButton } from "../../common/atoms/TButton";
+import settings from "../../common/settings";
 
 export default function Login() {
   const [user, setUser] = useState<ExternalUser | null>(null);
   const [accountName, setAccountName] = useState<string>("");
+  const [explorerUrl, setExplorerUrl] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const navigation = useNavigate();
 
@@ -22,6 +24,14 @@ export default function Login() {
       const accountName = await user.getAccountName();
 
       setAccountName(accountName.toString());
+      setExplorerUrl(
+        "https://local.bloks.io/account/" +
+          accountName +
+          "?nodeUrl=" +
+          settings.isProduction()
+          ? settings.config.blockchainUrl
+          : "http://localhost:8888"
+      );
       const username = await user.getUsername();
 
       setUsername(username.getBaseUsername());
@@ -59,24 +69,15 @@ export default function Login() {
   return (
     <div className="container">
       <div className="intro">
-        <TP className="head-subtitle">You are now logged in with Tonomy ID.</TP>
-        <TP>
-          Anonymous account: {accountName} (
-          <a
-            target={"_blank"}
-            href={
-              "https://local.bloks.io/account/" +
-              accountName +
-              "?nodeUrl=http://localhost:8888"
-            }
-            rel="noreferrer"
-          >
-            view on the blockchain
-          </a>
-          )
-        </TP>
-        <TP>Username: {username}</TP>
-        <TButton onClick={onLogout}>Logout</TButton>
+        <div className="head-subtitle">
+          <TP className="top">Welcome back {username}</TP>
+          <TP className="bottom">
+            View your account on the blockchain{" "}
+            <a target={"_blank"} href={explorerUrl} rel="noreferrer">
+              here
+            </a>
+          </TP>
+        </div>
         <TH3 className="text-title">Home</TH3>
         <TP className="text-header">
           Our demo site showcases the benefits of Tonomy ID for both users and
