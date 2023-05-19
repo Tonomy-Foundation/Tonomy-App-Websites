@@ -16,7 +16,6 @@ body {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   position: relative;
   flex: 1;
   height: 100%;
