@@ -36,7 +36,7 @@ const Router: React.FC = () => {
 
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
+      const user = await api.ExternalUser.getUser({ autoLogout: false });
 
       if (user) setIsLoggedIn(true);
     } catch (e) {
