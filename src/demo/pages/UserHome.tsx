@@ -22,16 +22,13 @@ export default function Login() {
       setUser(user);
 
       const accountName = await user.getAccountName();
+      let url = `https://local.bloks.io/account/${accountName}?nodeUrl=`;
 
+      url += settings.isProduction()
+        ? settings.config.blockchainUrl
+        : "http://localhost:8888";
       setAccountName(accountName.toString());
-      setExplorerUrl(
-        "https://local.bloks.io/account/" +
-          accountName +
-          "?nodeUrl=" +
-          settings.isProduction()
-          ? settings.config.blockchainUrl
-          : "http://localhost:8888"
-      );
+      setExplorerUrl(url);
       const username = await user.getUsername();
 
       setUsername(username.getBaseUsername());
@@ -55,16 +52,6 @@ export default function Login() {
   useEffect(() => {
     onRender();
   }, []);
-
-  async function onLogout() {
-    try {
-      await user?.logout();
-      navigation("/");
-    } catch (e) {
-      console.error(e);
-      alert(e);
-    }
-  }
 
   return (
     <div className="container">
