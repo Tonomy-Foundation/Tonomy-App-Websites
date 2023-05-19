@@ -31,7 +31,7 @@ const MainLayout = ({ content }) => {
           e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
-        navigation("/");
+        window.location.href = "/";
         return;
       }
 
@@ -48,7 +48,7 @@ const MainLayout = ({ content }) => {
   async function onLogout() {
     try {
       await user?.logout();
-      navigation("/");
+      window.location.href = "/";
     } catch (e) {
       console.error(e);
       alert(e);
@@ -67,29 +67,41 @@ const MainLayout = ({ content }) => {
             >
               <h4 className="whiteColor">Tonomy ID</h4>{" "}
             </MenuItem>
-            <Link to="/user-home">
-              <MenuItem icon={<HomeOutlinedIcon />}> Home</MenuItem>
-            </Link>
-            <Link to="/w3c-vcs">
-              <MenuItem icon={<DescriptionOutlinedIcon />}> W3C VCs</MenuItem>
-            </Link>
-            <Link to="/blockchain-tx">
-              <MenuItem icon={<SwapHorizOutlinedIcon />}>
-                {" "}
-                Blockchain Tx
-              </MenuItem>
-            </Link>
-            <Link to="/messages">
-              <MenuItem icon={<ChatBubbleOutlineOutlinedIcon />}>
-                Messages
-              </MenuItem>
-            </Link>
+
+            <MenuItem
+              icon={<HomeOutlinedIcon />}
+              component={<Link to="/user-home" />}
+            >
+              Home
+            </MenuItem>
+
+            <MenuItem
+              icon={<DescriptionOutlinedIcon />}
+              component={<Link to="/w3c-vcs" />}
+            >
+              W3C VCs
+            </MenuItem>
+
+            <MenuItem
+              icon={<SwapHorizOutlinedIcon />}
+              component={<Link to="/blockchain-tx" />}
+            >
+              Blockchain Tx
+            </MenuItem>
+
+            <MenuItem
+              icon={<ChatBubbleOutlineOutlinedIcon />}
+              component={<Link to="/messages" />}
+            >
+              Messages
+            </MenuItem>
+
             <MenuItem
               icon={<LogoutIcon />}
               className="logoutMenu"
               onClick={onLogout}
             >
-              Logout{" "}
+              Logout
             </MenuItem>
           </Menu>
         </Sidebar>
