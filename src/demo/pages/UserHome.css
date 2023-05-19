@@ -90,6 +90,15 @@ h1 {
 
 .head-subtitle {
   text-align: center;
+}
+
+.head-subtitle .top {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.head-subtitle .bottom {
+  font-size: 15px;
   margin-bottom: 20px;
 }
 
