@@ -3,16 +3,30 @@ import { TButton } from "../atoms/TButton";
 import { Box, Modal } from "@mui/material";
 import TIcon from "../atoms/TIcon";
 
+/**
+ * @property {function} onPress - function to be called when the modal is closed
+ * @property {string} icon - icon to be displayed from https://fonts.google.com/icons
+ * @property {string} iconColor - color of the icon from the theme
+ * @property {string} title - title of the modal
+ * @property {string} buttonLabel - label of the close button
+ * @property {boolean} open - whether the modal is open or not
+ */
 export type ModalProps = React.ComponentProps<typeof Modal> & {
   onPress: () => void;
   icon: string;
-  iconColor?: "inherit" | "action" | "disabled" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  iconColor?:
+  | "inherit"
+  | "action"
+  | "disabled"
+  | "primary"
+  | "secondary"
+  | "error"
+  | "info"
+  | "success"
+  | "warning";
   title: string;
   buttonLabel?: string;
   open: boolean;
-  enableLinkButton?: boolean;
-  linkButtonText?: string;
-  linkOnPress?: () => void;
 };
 
 const styles = {
@@ -32,25 +46,24 @@ const styles = {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 16,
-  }
+  },
 };
 
 export default function TModal(props: ModalProps) {
   return (
-    <Modal
-      open={props.open}
-      onClose={props.onPress}
-    >
+    <Modal open={props.open} onClose={props.onPress}>
       <Box sx={styles.modal}>
         <Box sx={styles.modalContent}>
           <div style={{ textAlign: "center" }}>
             <TIcon color={props.iconColor} icon={props.icon} />
             <div style={styles.title}>{props.title}</div>
             {props.children}
-            <div style={{
-              marginTop: 16,
-              textAlign: "right",
-            }}>
+            <div
+              style={{
+                marginTop: 16,
+                textAlign: "right",
+              }}
+            >
               <TButton onClick={props.onPress}>
                 {props.buttonLabel ?? "OK"}
               </TButton>
@@ -60,5 +73,4 @@ export default function TModal(props: ModalProps) {
       </Box>
     </Modal>
   );
-
 }
