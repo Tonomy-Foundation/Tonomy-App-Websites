@@ -10,6 +10,11 @@ body {
   .boxStyle1 {
     padding: 2rem 2rem 7.8rem 2rem;
   }
+
+  .successBox {
+    padding: 2rem 2rem 3rem 2rem;
+
+  }
   
   header {
     align-self: flex-start;
