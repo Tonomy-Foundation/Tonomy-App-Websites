@@ -63,7 +63,7 @@ const Router: React.FC = () => {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
 
   const handleLogout = async () => {
