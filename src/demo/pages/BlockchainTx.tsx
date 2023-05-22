@@ -82,7 +82,7 @@ export default function BlockchainTx() {
                   <TP>Created by: ‘federation’</TP>
                   <TP>Blockchain: Tonomy Demo Network</TP>
                   <div className="marginTop">
-                    <h4>Price</h4>
+                    <h4 style={{ textAlign: "left" }}>Price</h4>
                     <TP>17.12 SYS (€1,950.53 DEMO ONLY )</TP>
                   </div>
                   <TButton
