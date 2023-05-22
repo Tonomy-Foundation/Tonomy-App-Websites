@@ -70,41 +70,56 @@ export default function BlockchainTx() {
           <BoxContainer className="boxStyle1">
             <TH2>#85456</TH2>
             <div className="nftImageColumn">
-              <TP>
+              <div className="imgConatiner">
                 <TImage
                   src={connectionImage}
                   alt="Connecting Phone-PC"
                   className="nftImage"
                 />
-                <TP>Sale ID: #197387654094</TP>
-                <TP>Owned by: 948361751KIHF </TP>
-                <TP>Created by: ‘federation’</TP>
-                <TP>Blockchain: Tonomy Demo Network</TP>
-                <div className="marginTop">
-                  <h4>Price</h4>
-                  <TP>17.12 SYS (€1,950.53 DEMO ONLY )</TP>
+                <div className="paddingTop">
+                  <TP>Sale ID: #197387654094</TP>
+                  <TP>Owned by: 948361751KIHF </TP>
+                  <TP>Created by: ‘federation’</TP>
+                  <TP>Blockchain: Tonomy Demo Network</TP>
+                  <div className="marginTop">
+                    <h4>Price</h4>
+                    <TP>17.12 SYS (€1,950.53 DEMO ONLY )</TP>
+                  </div>
+                  <TButton
+                    className="tbuttonstyle"
+                    onClick={() => setBuy(!buy)}
+                  >
+                    BUY
+                  </TButton>
                 </div>
-                <TButton className="tbuttonstyle" onClick={() => setBuy(!buy)}>
-                  BUY
-                </TButton>
-              </TP>
+              </div>
             </div>
           </BoxContainer>
         ) : (
-          <BoxContainer className="successBox">
-            <TH2>SUCCESS!</TH2>
-            <TP className="centerAlign">You just "bought" a NFT</TP>
-            <div className="nftImageColumn">
-              <TImage
-                src={connectionImage}
-                alt="Connecting Phone-PC"
-                className="nftImage nftImageCenter"
-              />
-            </div>
-            <TButton className="tryAgainbtn" onClick={() => setBuy(!buy)}>
-              Try Again
-            </TButton>
-          </BoxContainer>
+          <>
+            <BoxContainer className="successBox">
+              <div style={{ position: "relative" }}>
+                <TH2>SUCCESS!</TH2>
+                <TP className="centerAlign">You just "bought" a NFT</TP>
+                <div className="nftImageColumn">
+                  <TImage
+                    src={connectionImage}
+                    alt="Connecting Phone-PC"
+                    className="nftImage nftImageCenter"
+                  />
+                </div>
+                <TButton className="tryAgainbtn" onClick={() => setBuy(!buy)}>
+                  Try Again
+                </TButton>
+              </div>
+              <div className="btnDiv">
+                <TButton className="blockchainBtn" onClick={() => setBuy(!buy)}>
+                  See it on the blockchain{" "}
+                  <a className="blockchainLink"> here</a>
+                </TButton>
+              </div>
+            </BoxContainer>
+          </>
         )}
       </PageIntroStyle>
       <HighlightedPageView
