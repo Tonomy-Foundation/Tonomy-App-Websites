@@ -6,6 +6,10 @@ import W3CVCs from "../pages/W3CVCs";
 
 const mainRoutes: RouteObject[] = [
   {
+    path: "/",
+    element: <UserHome />,
+  },
+  {
     path: "/user-home",
     element: <UserHome />,
   },
