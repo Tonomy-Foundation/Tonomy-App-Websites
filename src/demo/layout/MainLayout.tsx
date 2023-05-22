@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import { useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -20,7 +19,6 @@ export type MainLayoutProps = {
 const MainLayout = (props: MainLayoutProps) => {
   const { collapseSidebar } = useProSidebar();
   const [collapse, setCollapse] = useState(false);
-  const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
   const userStore = useUserStore();
 
@@ -28,6 +26,7 @@ const MainLayout = (props: MainLayoutProps) => {
     const user = userStore.user;
 
     if (!user) {
+      props.onLogout();
       navigation("/");
     }
   }
@@ -52,29 +51,41 @@ const MainLayout = (props: MainLayoutProps) => {
             >
               <h4 className="whiteColor">Tonomy ID</h4>{" "}
             </MenuItem>
-            <Link to="/user-home">
-              <MenuItem icon={<HomeOutlinedIcon />}> Home</MenuItem>
-            </Link>
-            <Link to="/w3c-vcs">
-              <MenuItem icon={<DescriptionOutlinedIcon />}> W3C VCs</MenuItem>
-            </Link>
-            <Link to="/blockchain-tx">
-              <MenuItem icon={<SwapHorizOutlinedIcon />}>
-                {" "}
-                Blockchain Tx
-              </MenuItem>
-            </Link>
-            <Link to="/messages">
-              <MenuItem icon={<ChatBubbleOutlineOutlinedIcon />}>
-                Messages
-              </MenuItem>
-            </Link>
+
+            <MenuItem
+              icon={<HomeOutlinedIcon />}
+              component={<Link to="/user-home" />}
+            >
+              Home
+            </MenuItem>
+
+            <MenuItem
+              icon={<DescriptionOutlinedIcon />}
+              component={<Link to="/w3c-vcs" />}
+            >
+              W3C VCs
+            </MenuItem>
+
+            <MenuItem
+              icon={<SwapHorizOutlinedIcon />}
+              component={<Link to="/blockchain-tx" />}
+            >
+              Blockchain Tx
+            </MenuItem>
+
+            <MenuItem
+              icon={<ChatBubbleOutlineOutlinedIcon />}
+              component={<Link to="/messages" />}
+            >
+              Messages
+            </MenuItem>
+
             <MenuItem
               icon={<LogoutIcon />}
               className="logoutMenu"
               onClick={props.onLogout}
             >
-              Logout{" "}
+              Logout
             </MenuItem>
           </Menu>
         </Sidebar>
