@@ -9,7 +9,6 @@ export const ContainerStyle = styled.div`
 
   & p {
     line-height: 30px;
-    max-width: 900px;
   }
 `;
 
@@ -37,7 +36,6 @@ export const BoxContainer = styled.div`
   margin: 2rem 4rem 0rem;
   border: 1px solid #E4E4E4;
   p {
-    max-width: 600px;
     text-align: justify;
   }
 

@@ -20,7 +20,9 @@ export default function Callback() {
   async function verifyLogin() {
     try {
       await api.ExternalUser.verifyLoginRequest();
-      navigation("/user-home");
+      window.location.href = "/";
+      // navigation("/user-home"); // even thought this is the right solution, but using window location will force reload
+      // fixing the bug regarding the route authentication
     } catch (e) {
       if (
         e instanceof SdkError &&

@@ -34,7 +34,7 @@ const AuthRoutes = () => {
 };
 
 const Router: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userStore = useUserStore();
   const errorStore = useErrorStore();
 
