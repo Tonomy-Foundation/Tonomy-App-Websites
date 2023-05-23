@@ -36,19 +36,22 @@ const MainLayout = (props: MainLayoutProps) => {
     collapseSidebar();
   }, []);
 
+  const handleMouseEnter = () => {
+    setCollapse(true);
+    collapseSidebar();
+  };
+
+  const handleMouseLeave = () => {
+    setCollapse(false);
+    collapseSidebar();
+  };
+
   return (
     <div className="wrapper">
       <div className="sidebar" style={{ display: "flex", height: "100%" }}>
         <Sidebar>
-          <Menu>
-            <MenuItem
-              icon={<img src={logo} alt="" />}
-              onClick={() => {
-                setCollapse(!collapse);
-                collapseSidebar();
-              }}
-              className="heading"
-            >
+          <Menu onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <MenuItem icon={<img src={logo} alt="" />} className="heading">
               <h4 className="whiteColor">Tonomy ID</h4>{" "}
             </MenuItem>
 
