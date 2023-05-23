@@ -12,6 +12,7 @@ export type ConfigType = {
     primaryColor: string;
     secondaryColor: string;
     tertiaryColor: string;
+    linkColor: string;
   };
   appLogoUrl: string;
   appName: string;
@@ -25,9 +26,9 @@ export type ConfigType = {
     readMoreDownload: string;
     appleStoreDownload: string;
     playStoreDownload: string;
-  },
-  tonomyIdLink: string,
-  communicationUrl: string,
+  };
+  tonomyIdLink: string;
+  communicationUrl: string;
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
 };
@@ -69,7 +70,8 @@ if (import.meta.env.VITE_BLOCKCHAIN_URL) {
 
 if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
   console.log(
-    `Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN
+    `Using SSO_WEBSITE_ORIGIN from env:  ${
+      import.meta.env.VITE_SSO_WEBSITE_ORIGIN
     }`
   );
   config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;

@@ -1,0 +1,211 @@
+body {
+    background: var(---bg);
+    padding: 0px;
+    margin: 0px;
+  }
+  .MuiGrid-container  {
+    height: 100%;
+  }
+
+  .boxStyle1 {
+    padding: 2rem 2rem 2.8rem 2rem;
+  }
+
+  .successBox {
+    padding: 2rem 2rem 3rem 2rem;
+
+  }
+  
+  header {
+    align-self: flex-start;
+    margin-bottom: auto;
+  }
+
+  
+  .text-body {
+    max-width: 34vw;
+  }
+  
+  h1 {
+    text-align: left !important;
+    margin-bottom: 1rem;
+  }
+  
+  .text-header {
+    margin-bottom: 1rem;
+  }
+
+  .nftImage {
+    float: left;
+    background: #CCE9CC;
+    border-radius: 120px;
+    margin-left: 10px;
+    padding-left: 1.4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    width: 150px;
+    height: 300px;
+    margin-right: 3rem;
+
+  }
+  .tryAgainbtn {
+    background-color: #67D7ED !important;
+    color: #FFF !important;
+    padding: 0.3rem 1rem !important;
+    border-radius: 20px;
+    margin-top: 1rem !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .btnDiv{
+    position: absolute;
+    background: #FDFEFF;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 1rem;
+    display: initial;
+    margin-left: -7.5rem;
+  }
+
+  .blockchainBtn{
+    background: #FDFEFF;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    top: 4rem;
+    position: initial !important;
+    padding: 0.7rem !important;
+    color: #474D4C !important;
+    font-size: 0.8rem !important;
+    font-weight: 400 !important;
+  }
+
+  .blockchainLink {
+    margin-left: 0.2rem;
+  }
+
+  .nftImageCenter{
+    float: none;
+    margin-right:0rem;
+  }
+
+  .centerAlign{
+    text-align: center !important;
+  }
+  .nftImageColumn p {
+    line-height: 2.5rem;
+  }
+  
+  .title {
+    background-color: transparent;
+    text-align: left
+  }
+   .title {
+    color: var(---bg);
+  }
+
+  .list li {
+    display: flex; 
+    align-items: center;
+  }
+
+  .listIcon {
+    width: 22px;
+    margin-right: 8px;
+
+  }
+  
+  .floating-copy-button {
+    display: flex;
+  }
+  
+  .link {
+    font-size: 20px;
+    color: var(---bg);
+    font-weight: 500;
+  }
+
+  .nftImageColumn {
+    margin-top: 2rem;
+  }
+  
+
+.list {
+    margin-top: 2rem;
+}
+
+.marginTop {
+  margin-top: 1.5rem;
+}
+.paddingTop{
+  padding-top: 2rem;
+}
+.imgConatiner {
+  display: flex;
+  justify-content: center;
+}
+.tbuttonstyle {
+  background: #7660E7 !important;
+  color: #FAFAFA !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  padding: 0.3rem 1.8rem !important;
+  float: right;
+  margin-top: 3rem !important;
+}
+.backgroundGrey{
+  background-color: #F9F9F9;
+  padding: 0.4rem 3rem ;
+
+}
+
+.list li{
+    margin-left: 2rem;
+}
+
+
+  @media only screen and (max-width: 768px) {
+    .container {
+      height: initial;
+    }
+  
+    .pageIntro {
+      padding: 1rem;
+    }
+  
+    header {
+      margin-bottom: 3rem;
+    }
+  
+    .pageIntro {
+      align-items: center;
+      text-align: center;
+     
+    }
+  
+    h1 {
+      text-align: center !important;
+    }
+  
+    .text-body {
+      max-width: 80%;
+    }
+  
+    .pageIntro .footer {
+      margin-bottom: 2rem;
+    }
+  
+    
+  
+    .link {
+      font-size: 16px;
+    }
+  
+    .link.footer {
+      margin-top: 2rem;
+    }
+    
+  }

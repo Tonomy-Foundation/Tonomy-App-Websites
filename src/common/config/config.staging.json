@@ -2,7 +2,8 @@
     "theme": {
         "primaryColor": "#6200ee",
         "secondaryColor": "#03dac4",
-        "tertiaryColor": "white"
+        "tertiaryColor": "white",
+        "linkColor": "#0057B2"
     },
     "appLogoUrl": "/tonomy-logo48.png",
     "appName": "Tonomy ID Staging",
