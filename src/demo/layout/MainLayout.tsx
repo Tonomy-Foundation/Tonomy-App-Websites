@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -17,8 +17,7 @@ export type MainLayoutProps = {
 };
 
 const MainLayout = (props: MainLayoutProps) => {
-  const { collapseSidebar } = useProSidebar();
-  const [collapse, setCollapse] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const navigation = useNavigate();
   const userStore = useUserStore();
 
@@ -33,24 +32,26 @@ const MainLayout = (props: MainLayoutProps) => {
 
   useEffect(() => {
     onRender();
-    collapseSidebar();
   }, []);
 
   const handleMouseEnter = () => {
-    setCollapse(true);
-    collapseSidebar();
+    setCollapsed(false);
   };
 
   const handleMouseLeave = () => {
-    setCollapse(false);
-    collapseSidebar();
+    setCollapsed(true);
   };
 
   return (
     <div className="wrapper">
       <div className="sidebar" style={{ display: "flex", height: "100%" }}>
-        <Sidebar>
-          <Menu onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <Sidebar
+          defaultCollapsed={collapsed}
+          collapsed={collapsed}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Menu>
             <MenuItem icon={<img src={logo} alt="" />} className="heading">
               <h4 className="whiteColor">Tonomy ID</h4>{" "}
             </MenuItem>
@@ -93,7 +94,7 @@ const MainLayout = (props: MainLayoutProps) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content" style={{ zIndex: collapse ? -1 : 0 }}>
+      <div className="main-content" style={{ zIndex: -1 }}>
         <Outlet />
       </div>
     </div>
