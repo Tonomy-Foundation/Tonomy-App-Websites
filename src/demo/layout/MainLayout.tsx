@@ -47,7 +47,6 @@ const MainLayout = (props: MainLayoutProps) => {
       <div className="sidebar" style={{ display: "flex", height: "100%" }}>
         <Sidebar
           defaultCollapsed={collapsed}
-          collapsed={collapsed}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
