@@ -16,6 +16,10 @@ import {
   SdkErrors,
   ExternalUser,
   App,
+  LoginRequestPayload,
+  randomString,
+  KeyManagerLevel,
+  JsKeyManager,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -31,6 +35,7 @@ import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
+import { Issuer } from "@tonomy/did-jwt-vc";
 
 const styles = {
   container: {
@@ -53,8 +58,11 @@ export default function Login() {
   const [app, setApp] = useState<App>();
   const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
-  const userStore = useUserStore();
+  const setUser = useUserStore((state) => state.setUser);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const logout = useUserStore((state) => state.logout);
   const errorStore = useErrorStore();
+  let user: ExternalUser | undefined;
 
   let rendered = false;
 
@@ -97,21 +105,27 @@ export default function Login() {
   ) {
     // Login to the communication server
     await communication.login(loginToCommunication);
+    console.log(
+      "userStore.isLoggedIn()",
+      isLoggedIn(),
+      typeof user,
+      await user?.getDid()
+    );
 
-    if (userStore.isLoggedIn()) {
+    if (isLoggedIn()) {
       setStatus("connecting");
-      const tonomyIDDid = localStorage.getItem(
-        STORAGE_NAMESPACE + ".tonomy.id.did"
-      );
+
+      const tonomyIDDid = await user?.getWalletDid();
 
       if (!tonomyIDDid) throw new Error("No Tonomy ID DID found");
 
-      const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+      const issuer = (await user?.getIssuer()) as Issuer;
+
       const requestMessage = await LoginRequestsMessage.signMessage(
         {
           requests,
         },
-        jwkIssuer,
+        issuer,
         tonomyIDDid
       );
 
@@ -126,17 +140,12 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const jwkIssuer = await api.ExternalUser.getJwkIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
             },
             jwkIssuer,
-            identifyMessage.getSender()
-          );
-
-          localStorage.setItem(
-            STORAGE_NAMESPACE + ".tonomy.id.did",
             identifyMessage.getSender()
           );
 
@@ -223,25 +232,29 @@ export default function Login() {
         loginToCommunication = loginToCommunicationVal;
       } else {
         if (!user) throw new Error("No user found");
-        const loginRequestPayload = await user.getLoginRequest();
 
-        // get issuer from storage
-        const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+        const issuer = await user.getIssuer();
 
-        // TODO we do not need to login again if we are already logged in...
+        const publicKey = await new JsKeyManager().getKey({
+          level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+        });
+
+        const loginRequestPayload: LoginRequestPayload = {
+          randomString: randomString(32),
+          origin: window.location.origin,
+          publicKey: publicKey,
+          callbackPath: "/callback",
+        };
+
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          // TODO this should be signed by the did:antelope now
-          jwkIssuer
+          issuer
         );
 
         requests.push(loginRequest);
 
         loginToCommunication =
-          await AuthenticationMessage.signMessageWithoutRecipient(
-            {},
-            jwkIssuer
-          );
+          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       }
 
       if (isMobile()) {
@@ -272,10 +285,11 @@ export default function Login() {
 
   // check if user is already logged in
   async function checkLoggedIn() {
-    const user = await api.ExternalUser.getUser();
+    user = await api.ExternalUser.getUser();
 
+    console.log("user", await user.getDid());
     setStatus("connecting");
-    userStore.setUser(user);
+    setUser(user);
     const username = await user.getUsername();
 
     setUsername(username.getBaseUsername());
@@ -317,7 +331,7 @@ export default function Login() {
         }
       );
 
-      if (userStore.user) await userStore.user.logout();
+      if (isLoggedIn()) await logout();
 
       window.location.href = callbackUrl;
     } catch (e) {
@@ -342,7 +356,7 @@ export default function Login() {
         }
       );
 
-      if (userStore.user) {
+      if (isLoggedIn()) {
         // TODO send a message to Tonomy ID telling it the request is cancelled
       }
 
@@ -432,7 +446,7 @@ export default function Login() {
               Cancel
             </TContainedButton>
           </div>
-          {userStore.user && (
+          {user && (
             <TButton
               className="logout margin-top"
               onClick={onLogout}

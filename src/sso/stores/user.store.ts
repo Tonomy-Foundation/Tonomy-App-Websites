@@ -20,6 +20,7 @@ export const useUserStore = create<ExternalUserStore>((set, get) => ({
   communication: new Communication(),
   isLoggedIn: () => get().user !== undefined,
   setUser: (user: ExternalUser) => {
+    console.log("setting user");
     set({ user });
   },
   logout: async () => {
