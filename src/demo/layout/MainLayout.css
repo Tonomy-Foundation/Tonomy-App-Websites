@@ -52,11 +52,11 @@
 .ps-sidebar-container , h3{
   background-image: url("../assets/background.jpeg");
 
-  color: #BEBEBE;
+  color: var(--grey4);
 }
 
 a {
-  color: #BEBEBE;
+  color: var(--grey4);
   &:hover{
     color: var(--white-color);
   }
@@ -67,7 +67,7 @@ a {
 }
 
 .ps-menuitem-root .ps-menu-button:hover {
-  background-color: black !important;
+  background-color: var(--dark-black) !important;
   color: var(--white-color);
 }
 

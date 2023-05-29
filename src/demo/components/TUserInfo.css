@@ -5,7 +5,7 @@
   }
 
   .head-subtitle a {
-        color: #0057B2;
+        color: var(--dark-blue);
   }
 
 
