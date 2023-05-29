@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -10,6 +10,8 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/tonomy-logo48.png";
 import { useUserStore } from "../../common/stores/user.store";
+import { SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import useErrorStore from "../../common/stores/errorStore";
 import "./MainLayout.css";
 
 export type MainLayoutProps = {
@@ -17,38 +19,57 @@ export type MainLayoutProps = {
 };
 
 const MainLayout = (props: MainLayoutProps) => {
-  const { collapseSidebar } = useProSidebar();
-  const [collapse, setCollapse] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const navigation = useNavigate();
   const userStore = useUserStore();
+  const errorStore = useErrorStore();
 
   async function onRender() {
-    const user = userStore.user;
+    try {
+      const user = userStore.user;
 
-    if (!user) {
-      // props.onLogout();
-      navigation("/");
+      if (!user) {
+        props.onLogout();
+        navigation("/");
+      }
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
+        // User not logged in
+        window.location.href = "/";
+        return;
+      }
+
+      errorStore.setError({ error: e, expected: false });
     }
   }
 
   useEffect(() => {
     onRender();
-    collapseSidebar();
   }, []);
+
+  const handleMouseEnter = () => {
+    setCollapsed(false);
+  };
+
+  const handleMouseLeave = () => {
+    setCollapsed(true);
+  };
 
   return (
     <div className="wrapper">
       <div className="sidebar" style={{ display: "flex", height: "100%" }}>
-        <Sidebar>
+        <Sidebar
+          defaultCollapsed={collapsed}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <Menu>
-            <MenuItem
-              icon={<img src={logo} alt="" />}
-              onClick={() => {
-                setCollapse(!collapse);
-                collapseSidebar();
-              }}
-              className="heading"
-            >
+            <MenuItem icon={<img src={logo} alt="" />} className="heading">
               <h4 className="whiteColor">Tonomy ID</h4>{" "}
             </MenuItem>
 
@@ -90,7 +111,7 @@ const MainLayout = (props: MainLayoutProps) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content" style={{ zIndex: collapse ? -1 : 0 }}>
+      <div className="main-content" style={{ zIndex: -1 }}>
         <Outlet />
       </div>
     </div>
