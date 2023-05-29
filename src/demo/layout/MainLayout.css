@@ -9,7 +9,7 @@
 }
 
 .whiteColor {
-  color: #FDFEFF;
+  color:var(--white-color);
   margin-left: 8px;
 }
 
@@ -58,7 +58,7 @@
 a {
   color: #BEBEBE;
   &:hover{
-    color: #ffffff;
+    color: var(--white-color);
   }
 }
 
@@ -68,9 +68,9 @@ a {
 
 .ps-menuitem-root .ps-menu-button:hover {
   background-color: black !important;
-  color: #ffffff;
+  color: var(--white-color);
 }
 
 a {
-  color: #0057B2;
+  color: var(--dark-blue);
 }

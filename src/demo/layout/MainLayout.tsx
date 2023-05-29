@@ -26,7 +26,7 @@ const MainLayout = (props: MainLayoutProps) => {
     const user = userStore.user;
 
     if (!user) {
-      props.onLogout();
+      // props.onLogout();
       navigation("/");
     }
   }
