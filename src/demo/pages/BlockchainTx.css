@@ -37,7 +37,7 @@ body {
 
   .nftImage {
     float: left;
-    background: #CCE9CC;
+    background: var(--white);
     border-radius: 120px;
     margin-left: 10px;
     padding-left: 1.4rem;
@@ -49,8 +49,8 @@ body {
 
   }
   .tryAgainbtn {
-    background-color: #67D7ED !important;
-    color: #FFF !important;
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
     padding: 0.3rem 1rem !important;
     border-radius: 20px;
     margin-top: 1rem !important;
@@ -61,8 +61,8 @@ body {
 
   .btnDiv{
     position: absolute;
-    background: #FDFEFF;
-    border: 1px solid #E4E4E4;
+    background: var(--white);
+    border: 1px solid var(--offWhite);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin-top: 1rem;
@@ -71,14 +71,14 @@ body {
   }
 
   .blockchainBtn{
-    background: #FDFEFF;
-    border: 1px solid #E4E4E4;
+    background: var(--white);
+    border: 1px solid var(--offWhite);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     top: 4rem;
     position: initial !important;
     padding: 0.7rem !important;
-    color: #474D4C !important;
+    color: var(--black) !important;
     font-size: 0.8rem !important;
     font-weight: 400 !important;
   }
@@ -148,8 +148,8 @@ body {
   justify-content: center;
 }
 .tbuttonstyle {
-  background: #7660E7 !important;
-  color: #FAFAFA !important;
+  background: var(--accent1) !important;
+  color: var(--white) !important;
   font-weight: 600 !important;
   font-size: 18px !important;
   padding: 0.3rem 1.8rem !important;
@@ -157,7 +157,7 @@ body {
   margin-top: 3rem !important;
 }
 .backgroundGrey{
-  background-color: #F9F9F9;
+  background-color: var(--offWhite);
   padding: 0.4rem 3rem ;
 
 }

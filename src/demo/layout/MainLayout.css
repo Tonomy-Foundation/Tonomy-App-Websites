@@ -9,7 +9,7 @@
 }
 
 .whiteColor {
-  color: #FDFEFF;
+  color:var(--white-color);
   margin-left: 8px;
 }
 
@@ -52,13 +52,13 @@
 .ps-sidebar-container , h3{
   background-image: url("../assets/background.jpeg");
 
-  color: #BEBEBE;
+  color: var(--grey4);
 }
 
 a {
-  color: #BEBEBE;
+  color: var(--grey4);
   &:hover{
-    color: #ffffff;
+    color: var(--white-color);
   }
 }
 
@@ -67,10 +67,10 @@ a {
 }
 
 .ps-menuitem-root .ps-menu-button:hover {
-  background-color: black !important;
-  color: #ffffff;
+  background-color: var(--dark-black) !important;
+  color: var(--white-color);
 }
 
 a {
-  color: #0057B2;
+  color: var(--dark-blue);
 }

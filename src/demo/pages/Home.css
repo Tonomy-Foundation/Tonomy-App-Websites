@@ -38,7 +38,7 @@ h1 {
 }
 .docs {
   flex: 1;
-  background: #262828;
+  background: var(--black1);
   height: 100%;
   align-items: center;
 }
