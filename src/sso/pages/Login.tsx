@@ -41,7 +41,7 @@ const styles = {
   detailContainer: {
     marginTop: "20px",
     padding: "40px 10px",
-    border: "2px solid #EFF1F7",
+    border: "2px solid var(--grey-border)",
     borderRadius: "20px",
   },
 };
