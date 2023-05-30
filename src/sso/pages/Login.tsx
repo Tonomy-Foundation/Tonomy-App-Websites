@@ -195,9 +195,24 @@ export default function Login() {
   }
 
   async function getAppDetails(loginRequest: LoginRequest) {
-    const app = await App.getApp(loginRequest.getPayload().origin);
+    try {
+      const app = await App.getApp(loginRequest.getPayload().origin);
 
-    setApp(app);
+      setApp(app);
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.OriginNotFound ||
+          e.code === SdkErrors.DataQueryNoRowDataFound)
+      ) {
+        errorStore.setError({
+          error: e,
+          title: `App for website ${app?.appName} has not registered`,
+          expected: false,
+        });
+        return;
+      }
+    }
   }
 
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
