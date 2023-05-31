@@ -15,7 +15,7 @@ const LoggedInRoutes = ({ onLogout }) => {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
-      <Route path="*" element={<Navigate to="/user-home" />} />
+      {/* <Route path="*" element={<Navigate to="/user-home" />} /> */}
     </Routes>
   );
 };
@@ -28,7 +28,7 @@ const AuthRoutes = () => {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* <Route path="*" element={<Navigate to="/" />} /> */}
     </Routes>
   );
 };
@@ -40,11 +40,9 @@ const Router: React.FC = () => {
 
   async function onRender() {
     try {
-      if (userStore.user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      const user = await api.ExternalUser.getUser({ autoLogout: false });
+
+      if (user) setIsLoggedIn(true);
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -61,6 +59,8 @@ const Router: React.FC = () => {
       errorStore.setError({ error: e, expected: false });
     }
   }
+
+  console.log("loggedIn", isLoggedIn);
 
   useEffect(() => {
     onRender();
