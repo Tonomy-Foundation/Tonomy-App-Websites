@@ -15,7 +15,6 @@ const LoggedInRoutes = ({ onLogout }) => {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
-      {/* <Route path="*" element={<Navigate to="/user-home" />} /> */}
     </Routes>
   );
 };
@@ -28,7 +27,6 @@ const AuthRoutes = () => {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Route>
-      {/* <Route path="*" element={<Navigate to="/" />} /> */}
     </Routes>
   );
 };
@@ -59,8 +57,6 @@ const Router: React.FC = () => {
       errorStore.setError({ error: e, expected: false });
     }
   }
-
-  console.log("loggedIn", isLoggedIn);
 
   useEffect(() => {
     onRender();

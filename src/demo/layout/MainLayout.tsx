@@ -42,8 +42,7 @@ const MainLayout = (props: MainLayoutProps) => {
         return;
       }
 
-      console.error(e);
-      alert(e);
+      errorStore.setError({ error: e, expected: false });
     }
   }
 
