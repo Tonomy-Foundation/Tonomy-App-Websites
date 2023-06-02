@@ -10,6 +10,8 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/tonomy-logo48.png";
 import { useUserStore } from "../../common/stores/user.store";
+import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import useErrorStore from "../../common/stores/errorStore";
 import "./MainLayout.css";
 
 export type MainLayoutProps = {
@@ -20,13 +22,27 @@ const MainLayout = (props: MainLayoutProps) => {
   const [collapsed, setCollapsed] = useState(true);
   const navigation = useNavigate();
   const userStore = useUserStore();
+  const errorStore = useErrorStore();
+  const [user, setUser] = useState<ExternalUser | null>(null);
 
   async function onRender() {
-    const user = userStore.user;
+    try {
+      const user = await api.ExternalUser.getUser();
 
-    if (!user) {
-      props.onLogout();
-      navigation("/");
+      setUser(user);
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
+        // User not logged in
+        window.location.href = "/";
+        return;
+      }
+
+      errorStore.setError({ error: e, expected: false });
     }
   }
 
@@ -86,14 +102,17 @@ const MainLayout = (props: MainLayoutProps) => {
             <MenuItem
               icon={<LogoutIcon />}
               className="logoutMenu"
-              onClick={props.onLogout}
+              onClick={async () => {
+                await user?.logout();
+                window.location.href = "/";
+              }}
             >
               Logout
             </MenuItem>
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content" style={{ zIndex: -1 }}>
+      <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
         <Outlet />
       </div>
     </div>

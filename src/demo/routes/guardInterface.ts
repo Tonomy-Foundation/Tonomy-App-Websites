@@ -1,0 +1,3 @@
+interface Guard {
+  canActivate: () => boolean;
+}
