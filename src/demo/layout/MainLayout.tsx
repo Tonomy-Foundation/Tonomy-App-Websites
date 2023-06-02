@@ -112,7 +112,7 @@ const MainLayout = (props: MainLayoutProps) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content" style={{ zIndex: -1 }}>
+      <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
         <Outlet />
       </div>
     </div>
