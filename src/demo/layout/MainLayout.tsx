@@ -77,8 +77,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </Menu>
         </Sidebar>
       </div>
-      <div className="main-content" style={{ zIndex: -1 }}>
+
+      <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
         {children}
+
       </div>
     </div>
   );
