@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import useErrorStore from "../../../common/stores/errorStore";
+import useErrorStore from "../../common/stores/errorStore";
 
 interface LogoutContextProps {
   logout: () => void;
@@ -56,3 +56,5 @@ const LogoutProvider: React.FC<LogoutProviderProps> = ({ children }) => {
 };
 
 export default LogoutProvider;
+
+

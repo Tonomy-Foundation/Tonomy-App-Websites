@@ -6,7 +6,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { LogoutContext } from "../routes/context/LogoutProvider";
+import { LogoutContext } from "../providers/LogoutProvider";
 import logo from "../assets/tonomy-logo48.png";
 import "./MainLayout.css";
 

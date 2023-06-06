@@ -1,33 +1,17 @@
-import React from "react";
-import { Route, useNavigate } from "react-router-dom";
+import React, { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
 
 interface PrivateRouteProps {
-  path: string;
-  component: React.ComponentType<any>;
   isAuthenticated: boolean;
-  handleLogout: () => void;
+  children: ReactNode;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
-  component: Component,
   isAuthenticated,
-  handleLogout,
-  ...rest
+  children,
 }) => {
-  const navigate = useNavigate();
-
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuthenticated ? (
-          <Component {...props} handleLogout={handleLogout} />
-        ) : (
-          navigate("/login")
-        )
-      }
-    />
-  );
+  return isAuthenticated ? <>{children}</> : <Navigate to="/" replace />;
 };
 
 export default PrivateRoute;
+
