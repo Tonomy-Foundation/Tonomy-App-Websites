@@ -2751,13 +2751,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/antelope-did-resolver@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@tonomy/antelope-did-resolver@npm:0.2.2"
+"@tonomy/antelope-did-resolver@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "@tonomy/antelope-did-resolver@npm:0.6.2"
   dependencies:
-    base64url: ^3.0.1
-    eosjs: ^21.0.4
-  checksum: cf340c4ea0bb5a9f7fc1b6639f10bf5a5a95d531fa21a25788ecbc304bd25f968b6364ed843891ecec1a57ab942473f4c63680f1d7e87e89cd0b2c3db8fa6583
+    "@greymass/eosio": ^0.7.0
+    cross-fetch: ^3.1.6
+    did-resolver: ^4.1.0
+    uint8arrays: 3.1.1
+  checksum: 896affac33c2cab8a8524912084daab555f94476838d401d532d2abf6599ac5b1ba441736e03ba9f55391ca30bd4864e981e6eccdd4b0d3b075c85bbf7ea7b9c
   languageName: node
   linkType: hard
 
@@ -2810,14 +2812,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:^0.3.53":
-  version: 0.3.53
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.53"
+"@tonomy/tonomy-id-sdk@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.4.4"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@greymass/eosio": ^0.6.4
     "@tonomy/antelope-did": ^0.1.5
-    "@tonomy/antelope-did-resolver": ^0.2.2
+    "@tonomy/antelope-did-resolver": ^0.6.2
     "@tonomy/did-jwt": ^6.10.1
     "@tonomy/did-jwt-vc": ^3.1.3
     "@tonomy/did-resolver": ^4.0.4
@@ -2827,7 +2829,7 @@ __metadata:
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
     universal-base64url: ^1.1.0
-  checksum: 64fa22a0cb4f162008f9f857d24e941c64d23cfe4e57049047fead22bb8e3332f79c15e1ecd9f4afbf9ab77d49b1656d32bd44ddabe9674554e316deff03eb7a
+  checksum: 3e25e02ff52958813cbf2cbdf95e30d8f8db356925a63c2d5b7690af1319572082a36f4eec1a503d3842aec7fd17c477f0242a86874859f4066625a926cab345
   languageName: node
   linkType: hard
 
@@ -3717,6 +3719,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-fetch@npm:^3.1.6":
+  version: 3.1.6
+  resolution: "cross-fetch@npm:3.1.6"
+  dependencies:
+    node-fetch: ^2.6.11
+  checksum: 704b3519ab7de488328cc49a52cf1aa14132ec748382be5b9557b22398c33ffa7f8c2530e8a97ed8cb55da52b0a9740a9791d361271c4591910501682d981d9c
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -3823,6 +3834,13 @@ __metadata:
   version: 2.0.1
   resolution: "detect-libc@npm:2.0.1"
   checksum: ccb05fcabbb555beb544d48080179c18523a343face9ee4e1a86605a8715b4169f94d663c21a03c310ac824592f2ba9a5270218819bb411ad7be578a527593d7
+  languageName: node
+  linkType: hard
+
+"did-resolver@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "did-resolver@npm:4.1.0"
+  checksum: 0b0f6c3502f877c2a3cb264befc2718b12efa8e7d39ef255b00cd79f8fe12303257ac8e84a030a49599415bce87192fef29388d9f695776d331d0139848d3d4c
   languageName: node
   linkType: hard
 
@@ -5745,6 +5763,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:^2.6.11":
+  version: 2.6.11
+  resolution: "node-fetch@npm:2.6.11"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 249d0666a9497553384d46b5ab296ba223521ac88fed4d8a17d6ee6c2efb0fc890f3e8091cafe7f9fba8151a5b8d925db2671543b3409a56c3cd522b468b47b3
+  languageName: node
+  linkType: hard
+
 "node-gyp@npm:latest":
   version: 9.3.1
   resolution: "node-gyp@npm:9.3.1"
@@ -6954,7 +6986,7 @@ __metadata:
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": ^0.3.53
+    "@tonomy/tonomy-id-sdk": ^0.4.4
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
@@ -7084,7 +7116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uint8arrays@npm:^3.0.0":
+"uint8arrays@npm:3.1.1, uint8arrays@npm:^3.0.0":
   version: 3.1.1
   resolution: "uint8arrays@npm:3.1.1"
   dependencies:
