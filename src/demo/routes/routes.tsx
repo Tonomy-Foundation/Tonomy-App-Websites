@@ -9,7 +9,7 @@ import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 
-export default function App(): JSX.Element {
+export default function RootRoutes(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const errorStore = useErrorStore();
 
@@ -61,4 +61,3 @@ export default function App(): JSX.Element {
     </Router>
   );
 }
-
