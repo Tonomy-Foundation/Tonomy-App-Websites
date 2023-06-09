@@ -18,7 +18,6 @@ import Vote from "../assets/emojis/vote.png";
 import Cruise from "../assets/emojis/cruise.png";
 import "./W3CVCs.css";
 import { useUserStore } from "../../common/stores/user.store";
-import settings from "../../common/settings";
 import { randomString, api } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 
