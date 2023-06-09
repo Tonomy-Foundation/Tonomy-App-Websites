@@ -105,12 +105,6 @@ export default function Login() {
   ) {
     // Login to the communication server
     await communication.login(loginToCommunication);
-    console.log(
-      "userStore.isLoggedIn()",
-      isLoggedIn(),
-      typeof user,
-      await user?.getDid()
-    );
 
     if (isLoggedIn()) {
       setStatus("connecting");
@@ -287,8 +281,6 @@ export default function Login() {
   // check if user is already logged in
   async function checkLoggedIn() {
     user = await api.ExternalUser.getUser();
-
-    console.log("user", await user.getDid());
     setStatus("connecting");
     setUser(user);
     const username = await user.getUsername();
