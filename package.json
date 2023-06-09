@@ -14,7 +14,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@greymass/eosio": "^0.6.9",
+    "@greymass/eosio": "^0.7.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.10",
     "@tonomy/tonomy-id-sdk": "^0.3.53",
@@ -51,6 +51,6 @@
   },
   "packageManager": "yarn@3.1.1",
   "resolutions": {
-    "@greymass/eosio": "^0.6.4"
+    "@greymass/eosio": "0.7.0"
   }
 }

@@ -785,16 +785,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@greymass/eosio@npm:^0.6.4":
-  version: 0.6.10
-  resolution: "@greymass/eosio@npm:0.6.10"
+"@greymass/eosio@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@greymass/eosio@npm:0.7.0"
   dependencies:
     bn.js: ^4.11.9
     brorand: ^1.1.0
     elliptic: ^6.5.4
     hash.js: ^1.0.0
     tslib: ^2.0.3
-  checksum: 1ccbcd9434f53683420aa68889aee21d8975b1635d6451150cd4ab3a53c4b345a4de58f2ee1f6f3e0f9ba1737a3ba1efd46c9943ad6025c4db28757283518c3a
+  checksum: 5bb6135a798fbaed21209acc1e72fa2c71c0569b65106c647681a5a8d56af5722beb76bdcd7ef049ab2704b97588733fdc38976e79d5f1da331ececa5d26578f
   languageName: node
   linkType: hard
 
@@ -1370,12 +1370,12 @@ __metadata:
   linkType: hard
 
 "@tonomy/antelope-did-resolver@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@tonomy/antelope-did-resolver@npm:0.2.2"
+  version: 0.2.5
+  resolution: "@tonomy/antelope-did-resolver@npm:0.2.5"
   dependencies:
     base64url: ^3.0.1
     eosjs: ^21.0.4
-  checksum: cf340c4ea0bb5a9f7fc1b6639f10bf5a5a95d531fa21a25788ecbc304bd25f968b6364ed843891ecec1a57ab942473f4c63680f1d7e87e89cd0b2c3db8fa6583
+  checksum: 3562c12f79d8126ea4c5418b7a3dba6bfef312de5350ae8d709fdb083f97ce5458b11e4811e6f9e7aaed43ad3688dfd389a56bf3f17d7038b0c5383003081eb9
   languageName: node
   linkType: hard
 
@@ -1429,8 +1429,8 @@ __metadata:
   linkType: hard
 
 "@tonomy/tonomy-id-sdk@npm:^0.3.53":
-  version: 0.3.53
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.53"
+  version: 0.3.54
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.3.54"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@greymass/eosio": ^0.6.4
@@ -1445,7 +1445,7 @@ __metadata:
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
     universal-base64url: ^1.1.0
-  checksum: 64fa22a0cb4f162008f9f857d24e941c64d23cfe4e57049047fead22bb8e3332f79c15e1ecd9f4afbf9ab77d49b1656d32bd44ddabe9674554e316deff03eb7a
+  checksum: 1323ec0c3a11d9cca5a1613524c05f2e7345d5f26617f2123db3efd49123d79aa8cf45a4da6bd575aaa9c951547293e6208f06a840dda5bc3ea207352ab194ba
   languageName: node
   linkType: hard
 
@@ -5164,7 +5164,7 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.10.6
     "@emotion/styled": ^11.10.6
-    "@greymass/eosio": ^0.6.9
+    "@greymass/eosio": ^0.7.0
     "@mui/icons-material": ^5.11.11
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
