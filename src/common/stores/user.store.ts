@@ -1,6 +1,6 @@
 import { Communication, ExternalUser, api } from "@tonomy/tonomy-id-sdk";
 import { create } from "zustand";
-import settings from "../../common/settings";
+import settings from "../settings";
 
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,

@@ -1,0 +1,14 @@
+.head-subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+   
+  }
+
+  .head-subtitle a {
+        color: var(--dark-blue);
+  }
+
+
+  .head-subtitle p{
+    line-height: 32px;
+}

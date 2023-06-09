@@ -32,7 +32,7 @@ import "./Login.css";
 import { TButton } from "../../common/atoms/TButton";
 import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
-import { useUserStore } from "../stores/user.store";
+import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
 import { Issuer } from "@tonomy/did-jwt-vc";
@@ -46,7 +46,7 @@ const styles = {
   detailContainer: {
     marginTop: "20px",
     padding: "40px 10px",
-    border: "2px solid #EFF1F7",
+    border: "2px solid var(--grey-border)",
     borderRadius: "20px",
   },
 };
