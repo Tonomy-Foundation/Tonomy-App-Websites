@@ -298,7 +298,8 @@ export default function Login() {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.UserNotLoggedIn)
+          e.code === SdkErrors.UserNotLoggedIn ||
+          e.code === SdkErrors.AccountDoesntExist)
       ) {
         loginToTonomyAndSendRequests(false);
       } else {

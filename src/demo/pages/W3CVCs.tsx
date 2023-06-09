@@ -17,6 +17,10 @@ import Money from "../assets/emojis/money.png";
 import Vote from "../assets/emojis/vote.png";
 import Cruise from "../assets/emojis/cruise.png";
 import "./W3CVCs.css";
+import { useUserStore } from "../../common/stores/user.store";
+import settings from "../../common/settings";
+import { randomString } from "@tonomy/tonomy-id-sdk";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function W3CVCs() {
   const [name, setName] = useState("Johnathan Doe");
@@ -27,6 +31,39 @@ export default function W3CVCs() {
   const [height, setHeight] = useState("180 cm");
   const [allergies, setAllergies] = useState("None");
   const [medications, setMedications] = useState("None");
+
+  const user = useUserStore((state) => state.user);
+  const errorStore = useErrorStore();
+
+  async function onSubmit() {
+    try {
+      if (!user) throw new Error("User not logged in");
+
+      const data = {
+        name,
+        phone,
+        address,
+        dob,
+        weight,
+        height,
+        allergies,
+        medications,
+      };
+
+      const id =
+        window.location.origin + "/vcs/medical-record#" + randomString(8);
+
+      const vc = await user.signVC(id, "MedicalRecord", data);
+
+      console.log("Signed VC", vc);
+      console.log("JWT", vc.toString());
+      const verified = await vc.verify();
+
+      console.log("Verified", verified);
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
 
   return (
     <ContainerStyle>
@@ -125,7 +162,9 @@ export default function W3CVCs() {
               This data is fully private never stored on servers.{" "}
               <a className="linkColor">Learn more</a>
             </div>
-            <TButton className="btnStyle1">Sign using your tonomy DID</TButton>
+            <TButton className="btnStyle1" onClick={onSubmit}>
+              Sign medical record
+            </TButton>
           </div>
         </BoxContainer>
       </PageIntroStyle>
