@@ -19,25 +19,31 @@ import Cruise from "../assets/emojis/cruise.png";
 import "./W3CVCs.css";
 import { useUserStore } from "../../common/stores/user.store";
 import settings from "../../common/settings";
-import { randomString } from "@tonomy/tonomy-id-sdk";
+import { randomString, api } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 
 export default function W3CVCs() {
   const [name, setName] = useState("Johnathan Doe");
   const [phone, setPhone] = useState("+1 123-456-7890");
   const [address, setAddress] = useState("1234 Main St, New York, NY 10001");
-  const [dob, setDob] = useState("01/01/1990");
+  const [dob, setDob] = useState("1 March 1990");
   const [weight, setWeight] = useState("69 kg");
   const [height, setHeight] = useState("180 cm");
   const [allergies, setAllergies] = useState("None");
   const [medications, setMedications] = useState("None");
+  const [treatment, setTreatment] = useState(
+    "sufficient rest and increase intake of fluids"
+  );
 
-  const user = useUserStore((state) => state.user);
+  let user = useUserStore((state) => state.user);
   const errorStore = useErrorStore();
 
   async function onSubmit() {
     try {
-      if (!user) throw new Error("User not logged in");
+      if (!user) {
+        // TODO: This is a hack to get the user. We should have a better way to get the user.
+        user = await api.ExternalUser.getUser();
+      }
 
       const data = {
         name,
@@ -48,18 +54,20 @@ export default function W3CVCs() {
         height,
         allergies,
         medications,
+        treatment,
       };
 
-      const id =
-        window.location.origin + "/vcs/medical-record#" + randomString(8);
+      const id = window.location.origin + "/medical-record#" + randomString(8);
 
-      const vc = await user.signVC(id, "MedicalRecord", data);
+      const vc = await user.signVc(id, "MedicalRecord", data);
 
-      console.log("Signed VC", vc);
-      console.log("JWT", vc.toString());
       const verified = await vc.verify();
 
-      console.log("Verified", verified);
+      console.log("VC verified: ", verified);
+
+      if (!verified) {
+        throw new Error("VC not verified");
+      }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -155,7 +163,8 @@ export default function W3CVCs() {
             />
             <HorizontalLabelInput
               label="Treatment plan:"
-              value={"sufficient rest and increase intake of fluids"}
+              value={treatment}
+              onChange={setTreatment}
             />
             <div className="security-message">
               {" "}
