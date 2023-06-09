@@ -19,6 +19,15 @@ import Cruise from "../assets/emojis/cruise.png";
 import "./W3CVCs.css";
 
 export default function W3CVCs() {
+  const [name, setName] = useState("Johnathan Doe");
+  const [phone, setPhone] = useState("+1 123-456-7890");
+  const [address, setAddress] = useState("1234 Main St, New York, NY 10001");
+  const [dob, setDob] = useState("01/01/1990");
+  const [weight, setWeight] = useState("69 kg");
+  const [height, setHeight] = useState("180 cm");
+  const [allergies, setAllergies] = useState("None");
+  const [medications, setMedications] = useState("None");
+
   return (
     <ContainerStyle>
       <PageIntroStyle>
@@ -67,17 +76,46 @@ export default function W3CVCs() {
         <BoxContainer className="clientBox">
           <TH2>Client details</TH2>
           <div className="formView marginTop">
-            <HorizontalLabelInput label="Name:" value={"Johnathan Doe"} />
+            <HorizontalLabelInput
+              label="Name:"
+              value={name}
+              onChange={setName}
+            />
             <HorizontalLabelInput
               label="Phone number:"
-              value={"+33 64 34 55 76 34"}
+              value={phone}
+              onChange={setPhone}
             />
-            <HorizontalLabelInput label="Address:" value={"123 Baker Street"} />
-            <HorizontalLabelInput label="Birth Date:" value={"03/03/1976"} />
-            <HorizontalLabelInput label="Weight:" value={"103 kg"} />
-            <HorizontalLabelInput label="Height:" value={"187 cm"} />
-            <HorizontalLabelInput label="Allergies:" value={"none"} />
-            <HorizontalLabelInput label="Medication:" value={"none"} />
+            <HorizontalLabelInput
+              label="Address:"
+              value={address}
+              onChange={setAddress}
+            />
+            <HorizontalLabelInput
+              label="Birth Date:"
+              value={dob}
+              onChange={setDob}
+            />
+            <HorizontalLabelInput
+              label="Weight:"
+              value={weight}
+              onChange={setWeight}
+            />
+            <HorizontalLabelInput
+              label="Height:"
+              value={height}
+              onChange={setHeight}
+            />
+            <HorizontalLabelInput
+              label="Allergies:"
+              value={allergies}
+              onChange={setAllergies}
+            />
+            <HorizontalLabelInput
+              label="Medication:"
+              value={medications}
+              onChange={setMedications}
+            />
             <HorizontalLabelInput
               label="Treatment plan:"
               value={"sufficient rest and increase intake of fluids"}
