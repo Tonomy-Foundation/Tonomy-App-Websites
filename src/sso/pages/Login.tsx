@@ -114,12 +114,13 @@ export default function Login() {
 
     if (isLoggedIn()) {
       setStatus("connecting");
+      if (!user) throw new Error("No user found");
 
-      const tonomyIDDid = await user?.getWalletDid();
+      const tonomyIDDid = await user.getWalletDid();
 
       if (!tonomyIDDid) throw new Error("No Tonomy ID DID found");
 
-      const issuer = (await user?.getIssuer()) as Issuer;
+      const issuer = await user.getIssuer();
 
       const requestMessage = await LoginRequestsMessage.signMessage(
         {
