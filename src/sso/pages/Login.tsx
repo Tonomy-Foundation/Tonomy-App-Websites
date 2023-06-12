@@ -4,7 +4,6 @@ import {
   UserApps,
   Message,
   LoginRequest,
-  STORAGE_NAMESPACE,
   api,
   LoginWithTonomyMessages,
   AuthenticationMessage,
@@ -35,7 +34,6 @@ import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
-import { Issuer } from "@tonomy/did-jwt-vc";
 
 const styles = {
   container: {
@@ -135,7 +133,7 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await api.ExternalUser.getJwkIssuerFromStorage();
+          const jwkIssuer = await UserApps.getJwkIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
