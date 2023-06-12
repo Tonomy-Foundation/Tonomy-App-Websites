@@ -19,3 +19,5 @@ jobs:
           - run: yarn up @tonomy/tonomy-id-sdk
           - run: echo "YARNLOCK_SHA256_NEW=$(sha256sum yarn.lock)" >> $GITHUB_ENV
           - run: if [ "$YARNLOCK_SHA256_NEW" != "$YARNLOCK_SHA256_OLD" ]; then exit 1; fi
+            # if this step fails, try run `yarn up @tonomy/tonomy-id-sdk` and
+            # then test locally, if it works, then commit changes to package.json and yarn.lock

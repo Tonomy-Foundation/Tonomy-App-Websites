@@ -5,6 +5,7 @@ import settings from "../settings";
 api.setSettings({
   blockchainUrl: settings.config.blockchainUrl,
   communicationUrl: settings.config.communicationUrl,
+  loggerLevel: import.meta.env.LOG === "true" ? "debug" : "error",
 });
 
 interface ExternalUserStore {

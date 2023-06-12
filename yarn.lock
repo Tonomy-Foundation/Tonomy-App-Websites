@@ -2109,16 +2109,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@greymass/eosio@npm:^0.6.4":
-  version: 0.6.10
-  resolution: "@greymass/eosio@npm:0.6.10"
+"@greymass/eosio@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@greymass/eosio@npm:0.7.0"
   dependencies:
     bn.js: ^4.11.9
     brorand: ^1.1.0
     elliptic: ^6.5.4
     hash.js: ^1.0.0
     tslib: ^2.0.3
-  checksum: 1ccbcd9434f53683420aa68889aee21d8975b1635d6451150cd4ab3a53c4b345a4de58f2ee1f6f3e0f9ba1737a3ba1efd46c9943ad6025c4db28757283518c3a
+  checksum: 5bb6135a798fbaed21209acc1e72fa2c71c0569b65106c647681a5a8d56af5722beb76bdcd7ef049ab2704b97588733fdc38976e79d5f1da331ececa5d26578f
   languageName: node
   linkType: hard
 
@@ -2812,12 +2812,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:^0.4.4":
-  version: 0.4.4
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.4.4"
+"@tonomy/tonomy-id-sdk@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.5.0"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
-    "@greymass/eosio": ^0.6.4
+    "@greymass/eosio": ^0.7.0
     "@tonomy/antelope-did": ^0.1.5
     "@tonomy/antelope-did-resolver": ^0.6.2
     "@tonomy/did-jwt": ^6.10.1
@@ -2829,7 +2829,7 @@ __metadata:
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
     universal-base64url: ^1.1.0
-  checksum: 3e25e02ff52958813cbf2cbdf95e30d8f8db356925a63c2d5b7690af1319572082a36f4eec1a503d3842aec7fd17c477f0242a86874859f4066625a926cab345
+  checksum: ec92dc700963fb4c555fef85773dab4db689a1470124903053d9f791b563765dae7568c2221ab755d18454b65f01e355caa979bffcb7e51b6fed85bd7b2208db
   languageName: node
   linkType: hard
 
@@ -6981,12 +6981,12 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.10.6
     "@emotion/styled": ^11.10.6
-    "@greymass/eosio": ^0.6.9
+    "@greymass/eosio": ^0.7.0
     "@mui/icons-material": ^5.11.11
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": ^0.4.4
+    "@tonomy/tonomy-id-sdk": ^0.5.0
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10

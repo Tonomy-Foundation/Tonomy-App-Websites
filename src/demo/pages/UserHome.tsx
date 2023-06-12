@@ -9,8 +9,11 @@ import {
 } from "../components/styles";
 import TUserInfo from "../components/TUserInfo";
 import "./UserHome.css";
+import { useNavigate } from "react-router-dom";
 
 export default function UserHome() {
+  const navigation = useNavigate();
+
   return (
     <ContainerStyle>
       <PageIntroStyle>
@@ -26,7 +29,10 @@ export default function UserHome() {
             You can create a verifiable data by using our built-in tools to
             create and manage your own digital certificates
           </TP>
-          <button className="tonomy-login-button">
+          <button
+            className="tonomy-login-button"
+            onClick={() => navigation("/w3c-vcs")}
+          >
             SIGN W3C VERIFIABLE CREDENTIALS
           </button>
         </BoxContainer>
@@ -35,19 +41,25 @@ export default function UserHome() {
             You can sign blockchain transactions using our secure system and
             your private key.
           </TP>
-          <button className="tonomy-login-button">
+          <button
+            className="tonomy-login-button"
+            onClick={() => navigation("/blockchain-tx")}
+          >
             SIGN BLOCKCHAIN TRANSACTIONS
           </button>
         </BoxContainer>
-        <BoxContainer className="boxStyle">
+        {/* <BoxContainer className="boxStyle">
           <TP>
             Additionally, you can send messages to other users of Tonomy ID,
             allowing for easy communication and collaboration.
           </TP>
-          <button className="tonomy-login-button">
+          <button
+            className="tonomy-login-button"
+            onClick={() => navigation("/messages")}
+          >
             SEND PEER TO PEER MESSAGES
           </button>
-        </BoxContainer>
+        </BoxContainer> */}
       </PageIntroStyle>
 
       <HighlightedPageView
