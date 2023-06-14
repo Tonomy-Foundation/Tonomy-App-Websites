@@ -20,7 +20,6 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.10",
     "@tonomy/tonomy-id-sdk": "development",
-    "@tonomy/tonomy-id-test": "development",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
