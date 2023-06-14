@@ -1,4 +1,4 @@
-const { execSync } = require("child_process");
+import { execSync } from "child_process";
 
 const currentBranch = execSync("git symbolic-ref --short HEAD", {
   encoding: "utf8",
