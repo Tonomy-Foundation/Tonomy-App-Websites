@@ -4,7 +4,7 @@ const currentBranch = execSync("git symbolic-ref --short HEAD", {
   encoding: "utf8",
 }).trim();
 
-if (currentBranch === "development") {
+if (currentBranch !== "master") {
   execSync("yarn add @tonomy/tonomy-id-sdk@development", {
     stdio: "inherit",
   });
