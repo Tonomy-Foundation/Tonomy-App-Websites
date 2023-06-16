@@ -5,6 +5,8 @@ try {
     encoding: "utf8",
   }).trim();
 
+  console.log("current branch", currentBranch);
+
   if (currentBranch !== "master") {
     console.log("execution start");
     execSync("yarn add @tonomy/tonomy-id-sdk@development", {
