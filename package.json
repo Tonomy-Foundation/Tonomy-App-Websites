@@ -10,7 +10,8 @@
     "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
     "lint:fix": "yarn lint --fix",
     "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite",
-    "prepare": "bash ./install-tonomy-id-sdk.sh"
+    "configure:sdk-package": "bash ./install-tonomy-id-sdk.sh",
+    "prepare": "yarn run configure:sdk-package"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
