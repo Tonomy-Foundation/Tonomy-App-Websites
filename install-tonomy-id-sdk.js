@@ -1,9 +1,7 @@
 import { execSync } from "child_process";
 
 try {
-  const currentBranch = execSync("git symbolic-ref --short HEAD", {
-    encoding: "utf8",
-  }).trim();
+  const currentBranch = process.env.VERCEL_GIT_COMMIT_REF;
 
   console.log("current branch", currentBranch);
 
