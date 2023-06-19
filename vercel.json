@@ -2,8 +2,8 @@
     "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
     "builds": [
         {
-          "src": "install-tonomy-id-sdk.sh",
-          "use": "@vercel/static-build"
+            "src": "yarn install && ./install-tonomy-id-sdk.sh",
+            "use": "@vercel/static-build"
         }
       ]
 }
