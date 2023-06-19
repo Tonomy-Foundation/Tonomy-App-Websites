@@ -1,3 +1,9 @@
 {
-    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
+    "builds": [
+        {
+          "src": "install-tonomy-id-sdk.sh",
+          "use": "@vercel/static-build"
+        }
+      ]
 }
