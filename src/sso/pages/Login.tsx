@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 import {
   UserApps,
   Message,
@@ -11,25 +11,31 @@ import {
   IdentifyMessage,
   LoginRequestsMessage,
   LoginRequestResponseMessage,
-  strToBase64Url,
+  objToBase64Url,
+  SdkError,
+  SdkErrors,
+  ExternalUser,
+  App,
+  LoginRequestPayload,
+  randomString,
+  KeyManagerLevel,
+  JsKeyManager,
 } from "@tonomy/tonomy-id-sdk";
-import QRCode from "react-qr-code";
-import { TH3, TP } from "../components/THeadings";
-import TImage from "../components/TImage";
-import TProgressCircle from "../components/TProgressCircle";
-import settings from "../settings";
-import { isMobile } from "../utills/IsMobile";
-import logo from "../assets/tonomy/tonomy-logo1024.png";
+import { TH3, TH4, TP } from "../../common/atoms/THeadings";
+import TImage from "../../common/atoms/TImage";
+import TProgressCircle from "../../common/atoms/TProgressCircle";
+import settings from "../../common/settings";
+import { isMobile } from "../utils/IsMobile";
+import logo from "/tonomy-logo1024.png";
 import { useNavigate } from "react-router-dom";
-import { useCommunicationStore } from "../stores/communication.store";
-import "./login.css";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { TButton } from "../components/Tbutton";
-
-api.setSettings({
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-});
+import "./Login.css";
+import { TButton } from "../../common/atoms/TButton";
+import { TContainedButton } from "../../common/atoms/TContainedButton";
+import LinkingPhone from "../molecules/LinkingPhone";
+import { useUserStore } from "../../common/stores/user.store";
+import QROrLoading from "../molecules/ShowQr";
+import useErrorStore from "../../common/stores/errorStore";
+import { Issuer } from "@tonomy/did-jwt-vc";
 
 const styles = {
   container: {
@@ -37,14 +43,28 @@ const styles = {
     textAlign: "center" as const,
     alignSelf: "center",
   },
+  detailContainer: {
+    marginTop: "20px",
+    padding: "40px 10px",
+    border: "2px solid var(--grey-border)",
+    borderRadius: "20px",
+  },
 };
 
-function Login() {
+export default function Login() {
+  const [status, setStatus] = useState<"qr" | "connecting" | "app">("qr");
+  const [username, setUsername] = useState<string>();
   const [showQR, setShowQR] = useState<string>();
+  const [app, setApp] = useState<App>();
   const navigation = useNavigate();
-  const communication = useCommunicationStore((state) => state.communication);
+  const communication = useUserStore((state) => state.communication);
+  const setUser = useUserStore((state) => state.setUser);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const logout = useUserStore((state) => state.logout);
+  const errorStore = useErrorStore();
+  let user: ExternalUser | undefined;
+
   let rendered = false;
-  const location = useLocation();
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -56,46 +76,66 @@ function Login() {
       return;
     }
 
-    handleRequests();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    onLoad();
   }, []);
 
-  async function sendRequestToMobile(
+  // sends the login request to Tonomy ID via URL
+  async function redirectToMobileAppUrl(requests: LoginRequest[]) {
+    const payload = {
+      requests,
+    };
+
+    const base64UrlPayload = objToBase64Url(payload);
+
+    window.location.replace(
+      `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
+    );
+
+    // wait 1 second
+    // if this code runs then the redirect didn't work
+    setTimeout(() => {
+      throw new Error("Redirect to Tonomy ID failed");
+    }, 1000);
+  }
+
+  // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
+  async function connectToTonomyId(
     requests: LoginRequest[],
     loginToCommunication: AuthenticationMessage
   ) {
-    try {
-      if (isMobile()) {
-        const payload = {
+    // Login to the communication server
+    await communication.login(loginToCommunication);
+
+    if (isLoggedIn()) {
+      setStatus("connecting");
+      if (!user) throw new Error("No user found");
+
+      const tonomyIDDid = await user.getWalletDid();
+
+      if (!tonomyIDDid) throw new Error("No Tonomy ID DID found");
+
+      const issuer = await user.getIssuer();
+
+      const requestMessage = await LoginRequestsMessage.signMessage(
+        {
           requests,
-        };
+        },
+        issuer,
+        tonomyIDDid
+      );
 
-        const base64UrlPayload = strToBase64Url(JSON.stringify(payload));
+      await communication.sendMessage(requestMessage);
 
-        window.location.replace(
-          `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
-        );
+      setStatus("app");
+    } else {
+      // subscribe for connection from Tonomy ID, which will then send login request
+      communication.subscribeMessage(async (message) => {
+        try {
+          setStatus("connecting");
 
-        // TODO
-        // wait 1-2 seconds
-        // if this code runs then the link didnt work
-        setTimeout(() => {
-          alert("link didn't work");
-        }, 1000);
-      } else {
-        const logInMessage = new LoginRequest(requests[1]);
-        const did = logInMessage.getIssuer();
-
-        setShowQR(did);
-
-        // Login to the communication server
-        await communication.login(loginToCommunication);
-
-        // subscribe for connection from Tonomy ID, which will then send login request
-        communication.subscribeMessage(async (message) => {
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const jwkIssuer = await api.ExternalUser.getJwkIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
@@ -104,110 +144,313 @@ function Login() {
             identifyMessage.getSender()
           );
 
-          localStorage.setItem(
-            STORAGE_NAMESPACE + ".tonomy.id.did",
-            identifyMessage.getSender()
-          );
+          await communication.sendMessage(requestMessage);
 
-          communication.sendMessage(requestMessage);
-        }, IdentifyMessage.getType());
-
-        // subscribe for login request response
-        communication.subscribeMessage(async (message: Message) => {
-          const loginRequestResponsePayload = new LoginRequestResponseMessage(
-            message
-          ).getPayload();
-
-          if (!loginRequestResponsePayload.success) {
-            // TODO redirect back to external website and tell them what happened
-          }
-
-          const requests = loginRequestResponsePayload.requests;
-          const externalLoginRequest = requests?.find((r: LoginRequest) => {
-            return r.getPayload().origin !== window.location.origin;
-          });
-
-          if (!externalLoginRequest) {
-            throw new Error("No external login request found");
-          }
-
-          const base64UrlPayload = strToBase64Url(
-            JSON.stringify(loginRequestResponsePayload)
-          );
-
-          window.location.replace("/callback?payload=" + base64UrlPayload);
-        }, LoginRequestResponseMessage.getType());
-      }
-    } catch (e) {
-      console.error(JSON.stringify(e, null, 2));
-      alert(e);
+          setStatus("app");
+        } catch (e) {
+          errorStore.setError({ error: e, expected: false });
+        }
+      }, IdentifyMessage.getType());
     }
   }
 
-  async function handleRequests() {
+  // waits for the login request response from Tonomy ID then redirects to the callback url
+  async function subscribeToLoginRequestResponse() {
+    communication.subscribeMessage(async (message: Message) => {
+      try {
+        const loginRequestResponsePayload = new LoginRequestResponseMessage(
+          message
+        ).getPayload();
+
+        const requests = loginRequestResponsePayload.requests;
+
+        const externalLoginRequest = requests?.find((r: LoginRequest) => {
+          return r.getPayload().origin !== window.location.origin;
+        });
+
+        if (!externalLoginRequest) {
+          throw new Error("No external login request found");
+        }
+
+        if (!loginRequestResponsePayload.success) {
+          const error = loginRequestResponsePayload.error;
+
+          if (!error) throw new Error("No error message found");
+          const url = await UserApps.terminateLoginRequest(
+            [externalLoginRequest],
+            "url",
+            error,
+            {
+              callbackOrigin: externalLoginRequest.getPayload().origin,
+              callbackPath: externalLoginRequest.getPayload().callbackPath,
+            }
+          );
+
+          window.location.href = url;
+        } else {
+          const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
+
+          window.location.replace("/callback?payload=" + base64UrlPayload);
+        }
+      } catch (e) {
+        errorStore.setError({ error: e, expected: false });
+      }
+    }, LoginRequestResponseMessage.getType());
+  }
+
+  async function getAppDetails(loginRequest: LoginRequest) {
+    const app = await App.getApp(loginRequest.getPayload().origin);
+
+    setApp(app);
+  }
+
+  // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
+  async function loginToTonomyAndSendRequests(
+    loggedIn = false,
+    user?: ExternalUser
+  ) {
     try {
       const externalLoginRequest = await UserApps.onRedirectLogin();
 
-      try {
-        await api.ExternalUser.getUser();
-        //TODO: send to the connect screen
-        navigation("/loading" + location.search);
-      } catch (e) {
-        const { loginRequest, loginToCommunication } =
+      getAppDetails(externalLoginRequest);
+      const requests = [externalLoginRequest];
+      let loginToCommunication: AuthenticationMessage;
+
+      if (loggedIn === false) {
+        const { loginRequest, loginToCommunication: loginToCommunicationVal } =
           (await api.ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
             redirect: false,
           })) as LoginWithTonomyMessages;
 
-        sendRequestToMobile(
-          [externalLoginRequest, loginRequest],
-          loginToCommunication
+        requests.push(loginRequest);
+        loginToCommunication = loginToCommunicationVal;
+      } else {
+        if (!user) throw new Error("No user found");
+
+        const issuer = await user.getIssuer();
+
+        const publicKey = await new JsKeyManager().getKey({
+          level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+        });
+
+        const loginRequestPayload: LoginRequestPayload = {
+          randomString: randomString(32),
+          origin: window.location.origin,
+          publicKey: publicKey,
+          callbackPath: "/callback",
+        };
+
+        const loginRequest = await LoginRequest.signRequest(
+          loginRequestPayload,
+          issuer
         );
+
+        requests.push(loginRequest);
+
+        loginToCommunication =
+          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
+      }
+
+      if (isMobile()) {
+        await redirectToMobileAppUrl(requests);
+      } else {
+        const logInMessage = new LoginRequest(requests[1]);
+        const did = logInMessage.getIssuer();
+
+        setShowQR(did);
+        await subscribeToLoginRequestResponse();
+        await connectToTonomyId(requests, loginToCommunication);
       }
     } catch (e) {
-      console.error(JSON.stringify(e, null, 2));
-      alert(e);
-      // TODO handle error
+      if (e instanceof SdkError && e.code === SdkErrors.ReferrerEmpty) {
+        errorStore.setError({
+          error: new Error(
+            "Please try again and do not refresh this website during login"
+          ),
+          expected: true,
+          title: "Login unsuccessful",
+          onClose: async () => onRefresh(),
+        });
+      } else {
+        errorStore.setError({ error: e, expected: false });
+      }
     }
   }
 
-  function renderQROrLoading() {
-    if (!isMobile()) {
-      return (
-        <>
-          <TP>Scan the QR code with the Tonomy ID app</TP>
-          <fieldset className="fieldset-view">
-            <legend className="legend-view">
-              {" "}
-              <TButton
-                startIcon={<ContentCopyIcon></ContentCopyIcon>}
-                onClick={() => navigation("/download")}
-              >
-                Copy request link
-              </TButton>
-            </legend>
-            {!showQR && <TProgressCircle />}
-            {showQR && <QRCode value={showQR}></QRCode>}
-          </fieldset>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <TP>Loading QR code request</TP>
-          <TProgressCircle />
-        </>
-      );
+  // check if user is already logged in
+  async function checkLoggedIn() {
+    user = await api.ExternalUser.getUser();
+    setStatus("connecting");
+    setUser(user);
+    const username = await user.getUsername();
+
+    setUsername(username.getBaseUsername());
+
+    loginToTonomyAndSendRequests(true, user);
+  }
+
+  // check if user logged in and if not starts login process from URL parameters
+  async function onLoad() {
+    try {
+      await checkLoggedIn();
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.UserNotLoggedIn ||
+          e.code === SdkErrors.AccountDoesntExist)
+      ) {
+        loginToTonomyAndSendRequests(false);
+      } else {
+        errorStore.setError({ error: e, expected: false });
+      }
     }
   }
+
+  const onLogout = async () => {
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        requests,
+        "url",
+        {
+          code: SdkErrors.UserLogout,
+          reason: "User logged out",
+        },
+        {
+          callbackOrigin: requests[0].getPayload().origin,
+          callbackPath: requests[0].getPayload().callbackPath,
+        }
+      );
+
+      if (isLoggedIn()) await logout();
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  };
+
+  const onCancel = async () => {
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        requests,
+        "url",
+        {
+          code: SdkErrors.UserCancelled,
+          reason: "User cancelled login",
+        },
+        {
+          callbackOrigin: requests[0].getPayload().origin,
+          callbackPath: requests[0].getPayload().callbackPath,
+        }
+      );
+
+      if (isLoggedIn()) {
+        // TODO send a message to Tonomy ID telling it the request is cancelled
+      }
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  };
+
+  const onRefresh = async () => {
+    try {
+      const { requests } = await UserApps.getLoginRequestFromUrl();
+
+      const callbackUrl = await UserApps.terminateLoginRequest(
+        requests,
+        "url",
+        {
+          code: SdkErrors.UserRefreshed,
+          reason: "User refreshed during login",
+        },
+        {
+          callbackOrigin: requests[0].getPayload().origin,
+          callbackPath: requests[0].getPayload().callbackPath,
+        }
+      );
+
+      window.location.href = callbackUrl;
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  };
 
   return (
     <div style={styles.container}>
       <TImage height={62} src={logo} alt="Tonomy Logo" />
       <TH3>Login with Tonomy</TH3>
-      {renderQROrLoading()}
-    </div>
-  ) as any;
-}
+      {(status === "connecting" || status === "app") && (
+        <>{username && <TH4>{username}</TH4>}</>
+      )}
 
-export default Login;
+      <div
+        style={{
+          ...styles.detailContainer,
+        }}
+      >
+        {status === "qr" && <QROrLoading showQr={showQR} />}
+
+        {status === "connecting" && (
+          <>
+            <LinkingPhone />
+          </>
+        )}
+        {status === "app" && (
+          <>
+            {app && (
+              <>
+                <TImage src={app.logoUrl}></TImage>
+                <TH3>{app.appName}</TH3>
+                <TH4>wants you to log in to their application</TH4>
+                <TP style={{ margin: "10px" }}>
+                  Please proceed to login to Tonomy ID app on your phone.
+                </TP>
+              </>
+            )}
+            {!app && (
+              <div className="detail-container">
+                <TH4>Loading app details</TH4>
+                <TProgressCircle />
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      {status === "qr" && (
+        <TContainedButton onClick={() => navigation("/download")}>
+          Don't have Tonomy ID yet?
+        </TContainedButton>
+      )}
+      {(status === "connecting" || status === "app") && (
+        <>
+          <div>
+            <TContainedButton
+              onClick={async () => {
+                await onCancel();
+              }}
+            >
+              Cancel
+            </TContainedButton>
+          </div>
+          {user && (
+            <TButton
+              className="logout margin-top"
+              onClick={onLogout}
+              startIcon={<LogoutIcon></LogoutIcon>}
+            >
+              Logout
+            </TButton>
+          )}
+        </>
+      )}
+    </div>
+  );
+}

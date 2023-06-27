@@ -1,0 +1,13 @@
+.boxStyle {
+    padding: 1.5rem 2rem;
+}
+
+.boxStyle p {
+    margin-bottom: 1rem;
+    text-align: center;
+    line-height: 1rem;
+}
+
+.text-header {
+    margin-top: 0.3rem;
+  }

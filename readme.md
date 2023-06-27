@@ -24,6 +24,10 @@ runs the app in development mode. Uses nginx to route the port to the correct ap
 
 **the vite app port isn't important**  it will only be used inside the nginx.
 
+### `yarn add @tonomy/tonomy-id-sdk@development`
+
+this install the tonomy-id-sdk with development tag
+
 ### `yarn build`
 
 builds the apps into `./dist` folder.

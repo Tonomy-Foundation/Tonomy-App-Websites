@@ -1,0 +1,59 @@
+.rightDocs {
+    padding: 0rem 1.2rem;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background-image: url("../assets/background.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+    margin-top: auto;
+}
+
+  .rightDocs, .title {
+    color: var(---bg);
+  }
+
+  .title {
+    background-color: transparent;
+    text-align: left
+  }
+
+  .highlighter {
+    transform: scale(0.9);
+    margin: 1rem 0;
+    min-width: 600px;
+  }
+  .alink {
+    font-size: 20px;
+    color: var(---bg);
+    font-weight: 500;
+  }
+  
+  .alink.footer {
+    align-self: flex-end;
+    position: absolute;
+    bottom: 5rem;
+    right: 4rem;
+  }
+  
+
+  @media only screen and (max-width: 768px) {
+    .rightDocs {
+      padding: 1rem;
+    }
+    .highlighter {
+        transform: scale(0.8);
+        margin: 0;
+    }
+    .alink {
+        font-size: 16px;
+    }
+    
+    .alink.footer {
+        margin-top: 2rem;
+    }
+}

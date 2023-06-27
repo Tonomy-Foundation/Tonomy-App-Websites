@@ -1,67 +1,87 @@
 import React, { useEffect, useState } from "react";
-import { api, LoginRequestPayload } from "@tonomy/tonomy-id-sdk";
-import settings from "../settings";
-import "./callback.css";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import "./Callback.css";
+import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
+import TProgressCircle from "../../common/atoms/TProgressCircle";
+import { TH2 } from "../../common/atoms/THeadings";
+import TModal from "../../common/molecules/TModal";
 
 export default function Callback() {
-  const [payload, setPayLoad] = useState<LoginRequestPayload>();
-  const [name, setName] = useState<string>();
-  const [username, setUsername] = useState<string>();
+  const [errorTitle, setErrorTitle] = useState("");
+  const [errorVisible, setErrorVisible] = useState(false);
+  const navigation = useNavigate();
+  const errorStore = useErrorStore();
 
   useEffect(() => {
     verifyLogin();
   }, []);
 
   async function verifyLogin() {
-    const externalUser = await api.ExternalUser.verifyLoginRequest();
-    const request: any = await externalUser.getLoginRequest();
-
-    request.publicKey = request.publicKey.toString();
-
-    setPayLoad(request);
-    setName((await externalUser.getAccountName()).toString());
-    setUsername((await externalUser.getUsername()).toString());
+    try {
+      await api.ExternalUser.verifyLoginRequest();
+      window.location.href = "/user-home";
+      // navigation("/user-home"); // even thought this is the right solution, but using window location will force reload
+      // fixing the bug regarding the route authentication
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.UserCancelled || SdkErrors.UserLogout)
+      ) {
+        switch (e.code) {
+          case SdkErrors.UserCancelled:
+            setErrorTitle("User cancelled login");
+            setErrorVisible(true);
+            break;
+          case SdkErrors.UserLogout:
+            setErrorTitle("User logged out");
+            setErrorVisible(true);
+            break;
+          case SdkErrors.UserRefreshed:
+            navigation("/");
+            break;
+        }
+      } else {
+        errorStore.setError({ error: e });
+      }
+    }
   }
 
-  const showJwt = () => {
-    if (!payload) {
-      return <h1>Loading...</h1>;
-    } else {
-      return (
-        <div>
-          <h1>Logged in</h1>
-          <h2>Account: {name}</h2>
-          <h2>Username: {username}</h2>
-          <div className="code">
-            <span className="braces">&#123;</span>
-            {Object.entries(payload).map(([key, value], index: number) => {
-              return (
-                <div className="code-line" key={index}>
-                  <div className="key">{key}:&nbsp;</div>
-                  <div className="value">{value as string}</div>
-                </div>
-              );
-            })}
-            <span className="braces">&#125;</span>
+  return (
+    <>
+      <TModal
+        onPress={async () => {
+          navigation("/");
+          setErrorVisible(false);
+        }}
+        icon="block"
+        iconColor="warning"
+        title={errorTitle}
+        buttonLabel="Try again"
+        open={errorVisible}
+      >
+        <></>
+      </TModal>
+      <div
+        style={{
+          display: "flex",
+          height: "100%",
+        }}
+      >
+        <div
+          style={{
+            margin: "auto",
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <TH2>Logging in...</TH2>
           </div>
-
-          <a
-            className="btn"
-            target={"_blank"}
-            href={
-              "https://local.bloks.io/account/" +
-              name +
-              "?nodeUrl=" +
-              settings.config.blockchainUrl
-            }
-            rel="noreferrer"
-          >
-            Check in blockchain
-          </a>
+          <div>
+            <TProgressCircle />
+          </div>
         </div>
-      );
-    }
-  };
-
-  return <div>{showJwt()}</div>;
+      </div>
+    </>
+  );
 }

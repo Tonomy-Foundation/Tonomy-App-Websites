@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "./theme.css";
+import { runTests } from "./common/utils/runtime-tests";
+import settings from "./common/settings";
 
 /**
  * using dynamic import to have less code depending on the subdomain
@@ -30,6 +33,8 @@ try {
       sso(root);
     });
   }
+
+  if (!settings.isProduction()) runTests();
 } catch (e) {
   console.log(e);
 }

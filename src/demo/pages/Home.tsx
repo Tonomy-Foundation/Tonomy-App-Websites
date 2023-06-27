@@ -1,33 +1,41 @@
 import React, { useEffect } from "react";
 
 import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
-import settings from "../settings";
+import settings from "../../common/settings";
 import "./Home.css";
-import { TH1, TH3, TP } from "../../sso/components/THeadings";
-import logo from "../assets/tonomy/tonomy-logo48.png";
+import { TH1, TH3, TP } from "../../common/atoms/THeadings";
+import logo from "/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function Home() {
+  const errorStore = useErrorStore();
+
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
 
+  const navigation = useNavigate();
+
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
-
-      const accountName = await user.getAccountName();
-
-      console.log("Logged in as", accountName.toString());
-      // TODO take user to logged in page
+      await api.ExternalUser.getUser();
+      // User is logged in
+      navigation("/user-home");
     } catch (e) {
-      if (e instanceof SdkError && e.code === SdkErrors.AccountNotFound) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
         // User not logged in
         return;
       }
 
-      alert(e);
+      errorStore.setError({ error: e, expected: false });
     }
   }
 
