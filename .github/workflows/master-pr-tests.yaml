@@ -1,7 +1,11 @@
-name: Run Tonomy App Website Tests
+name: Feature Branch Tests
 
-on: pull_request
-
+on:
+  pull_request:
+    branches:
+      - master
+      # triggers when a PR with target to master is opened
+      
 jobs:
   check-sdk-version:
       runs-on: ubuntu-20.04
@@ -19,5 +23,6 @@ jobs:
           - run: yarn up @tonomy/tonomy-id-sdk
           - run: echo "YARNLOCK_SHA256_NEW=$(sha256sum yarn.lock)" >> $GITHUB_ENV
           - run: if [ "$YARNLOCK_SHA256_NEW" != "$YARNLOCK_SHA256_OLD" ]; then exit 1; fi
-            # if this step fails, try run `yarn up @tonomy/tonomy-id-sdk` and
+            # if this step fails, make sure the Tonomy SDK is set to the latest package
+            # try `yarn up @tonomy/tonomy-id-sdk` and
             # then test locally, if it works, then commit changes to package.json and yarn.lock
