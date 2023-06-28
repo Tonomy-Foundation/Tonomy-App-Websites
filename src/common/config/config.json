@@ -20,6 +20,6 @@
     },
     "tonomyIdLink": "tonomy-id-development://SSO",
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
-    "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
+    "ssoWebsiteOrigin": "http://accounts.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation"
 }
