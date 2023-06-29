@@ -26,15 +26,20 @@ try {
 
       demo(root);
     });
-  } else if (parseInt(window.location.port) === 3000 || subdomain === "sso") {
+  } else if (
+    parseInt(window.location.port) === 3000 ||
+    subdomain === "accounts"
+  ) {
     import("./sso/module-index.js").then((module) => {
       const sso = module.default;
 
       sso(root);
     });
+  } else {
+    throw new Error("Domain not supported");
   }
 
   if (!settings.isProduction()) runTests();
 } catch (e) {
-  console.log(e);
+  console.error(e);
 }

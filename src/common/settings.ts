@@ -42,7 +42,7 @@ type SettingsType = {
 let config: ConfigType;
 const settings: SettingsType = {
   env,
-  isProduction: () => settings.env === "production",
+  isProduction: () => settings.env === "production" || settings.env === "demo",
 } as SettingsType;
 
 switch (env) {
@@ -76,6 +76,14 @@ if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
     }`
   );
   config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
+}
+
+if (import.meta.env.VITE_COMMUNICATION_URL) {
+  console.log(
+    `Using VITE_COMMUNICATION_URL from env:  ${import.meta.env.VITE_COMMUNICATION_URL
+    }`
+  );
+  config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
 }
 
 settings.config = config;

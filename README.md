@@ -3,24 +3,34 @@
 This repo contains all the following react apps that the Tonomy-Foundation uses:
 
 - Demo website: this app demonstrate the demo flows of the tonomy id. Available at [https://demo.staging.tonomy.foundation](https://demo.staging.tonomy.foundation)
-- SSO website: this website manages the user SSO system and helps tonomy Id user to connect to multiple websites. Available at [https://sso.staging.tonomy.foundation](https://sso.staging.tonomy.foundation)
+- Accounts website: this website manages the user SSO system and helps Tonomy ID user to connect to multiple websites. Available at [https://accounts.staging.tonomy.foundation](https://accounts.staging.tonomy.foundation)
 <!-- - App Manager Website: developers portal to get Oauth access -->
 
 ## Dependencies
 
 - Linux debian distribution (Ubuntu 20.0.4 LTS used)
 - [Nodejs](https://nodejs.org) v18.0.0+ suggested installed with [nvm](https://github.com/nvm-sh/nvm) with corepack enabled. (installing yarn alone is also fine)
+
+Extra dependencies for `yarn run local`
+
 - [docker](https://www.docker.com/) v20.10.16+
 - [docker-compose](https://docs.docker.com/compose/) v1.29.2+
 
 ## Usage
 
-### `yarn local`
+### `yarn run dev`
 
-runs the app in development mode. Uses nginx to route the port to the correct app
+Runs the app in development mode
 
-- demo port: 3001
-- SSO port: 3000
+- Demo: <http://demo.localhost:5174>
+- Accounts: <http://accounts.localhost:5174>
+
+### `yarn run local`
+
+Runs the app in development mode and uses nginx to route the port to the correct app
+
+- Demo: port 3001
+- Accounts: port 3000
 
 **the vite app port isn't important**  it will only be used inside the nginx.
 
@@ -28,21 +38,21 @@ runs the app in development mode. Uses nginx to route the port to the correct ap
 
 this install the tonomy-id-sdk with development tag
 
-### `yarn build`
+### `yarn run build`
 
 builds the apps into `./dist` folder.
 Making the apps ready for production.
 
-### `yarn preview`
+### `yarn run preview`
 
 test how the apps will look like on production. <br>
 this is still experimental and needs some proxy configuration to make it works
 
-### `yarn lint`
+### `yarn run lint`
 
 shows all the linting errors
 
-### `yarn lint:fix`
+### `yarn run lint:fix`
 
 automatically fix all auto-fixable lint errors
 
@@ -50,7 +60,7 @@ automatically fix all auto-fixable lint errors
 
 Set the configuration variables in the desired file in `./src/config`
 
-Config file is choosing based on the value of environment variable `NODE_ENV`. `config.json` is used by default.
+Config file is choosing based on the value of environment variable `VITE_APP_NODE_ENV`. `config.json` is used by default.
 
 Other environment variables override the values in the config file:
 
