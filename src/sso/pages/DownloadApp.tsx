@@ -1,17 +1,14 @@
 import React from "react";
 import { TA } from "../../common/atoms/TA";
-import { TH1, TH4, TH3, TP } from "../../common/atoms/THeadings";
-import TImage from "../../common/atoms/TImage";
+import { TH4, TH3, TP } from "../../common/atoms/THeadings";
 import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
 import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
-import appleStoreBadge from "../assets/app-store.svg";
 
 export default function DownloadApp() {
   return (
     <div className="container">
-      <TImage src={appleStoreBadge} height={86}></TImage>
       <TH3>Tonomy ID</TH3>
       <TH4>The easiest and safest way to access Tonomy apps</TH4>
       <TP className="paragraph">

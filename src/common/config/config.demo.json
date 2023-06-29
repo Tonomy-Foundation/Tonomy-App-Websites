@@ -14,9 +14,9 @@
         "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
-        "readMoreDownload": "#",
+        "readMoreDownload": "https://tonomy.foundation/solutions/tonomy-id",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
-        "appleStoreDownload": "#"
+        "appleStoreDownload": "TODO"
     },
     "tonomyIdLink": "tonomy-id-demo://SSO",
     "communicationUrl": "wss://communication.demo.tonomy.foundation",
