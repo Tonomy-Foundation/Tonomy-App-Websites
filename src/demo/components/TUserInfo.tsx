@@ -9,20 +9,26 @@ import settings from "../../common/settings";
 
 export default function TUserInfo() {
   const [username, setUsername] = useState<string>("");
-  const [accountName, setAccountName] = useState<string>("");
-  const userStore = useUserStore();
-  const user = userStore.user;
+  const [blockExplorerUrl, setBlockExplorerUrl] = useState<string>("");
+  const user = useUserStore((state) => state.user);
   const errorStore = useErrorStore();
 
   async function onRender() {
     try {
       const username = await user?.getUsername();
 
-      if (username) setUsername(username?.getBaseUsername());
+      if (!username) throw new Error("No username found");
+      setUsername(username.getBaseUsername());
 
       const accountName = await user?.getAccountName();
 
-      if (accountName) setAccountName(accountName?.toString());
+      if (!accountName) throw new Error("No account name found");
+      let url = "https://local.bloks.io/account/" + accountName + "?nodeUrl=";
+
+      url += settings.isProduction()
+        ? settings.config.blockchainUrl
+        : "http://localhost:8888";
+      setBlockExplorerUrl(url);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -30,24 +36,13 @@ export default function TUserInfo() {
 
   useEffect(() => {
     onRender();
-  }, []);
+  }, [user]);
   return (
     <div className="head-subtitle">
       <TP>You are now logged in with Tonomy ID, as {username}</TP>
       <TP>
         View your account on the blockchain{" "}
-        <a
-          target={"_blank"}
-          href={
-            "https://local.bloks.io/account/" +
-            accountName +
-            "?nodeUrl=" +
-            settings.isProduction()
-              ? settings.config.blockchainUrl
-              : "http://localhost:8888"
-          }
-          rel="noreferrer"
-        >
+        <a target={"_blank"} href={blockExplorerUrl} rel="noreferrer">
           here
         </a>
       </TP>
