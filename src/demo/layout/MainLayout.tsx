@@ -92,12 +92,12 @@ const MainLayout = (props: MainLayoutProps) => {
               Blockchain Tx
             </MenuItem>
 
-            <MenuItem
+            {/* <MenuItem
               icon={<ChatBubbleOutlineOutlinedIcon />}
               component={<Link to="/messages" />}
             >
               Messages
-            </MenuItem>
+            </MenuItem> */}
 
             <MenuItem
               icon={<LogoutIcon />}
