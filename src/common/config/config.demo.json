@@ -16,7 +16,7 @@
     "links": {
         "readMoreDownload": "https://tonomy.foundation/solutions/tonomy-id",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
-        "appleStoreDownload": "TODO"
+        "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "tonomyIdLink": "tonomy-id-demo://SSO",
     "communicationUrl": "wss://communication.demo.tonomy.foundation",
