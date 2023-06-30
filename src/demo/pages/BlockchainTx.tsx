@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TUserInfo from "../components/TUserInfo";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { TButton } from "../../common/atoms/TButton";
@@ -24,7 +23,6 @@ export default function BlockchainTx() {
   return (
     <ContainerStyle>
       <PageIntroStyle>
-        <TUserInfo></TUserInfo>
         <TP className="text-header marginTop">
           Demo feature of how to use Tonomy ID to
         </TP>

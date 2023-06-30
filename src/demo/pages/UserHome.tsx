@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import HighlightedPageView from "../components/TPageHighlighted";
@@ -7,17 +7,63 @@ import {
   PageIntroStyle,
   BoxContainer,
 } from "../components/styles";
-import TUserInfo from "../components/TUserInfo";
 import "./UserHome.css";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../common/stores/user.store";
+import { api } from "@tonomy/tonomy-id-sdk";
+import useErrorStore from "../../common/stores/errorStore";
+import settings from "../../common/settings";
 
 export default function UserHome() {
   const navigation = useNavigate();
+  const userStore = useUserStore();
+  const errorStore = useErrorStore();
+  const [username, setUsername] = useState<string>("");
+  const [blockExplorerUrl, setBlockExplorerUrl] = useState<string>("");
+
+  async function onRender() {
+    try {
+      if (!userStore.user) {
+        const user = await api.ExternalUser.getUser();
+
+        userStore.setUser(user);
+
+        const username = await user.getUsername();
+
+        if (!username) throw new Error("No username found");
+        setUsername(username.getBaseUsername());
+
+        const accountName = await user?.getAccountName();
+
+        if (!accountName) throw new Error("No account name found");
+        let url = "https://local.bloks.io/account/" + accountName + "?nodeUrl=";
+
+        url += settings.isProduction()
+          ? settings.config.blockchainUrl
+          : "http://localhost:8888";
+        setBlockExplorerUrl(url);
+      }
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
+
+  useEffect(() => {
+    onRender();
+  }, []);
 
   return (
     <ContainerStyle>
       <PageIntroStyle>
-        <TUserInfo></TUserInfo>
+        <div className="head-subtitle">
+          <TP>You are now logged in with Tonomy ID, as {username}</TP>
+          <TP>
+            View your account on the blockchain{" "}
+            <a target={"_blank"} href={blockExplorerUrl} rel="noreferrer">
+              here
+            </a>
+          </TP>
+        </div>
         <TH2> Home</TH2>
         <TP className="text-header">
           Our demo site showcases the benefits of Tonomy ID for both users and
