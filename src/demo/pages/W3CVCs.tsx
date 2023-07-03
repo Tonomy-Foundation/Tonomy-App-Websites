@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TUserInfo from "../components/TUserInfo";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
@@ -126,7 +125,6 @@ export default function W3CVCs() {
       </TModal>
       <ContainerStyle>
         <PageIntroStyle>
-          <TUserInfo></TUserInfo>
           <TP className="text-header marginTop">
             Demo feature of how to use Tonomy ID to
           </TP>

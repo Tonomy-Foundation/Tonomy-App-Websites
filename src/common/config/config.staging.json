@@ -14,12 +14,12 @@
         "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
-        "readMoreDownload": "#",
-        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging&hl=en&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1",
-        "appleStoreDownload": "#"
+        "readMoreDownload": "https://tonomy.foundation/solutions/tonomy-id",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
+        "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
     },
     "tonomyIdLink": "tonomy-id-staging://SSO",
-    "communicationUrl": "wss://communication-api-staging.tonomy.foundation",
-    "ssoWebsiteOrigin": "https://sso.staging.tonomy.foundation",
+    "communicationUrl": "wss://communication.staging.tonomy.foundation",
+    "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation"
 }

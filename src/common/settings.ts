@@ -1,5 +1,6 @@
 import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
+import demoConfig from "./config/config.demo.json";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.VITE_APP_NODE_ENV || "development";
@@ -41,7 +42,7 @@ type SettingsType = {
 let config: ConfigType;
 const settings: SettingsType = {
   env,
-  isProduction: () => settings.env === "production",
+  isProduction: () => ["production", "demo", "staging"].includes(settings.env),
 } as SettingsType;
 
 switch (env) {
@@ -53,10 +54,11 @@ switch (env) {
   case "staging":
     config = stagingConfig;
     break;
-  case "production":
-    config = defaultConfig;
-    // TODO add production config when ready
+  case "demo":
+    config = demoConfig;
     break;
+  case "production":
+    throw new Error("Production environment is not supported yet");
   default:
     throw new Error("Unknown environment: " + env);
 }
@@ -70,11 +72,18 @@ if (import.meta.env.VITE_BLOCKCHAIN_URL) {
 
 if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
   console.log(
-    `Using SSO_WEBSITE_ORIGIN from env:  ${
-      import.meta.env.VITE_SSO_WEBSITE_ORIGIN
+    `Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN
     }`
   );
   config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
+}
+
+if (import.meta.env.VITE_COMMUNICATION_URL) {
+  console.log(
+    `Using VITE_COMMUNICATION_URL from env:  ${import.meta.env.VITE_COMMUNICATION_URL
+    }`
+  );
+  config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
 }
 
 settings.config = config;
