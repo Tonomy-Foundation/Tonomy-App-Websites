@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  api,
+  JsKeyManager,
+  KeyManagerLevel,
+  SdkError,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import "./Callback.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";

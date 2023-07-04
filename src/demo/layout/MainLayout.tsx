@@ -20,14 +20,12 @@ export type MainLayoutProps = {
 
 const MainLayout = (props: MainLayoutProps) => {
   const [collapsed, setCollapsed] = useState(true);
-  const navigation = useNavigate();
-  const userStore = useUserStore();
   const errorStore = useErrorStore();
   const [user, setUser] = useState<ExternalUser | null>(null);
 
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
+      const user = await api.ExternalUser.getUser({ autoLogout: false });
 
       setUser(user);
     } catch (e) {
