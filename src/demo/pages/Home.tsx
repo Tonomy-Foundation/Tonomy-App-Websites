@@ -6,7 +6,7 @@ import "./Home.css";
 import { TH1, TH3, TP } from "../../common/atoms/THeadings";
 import logo from "/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 
