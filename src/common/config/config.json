@@ -18,6 +18,7 @@
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
         "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
     },
+    "accountSuffix": ".stag.tonomy.id",
     "tonomyIdLink": "tonomy-id-development://SSO",
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",

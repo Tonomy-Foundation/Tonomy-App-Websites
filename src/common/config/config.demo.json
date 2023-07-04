@@ -18,6 +18,7 @@
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
+    "accountSuffix": ".demo.tonomy.id",
     "tonomyIdLink": "tonomy-id-demo://SSO",
     "communicationUrl": "wss://communication.demo.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.demo.tonomy.foundation",
