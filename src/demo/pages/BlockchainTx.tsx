@@ -23,9 +23,11 @@ import {
   AccountType,
   TonomyUsername,
   getAccountNameFromUsername,
+  EosioContract,
 } from "@tonomy/tonomy-id-sdk";
-import { API } from "@wharfkit/antelope";
 import settings from "../../common/settings";
+
+const eosioContract = EosioContract.Instance;
 
 export default function BlockchainTx() {
   const user = useUserStore((state) => state.user);
@@ -35,6 +37,7 @@ export default function BlockchainTx() {
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
+  const [balance, setBalance] = useState<number | undefined>(undefined);
 
   async function onRender() {
     try {
@@ -44,7 +47,9 @@ export default function BlockchainTx() {
       }
 
       const accountName = await user.getAccountName();
+      const balance = await eosioContract.getBalance(accountName);
 
+      setBalance(parseInt(balance));
       await user.signTransaction("eosio.token", "selfissue", {
         to: accountName,
         quantity: "10 SYS",
