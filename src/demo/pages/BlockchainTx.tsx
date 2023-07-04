@@ -23,11 +23,11 @@ import {
   AccountType,
   TonomyUsername,
   getAccountNameFromUsername,
-  EosioContract,
+  EosioTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 
-const eosioContract = EosioContract.Instance;
+const eosioTokenContract = EosioTokenContract.Instance;
 
 export default function BlockchainTx() {
   const user = useUserStore((state) => state.user);
@@ -47,9 +47,9 @@ export default function BlockchainTx() {
       }
 
       const accountName = await user.getAccountName();
-      const balance = await eosioContract.getBalance(accountName);
+      const balance = await eosioTokenContract.getBalance(accountName);
 
-      setBalance(parseInt(balance));
+      setBalance(balance);
       await user.signTransaction("eosio.token", "selfissue", {
         to: accountName,
         quantity: "10 SYS",
@@ -60,7 +60,17 @@ export default function BlockchainTx() {
     }
   }
 
+  let rendered = false;
+
   useEffect(() => {
+    // Prevent useEffect from running twice which causes a race condition of the
+    // async selfissue() transaction
+    if (!rendered) {
+      rendered = true;
+    } else {
+      return;
+    }
+
     onRender();
   }, []);
 
@@ -75,7 +85,7 @@ export default function BlockchainTx() {
         AccountType.PERSON,
         settings.config.accountSuffix
       );
-      const to = getAccountNameFromUsername(toUsername);
+      const to = await getAccountNameFromUsername(toUsername);
 
       const trx = await user.signTransaction("eosio.token", "transfer", {
         from,
@@ -84,11 +94,14 @@ export default function BlockchainTx() {
         memo: "test",
       });
 
-      const url =
+      let url =
         "https://local.bloks.io/transaction/" +
         trx.transaction_id +
-        "?nodeUrl=" +
-        settings.config.blockchainUrl;
+        "?nodeUrl=";
+
+      url += settings.isProduction()
+        ? settings.config.blockchainUrl
+        : "http://localhost:8888";
 
       setTrxUrl(url);
       setTransactionState("purchased");
@@ -194,7 +207,12 @@ export default function BlockchainTx() {
               <div className="btnDiv">
                 <TButton className="blockchainBtn">
                   See it on the blockchain{" "}
-                  <a className="blockchainLink" href={trxUrl}>
+                  <a
+                    className="blockchainLink"
+                    target="_blank"
+                    href={trxUrl}
+                    rel="noreferrer"
+                  >
                     here
                   </a>
                 </TButton>
