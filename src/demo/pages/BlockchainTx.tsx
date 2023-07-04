@@ -24,6 +24,7 @@ import {
   TonomyUsername,
   getAccountNameFromUsername,
 } from "@tonomy/tonomy-id-sdk";
+import { API } from "@wharfkit/antelope";
 import settings from "../../common/settings";
 
 export default function BlockchainTx() {
@@ -33,6 +34,7 @@ export default function BlockchainTx() {
   const [transactionState, setTransactionState] = useState<
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
+  const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
 
   async function onRender() {
     try {
@@ -70,12 +72,20 @@ export default function BlockchainTx() {
       );
       const to = getAccountNameFromUsername(toUsername);
 
-      await user.signTransaction("eosio.token", "transfer", {
+      const trx = await user.signTransaction("eosio.token", "transfer", {
         from,
         to,
         quantity: "1 SYS",
         memo: "test",
       });
+
+      const url =
+        "https://local.bloks.io/transaction/" +
+        trx.transaction_id +
+        "?nodeUrl=" +
+        settings.config.blockchainUrl;
+
+      setTrxUrl(url);
       setTransactionState("purchased");
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
@@ -179,7 +189,9 @@ export default function BlockchainTx() {
               <div className="btnDiv">
                 <TButton className="blockchainBtn">
                   See it on the blockchain{" "}
-                  <a className="blockchainLink">here</a>
+                  <a className="blockchainLink" href={trxUrl}>
+                    here
+                  </a>
                 </TButton>
               </div>
             </BoxContainer>
