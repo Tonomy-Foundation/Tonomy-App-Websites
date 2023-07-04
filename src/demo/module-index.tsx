@@ -9,6 +9,7 @@ import ErrorHandlerProvider from "../common/providers/ErrorHandler";
 api.setSettings({
   ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
   blockchainUrl: settings.config.blockchainUrl,
+  communicationUrl: settings.config.communicationUrl,
   loggerLevel: import.meta.env.LOG === "true" ? "debug" : "error",
 });
 
