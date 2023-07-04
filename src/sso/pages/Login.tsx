@@ -184,7 +184,7 @@ export default function Login() {
             }
           );
 
-          window.location.href = url;
+          window.location.href = url as string;
         } else {
           const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
 
@@ -325,7 +325,7 @@ export default function Login() {
 
       if (isLoggedIn()) await logout();
 
-      window.location.href = callbackUrl;
+      window.location.href = callbackUrl as string;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -352,7 +352,7 @@ export default function Login() {
         // TODO send a message to Tonomy ID telling it the request is cancelled
       }
 
-      window.location.href = callbackUrl;
+      window.location.href = callbackUrl as string;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -375,7 +375,7 @@ export default function Login() {
         }
       );
 
-      window.location.href = callbackUrl;
+      window.location.href = callbackUrl as string;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
