@@ -28,6 +28,7 @@ export type ConfigType = {
     appleStoreDownload: string;
     playStoreDownload: string;
   };
+  accountSuffix: string;
   tonomyIdLink: string;
   communicationUrl: string;
   ssoWebsiteOrigin: string;
