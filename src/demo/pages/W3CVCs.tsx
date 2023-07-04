@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 import {
   ContainerStyle,
   PageIntroStyle,
