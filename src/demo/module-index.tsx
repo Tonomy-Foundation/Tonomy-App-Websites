@@ -5,6 +5,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import settings from "../common/settings";
 import { api } from "@tonomy/tonomy-id-sdk";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
+import BlockchainTx from "./pages/BlockchainTx";
 
 api.setSettings({
   ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
@@ -19,7 +20,8 @@ export default function initiate(root: ReactDOM.Root) {
       <ErrorHandlerProvider />
 
       <ProSidebarProvider>
-        <Router />
+        {/* <Router /> */}
+        <BlockchainTx />
       </ProSidebarProvider>
     </React.StrictMode>
   );
