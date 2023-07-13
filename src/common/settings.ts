@@ -47,17 +47,21 @@ const settings: SettingsType = {
   isProduction: () => ["production", "demo", "staging"].includes(settings.env),
 } as SettingsType;
 
+type FixLoggerLevelEnumType<T> = Omit<T, "loggerLevel"> & {
+  loggerLevel: "debug" | "error";
+};
+
 switch (env) {
   case "test":
   case "local":
   case "development":
-    config = defaultConfig;
+    config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
     break;
   case "staging":
-    config = stagingConfig;
+    config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
     break;
   case "demo":
-    config = demoConfig;
+    config = demoConfig as FixLoggerLevelEnumType<typeof demoConfig>;
     break;
   case "production":
     throw new Error("Production environment is not supported yet");
