@@ -5,15 +5,6 @@ import { RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import router from "./routes/root";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
-import { api } from "@tonomy/tonomy-id-sdk";
-import settings from "../common/settings";
-
-api.setSettings({
-  ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-  loggerLevel: import.meta.env.VITE_LOG === "true" ? "debug" : "error",
-});
 
 const styles = {
   container: {

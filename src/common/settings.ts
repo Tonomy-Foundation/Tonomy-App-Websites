@@ -33,6 +33,7 @@ export type ConfigType = {
   communicationUrl: string;
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
+  loggerLevel: "debug" | "error";
 };
 
 type SettingsType = {
@@ -85,6 +86,11 @@ if (import.meta.env.VITE_COMMUNICATION_URL) {
     }`
   );
   config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
+}
+
+if (import.meta.env.VITE_LOG === "true") {
+  console.log(`Using VITE_LOG from env:  ${import.meta.env.VITE_LOG}`);
+  config.loggerLevel = "debug";
 }
 
 settings.config = config;
