@@ -22,5 +22,6 @@
     "tonomyIdLink": "tonomy-id-demo://SSO",
     "communicationUrl": "wss://communication.demo.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.demo.tonomy.foundation",
-    "blockchainUrl": "https://blockchain-api-demo.tonomy.foundation"
+    "blockchainUrl": "https://blockchain-api-demo.tonomy.foundation",
+    "loggerLevel": "error"
 }
