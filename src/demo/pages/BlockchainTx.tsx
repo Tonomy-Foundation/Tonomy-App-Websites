@@ -46,9 +46,10 @@ export default function BlockchainTx() {
       }
 
       const accountName = await user.getAccountName();
-      const balance = await eosioTokenContract.getBalance(accountName);
+      const accountBalance = await eosioTokenContract.getBalance(accountName);
 
-      setBalance(balance);
+      setBalance(accountBalance);
+      if (accountBalance > 10) return;
       await user.signTransaction("eosio.token", "selfissue", {
         to: accountName,
         quantity: "10 SYS",
