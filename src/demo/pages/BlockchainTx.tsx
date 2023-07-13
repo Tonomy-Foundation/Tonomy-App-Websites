@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
-import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
@@ -47,9 +46,10 @@ export default function BlockchainTx() {
       }
 
       const accountName = await user.getAccountName();
-      const balance = await eosioTokenContract.getBalance(accountName);
+      const accountBalance = await eosioTokenContract.getBalance(accountName);
 
-      setBalance(balance);
+      setBalance(accountBalance);
+      if (accountBalance > 10) return;
       await user.signTransaction("eosio.token", "selfissue", {
         to: accountName,
         quantity: "10 SYS",

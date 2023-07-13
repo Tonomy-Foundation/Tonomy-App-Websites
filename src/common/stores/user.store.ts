@@ -1,12 +1,5 @@
-import { Communication, ExternalUser, api } from "@tonomy/tonomy-id-sdk";
+import { Communication, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { create } from "zustand";
-import settings from "../settings";
-
-api.setSettings({
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-  loggerLevel: import.meta.env.LOG === "true" ? "debug" : "error",
-});
 
 interface ExternalUserStore {
   user: ExternalUser | undefined;
