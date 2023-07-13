@@ -10,7 +10,7 @@ api.setSettings({
   ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
   blockchainUrl: settings.config.blockchainUrl,
   communicationUrl: settings.config.communicationUrl,
-  loggerLevel: import.meta.env.LOG === "true" ? "debug" : "error",
+  loggerLevel: import.meta.env.VITE_LOG === "true" ? "debug" : "error",
 });
 
 export default function initiate(root: ReactDOM.Root) {
