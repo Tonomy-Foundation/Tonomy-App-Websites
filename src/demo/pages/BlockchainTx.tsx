@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
-import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
