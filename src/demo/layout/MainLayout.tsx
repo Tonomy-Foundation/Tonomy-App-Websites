@@ -6,7 +6,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { LogoutContext } from "../providers/LogoutProvider";
+import { AuthContext } from "../providers/AuthProvider";
 import logo from "../assets/tonomy-logo48.png";
 import "./MainLayout.css";
 
@@ -15,7 +15,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  const { logout } = useContext(LogoutContext);
+  const { signout } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(true);
 
   const handleMouseEnter = () => {
@@ -70,7 +70,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <MenuItem
               icon={<LogoutIcon />}
               className="logoutMenu"
-              onClick={() => logout()}
+              onClick={() => signout()}
             >
               Logout
             </MenuItem>
