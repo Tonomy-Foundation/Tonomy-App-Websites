@@ -21,7 +21,7 @@ export default function Home() {
 
   async function onRender() {
     try {
-      await api.ExternalUser.getUser();
+      await api.ExternalUser.getUser({ autoLogout: false });
       // User is logged in
       navigation("/user-home");
     } catch (e) {

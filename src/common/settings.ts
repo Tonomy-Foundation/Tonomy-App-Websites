@@ -28,10 +28,12 @@ export type ConfigType = {
     appleStoreDownload: string;
     playStoreDownload: string;
   };
+  accountSuffix: string;
   tonomyIdLink: string;
   communicationUrl: string;
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
+  loggerLevel: "debug" | "error";
 };
 
 type SettingsType = {
@@ -45,17 +47,21 @@ const settings: SettingsType = {
   isProduction: () => ["production", "demo", "staging"].includes(settings.env),
 } as SettingsType;
 
+type FixLoggerLevelEnumType<T> = Omit<T, "loggerLevel"> & {
+  loggerLevel: "debug" | "error";
+};
+
 switch (env) {
   case "test":
   case "local":
   case "development":
-    config = defaultConfig;
+    config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
     break;
   case "staging":
-    config = stagingConfig;
+    config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
     break;
   case "demo":
-    config = demoConfig;
+    config = demoConfig as FixLoggerLevelEnumType<typeof demoConfig>;
     break;
   case "production":
     throw new Error("Production environment is not supported yet");
@@ -84,6 +90,11 @@ if (import.meta.env.VITE_COMMUNICATION_URL) {
     }`
   );
   config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
+}
+
+if (import.meta.env.VITE_LOG === "true") {
+  console.log(`Using VITE_LOG from env:  ${import.meta.env.VITE_LOG}`);
+  config.loggerLevel = "debug";
 }
 
 settings.config = config;

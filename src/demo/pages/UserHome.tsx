@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import HighlightedPageView from "../components/TPageHighlighted";
 import {
   ContainerStyle,
