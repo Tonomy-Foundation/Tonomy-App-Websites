@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { TH2, TP } from "../../common/atoms/THeadings";
+
 import "@tonomy/tonomy-id-sdk/api/tonomy.css";
-import { TButton } from "../../common/atoms/TButton";
-import TImage from "../../common/atoms/TImage";
-import connectionImage from "../assets/nft1.png";
-import HighlightedPageView from "../components/TPageHighlighted";
-import Ticket from "../assets/emojis/ticket.png";
-import Handshake from "../assets/emojis/handshake.png";
-import Money from "../assets/emojis/money.png";
-import Vote from "../assets/emojis/vote.png";
-import Cruise from "../assets/emojis/cruise.png";
+
 import {
   HeaderContainer,
   FeatureNameLabel,
