@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  api,
+  JsKeyManager,
+  KeyManagerLevel,
+  SdkError,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import "./Callback.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import { TH2 } from "../../common/atoms/THeadings";
 import TModal from "../../common/molecules/TModal";
+import { useUserStore } from "../../common/stores/user.store";
 
 export default function Callback() {
   const [errorTitle, setErrorTitle] = useState("");
   const [errorVisible, setErrorVisible] = useState(false);
   const navigation = useNavigate();
+  const setUser = useUserStore((state) => state.setUser);
   const errorStore = useErrorStore();
 
   useEffect(() => {
@@ -19,10 +27,11 @@ export default function Callback() {
 
   async function verifyLogin() {
     try {
-      await api.ExternalUser.verifyLoginRequest();
+      const user = await api.ExternalUser.verifyLoginRequest();
+
+      setUser(user);
       window.location.href = "/user-home";
-      // navigation("/user-home"); // even thought this is the right solution, but using window location will force reload
-      // fixing the bug regarding the route authentication
+      // navigation("/user-home"); // Need to wait for before this will work https://github.com/Tonomy-Foundation/Tonomy-App-Websites/issues/85
     } catch (e) {
       if (
         e instanceof SdkError &&

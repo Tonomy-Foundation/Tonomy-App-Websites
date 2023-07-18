@@ -8,8 +8,11 @@ import logo from "/tonomy-logo48.png";
 import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
 
 export default function Home() {
+  const errorStore = useErrorStore();
+
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
@@ -18,7 +21,7 @@ export default function Home() {
 
   async function onRender() {
     try {
-      await api.ExternalUser.getUser();
+      await api.ExternalUser.getUser({ autoLogout: false });
       // User is logged in
       navigation("/user-home");
     } catch (e) {
@@ -32,8 +35,7 @@ export default function Home() {
         return;
       }
 
-      console.error(e);
-      alert(e);
+      errorStore.setError({ error: e, expected: false });
     }
   }
 

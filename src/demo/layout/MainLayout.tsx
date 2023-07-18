@@ -60,12 +60,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               Blockchain Tx
             </MenuItem>
 
-            <MenuItem
+            {/* <MenuItem
               icon={<ChatBubbleOutlineOutlinedIcon />}
               component={<Link to="/messages" />}
             >
               Messages
-            </MenuItem>
+            </MenuItem> */}
 
             <MenuItem
               icon={<LogoutIcon />}
@@ -80,7 +80,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
       <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
         {children}
-
       </div>
     </div>
   );

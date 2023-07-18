@@ -68,7 +68,7 @@ export default function CallBackPage() {
           }
         );
 
-        window.location.href = callbackUrl;
+        window.location.href = callbackUrl as string;
       }
     } catch (e) {
       if (
@@ -100,7 +100,7 @@ export default function CallBackPage() {
             }
           );
 
-          window.location.href = callbackUrl;
+          window.location.href = callbackUrl as string;
         } catch (e) {
           console.error(e);
         }

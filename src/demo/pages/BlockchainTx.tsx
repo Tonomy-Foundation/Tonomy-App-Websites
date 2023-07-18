@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import TUserInfo from "../components/TUserInfo";
+import React, { useEffect, useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { TButton } from "../../common/atoms/TButton";
 import TImage from "../../common/atoms/TImage";
 import connectionImage from "../assets/nft1.png";
@@ -17,14 +15,104 @@ import {
   BoxContainer,
 } from "../components/styles";
 import "./BlockchainTx.css";
+import { useUserStore } from "../../common/stores/user.store";
+import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
+import {
+  AccountType,
+  TonomyUsername,
+  getAccountNameFromUsername,
+  EosioTokenContract,
+} from "@tonomy/tonomy-id-sdk";
+import settings from "../../common/settings";
+
+const eosioTokenContract = EosioTokenContract.Instance;
 
 export default function BlockchainTx() {
-  const [buy, setBuy] = useState(false);
+  const user = useUserStore((state) => state.user);
+  const navigation = useNavigate();
+  const errorStore = useErrorStore();
+  const [transactionState, setTransactionState] = useState<
+    "prepurchase" | "loading" | "purchased"
+  >("prepurchase");
+  const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
+  const [balance, setBalance] = useState<number | undefined>(undefined);
+
+  async function onRender() {
+    try {
+      if (!user) {
+        navigation("/");
+        return;
+      }
+
+      const accountName = await user.getAccountName();
+      const accountBalance = await eosioTokenContract.getBalance(accountName);
+
+      setBalance(accountBalance);
+      if (accountBalance > 10) return;
+      await user.signTransaction("eosio.token", "selfissue", {
+        to: accountName,
+        quantity: "10 SYS",
+        memo: "test",
+      });
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
+
+  let rendered = false;
+
+  useEffect(() => {
+    // Prevent useEffect from running twice which causes a race condition of the
+    // async selfissue() transaction
+    if (!rendered) {
+      rendered = true;
+    } else {
+      return;
+    }
+
+    onRender();
+  }, []);
+
+  async function onBuy() {
+    try {
+      setTransactionState("loading");
+
+      if (!user) throw new Error("User not logged in");
+      const from = await user.getAccountName();
+      const toUsername = TonomyUsername.fromUsername(
+        "cheesecakeophobia",
+        AccountType.PERSON,
+        settings.config.accountSuffix
+      );
+      const to = await getAccountNameFromUsername(toUsername);
+
+      const trx = await user.signTransaction("eosio.token", "transfer", {
+        from,
+        to,
+        quantity: "1 SYS",
+        memo: "test",
+      });
+
+      let url =
+        "https://local.bloks.io/transaction/" +
+        trx.transaction_id +
+        "?nodeUrl=";
+
+      url += settings.isProduction()
+        ? settings.config.blockchainUrl
+        : "http://localhost:8888";
+
+      setTrxUrl(url);
+      setTransactionState("purchased");
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
 
   return (
     <ContainerStyle>
       <PageIntroStyle>
-        <TUserInfo></TUserInfo>
         <TP className="text-header marginTop">
           Demo feature of how to use Tonomy ID to
         </TP>
@@ -66,7 +154,7 @@ export default function BlockchainTx() {
           </ul>
         </TP>
 
-        {!buy ? (
+        {transactionState !== "purchased" ? (
           <BoxContainer className="boxStyle1">
             <TH2>#85456</TH2>
             <div className="nftImageColumn">
@@ -86,8 +174,9 @@ export default function BlockchainTx() {
                     <TP>17.12 SYS (€1,950.53 DEMO ONLY )</TP>
                   </div>
                   <TButton
+                    disabled={transactionState === "loading"}
                     className="tbuttonstyle"
-                    onClick={() => setBuy(!buy)}
+                    onClick={() => onBuy()}
                   >
                     BUY
                   </TButton>
@@ -108,14 +197,24 @@ export default function BlockchainTx() {
                     className="nftImage nftImageCenter"
                   />
                 </div>
-                <TButton className="tryAgainbtn" onClick={() => setBuy(!buy)}>
+                <TButton
+                  className="tryAgainbtn"
+                  onClick={() => setTransactionState("prepurchase")}
+                >
                   Try Again
                 </TButton>
               </div>
               <div className="btnDiv">
-                <TButton className="blockchainBtn" onClick={() => setBuy(!buy)}>
+                <TButton className="blockchainBtn">
                   See it on the blockchain{" "}
-                  <a className="blockchainLink"> here</a>
+                  <a
+                    className="blockchainLink"
+                    target="_blank"
+                    href={trxUrl}
+                    rel="noreferrer"
+                  >
+                    here
+                  </a>
                 </TButton>
               </div>
             </BoxContainer>

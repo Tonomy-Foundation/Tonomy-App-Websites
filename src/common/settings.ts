@@ -1,5 +1,6 @@
 import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
+import demoConfig from "./config/config.demo.json";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.VITE_APP_NODE_ENV || "development";
@@ -27,10 +28,12 @@ export type ConfigType = {
     appleStoreDownload: string;
     playStoreDownload: string;
   };
+  accountSuffix: string;
   tonomyIdLink: string;
   communicationUrl: string;
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
+  loggerLevel: "debug" | "error";
 };
 
 type SettingsType = {
@@ -41,22 +44,27 @@ type SettingsType = {
 let config: ConfigType;
 const settings: SettingsType = {
   env,
-  isProduction: () => settings.env === "production",
+  isProduction: () => ["production", "demo", "staging"].includes(settings.env),
 } as SettingsType;
+
+type FixLoggerLevelEnumType<T> = Omit<T, "loggerLevel"> & {
+  loggerLevel: "debug" | "error";
+};
 
 switch (env) {
   case "test":
   case "local":
   case "development":
-    config = defaultConfig;
+    config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
     break;
   case "staging":
-    config = stagingConfig;
+    config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
+    break;
+  case "demo":
+    config = demoConfig as FixLoggerLevelEnumType<typeof demoConfig>;
     break;
   case "production":
-    config = defaultConfig;
-    // TODO add production config when ready
-    break;
+    throw new Error("Production environment is not supported yet");
   default:
     throw new Error("Unknown environment: " + env);
 }
@@ -70,11 +78,23 @@ if (import.meta.env.VITE_BLOCKCHAIN_URL) {
 
 if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
   console.log(
-    `Using SSO_WEBSITE_ORIGIN from env:  ${
-      import.meta.env.VITE_SSO_WEBSITE_ORIGIN
+    `Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN
     }`
   );
   config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
+}
+
+if (import.meta.env.VITE_COMMUNICATION_URL) {
+  console.log(
+    `Using VITE_COMMUNICATION_URL from env:  ${import.meta.env.VITE_COMMUNICATION_URL
+    }`
+  );
+  config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
+}
+
+if (import.meta.env.VITE_LOG === "true") {
+  console.log(`Using VITE_LOG from env:  ${import.meta.env.VITE_LOG}`);
+  config.loggerLevel = "debug";
 }
 
 settings.config = config;

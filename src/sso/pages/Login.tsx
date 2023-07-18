@@ -4,7 +4,6 @@ import {
   UserApps,
   Message,
   LoginRequest,
-  STORAGE_NAMESPACE,
   api,
   LoginWithTonomyMessages,
   AuthenticationMessage,
@@ -16,6 +15,10 @@ import {
   SdkErrors,
   ExternalUser,
   App,
+  LoginRequestPayload,
+  randomString,
+  KeyManagerLevel,
+  JsKeyManager,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -53,8 +56,11 @@ export default function Login() {
   const [app, setApp] = useState<App>();
   const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
-  const userStore = useUserStore();
+  const setUser = useUserStore((state) => state.setUser);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const logout = useUserStore((state) => state.logout);
   const errorStore = useErrorStore();
+  let user: ExternalUser | undefined;
 
   let rendered = false;
 
@@ -98,20 +104,21 @@ export default function Login() {
     // Login to the communication server
     await communication.login(loginToCommunication);
 
-    if (userStore.isLoggedIn()) {
+    if (isLoggedIn()) {
       setStatus("connecting");
-      const tonomyIDDid = localStorage.getItem(
-        STORAGE_NAMESPACE + ".tonomy.id.did"
-      );
+      if (!user) throw new Error("No user found");
+
+      const tonomyIDDid = await user.getWalletDid();
 
       if (!tonomyIDDid) throw new Error("No Tonomy ID DID found");
 
-      const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+      const issuer = await user.getIssuer();
+
       const requestMessage = await LoginRequestsMessage.signMessage(
         {
           requests,
         },
-        jwkIssuer,
+        issuer,
         tonomyIDDid
       );
 
@@ -126,17 +133,12 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+          const jwkIssuer = await UserApps.getJwkIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
             },
             jwkIssuer,
-            identifyMessage.getSender()
-          );
-
-          localStorage.setItem(
-            STORAGE_NAMESPACE + ".tonomy.id.did",
             identifyMessage.getSender()
           );
 
@@ -182,7 +184,7 @@ export default function Login() {
             }
           );
 
-          window.location.href = url;
+          window.location.href = url as string;
         } else {
           const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
 
@@ -223,25 +225,29 @@ export default function Login() {
         loginToCommunication = loginToCommunicationVal;
       } else {
         if (!user) throw new Error("No user found");
-        const loginRequestPayload = await user.getLoginRequest();
 
-        // get issuer from storage
-        const jwkIssuer = await api.ExternalUser.getDidJwkIssuerFromStorage();
+        const issuer = await user.getIssuer();
 
-        // TODO we do not need to login again if we are already logged in...
+        const publicKey = await new JsKeyManager().getKey({
+          level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+        });
+
+        const loginRequestPayload: LoginRequestPayload = {
+          randomString: randomString(32),
+          origin: window.location.origin,
+          publicKey: publicKey,
+          callbackPath: "/callback",
+        };
+
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          // TODO this should be signed by the did:antelope now
-          jwkIssuer
+          issuer
         );
 
         requests.push(loginRequest);
 
         loginToCommunication =
-          await AuthenticationMessage.signMessageWithoutRecipient(
-            {},
-            jwkIssuer
-          );
+          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       }
 
       if (isMobile()) {
@@ -272,10 +278,9 @@ export default function Login() {
 
   // check if user is already logged in
   async function checkLoggedIn() {
-    const user = await api.ExternalUser.getUser();
-
+    user = await api.ExternalUser.getUser();
     setStatus("connecting");
-    userStore.setUser(user);
+    setUser(user);
     const username = await user.getUsername();
 
     setUsername(username.getBaseUsername());
@@ -291,7 +296,8 @@ export default function Login() {
       if (
         e instanceof SdkError &&
         (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.UserNotLoggedIn)
+          e.code === SdkErrors.UserNotLoggedIn ||
+          e.code === SdkErrors.AccountDoesntExist)
       ) {
         loginToTonomyAndSendRequests(false);
       } else {
@@ -317,9 +323,9 @@ export default function Login() {
         }
       );
 
-      if (userStore.user) await userStore.user.logout();
+      if (isLoggedIn()) await logout();
 
-      window.location.href = callbackUrl;
+      window.location.href = callbackUrl as string;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -342,11 +348,11 @@ export default function Login() {
         }
       );
 
-      if (userStore.user) {
+      if (isLoggedIn()) {
         // TODO send a message to Tonomy ID telling it the request is cancelled
       }
 
-      window.location.href = callbackUrl;
+      window.location.href = callbackUrl as string;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -369,7 +375,7 @@ export default function Login() {
         }
       );
 
-      window.location.href = callbackUrl;
+      window.location.href = callbackUrl as string;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -432,7 +438,7 @@ export default function Login() {
               Cancel
             </TContainedButton>
           </div>
-          {userStore.user && (
+          {user && (
             <TButton
               className="logout margin-top"
               onClick={onLogout}

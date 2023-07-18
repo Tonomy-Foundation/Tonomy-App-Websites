@@ -10,16 +10,19 @@ import {
 } from "@tonomy/tonomy-id-sdk";
 import { Modal } from "@mui/material";
 
-export type TErrorModalProps = Omit<React.ComponentProps<typeof Modal> & {
-  onPress: () => void;
-  title?: string;
-  icon: string;
-  error?: Error;
-  expected?: boolean;
-  open?: boolean;
-  code?: number;
-  cause?: string;
-}, "children">;
+export type TErrorModalProps = Omit<
+  React.ComponentProps<typeof Modal> & {
+    onPress: () => void;
+    title?: string;
+    icon: string;
+    error?: Error;
+    expected?: boolean;
+    open?: boolean;
+    code?: number;
+    cause?: string;
+  },
+  "children"
+>;
 
 export default function TErrorModal(props: TErrorModalProps) {
   const [expanded, setExpanded] = useState(false);
@@ -29,7 +32,8 @@ export default function TErrorModal(props: TErrorModalProps) {
   }
 
   if (props?.expected === false) {
-    console.error(props.error?.message, JSON.stringify(props.error, null, 2));
+    console.error(props.error);
+    console.log(JSON.stringify(props.error, null, 2), props.expected);
     // TODO: log to Tonomy Foundation team
   }
 
@@ -68,15 +72,11 @@ export default function TErrorModal(props: TErrorModalProps) {
         <div>
           <TP size={2}>Trx error:</TP>
           <div style={styles.greyText}>
-            {error.code && (
-              <div>HTTP Code: {error.code}</div>
-            )}
+            {error.code && <div>HTTP Code: {error.code}</div>}
             <div>Antelope Code: {trxError.code}</div>
             <div>Name: {trxError.name}</div>
             <div>What: {trxError.what}</div>
-            <div>
-              Details: {JSON.stringify(trxError.details, null, 2)}
-            </div>
+            <div>Details: {JSON.stringify(trxError.details, null, 2)}</div>
           </div>
         </div>
       );
@@ -95,7 +95,7 @@ export default function TErrorModal(props: TErrorModalProps) {
       );
     }
 
-    throw new Error("Unexpected error type")
+    throw new Error("Unexpected error type");
   }
 
   return (
@@ -116,9 +116,7 @@ export default function TErrorModal(props: TErrorModalProps) {
             </div>
 
             {props?.expected === false && (
-              <div>
-                The Tonomy Foundation has been notified
-              </div>
+              <div>The Tonomy Foundation has been notified</div>
             )}
 
             {isExpandable() && (
@@ -148,5 +146,5 @@ const styles = {
   },
   greyText: {
     color: "#888",
-  }
+  },
 };
