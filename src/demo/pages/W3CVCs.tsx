@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
 import {
@@ -22,6 +22,7 @@ import TModal from "../../common/molecules/TModal";
 import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
 import { VerifiedCredential } from "@tonomy/did-jwt-vc";
 import TIcon from "../../common/atoms/TIcon";
+import { AuthContext } from "../providers/AuthProvider";
 
 export default function W3CVCs() {
   const [name, setName] = useState("Johnathan Doe");
@@ -39,15 +40,15 @@ export default function W3CVCs() {
   const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
   const [verifiedLoading, setVerifiedLoading] = useState(false);
 
-  let user = useUserStore((state) => state.user);
+  const { user } = useContext(AuthContext);
   const errorStore = useErrorStore();
 
   async function onSubmit() {
     try {
-      if (!user) {
-        // TODO: This is a hack to get the user. We should have a better way to get the user.
-        user = await api.ExternalUser.getUser();
-      }
+      // if (!user) {
+      //   // TODO: This is a hack to get the user. We should have a better way to get the user.
+      //   user = await api.ExternalUser.getUser();
+      // }
 
       setVerifiedVc(undefined);
       const data = {

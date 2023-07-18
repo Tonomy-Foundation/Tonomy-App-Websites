@@ -19,29 +19,29 @@ export default function Home() {
 
   const navigation = useNavigate();
 
-  async function onRender() {
-    try {
-      await api.ExternalUser.getUser({ autoLogout: false });
-      // User is logged in
-      navigation("/user-home");
-    } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
-      ) {
-        // User not logged in
-        return;
-      }
+  // async function onRender() {
+  //   try {
+  //     await api.ExternalUser.getUser({ autoLogout: false });
+  //     // User is logged in
+  //     navigation("/user-home");
+  //   } catch (e) {
+  //     if (
+  //       e instanceof SdkError &&
+  //       (e.code === SdkErrors.AccountNotFound ||
+  //         e.code === SdkErrors.AccountDoesntExist ||
+  //         e.code === SdkErrors.UserNotLoggedIn)
+  //     ) {
+  //       // User not logged in
+  //       return;
+  //     }
 
-      errorStore.setError({ error: e, expected: false });
-    }
-  }
+  //     errorStore.setError({ error: e, expected: false });
+  //   }
+  // }
 
-  useEffect(() => {
-    onRender();
-  }, []);
+  // useEffect(() => {
+  //   onRender();
+  // }, []);
 
   return (
     <div className="container">

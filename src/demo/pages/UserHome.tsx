@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import HighlightedPageView from "../components/TPageHighlighted";
 import {
@@ -12,6 +12,7 @@ import { useUserStore } from "../../common/stores/user.store";
 import { api } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import settings from "../../common/settings";
+import { AuthContext } from "../providers/AuthProvider";
 
 export default function UserHome() {
   const navigation = useNavigate();
@@ -19,12 +20,11 @@ export default function UserHome() {
   const errorStore = useErrorStore();
   const [username, setUsername] = useState<string>("");
   const [blockExplorerUrl, setBlockExplorerUrl] = useState<string>("");
+  const { user } = useContext(AuthContext);
 
   async function onRender() {
     try {
       if (!userStore.user) {
-        const user = await api.ExternalUser.getUser();
-
         userStore.setUser(user);
 
         const username = await user.getUsername();
