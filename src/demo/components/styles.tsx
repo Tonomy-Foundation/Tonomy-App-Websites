@@ -141,6 +141,7 @@ max-width:: 100%;
 margin: 0px 181px 0px 181px;
 padding-top: 17px;
 height: 234px;
+display: flex;
 }`;
 
 export const BalanceContainer = styled.div`
@@ -187,6 +188,6 @@ export const DashboardContainerText = styled.p`
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
-  margin-top: 42px;
+  margin-top: 142px;
   margin-left: 31px;
 }`;

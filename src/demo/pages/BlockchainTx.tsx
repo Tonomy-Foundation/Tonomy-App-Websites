@@ -145,6 +145,7 @@ export default function BlockchainTx() {
             <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
             <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
           </BalanceContainer>
+          <DashboardContainerText>Dashboard</DashboardContainerText>
         </FormHeaderontainer>
         <FormContainer></FormContainer>
       </MainContainer>
