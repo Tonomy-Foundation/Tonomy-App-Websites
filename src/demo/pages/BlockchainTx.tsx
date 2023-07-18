@@ -6,15 +6,15 @@ import {
   FeatureNameLabel,
   HowToUseLabe,
   HeaderTonomy,
-  HeaderTonomyID,
   HeaderDescription,
-  HeaderDescriptionText,
-  MainDescriptionContainer,
   MainDescription,
   MainContainer,
   BalanceContainer,
-  BalanceContainerTest,
+  BalanceContainerTextLeft,
+  BalanceContainerTextRight,
   FormContainer,
+  DashboardContainerText,
+  FormHeaderontainer,
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
@@ -140,9 +140,12 @@ export default function BlockchainTx() {
         and recorded in your transaction history.
       </MainDescription>
       <MainContainer>
-        <BalanceContainer>
-          <BalanceContainerTest>Balance: 100 EUR</BalanceContainerTest>
-        </BalanceContainer>
+        <FormHeaderontainer>
+          <BalanceContainer>
+            <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
+            <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
+          </BalanceContainer>
+        </FormHeaderontainer>
         <FormContainer></FormContainer>
       </MainContainer>
     </>

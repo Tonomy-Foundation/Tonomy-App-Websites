@@ -136,25 +136,40 @@ export const MainContainer = styled.div`
   background: var(--white-off-white, #F9F9F9);
 }`;
 
+export const FormHeaderontainer = styled.div`
+max-width:: 100%;
+margin: 0px 181px 0px 181px;
+padding-top: 17px;
+height: 234px;
+}`;
+
 export const BalanceContainer = styled.div`
   width: 700px;
   height: 124px;
-  flex-shrink: 0;
-  margin-top: 80px;
-  margin-left: 181px;
+  flex-shrink: 0; 
   border-radius: 10px;
   background: linear-gradient(180deg, #E8F8FC 0%, #67D7ED 100%);
-  display: inline-block;
+  display: block ruby;
+  margin-top: 80px;
+  padding: 41px 10px;
 }`;
 
-export const BalanceContainerTest = styled.p`
+export const BalanceContainerTextLeft = styled.p`
   color: var(--grey-dark-grey, #313938);
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
-  margin-top: 42px;
-  margin-left: 31px;
+  float: left;
+}`;
+
+export const BalanceContainerTextRight = styled.p`
+  color: var(--grey-dark-grey, #313938);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  float: right;
 }`;
 
 export const FormContainer = styled.div`
@@ -164,4 +179,14 @@ export const FormContainer = styled.div`
   border-radius: 10px;
   background: #FFF;
   margin: 30px 181px 0px 181px;
+}`;
+
+export const DashboardContainerText = styled.p`
+  color: var(--grey-dark-grey, #313938);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  margin-top: 42px;
+  margin-left: 31px;
 }`;
