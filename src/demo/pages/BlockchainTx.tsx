@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import HttpsIcon from "@mui/icons-material/Https";
 import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 
 import {
@@ -14,8 +14,12 @@ import {
   BalanceContainerTextLeft,
   BalanceContainerTextRight,
   FormContainer,
-  DashboardContainerText,
-  FormHeaderontainer,
+  FormHeaderContainer,
+  FormHeaderContainerText,
+  MakePayment,
+  FormTextInput,
+  FormSelectInput,
+  SendPayment,
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
@@ -142,14 +146,26 @@ export default function BlockchainTx() {
         and recorded in your transaction history.
       </MainDescription>
       <MainContainer>
-        <FormHeaderontainer>
+        <FormHeaderContainer>
           <BalanceContainer>
             <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
             <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
           </BalanceContainer>
-          <DashboardContainerText>Dashboard</DashboardContainerText>
-        </FormHeaderontainer>
-        <FormContainer></FormContainer>
+          <FormHeaderContainerText>Dashboard</FormHeaderContainerText>
+          <FormHeaderContainerText>Exchange rate</FormHeaderContainerText>
+          <FormHeaderContainerText>Transactions</FormHeaderContainerText>
+        </FormHeaderContainer>
+        <FormContainer>
+          <MakePayment>Make a payment</MakePayment>
+          <FormTextInput id="txtFrom" type="text"></FormTextInput>
+          <FormTextInput id="txtAmount" type="text"></FormTextInput>
+          <FormSelectInput id="cmbRecipient"></FormSelectInput>
+          <FormTextInput id="txtDescription" type="text"></FormTextInput>
+
+          <SendPayment>
+            <HttpsIcon /> SEND PAYMENT
+          </SendPayment>
+        </FormContainer>
       </MainContainer>
     </>
   );
