@@ -11,27 +11,9 @@ export type TPageHighlightedProps = {
 const TPageHighlighted = (props: TPageHighlightedProps) => {
   return (
     <div className="rightDocs">
-      <TH2 className="title">Code Snippet</TH2>
       <div className="highlighter">
         <Highlighter>{props.highlighterText}</Highlighter>
       </div>
-
-      <a
-        href={props.documentLink}
-        className="alink"
-        target="_blank"
-        rel="noreferrer"
-      >
-        View Documentation
-      </a>
-      <a
-        href={props.githubLink}
-        className="alink footer"
-        target="_blank"
-        rel="noreferrer"
-      >
-        View on GitHub
-      </a>
     </div>
   );
 };

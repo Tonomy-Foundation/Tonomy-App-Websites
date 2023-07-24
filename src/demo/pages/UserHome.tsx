@@ -48,7 +48,7 @@ export default function UserHome() {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
 
   return (

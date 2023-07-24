@@ -1,11 +1,12 @@
 import { RouteObject } from "react-router-dom";
 import Home from "../pages/Home";
 import Callback from "../pages/Callback";
+import UserHome from "../pages/newUserHome";
 
 const authRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <Home />,
+    element: <UserHome />,
   },
   {
     path: "/callback",
