@@ -5,7 +5,7 @@ import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 import {
   HeaderContainer,
   FeatureNameLabel,
-  HowToUseLabe,
+  HowToUseLabel,
   HeaderTonomy,
   HeaderDescription,
   MainDescription,
@@ -126,7 +126,7 @@ export default function BlockchainTx() {
       <HeaderContainer>
         <FeatureNameLabel>Feature Name: Sign Transaction</FeatureNameLabel>
 
-        <HowToUseLabe>How to use :</HowToUseLabe>
+        <HowToUseLabel>How to use :</HowToUseLabel>
         <HeaderTonomy>Tonomy ID</HeaderTonomy>
         {/* <HeaderTonomyID>Tonomy ID</HeaderTonomyID> */}
         <HeaderDescription>
@@ -161,7 +161,12 @@ export default function BlockchainTx() {
           <MakePayment>Make a payment</MakePayment>
           <FormTextInput id="txtFrom" type="text"></FormTextInput>
           <FormTextInput id="txtAmount" type="text"></FormTextInput>
-          <FormSelectInput id="cmbRecipient"></FormSelectInput>
+          <FormSelectInput id="cmbRecipient">
+            <option>Code snippet</option>
+            <option>Code snippet</option>
+            <option>Code snippet</option>
+            <option>Code snippet</option>
+          </FormSelectInput>
           <FormTextInput id="txtDescription" type="text"></FormTextInput>
 
           <SendPayment>

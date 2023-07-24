@@ -68,7 +68,7 @@ export const FeatureNameLabel = styled.p`
   letter-spacing: 0.5px;
 `;
 
-export const HowToUseLabe = styled.p`
+export const HowToUseLabel = styled.p`
   color: var(--grey-dark-grey, #313938);
   font-size: 64px;
   font-style: normal;
@@ -210,6 +210,10 @@ const FormInputs = `
   background: #d2f3fa80;
   border: 1px solid #313938;
   margin-top: 30px;
+  padding: 15px;
+  &:focus {
+    background: #FFFFFF;
+  },
 `;
 
 export const FormTextInput = styled.input`
