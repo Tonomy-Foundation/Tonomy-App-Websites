@@ -20,6 +20,8 @@ import {
   FormTextInput,
   FormSelectInput,
   SendPayment,
+  CodeSnippetCombo,
+  PageFooter,
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
@@ -166,6 +168,12 @@ export default function BlockchainTx() {
             <HttpsIcon /> SEND PAYMENT
           </SendPayment>
         </FormContainer>
+        <PageFooter>
+          <p>View Documentation</p>
+          <CodeSnippetCombo>
+            <option>Code snippet</option>
+          </CodeSnippetCombo>
+        </PageFooter>
       </MainContainer>
     </>
   );

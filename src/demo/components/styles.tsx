@@ -233,3 +233,25 @@ export const SendPayment = styled.button`
   border: 1px;
   margin-top: 40px;
 `;
+
+export const PageFooter = styled.div`
+  width: 304px;
+  height: 100px;
+  margin-left: 138px;
+  border-radius: 10px;
+  margin-top: 50px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 14px;
+  letter-spacing: 0.5px;
+  text-align: left;
+`;
+
+export const CodeSnippetCombo = styled.select`
+  width: 304px;
+  height: 46px;
+  border-radius: 10px;
+  background-color: #313938;
+  color: white;
+  padding: 10px;
+`;
