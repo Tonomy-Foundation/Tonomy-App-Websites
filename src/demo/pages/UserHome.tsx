@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { TH2, TP } from "../../common/atoms/THeadings";
-import HighlightedPageView from "../components/TPageHighlighted";
-import {
-  ContainerStyle,
-  PageIntroStyle,
-  BoxContainer,
-} from "../components/styles";
-import "./UserHome.css";
-import { useNavigate } from "react-router-dom";
+import ImageSlider from "../components/ImageSlider";
+import user from "../assets/user.png";
+import { ContainerStyle } from "../components/styles";
 import { useUserStore } from "../../common/stores/user.store";
 import { api } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import settings from "../../common/settings";
+import { images, linkTexts } from "./userHomeHelper";
+import "./UserHome.css";
 
-export default function UserHome() {
-  const navigation = useNavigate();
+const USerHome: React.FC = () => {
   const userStore = useUserStore();
   const errorStore = useErrorStore();
   const [username, setUsername] = useState<string>("");
@@ -48,82 +43,30 @@ export default function UserHome() {
   }
 
   useEffect(() => {
-    // onRender();
+    onRender();
   }, []);
 
   return (
     <ContainerStyle>
-      <PageIntroStyle>
-        <div className="head-subtitle">
-          <TP>You are now logged in with Tonomy ID, as {username}</TP>
-          <TP>
-            View your account on the blockchain{" "}
-            <a target={"_blank"} href={blockExplorerUrl} rel="noreferrer">
-              here
-            </a>
-          </TP>
-        </div>
-        <TH2> Home</TH2>
-        <TP className="text-header">
-          Our demo site showcases the benefits of Tonomy ID for both users and
-          administrators. <br />
-          As a user, you now have access to a variety of features.
-        </TP>
-        <BoxContainer className="boxStyle">
-          <TP>
-            You can create a verifiable data by using our built-in tools to
-            create and manage your own digital certificates
-          </TP>
-          <button
-            className="tonomy-login-button"
-            onClick={() => navigation("/w3c-vcs")}
-          >
-            SIGN W3C VERIFIABLE CREDENTIALS
-          </button>
-        </BoxContainer>
-        <BoxContainer className="boxStyle">
-          <TP>
-            You can sign blockchain transactions using our secure system and
-            your private key.
-          </TP>
-          <button
-            className="tonomy-login-button"
-            onClick={() => navigation("/blockchain-tx")}
-          >
-            SIGN BLOCKCHAIN TRANSACTIONS
-          </button>
-        </BoxContainer>
-        {/* <BoxContainer className="boxStyle">
-          <TP>
-            Additionally, you can send messages to other users of Tonomy ID,
-            allowing for easy communication and collaboration.
-          </TP>
-          <button
-            className="tonomy-login-button"
-            onClick={() => navigation("/messages")}
-          >
-            SEND PEER TO PEER MESSAGES
-          </button>
-        </BoxContainer> */}
-      </PageIntroStyle>
-
-      <HighlightedPageView
-        highlighterText={`
-            function onButtonPress() {
-              userApps.onPressLogin(
-              { callbackPath: "/callback" },
-              new JsKeyManager()
-              );
-              ...
-            }
-            <button className="tonomy-login-button"
-            onClick={onButtonPress}>
-            Login with {Your Platform Name Here}
-            </button>
-          `}
-        documentLink="https://docs.tonomy.foundation"
-        githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
-      />
+      <div className="userSection">
+        <img src={user} alt="userLogo" className="userLogo" />
+        <span>{username}</span>
+      </div>
+      <div>
+        <p className="pageHeading">Test the possibilities of Tonomy ID</p>
+      </div>
+      <div className="imageSlider">
+        <ImageSlider
+          images={images}
+          linkTexts={linkTexts}
+          description="Our demo site showcases the benefits of Tonomy ID for both users and
+          administrators. As a user, Tonomy ID enables you access to a variety of
+          features. Some you can test on our demo website:"
+          code={true}
+        />
+      </div>
     </ContainerStyle>
   );
-}
+};
+
+export default USerHome;

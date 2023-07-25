@@ -4,8 +4,6 @@ import "./TPageHighlighted.css";
 
 export type TPageHighlightedProps = {
   highlighterText: string;
-  documentLink: string;
-  githubLink: string;
 };
 
 const TPageHighlighted = (props: TPageHighlightedProps) => {

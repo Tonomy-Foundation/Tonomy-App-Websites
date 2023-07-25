@@ -29,6 +29,7 @@ font-size: 1.4rem;
 font-style: normal;
 font-weight: 500;
 line-height: 40px; 
+cursor: pointer;
 }
 
 .slider img {
@@ -59,3 +60,65 @@ line-height: 40px;
 .right {
   margin-left: 16px;
 }
+
+.description {
+  color: var(--dark-grey);
+text-align: center;
+font-size: 1.6rem;
+font-style: normal;
+font-weight: initial; 
+padding: 3.2rem 28.2rem;
+line-height: 35px !important;
+}
+
+.pageHeading {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 0.5rem;
+  text-align: center;
+}
+
+.documentation {
+  padding-left: 4rem;
+}
+
+.documentation p {
+  color: var(--dark-grey);
+font-size: 1rem;
+font-style: normal;
+font-weight: 700;
+line-height: 14px;
+letter-spacing: 0.5px; 
+}
+
+.dropdown-content {
+  position: absolute;
+  left: 2.2rem;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  z-index: 1;
+  width: 320px;
+  height: 200px;
+  color: white;
+  top: 24.3rem
+}
+
+.documentation button {
+  width: 304px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--dark-grey);
+  color: var(--white);
+  text-align: left;
+  padding-left: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+ .dropdown-arrow {
+  float: right;
+  margin-right: 1.2rem;
+  font-size: 1.2rem;
+ }
