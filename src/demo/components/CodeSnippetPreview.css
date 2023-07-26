@@ -10,7 +10,7 @@
   }
   
   .documentation button {
-    width: 100%;
+    width: 230px;
     height: 46px;
     flex-shrink: 0;
     border-radius: 10px;
@@ -20,6 +20,7 @@
     padding-left: 1rem;
     font-size: 1.1rem;
     cursor: pointer;
+    margin-top:0.3rem;
   }
   
   .dropdown-arrow {
@@ -45,7 +46,7 @@
       width: 320px;
       height: 200px;
       color: white;
-      top: -22rem; /* This value makes the dropdown appear below the button on desktop */
+      top: -21.7rem; /* This value makes the dropdown appear below the button on desktop */
     }
   }
   
