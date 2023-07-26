@@ -1,18 +1,122 @@
-import React from "react";
+import React, { useState } from "react";
+import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
-import user from "../assets/user.png";
+import userLogo from "../assets/user.png";
 import VCBanner from "../assets/VC-banner.png";
 import TextboxLayout from "../components/TextboxLayout";
+import { useUserStore } from "../../common/stores/user.store";
+import { randomString, api } from "@tonomy/tonomy-id-sdk";
+import useErrorStore from "../../common/stores/errorStore";
+import TModal from "../../common/molecules/TModal";
+import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
+import { VerifiedCredential } from "@tonomy/did-jwt-vc";
+import TIcon from "../../common/atoms/TIcon";
 import "./newW3CVCs.css";
 
 export default function W3CVCs() {
+  const [name, setName] = useState("Johnathan Doe");
+  const [phone, setPhone] = useState("+1 123-456-7890");
+  const [address, setAddress] = useState("1234 Main St, New York, NY 10001");
+  const [dob, setDob] = useState("1 March 1990");
+  const [weight, setWeight] = useState("69 kg");
+  const [height, setHeight] = useState("180 cm");
+  const [allergies, setAllergies] = useState("None");
+  const [medications, setMedications] = useState("None");
+  const [treatment, setTreatment] = useState(
+    "sufficient rest and increase intake of fluids"
+  );
+  const [vc, setVc] = useState<VerifiableCredential>();
+  const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
+  const [verifiedLoading, setVerifiedLoading] = useState(false);
+
+  let user = useUserStore((state) => state.user);
+  const errorStore = useErrorStore();
+
+  async function onSubmit() {
+    try {
+      if (!user) {
+        // TODO: This is a hack to get the user. We should have a better way to get the user.
+        user = await api.ExternalUser.getUser();
+      }
+
+      setVerifiedVc(undefined);
+      const data = {
+        name,
+        phone,
+        address,
+        dob,
+        weight,
+        height,
+        allergies,
+        medications,
+        treatment,
+      };
+
+      const id = window.location.origin + "/medical-record#" + randomString(8);
+
+      const vc = await user.signVc(id, "MedicalRecord", data);
+
+      setVc(vc);
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
+
+  async function onVerify() {
+    try {
+      setVerifiedLoading(true);
+      if (!vc) throw new Error("No VC to verify");
+      const verified = await vc.verify();
+
+      if (!verified || !verified.verified) {
+        throw new Error("VC not verified");
+      }
+
+      setVerifiedVc(verified);
+      setVerifiedLoading(false);
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+      setVerifiedLoading(false);
+    }
+  }
+
+  const onCloseModal = async () => {
+    setVc(undefined);
+    setVerifiedVc(undefined);
+    setVerifiedLoading(false);
+  };
+
   return (
     <>
+      <TModal
+        onPress={onCloseModal}
+        icon="block"
+        iconColor="success"
+        title="Success!"
+        buttonLabel="OK"
+        open={vc !== undefined}
+      >
+        <>
+          <TH2>Medical record created</TH2>
+          <TP>Your record can now be taken and verified anywhere!</TP>
+          {!verifiedVc && (
+            <TButton variant="outlined" onClick={onVerify}>
+              Verify Document
+            </TButton>
+          )}
+          {verifiedVc && (
+            <div>
+              <TIcon icon="verified" color="success" />
+              <div>Verified</div>
+            </div>
+          )}
+        </>
+      </TModal>
       <div className="containerVC">
         <div className="userSectionVC">
           <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
           <p className="userLogoVC">
-            <img src={user} alt="userLogo" />
+            {<img src={userLogo} alt="userLogo" />}
             <span>Jack Tanner</span>
           </p>
         </div>
@@ -59,19 +163,44 @@ export default function W3CVCs() {
         <div className="clientSection">
           <h4 className="head">Client details</h4>
 
-          <TextboxLayout label="Name:" value="Johnathan Doe" />
-          <TextboxLayout label="Phone number:" value="+33 64 34 55 76 34" />
-          <TextboxLayout label="Address:" value="123 Baker Street" />
-          <TextboxLayout label="Birth Date:" value="03/03/1976" />
+          <TextboxLayout label="Name:" value={name} onChange={setName} />
+          <TextboxLayout
+            label="Phone number:"
+            value={phone}
+            onChange={setPhone}
+          />
+          <TextboxLayout
+            label="Address:"
+            value={address}
+            onChange={setAddress}
+          />
+          <TextboxLayout label="Birth Date:" value={dob} onChange={setDob} />
           <div className="row-container">
-            <TextboxLayout label="Weight:" value="108kg" />
-            <TextboxLayout label="Height:" value="187cm" />
+            <TextboxLayout
+              label="Weight:"
+              value={weight}
+              onChange={setWeight}
+            />
+            <TextboxLayout
+              label="Height:"
+              value={height}
+              onChange={setHeight}
+            />
           </div>
-          <TextboxLayout label="Allergies:" value="none" />
-          <TextboxLayout label="Medication:" value="none" />
+          <TextboxLayout
+            label="Allergies:"
+            value={allergies}
+            onChange={setAllergies}
+          />
+          <TextboxLayout
+            label="Medication:"
+            value={medications}
+            onChange={setMedications}
+          />
           <TextboxLayout
             label="Treatment plan:"
-            value="sufficient rest and increase intake of fluids"
+            value={treatment}
+            onChange={setTreatment}
           />
           <div className="security-message">
             {" "}
@@ -79,7 +208,9 @@ export default function W3CVCs() {
             <a className="linkColor">Learn more</a>
           </div>
           <div>
-            <TButton className="btnStyle1">Sign using your tonomy DID</TButton>
+            <TButton className="btnStyle1" onClick={onSubmit}>
+              Sign using your tonomy DID
+            </TButton>
           </div>
         </div>
       </div>
