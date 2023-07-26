@@ -1,0 +1,68 @@
+/* Common styles for both desktop and mobile */
+.documentation {
+    position: relative;
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+  
+  .documentation p {
+    margin-bottom: 0.3rem;
+  }
+  
+  .documentation button {
+    width: 100%;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--dark-grey);
+    color: var(--white);
+    text-align: left;
+    padding-left: 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  
+  .dropdown-arrow {
+    float: right;
+    margin-right: 1.2rem;
+    font-size: 1.2rem;
+  }
+  
+  /* Media query for desktop */
+  @media (min-width: 768px) {
+    .documentation {
+      display: inline-block;
+      align-items: center;
+    }
+  
+    .dropdown-content {
+      position: absolute;
+      left: 2.2rem;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      z-index: 1;
+      width: 320px;
+      height: 200px;
+      color: white;
+      top: -22rem; /* This value makes the dropdown appear below the button on desktop */
+    }
+  }
+  
+  /* Media query for mobile */
+  @media (max-width: 767px) {
+    .documentation {
+      display: block; /* Stack elements vertically on mobile */
+    }
+  
+    .dropdown-content {
+      /* You can adjust these styles based on your mobile layout requirements */
+      position: static; /* Remove absolute positioning */
+      width: 100%; /* Make the dropdown take the full width on mobile */
+      height: auto; /* Allow height to adjust based on content */
+      margin-top: 10px; /* Add some spacing between the button and the dropdown on mobile */
+    }
+  
+    /* Adjust other styles as needed for mobile layout */
+  }
+  

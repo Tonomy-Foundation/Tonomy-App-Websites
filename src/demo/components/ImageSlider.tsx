@@ -1,35 +1,28 @@
 // ImageSlider.tsx
-
 import React, { useState, useEffect } from "react";
-import HighlightedPageView from "../components/TPageHighlighted";
 import { useNavigate } from "react-router-dom";
 import LeftArrow from "../assets/arrow-left.png";
 import RightArrow from "../assets/arrow-right.png";
 import "./ImageSlider.css";
+import CodeSnippetPreview from "./CodeSnippetPreview";
 
 interface ImageSliderProps {
   images: string[];
   linkTexts: { text: string; url: string; code: string }[];
   description: string;
-  code: boolean;
 }
 
 const ImageSlider: React.FC<ImageSliderProps> = ({
   images,
   linkTexts,
   description,
-  code,
 }) => {
   const navigation = useNavigate();
-  const [open, setOpen] = React.useState(false);
   const previewImages = images.filter((img) => img.includes("preview"));
   const leftImages = images.filter((img) => img.includes("left"));
   const rightImages = images.filter((img) => img.includes("right"));
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState<number>(0);
   const [imageUrl, setImageUrl] = useState<string>(previewImages[0]);
-  const handleOpen = () => {
-    setOpen(!open);
-  };
 
   useEffect(() => {
     setImageUrl(previewImages[currentPreviewIndex]);
@@ -100,23 +93,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         </div>
       </div>
       {description && <p className="description">{description}</p>}{" "}
-      {code && (
-        <div className="documentation">
-          <p>Documentation {`->`} </p>
-          <div>
-            <button onClick={handleOpen}>
-              Code Snippet<span className="dropdown-arrow">v</span>
-            </button>
-            {open && (
-              <div className="dropdown-content">
-                <HighlightedPageView
-                  highlighterText={linkTexts[currentPreviewIndex]["code"]}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <CodeSnippetPreview value={linkTexts[currentPreviewIndex]["code"]} />
     </>
   );
 };

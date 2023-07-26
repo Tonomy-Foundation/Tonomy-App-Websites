@@ -11,6 +11,7 @@ import TModal from "../../common/molecules/TModal";
 import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
 import { VerifiedCredential } from "@tonomy/did-jwt-vc";
 import TIcon from "../../common/atoms/TIcon";
+import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import "./newW3CVCs.css";
 
 export default function W3CVCs() {
@@ -213,6 +214,21 @@ export default function W3CVCs() {
             </TButton>
           </div>
         </div>
+        <CodeSnippetPreview
+          value={`
+  function onButtonPress() {
+  userApps.onPressLogin(
+    { callbackPath: "/callback" },
+    new JsKeyManager()
+  );
+  ...
+  }
+  <button className="tonomy-login-button"
+  onClick={onButtonPress}>
+  Login with {Your Platform Name Here}
+  </button>
+            `}
+        />
       </div>
     </>
   );
