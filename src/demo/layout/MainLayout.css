@@ -37,14 +37,14 @@
   position: fixed;
   display: flex;
   align-items: flex-start;
-  width: 5%;
+  width: 3.9%;
   height: 100vh;
 }
 
 .main-content {
   position: fixed;
   right: 0;
-  width: 96.2%;
+  width: 96.1%;
   height: 100%;
   overflow: auto;
 }

@@ -1,56 +1,215 @@
-.text-header {
-    margin-bottom: 1rem;
-}
-
-.marginTop {
-    margin-top: 1.5rem;
-}
-
-.list {
-    margin-top: 2rem;
-}
-
-.list li{
-    margin-left: 2rem;
-    display: flex; 
-    align-items: center;
-}
-
-.listIcon {
-    width: 22px;
-    margin-right: 8px;
-}
-
-.formView {
-    margin-top: 2rem;
+body {
+    background: white;
+    padding: 0px;
   }
   
-.security-message {
-    background: rgba(76, 175, 80, 0.17);
-    border-radius: 8px;
+  .containerVC {
+    height: 950px; 
+    padding-left: 3rem;
+   
+    background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
+    clear: both; /* Clear any floats within the container */
+  }
+  .bannerImg {
+    width: 650px;
+    margin-top: 3rem;
+  }
+
+  .gridView{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+  
+  .userSectionVC {
+    width: 100%;
+    text-align: end;
+    color: var(--black); 
+    overflow: auto; /* Create a new block formatting context */
+  }
+  
+  .leftText {
+    float: left; /* Float the paragraph to the left */
+  }
+  
+  .userLogoVC {
+    float: right; /* Float the image to the right */
+    margin-left: 0.4rem; /* Add some space between the paragraph and the image */
     display: flex;
-    text-align: center;
-    justify-content: center;
-    padding: 0.4rem;
-    margin-top: 2rem;  
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700; 
+    margin-top: 2rem;
+    margin-right: 1.8rem;
+  }
+  
+  .userLogoVC img {
+    margin-right: 0.3rem;
+  }
+  
+  .sign-dcoument {
+    color: var(--dark-grey);
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 2rem;
+    margin-left: 2rem;
+  }
+  
+  .howText {
+    color: var(--dark-grey);
+    font-size: 3rem;
+    line-height: 53px;
+    margin-left: 9rem;
+  }
+  .tonomy-head{
+    color: var(--dark-grey);
+    font-size: 13rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 40px;
+    margin-top: 1.2rem;
+  
+  }
+  .tonomy-d {
+    font-weight: normal;
+  }
+  .headSection{
+    margin-top: 6rem;
+    margin-left: 2rem;
+  }
+  .paraDetail {
+    max-width: 660px;
+    margin-top: 7rem;
+    margin-left: 3rem;
+    line-height: 37px;
+    font-size: 1.6rem;
+  }
+
+  .paraLink {
+    display: block;
+    margin-top: 4rem;
+    margin-left: 3rem;
+    font-size: 1.4rem;
+
+  }
+  .demoLink {
+    background-color: white;
+    color: black;
+    padding: 1rem 2rem;
+    display: inline-block;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    margin-top: 4rem;
+    margin-left: 3rem;
+  }
+  
+  .leftSection {
+    grid-column: 1;
+    /* Add any styles for the left section */
+  }
+  
+  .rightSection {
+    grid-column: 2;
+    /* Add any styles for the right section */
+  }
+
+  .paraSection{
+    padding: 8rem 6rem;
+  }
+
+  .imagine{
+    line-height: 30px;
+    font-size: 1.3rem;
+    font-weight: normal;
+    letter-spacing: 0.1rem;
+  }
+
+  .paralines {
+    max-width: 1000px;
+    line-height: 30px;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .formSection {
+    background: var(--offWhite); 
+    padding: 4rem 6rem;
+  }
+
+  ul.horizontal-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 4rem;
+    display: flex; /* This makes the list items display horizontally */
 }
 
-.clientBox{
-    padding: 1.3rem 3rem;
+ul.horizontal-list li {
+    margin-right: 10rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--dark-grey);
+}
+
+/* Optional style to remove margin from the last list item */
+ul.horizontal-list li:last-child {
+    margin-right: 0;
+}
+
+.border-bottom-margin {
+  position: relative;
+}
+
+.border-bottom-margin::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 11px;
+  right: -11px;
+  height: 3px;
+  background-color: var(--primary);
+}
+
+.clientSection{
+    text-align: center;
+    margin: 2rem;
+    background: var(--white);
+    padding: 3rem;
+}
+.clientSection .head {
+  margin-bottom: 1.5rem;;
+}
+.row-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Adjust the width as needed */
+}
+
+.security-message {
+  background: rgba(76, 175, 80, 0.17);
+  border-radius: 8px;
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  padding: 1.4rem 2rem;
+  margin-top: 2rem;
+ 
 }
 
 .linkColor {
-    color: var(--success-alert) !important;
-    text-decoration: underline;
-    margin-left: 0.2rem;
+  color: var(--success-alert) !important;
+  text-decoration: underline;
+  margin-left: 0.2rem;
 }
-
 .btnStyle1{
-    background-color: var(--primary) !important;
-    color: var(--white) !important;
-    padding: 0.3rem 1rem !important;
-    border-radius: 20px;
-    margin: 1.5rem 0rem!important;
-    font-weight: 600 !important;
-    font-size: 16px !important;
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
+  padding: 0.3rem 1rem !important;
+  border-radius: 20px;
+  margin: 1.5rem 0rem!important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  text-transform: uppercase;
+  line-height: 2.75 !important;
 }
