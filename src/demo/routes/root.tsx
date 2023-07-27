@@ -19,10 +19,10 @@ const LoggedInRoutes = ({ onLogout }) => {
   );
 };
 
-const AuthRoutes = () => {
+const AuthRoutes = ({ onLogout }) => {
   return (
     <Routes>
-      <Route path="/">
+      <Route path="/" element={<MainLayout onLogout={onLogout} />}>
         {authRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
@@ -73,7 +73,11 @@ const Router: React.FC = () => {
 
   return (
     <BrowserRouter>
-      {isLoggedIn ? <LoggedInRoutes onLogout={handleLogout} /> : <AuthRoutes />}
+      {isLoggedIn ? (
+        <LoggedInRoutes onLogout={handleLogout} />
+      ) : (
+        <AuthRoutes onLogout={handleLogout} />
+      )}
     </BrowserRouter>
   );
 };
