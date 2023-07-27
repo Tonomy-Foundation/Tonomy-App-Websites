@@ -12,7 +12,7 @@ import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/
 import { VerifiedCredential } from "@tonomy/did-jwt-vc";
 import TIcon from "../../common/atoms/TIcon";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
-import "./newW3CVCs.css";
+import "./W3CVCs.css";
 
 export default function W3CVCs() {
   const [name, setName] = useState("Johnathan Doe");
