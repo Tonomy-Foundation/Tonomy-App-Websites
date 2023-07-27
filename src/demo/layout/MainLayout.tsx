@@ -19,7 +19,7 @@ export type MainLayoutProps = {
 };
 
 const MainLayout = (props: MainLayoutProps) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const errorStore = useErrorStore();
   const [user, setUser] = useState<ExternalUser | null>(null);
 
@@ -45,7 +45,7 @@ const MainLayout = (props: MainLayoutProps) => {
   }
 
   useEffect(() => {
-    // onRender();
+    onRender();
   }, []);
 
   const handleMouseEnter = () => {
