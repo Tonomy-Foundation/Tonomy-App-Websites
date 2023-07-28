@@ -46,6 +46,17 @@ export const HeaderContainer = styled.div`
   padding: 32px 32px 10px 158px;
 `;
 
+export const HeaderPictureContainer = styled.div`
+  width: 1011.611px;
+  height: 946px;
+  flex-shrink: 0;
+  fill: linear-gradient(1deg, #3d14fa 0%, #4f30bd 100%);
+  background: url("public/transaction-header.png"),
+    lightgray 50% / cover no-repeat;
+  position: absolute;
+  right: 0;
+`;
+
 export const HeaderDescription = styled.div`
   display: flex;
   width: 783px;
@@ -91,6 +102,7 @@ export const HeaderTonomy = styled.div`
   font-weight: 700;
   line-height: 95px;
   padding-bottom: 60px;
+  position: relative;
 `;
 
 export const HeaderTonomyID = styled.div`

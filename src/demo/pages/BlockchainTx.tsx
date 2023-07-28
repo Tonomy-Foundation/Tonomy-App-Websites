@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import HttpsIcon from "@mui/icons-material/Https";
-import "@tonomy/tonomy-id-sdk/api/tonomy.css";
 
 import {
   HeaderContainer,
@@ -22,6 +21,7 @@ import {
   SendPayment,
   CodeSnippetCombo,
   PageFooter,
+  HeaderPictureContainer,
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
@@ -124,6 +124,7 @@ export default function BlockchainTx() {
   return (
     <>
       <HeaderContainer>
+        <HeaderPictureContainer></HeaderPictureContainer>
         <FeatureNameLabel>Feature Name: Sign Transaction</FeatureNameLabel>
 
         <HowToUseLabel>How to use :</HowToUseLabel>
