@@ -3,15 +3,15 @@ import vcPreview from "../assets/VC-preview.png";
 import signtransactionPreview from "../assets/sign-transaction-preview.png";
 
 export const images: string[] = [
-  messagingPreview,
-  signtransactionPreview,
   vcPreview,
+  signtransactionPreview,
+  messagingPreview,
 ];
 
 export const linkTexts = [
   {
-    text: "MESSAGING",
-    url: "#",
+    text: "Use case of Signing a Document",
+    url: "/w3c-vcs",
     code: `
   function onButtonPress() {
   userApps.onPressLogin(
@@ -27,7 +27,7 @@ export const linkTexts = [
             `,
   },
   {
-    text: "SIGN BLOCKCHAIN TRANSACTIONS",
+    text: "Use case of Signing Transactions",
     url: "/blockchain-tx",
     code: `
   function onButtonPress() {
@@ -44,8 +44,8 @@ export const linkTexts = [
             `,
   },
   {
-    text: "SIGN W3C VERIFIABLE CREDENTIALS",
-    url: "/w3c-vcs",
+    text: "Use case of Messaging Peers",
+    url: "#",
     code: `
   function onButtonPress() {
   userApps.onPressLogin(
