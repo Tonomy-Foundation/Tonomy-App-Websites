@@ -22,30 +22,28 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 }) => {
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
-  // const previewImages = images.filter((img) => img.includes("preview"));
-  // const leftImages = images.filter((img) => img.includes("left"));
-  // const rightImages = images.filter((img) => img.includes("right"));
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState<number>(0);
+  const [imageUrl, setImageUrl] = useState<string>(images[0]);
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  // useEffect(() => {
-  //   setImageUrl(previewImages[currentPreviewIndex]);
-  // }, [currentPreviewIndex, previewImages]);
+  useEffect(() => {
+    setImageUrl(images[currentPreviewIndex]);
+  }, [currentPreviewIndex, images]);
 
   const slideNext = () => {
-    // Calculate the next index for preview image
     const nextIndex = (currentPreviewIndex + 1) % images.length;
 
+    setImageUrl(images[nextIndex]);
     setCurrentPreviewIndex(nextIndex);
   };
 
   const slidePrevious = () => {
-    // Calculate the previous index for preview image
     const previousIndex =
       (currentPreviewIndex - 1 + images.length) % images.length;
 
+    setImageUrl(images[previousIndex]);
     setCurrentPreviewIndex(previousIndex);
   };
 
@@ -63,7 +61,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         <div className="slider">
           <div className="side-image">
             <img
-              src={images[currentPreviewIndex - 1]}
+              src={
+                images[
+                  (currentPreviewIndex - 1 + images.length) % images.length
+                ]
+              }
               alt={`Image ${currentPreviewIndex - 1}`}
             />
           </div>
@@ -71,21 +73,18 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
             className="center-image"
             onClick={() => navigation(linkTexts[currentPreviewIndex]["url"])}
           >
-            <img
-              src={images[currentPreviewIndex]}
-              alt={`Image ${currentPreviewIndex}`}
-            />
+            <img src={imageUrl} alt={`Image ${currentPreviewIndex}`} />
             <p className="centerImageText">
               {linkTexts[currentPreviewIndex]["text"]}
             </p>
           </div>
           <div className="side-image">
             <img
-              src={images[currentPreviewIndex + 1]}
+              src={images[(currentPreviewIndex + 1) % images.length]}
               alt={`Image ${currentPreviewIndex + 1}`}
             />
           </div>
-        </div>
+        </div>{" "}
         <div
           className={`arrow right ${
             currentPreviewIndex === images.length - 1 ? "disabled" : ""

@@ -12,13 +12,13 @@
   flex: 1;
   text-align: center;
   opacity: 0.5;
+  padding: 2rem 0rem;
 }
 
 .center-image {
   flex: 1.5;
   text-align: center;
   border-radius: 10px;
-background: var(--white);
 
 }
 
@@ -30,6 +30,8 @@ font-style: normal;
 font-weight: 500;
 line-height: 40px; 
 cursor: pointer;
+margin: -0.5rem 5rem;
+background: var(--white);
 }
 
 .slider img {

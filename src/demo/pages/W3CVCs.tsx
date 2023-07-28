@@ -238,8 +238,6 @@ export default function W3CVCs() {
             Login with {Your Platform Name Here}
             </button>
           `}
-          documentLink="https://docs.tonomy.foundation"
-          githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
         />
       </ContainerStyle>
     </>
