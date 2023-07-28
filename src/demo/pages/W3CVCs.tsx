@@ -162,6 +162,7 @@ export default function W3CVCs() {
                 href="https://demo.demo.tonomy.foundation"
                 target="_blank"
                 rel="noreferrer"
+                style={{ textDecoration: "none", color: "var(--dark-grey)" }}
               >
                 Enter Demo
               </a>

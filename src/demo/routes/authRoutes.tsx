@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import Home from "../pages/Home";
 import Callback from "../pages/Callback";
-import W3CVCs from "../pages/UserHome";
+import W3CVCs from "../pages/W3CVCs";
 
 const authRoutes: RouteObject[] = [
   {
