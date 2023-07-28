@@ -116,6 +116,7 @@ body {
 
   .paraSection{
     padding: 8rem 6rem;
+    background: var(--white);
   }
 
   .imagine{
