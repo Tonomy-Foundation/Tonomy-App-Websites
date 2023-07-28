@@ -1,0 +1,95 @@
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  display: flex;
+}
+
+.side-image {
+  flex: 1;
+  text-align: center;
+  opacity: 0.5;
+  padding: 2rem 0rem;
+}
+
+.center-image {
+  flex: 1.5;
+  text-align: center;
+  border-radius: 10px;
+
+}
+
+.centerImageText {
+  color: var(--dark-grey);
+text-align: center;
+font-size: 1.4rem;
+font-style: normal;
+font-weight: 500;
+line-height: 40px; 
+cursor: pointer;
+margin: -0.5rem 5rem;
+background: var(--white);
+}
+
+.slider img {
+  max-width: 100%;
+  max-height: 300px; /* Adjust the height as needed */
+}
+.arrow {
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: 0.5; /* Example style for a disabled arrow */
+  cursor: not-allowed;
+  /* Add any other styles you want for the disabled arrow */
+}
+
+.arrow {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  user-select: none;
+}
+
+.left {
+  margin-right: 16px;
+}
+
+.right {
+  margin-left: 16px;
+}
+
+.description {
+  color: var(--dark-grey);
+text-align: center;
+font-size: 1.6rem;
+font-style: normal;
+font-weight: initial; 
+padding: 3.2rem 28.2rem;
+line-height: 35px !important;
+}
+
+.pageHeading {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 0.5rem;
+  text-align: center;
+}
+
+.documentation {
+  padding-left: 4rem;
+}
+
+.documentation p {
+  color: var(--dark-grey);
+font-size: 1rem;
+font-style: normal;
+font-weight: 700;
+line-height: 14px;
+letter-spacing: 0.5px; 
+}
