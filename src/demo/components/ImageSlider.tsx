@@ -66,7 +66,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
               alt={`Image ${currentPreviewIndex - 1}`}
             />
             <p className="sideImageText">
-              {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
+              {
+                linkTexts[
+                  (currentPreviewIndex - 1 + images.length) % images.length
+                ]["text"]
+              }
             </p>
           </div>
           <div
