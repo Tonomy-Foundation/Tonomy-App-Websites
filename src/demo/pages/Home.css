@@ -25,10 +25,10 @@ body {
 }
 .box-subheading {
   font-weight: initial;
-  font-size: 1rem;
+  font-size: 2rem;
 }
 .demo-head {
-  font-size: 2rem;
+  font-size: 2.7rem;
   font-weight: 400;
   line-height: 3rem;
   letter-spacing: 0em;
@@ -36,11 +36,12 @@ body {
   text-transform: uppercase;
 }
 .demo-main{
-  font-size: 6rem;
+  font-size: 7rem;
   font-weight: 700;
   line-height: 7rem;
   letter-spacing: 0em;
   text-align: left;
+  margin-top: 1rem;
 }
 .intro{
   width: 65%;
@@ -65,13 +66,14 @@ header {
 }
 .intro .footer {
   margin-bottom: auto;
-  margin-top: 3rem;
+  margin-top: 4rem;
 }
 .text-body {
   max-width: 34vw;
   line-height: 1.8rem;
-  margin-top: 0.8rem;
+  margin-top: 1.3rem !important;
   margin-bottom: 1rem;
+  font-size: 1.2rem !important;
 }
 h1 {
   text-align: left !important;
@@ -85,7 +87,7 @@ h1 {
   height: 100%;
 }
 .intro-container{
-padding: 7rem 4.5rem;
+padding: 8rem 6.5rem;
 }
 .mobile-img{
   position: relative;

@@ -60,7 +60,7 @@ export default function Home() {
             <TP className="demo-head">Explore our demo features</TP>
             <TP className="demo-main">Solution that works for you.</TP>
 
-            <TP size={2} className="text-body">
+            <TP className="text-body">
               Simplify login, improve security, and enhance user experience by
               logging in to multiple applications with just one set of
               credentials.
