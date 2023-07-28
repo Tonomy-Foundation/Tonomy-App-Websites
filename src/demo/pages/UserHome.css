@@ -1,21 +1,22 @@
 body{
     background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
+    height: 100%;
 }
 .userSection {
     width: 100%;
     text-align: end;
-    padding: 3rem 5rem;
+    padding: 1rem 5rem;
     display: flex; /* Use flexbox to align items horizontally */
     justify-content: flex-end; /* Align items to the right side */
         align-items: center; /* Center align the items vertically */
     color: var(--black); 
+    padding-top: 2rem;
 }
 .userLogo {
     margin-right: 0.4rem;
 }
 
 .imageSlider {
-    margin-top: 5.5rem;
-    margin-bottom: 2rem;
+    margin-top: 4.5rem;
 }
 

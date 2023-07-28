@@ -8,35 +8,79 @@
   display: flex;
 }
 
-.side-image {
-  flex: 1;
-  text-align: center;
-  opacity: 0.5;
-  padding: 2rem 0rem;
+.side-image img{
+  border-radius: 10px 10px 0px 0px;
 }
 
+.side-image {
+  --f: .1; /* the parallax factor (the smaller the better) */
+  --r: 10px; /* radius */
+  
+  --_f: calc(100%*var(--f)/(1 + var(--f)));
+  --_a: calc(90deg*var(--f));
+  aspect-ratio: calc(1.4 + var(--f));
+  object-fit: cover;
+  clip-path: inset(0 var(--_f) 0 0 round var(--r));
+  transform: perspective(400px) var(--_t,rotateY(var(--_a)));
+  transition: .5s;
+  padding: 2rem 1rem;
+  clip-path: inset(0 0 0 var(--_f) round var(--r));
+}
+
+.left-side-image {
+  --_t: translateX(calc(-1*var(--_f))) rotateY(calc(-1*var(--_a)));
+  text-align: right;
+  max-width: 400px;
+
+}
+.right-side-image {
+  text-align: left;
+  max-width: 400px !important;
+
+}
+.left-side-image img, .right-side-image img {
+  height: 60% !important;
+}
 .center-image {
   flex: 1.5;
   text-align: center;
-  border-radius: 10px;
+}
 
+.center-image img {
+  height: 75%;
 }
 
 .centerImageText {
   color: var(--dark-grey);
-text-align: center;
-font-size: 1.4rem;
-font-style: normal;
-font-weight: 500;
-line-height: 40px; 
-cursor: pointer;
-margin: -0.5rem 5rem;
-background: var(--white);
+  text-align: center;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px; 
+  cursor: pointer;
+  margin: -0.4rem 1.55rem;
+  background: var(--white);
+  padding:1rem;
+}
+
+.sideImageText {
+  color: var(--dark-grey);
+  text-align: center;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px; 
+  cursor: pointer;
+  background: var(--white);
+  padding:0.7rem;
+  margin: -0.4rem 0rem 4rem 4rem
+
 }
 
 .slider img {
   max-width: 100%;
-  max-height: 300px; /* Adjust the height as needed */
+  height: 75%;
+  border-radius: 10px 10px 0px 0px;
 }
 .arrow {
   cursor: pointer;
@@ -69,15 +113,15 @@ text-align: center;
 font-size: 1.6rem;
 font-style: normal;
 font-weight: initial; 
-padding: 3.2rem 28.2rem;
+padding: 3.2rem 28.2rem 0rem 28.2rem;
 line-height: 35px !important;
 }
 
 .pageHeading {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
   line-height: normal;
-  padding-top: 0.5rem;
+  padding-top: 2.5rem;
   text-align: center;
 }
 
