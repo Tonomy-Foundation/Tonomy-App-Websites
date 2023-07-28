@@ -221,7 +221,7 @@ export default function BlockchainTx() {
           </>
         )}
       </PageIntroStyle>
-      <HighlightedPageView
+      {/* <HighlightedPageView
         highlighterText={`
             function onButtonPress() {
               userApps.onPressLogin(
@@ -235,7 +235,9 @@ export default function BlockchainTx() {
             Login with {Your Platform Name Here}
             </button>
           `}
-      />
+        documentLink="https://docs.tonomy.foundation"
+        githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/development/src/demo/pages/blockchainTx.tsx"
+      /> */}
     </ContainerStyle>
   );
 }

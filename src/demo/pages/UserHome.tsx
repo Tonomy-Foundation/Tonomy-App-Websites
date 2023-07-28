@@ -62,7 +62,6 @@ const USerHome: React.FC = () => {
           description="Our demo site showcases the benefits of Tonomy ID for both users and
           administrators. As a user, Tonomy ID enables you access to a variety of
           features. Some you can test on our demo website:"
-          code={true}
         />
       </div>
     </ContainerStyle>
