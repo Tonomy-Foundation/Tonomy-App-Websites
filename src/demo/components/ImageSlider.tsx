@@ -22,38 +22,31 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 }) => {
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const previewImages = images.filter((img) => img.includes("preview"));
-  const leftImages = images.filter((img) => img.includes("left"));
-  const rightImages = images.filter((img) => img.includes("right"));
+  // const previewImages = images.filter((img) => img.includes("preview"));
+  // const leftImages = images.filter((img) => img.includes("left"));
+  // const rightImages = images.filter((img) => img.includes("right"));
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState<number>(0);
-  const [imageUrl, setImageUrl] = useState<string>(previewImages[0]);
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  useEffect(() => {
-    setImageUrl(previewImages[currentPreviewIndex]);
-  }, [currentPreviewIndex, previewImages]);
+  // useEffect(() => {
+  //   setImageUrl(previewImages[currentPreviewIndex]);
+  // }, [currentPreviewIndex, previewImages]);
 
   const slideNext = () => {
-    if (currentPreviewIndex === previewImages.length - 1) {
-      return;
-    }
+    // Calculate the next index for preview image
+    const nextIndex = (currentPreviewIndex + 1) % images.length;
 
-    setCurrentPreviewIndex(
-      (prevIndex) => (prevIndex + 1) % previewImages.length
-    );
+    setCurrentPreviewIndex(nextIndex);
   };
 
   const slidePrevious = () => {
-    if (currentPreviewIndex === 0) {
-      return;
-    }
+    // Calculate the previous index for preview image
+    const previousIndex =
+      (currentPreviewIndex - 1 + images.length) % images.length;
 
-    setCurrentPreviewIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + previewImages.length) % previewImages.length
-    );
+    setCurrentPreviewIndex(previousIndex);
   };
 
   return (
@@ -70,7 +63,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         <div className="slider">
           <div className="side-image">
             <img
-              src={leftImages[currentPreviewIndex]}
+              src={images[currentPreviewIndex - 1]}
               alt={`Image ${currentPreviewIndex - 1}`}
             />
           </div>
@@ -78,21 +71,24 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
             className="center-image"
             onClick={() => navigation(linkTexts[currentPreviewIndex]["url"])}
           >
-            <img src={imageUrl} alt={`Image ${currentPreviewIndex}`} />
+            <img
+              src={images[currentPreviewIndex]}
+              alt={`Image ${currentPreviewIndex}`}
+            />
             <p className="centerImageText">
               {linkTexts[currentPreviewIndex]["text"]}
             </p>
           </div>
           <div className="side-image">
             <img
-              src={rightImages[currentPreviewIndex]}
+              src={images[currentPreviewIndex + 1]}
               alt={`Image ${currentPreviewIndex + 1}`}
             />
           </div>
         </div>
         <div
           className={`arrow right ${
-            currentPreviewIndex === previewImages.length - 1 ? "disabled" : ""
+            currentPreviewIndex === images.length - 1 ? "disabled" : ""
           }`}
           onClick={slideNext}
         >
