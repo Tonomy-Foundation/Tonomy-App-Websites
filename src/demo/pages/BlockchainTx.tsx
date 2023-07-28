@@ -25,7 +25,6 @@ import {
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
-import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import {
   AccountType,
@@ -34,7 +33,6 @@ import {
   EosioTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
-import Typography from "@mui/material/Typography";
 import { Button, Link } from "@mui/material";
 
 const eosioTokenContract = EosioTokenContract.Instance;
@@ -122,133 +120,65 @@ export default function BlockchainTx() {
   }
 
   return (
-    <ContainerStyle>
-      <PageIntroStyle>
-        <TP className="text-header marginTop">
-          Demo feature of how to use Tonomy ID to
-        </TP>
-        <TH2> Sign Blockchain Transactions</TH2>
-        <TP className="text-header">
-          Our demo website provides an opportunity to test signing a blockchain
-          transaction process using Tonomy ID. Tonomy ID utilizes a standard
-          protocol to safeguard your digital asset from any unauthorized access
-          or tampering.{" "}
-        </TP>
-        <TP>
-          In this scenario, imagine that you want to sign a blockchain
-          transaction to verify your ownership and authorization of a digital
-          asset.
-        </TP>
-        <TP className="list">
-          Other examples of how to use credentials with Tonomy ID include:
-          <ul>
-            <li>
-              <TImage src={Handshake} alt="ticket" className="listIcon" />
-              employment contracts
-            </li>
-            <li>
-              <TImage src={Cruise} alt="ticket" className="listIcon" />
-              shipping and logistics
-            </li>
-            <li>
-              <TImage src={Money} alt="ticket" className="listIcon" />
-              events payments and payment metadata
-            </li>
-            <li>
-              <TImage src={Vote} alt="ticket" className="listIcon" />
-              votes event
-            </li>
-            <li>
-              <TImage src={Ticket} alt="ticket" className="listIcon" />
-              tickets and much more!
-            </li>
-          </ul>
-        </TP>
+    <>
+      <HeaderContainer>
+        <HeaderPictureContainer></HeaderPictureContainer>
+        <FeatureNameLabel>Feature Name: Sign Transaction</FeatureNameLabel>
 
-        {transactionState !== "purchased" ? (
-          <BoxContainer className="boxStyle1">
-            <TH2>#85456</TH2>
-            <div className="nftImageColumn">
-              <div className="imgConatiner">
-                <TImage
-                  src={connectionImage}
-                  alt="Connecting Phone-PC"
-                  className="nftImage"
-                />
-                <div className="paddingTop">
-                  <TP>Sale ID: #197387654094</TP>
-                  <TP>Owned by: 948361751KIHF </TP>
-                  <TP>Created by: ‘federation’</TP>
-                  <TP>Blockchain: Tonomy Demo Network</TP>
-                  <div className="marginTop">
-                    <h4 style={{ textAlign: "left" }}>Price</h4>
-                    <TP>17.12 SYS (€1,950.53 DEMO ONLY )</TP>
-                  </div>
-                  <TButton
-                    disabled={transactionState === "loading"}
-                    className="tbuttonstyle"
-                    onClick={() => onBuy()}
-                  >
-                    BUY
-                  </TButton>
-                </div>
-              </div>
-            </div>
-          </BoxContainer>
-        ) : (
-          <>
-            <BoxContainer className="successBox">
-              <div style={{ position: "relative" }}>
-                <TH2>SUCCESS!</TH2>
-                <TP className="centerAlign">You just "bought" a NFT</TP>
-                <div className="nftImageColumn">
-                  <TImage
-                    src={connectionImage}
-                    alt="Connecting Phone-PC"
-                    className="nftImage nftImageCenter"
-                  />
-                </div>
-                <TButton
-                  className="tryAgainbtn"
-                  onClick={() => setTransactionState("prepurchase")}
-                >
-                  Try Again
-                </TButton>
-              </div>
-              <div className="btnDiv">
-                <TButton className="blockchainBtn">
-                  See it on the blockchain{" "}
-                  <a
-                    className="blockchainLink"
-                    target="_blank"
-                    href={trxUrl}
-                    rel="noreferrer"
-                  >
-                    here
-                  </a>
-                </TButton>
-              </div>
-            </BoxContainer>
-          </>
-        )}
-      </PageIntroStyle>
-      <HighlightedPageView
-        highlighterText={`
-            function onButtonPress() {
-              userApps.onPressLogin(
-              { callbackPath: "/callback" },
-              new JsKeyManager()
-              );
-              ...
-            }
-            <button className="tonomy-login-button"
-            onClick={onButtonPress}>
-            Login with {Your Platform Name Here}
-            </button>
-          `}
-        documentLink="https://docs.tonomy.foundation"
-        githubLink="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/development/src/demo/pages/blockchainTx.tsx"
-      />
-    </ContainerStyle>
+        <HowToUseLabel>How to use :</HowToUseLabel>
+        <HeaderTonomy>Tonomy ID</HeaderTonomy>
+        {/* <HeaderTonomyID>Tonomy ID</HeaderTonomyID> */}
+        <HeaderDescription>
+          Tonomy ID utilizes a digital signatures and a distributed transaction
+          protocol to safeguard your transactions and digital assets from
+          unauthorized access or tampering.
+        </HeaderDescription>
+
+        <Link href="/Test">learn about the Antelope blockchain protocol </Link>
+        <br />
+        <br />
+        <Button variant="outlined" size="large">
+          Enter Demo
+        </Button>
+      </HeaderContainer>
+      <MainDescription>
+        Imagine, you find a perfect art piece. With a simple click, your
+        promptly sends a secure transaction to the bank, where it is verified
+        and recorded in your transaction history.
+      </MainDescription>
+      <MainContainer>
+        <FormHeaderContainer>
+          <BalanceContainer>
+            <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
+            <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
+          </BalanceContainer>
+          <FormHeaderContainerText>Dashboard</FormHeaderContainerText>
+          <FormHeaderContainerText>Exchange rate</FormHeaderContainerText>
+          <FormHeaderContainerText>Transactions</FormHeaderContainerText>
+        </FormHeaderContainer>
+        <FormContainer>
+          <MakePayment>Make a payment</MakePayment>
+          <FormTextInput id="txtFrom" type="text"></FormTextInput>
+          <FormTextInput id="txtAmount" type="text"></FormTextInput>
+          <FormSelectInput id="cmbRecipient">
+            <option>Code snippet</option>
+            <option>Code snippet</option>
+            <option>Code snippet</option>
+            <option>Code snippet</option>
+          </FormSelectInput>
+          <FormTextInput id="txtDescription" type="text"></FormTextInput>
+
+          <SendPayment>
+            <HttpsIcon /> SEND PAYMENT
+          </SendPayment>
+        </FormContainer>
+        <PageFooter>
+          <p>View Documentation</p>
+          <CodeSnippetCombo>
+            <option>Code snippet</option>
+          </CodeSnippetCombo>
+        </PageFooter>
+      </MainContainer>
+    </>
   );
 }
