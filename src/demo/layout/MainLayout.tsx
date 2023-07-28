@@ -45,7 +45,7 @@ const MainLayout = (props: MainLayoutProps) => {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
 
   const handleMouseEnter = () => {

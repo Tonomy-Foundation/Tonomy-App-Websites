@@ -10,8 +10,8 @@ export const images: string[] = [
 
 export const linkTexts = [
   {
-    text: "SIGN W3C VERIFIABLE CREDENTIALS",
-    url: "/w3c-vcs",
+    text: "MESSAGING",
+    url: "#",
     code: `
   function onButtonPress() {
   userApps.onPressLogin(
@@ -44,8 +44,8 @@ export const linkTexts = [
             `,
   },
   {
-    text: "MESSAGING",
-    url: "#",
+    text: "SIGN W3C VERIFIABLE CREDENTIALS",
+    url: "/w3c-vcs",
     code: `
   function onButtonPress() {
   userApps.onPressLogin(
