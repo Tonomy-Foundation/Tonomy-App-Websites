@@ -10,6 +10,7 @@ body{
     justify-content: flex-end; /* Align items to the right side */
         align-items: center; /* Center align the items vertically */
     color: var(--black); 
+    padding-top: 2rem;
 }
 .userLogo {
     margin-right: 0.4rem;
