@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
 import userLogo from "../assets/user.png";
@@ -15,6 +15,7 @@ import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import "./W3CVCs.css";
 
 export default function W3CVCs() {
+  const [username, setUsername] = useState<string>("");
   const [name, setName] = useState("Johnathan Doe");
   const [phone, setPhone] = useState("+1 123-456-7890");
   const [address, setAddress] = useState("1234 Main St, New York, NY 10001");
@@ -32,6 +33,25 @@ export default function W3CVCs() {
 
   let user = useUserStore((state) => state.user);
   const errorStore = useErrorStore();
+
+  async function onRender() {
+    try {
+      if (!user) {
+        user = await api.ExternalUser.getUser();
+      }
+
+      const username = await user.getUsername();
+
+      if (!username) throw new Error("No username found");
+      setUsername(username.getBaseUsername());
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
+
+  useEffect(() => {
+    onRender();
+  }, []);
 
   async function onSubmit() {
     try {
@@ -118,7 +138,7 @@ export default function W3CVCs() {
           <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
           <p className="userLogoVC">
             {<img src={userLogo} alt="userLogo" />}
-            <span>Jack Tanner</span>
+            <span>{username}</span>
           </p>
         </div>
         <div className="gridView">
