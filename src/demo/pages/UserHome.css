@@ -8,7 +8,7 @@ body{
     padding: 1rem 5rem;
     display: flex; /* Use flexbox to align items horizontally */
     justify-content: flex-end; /* Align items to the right side */
-        align-items: center; /* Center align the items vertically */
+    align-items: center; /* Center align the items vertically */
     color: var(--black); 
     padding-top: 2rem;
 }
