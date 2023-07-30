@@ -6,8 +6,14 @@
     border-radius: 10px;
     margin-bottom: 0px;
     padding-bottom: 0px;
+
+    outline: none; 
   }
   
+.input-container:focus {
+    background: #FFFFFF;
+}
+
   .transparent-textbox {
     background-color: #E8F8FC;
     border: 0px;

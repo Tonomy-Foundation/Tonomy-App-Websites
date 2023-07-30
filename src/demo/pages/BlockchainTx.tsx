@@ -16,12 +16,12 @@ import {
   FormHeaderContainer,
   FormHeaderContainerText,
   MakePayment,
-  FormTextInput,
-  FormSelectInput,
   SendPayment,
   CodeSnippetCombo,
   PageFooter,
   HeaderPictureContainer,
+  FormInput,
+  ProgressBarContainer,
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
@@ -34,6 +34,8 @@ import {
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import { Button, Link } from "@mui/material";
+import TextboxLayout from "../components/TextboxLayout";
+import CustomizedProgressBar from "../components/CustomizedProgressBar";
 
 const eosioTokenContract = EosioTokenContract.Instance;
 
@@ -158,20 +160,55 @@ export default function BlockchainTx() {
         </FormHeaderContainer>
         <FormContainer>
           <MakePayment>Make a payment</MakePayment>
-          <FormTextInput id="txtFrom" type="text"></FormTextInput>
-          <FormTextInput id="txtAmount" type="text"></FormTextInput>
-          <FormSelectInput id="cmbRecipient">
-            <option>Code snippet</option>
-            <option>Code snippet</option>
-            <option>Code snippet</option>
-            <option>Code snippet</option>
-          </FormSelectInput>
-          <FormTextInput id="txtDescription" type="text"></FormTextInput>
+
+          <FormInput>
+            <div>
+              <label>From:</label>
+
+              <label>rabbithole20222</label>
+            </div>
+            <input id="txtAmount" type="text" />
+          </FormInput>
+
+          <FormInput>
+            <div>
+              <label>Amount: </label>
+
+              <label>EUR 90</label>
+            </div>
+            <input id="txtAmount" type="text" />
+          </FormInput>
+
+          <FormInput>
+            <div>
+              <label>Recipient: </label>
+
+              <label>DigitalWarren1122</label>
+            </div>
+            <select id="cmbRecipient">
+              <option>Code snippet</option>
+              <option>Code snippet</option>
+              <option>Code snippet</option>
+              <option>Code snippet</option>
+            </select>
+          </FormInput>
+
+          <FormInput>
+            <div>
+              <label>Description: </label>
+
+              <label>Art print from MONA gallery</label>
+            </div>
+            <input id="txtAmount" type="text" />
+          </FormInput>
 
           <SendPayment>
             <HttpsIcon /> SEND PAYMENT
           </SendPayment>
         </FormContainer>
+        <ProgressBarContainer>
+          <CustomizedProgressBar steps={[1, 2]}></CustomizedProgressBar>
+        </ProgressBarContainer>
         <PageFooter>
           <p>View Documentation</p>
           <CodeSnippetCombo>

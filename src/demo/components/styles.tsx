@@ -210,28 +210,56 @@ export const MakePayment = styled.p`
   letter-spacing: 0em;
 `;
 
-const FormInputs = `
-  width: 1370px;
+export const FormInput = styled.div`
+  width: calc(100% - 100px);
   height: 81px;
-  top: 1899px;
-  left: 248px;
   border-radius: 10px;
   outline: none;
   background: #d2f3fa80;
   border: 1px solid #313938;
-  margin-top: 30px;
-  padding: 15px;
-  &:focus {
-    background: #FFFFFF;
-  },
-`;
-
-export const FormTextInput = styled.input`
-  ${FormInputs}
-`;
-
-export const FormSelectInput = styled.select`
-  ${FormInputs}
+  margin: 30px auto;
+  &:focus-within {
+    background: #ffffff;
+  }
+  input {
+    background: #e8f9fc;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding-right: 300px;
+    padding-left: 300px;
+  }
+  input:focus {
+    background: #ffffff;
+  }
+  div {
+    display: inline-grid;
+    float: left;
+    text-align: left;
+    position: absolute;
+    margin-left: 40px;
+    margin-top: 15px;
+  }
+  select {
+    background: #e8f9fc;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    border: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 71%, 6px 8px;
+    background-size: 1.65em auto, 100%;
+    text-align: center;
+    padding-right: 300px;
+    padding-left: 300px;
+  }
+  select:focus {
+    background: #ffffff;
+  }
 `;
 
 export const SendPayment = styled.button`
@@ -268,4 +296,15 @@ export const CodeSnippetCombo = styled.select`
   background-color: #313938;
   color: white;
   padding: 10px;
+`;
+
+export const ProgressBarContainer = styled.div`
+  width: 780px;
+  background: white;
+  margin: 0 auto;
+  margin-top: 0px;
+  height: 100px;
+  margin-top: 30px;
+  border-radius: 10px;
+  border: 1px;
 `;

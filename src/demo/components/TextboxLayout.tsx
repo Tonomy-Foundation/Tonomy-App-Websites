@@ -19,7 +19,7 @@ const TextboxLayout = (props: TextboxLayoutProps) => {
         }}
       />
       <label htmlFor="inputField" className="textbox-label">
-        {props.label}
+        tes
       </label>
     </div>
   );
