@@ -1,100 +1,50 @@
-import React, { useEffect } from "react";
-
-import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import React from "react";
+import { api } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
-import { TH1, TH3, TP } from "../../common/atoms/THeadings";
+import { TP } from "../../common/atoms/THeadings";
 import logo from "/tonomy-logo48.png";
-import { Highlighter } from "rc-highlight";
+import Rectangle from "../assets/Rectangle.png";
+import HandImage from "../assets/handImg.png";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
-import { useNavigate } from "react-router-dom";
-import useErrorStore from "../../common/stores/errorStore";
 
 export default function Home() {
-  const errorStore = useErrorStore();
-
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
-
-  const navigation = useNavigate();
-
-  // async function onRender() {
-  //   try {
-  //     await api.ExternalUser.getUser({ autoLogout: false });
-  //     // User is logged in
-  //     navigation("/user-home");
-  //   } catch (e) {
-  //     if (
-  //       e instanceof SdkError &&
-  //       (e.code === SdkErrors.AccountNotFound ||
-  //         e.code === SdkErrors.AccountDoesntExist ||
-  //         e.code === SdkErrors.UserNotLoggedIn)
-  //     ) {
-  //       // User not logged in
-  //       return;
-  //     }
-
-  //     errorStore.setError({ error: e, expected: false });
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   onRender();
-  // }, []);
 
   return (
     <div className="container">
       <div className="intro">
         <header>
-          <img src={logo} alt="" />
+          <div className="box">
+            <img src={logo} alt="Tonomy-logo" />
+            <div className="box-heading">
+              <span>Tonomy ID</span>
+              <div className="box-subheading">demo</div>
+            </div>
+          </div>
+          <div className="intro-container">
+            <TP className="demo-head">Explore our demo features</TP>
+            <TP className="demo-main">Solution that works for you.</TP>
+
+            <TP className="text-body">
+              Simplify login, improve security, and enhance user experience by
+              logging in to multiple applications with just one set of
+              credentials.
+            </TP>
+            <div className="footer">
+              <button className="tonomy-login-button" onClick={onButtonPress}>
+                Login with {settings.config.appName}
+              </button>
+            </div>
+          </div>
         </header>
-        <TH1>Tonomy ID DEMO</TH1>
-        <TP size={2} className="text-header">
-          Welcome to our Tonomy ID Demo website!
-        </TP>
-        <TP size={2} className="text-body">
-          With Tonomy ID, you can simplify login, improve security, and enhance
-          user experience by logging in to multiple applications with just one
-          set of credentials. Our demo site showcases the benefits of Tonomy ID
-          for both users and administrators.
-        </TP>
-        <div className="footer">
-          <button className="tonomy-login-button" onClick={onButtonPress}>
-            Login with {settings.config.appName}
-          </button>
-        </div>
       </div>
 
       <div className="docs">
-        <TH3 className="title">Code Snippet</TH3>
-        <div className="highlighter">
-          <Highlighter>
-            {`
-function onButtonPress() {
-  ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
-}
-<button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
-`}
-          </Highlighter>
-        </div>
-
-        <a
-          href="https://docs.tonomy.foundation"
-          className="link"
-          target="_blank"
-          rel="noreferrer"
-        >
-          View Documentation
-        </a>
-        <a
-          href="https://github.com/Tonomy-Foundation/Tonomy-App-Websites/blob/master/src/demo/pages/Home.tsx"
-          className="link footer"
-          target="_blank"
-          rel="noreferrer"
-        >
-          View on GitHub
-        </a>
+        <img src={Rectangle} alt="mobile-view" className="mobile-img" />
+        <img src={HandImage} alt="hand-img" className="hand-img" />
       </div>
     </div>
   );

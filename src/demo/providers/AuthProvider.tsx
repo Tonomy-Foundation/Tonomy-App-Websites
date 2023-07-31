@@ -1,25 +1,27 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
   user: any;
-  signin: (user: string, callback: VoidFunction) => void;
-  signout: (callback: VoidFunction) => void;
+  signout: () => void;
 }
 
 export const AuthContext = React.createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = React.useState<any>(null);
+  const [user, setUser] = useState<ExternalUser | null>(null);
   const errorStore = useErrorStore();
+  const navigation = useNavigate();
 
-  const signin = async (newUser: string, callback: VoidFunction) => {
+  async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser();
+      const user = await api.ExternalUser.getUser({ autoLogout: false });
 
       setUser(user);
-      callback();
+      // User is logged in
+      navigation("/user-home");
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -28,23 +30,23 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
-        setUser(null);
-        callback();
         return;
       }
 
       errorStore.setError({ error: e, expected: false });
     }
+  }
+
+  useEffect(() => {
+    onRender();
+  }, []);
+
+  const signout = async () => {
+    await user?.logout();
+    window.location.href = "/";
   };
 
-  const signout = (callback: VoidFunction) => {
-    return user?.logout(() => {
-      setUser(null);
-      callback();
-    });
-  };
-
-  const value = { user, signin, signout };
+  const value = { user, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

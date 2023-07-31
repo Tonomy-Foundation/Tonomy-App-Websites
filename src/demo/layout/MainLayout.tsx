@@ -40,6 +40,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </MenuItem>
 
             <MenuItem
+              active={true}
               icon={<HomeOutlinedIcon />}
               component={<Link to="/user-home" />}
             >
@@ -47,6 +48,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </MenuItem>
 
             <MenuItem
+              active={false}
               icon={<DescriptionOutlinedIcon />}
               component={<Link to="/w3c-vcs" />}
             >

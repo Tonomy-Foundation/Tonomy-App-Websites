@@ -20,7 +20,10 @@
 
 .ps-sidebar-root{
   height: 100%;
+  background: var(--offWhite);
 }
+
+
 
 
 .ps-menu-root ul {
@@ -37,38 +40,45 @@
   position: fixed;
   display: flex;
   align-items: flex-start;
-  width: 5%;
+  width: 3.9%;
   height: 100vh;
 }
 
 .main-content {
   position: fixed;
   right: 0;
-  width: 95%;
+  width: 96.1%;
   height: 100%;
   overflow: auto;
 }
 
 .ps-sidebar-container , h3{
-  background-image: url("../assets/background.jpeg");
+  background: var(--offWhite);
 
-  color: var(--grey4);
+  color: var(--dark-grey);
 }
 
 a {
   color: var(--grey4);
   &:hover{
-    color: var(--white-color);
+    color: var(--primary);
   }
 }
 
 .ps-menuitem-root{
   line-height: 3.3;
+  background-color: var(--offWhite);
 }
 
 .ps-menuitem-root .ps-menu-button:hover {
-  background-color: var(--dark-black) !important;
-  color: var(--white-color);
+  background: none !important;
+  color: var(--primary);
+  border-right: 4px solid var(--primary);
+}
+.ps-menuitem-root .ps-menu-button:active {
+  color: var(--primary);
+  background: none !important;
+
 }
 
 a {
