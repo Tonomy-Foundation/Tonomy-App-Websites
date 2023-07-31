@@ -56,7 +56,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
           <img src={LeftArrow} alt="left-arrow" />
         </div>
         <div className="slider">
-          <div className="side-image">
+          <div className="side-image left-side-image">
             <img
               src={
                 images[
@@ -65,6 +65,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
               }
               alt={`Image ${currentPreviewIndex - 1}`}
             />
+            <p className="sideImageText">
+              {
+                linkTexts[
+                  (currentPreviewIndex - 1 + images.length) % images.length
+                ]["text"]
+              }
+            </p>
           </div>
           <div
             className="center-image"
@@ -75,11 +82,20 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
               {linkTexts[currentPreviewIndex]["text"]}
             </p>
           </div>
-          <div className="side-image">
+          <div className="side-image right-side-image">
             <img
               src={images[(currentPreviewIndex + 1) % images.length]}
               alt={`Image ${currentPreviewIndex + 1}`}
             />
+            <p
+              className="sideImageText"
+              style={{
+                margin: "-0.4rem 4rem 4rem 0rem",
+                paddingLeft: "1.6rem",
+              }}
+            >
+              {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
+            </p>
           </div>
         </div>{" "}
         <div

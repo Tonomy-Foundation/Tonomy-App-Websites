@@ -157,7 +157,16 @@ export default function W3CVCs() {
             <a href="#" className="paraLink">
               Learn about the W3C Verifiable Credentials {`->`}
             </a>
-            <p className="demoLink">Enter Demo</p>
+            <p className="demoLink">
+              <a
+                href="https://demo.demo.tonomy.foundation"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: "none", color: "var(--dark-grey)" }}
+              >
+                Enter Demo
+              </a>
+            </p>
           </div>
           <div className="rightSection">
             <img src={VCBanner} alt="banner-image" className="bannerImg" />
