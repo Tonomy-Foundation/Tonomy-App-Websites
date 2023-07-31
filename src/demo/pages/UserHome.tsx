@@ -12,6 +12,8 @@ const USerHome: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const { user } = useContext(AuthContext);
 
+  console.log("userr", user);
+
   async function onRender() {
     try {
       const username = await user.getUsername();

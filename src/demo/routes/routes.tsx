@@ -10,23 +10,24 @@ import AuthProvider from "../providers/AuthProvider";
 export default function RootRoutes(): JSX.Element {
   return (
     <Router>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/callback" element={<Callback />} />
-          {mainRoutes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/callback" element={<Callback />} />
+        {mainRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <AuthProvider>
                 <PrivateRoute>
                   <MainLayout>{route.element}</MainLayout>
                 </PrivateRoute>
-              }
-            />
-          ))}
-        </Routes>
-      </AuthProvider>
+              </AuthProvider>
+            }
+          />
+        ))}
+      </Routes>
+      {/* </AuthProvider> */}
     </Router>
   );
 }

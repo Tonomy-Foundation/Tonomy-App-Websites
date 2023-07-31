@@ -16,15 +16,16 @@ export const AuthContext = React.createContext<AuthContextType>({
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
-  const errorStore = useErrorStore();
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigate();
+  const errorStore = useErrorStore();
 
   async function onRender() {
     try {
       const user = await api.ExternalUser.getUser({ autoLogout: false });
 
       setUser(user);
-      // User is logged in
+      setLoading(false);
       navigation("/user-home");
     } catch (e) {
       if (
@@ -34,7 +35,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
-        navigation("/");
+        window.location.href = "/";
 
         return;
       }
@@ -54,7 +55,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value = { user, signout };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children} {/* Render children only when loading is false */}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
