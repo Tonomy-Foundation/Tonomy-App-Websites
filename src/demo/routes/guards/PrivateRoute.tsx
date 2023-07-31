@@ -1,9 +1,9 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
-import { useUserStore } from "../../../common/stores/user.store";
+import { AuthContext } from "../../providers/AuthProvider";
 
 export default function PrivateRoute({ children }: { children: JSX.Element }) {
-  const user = useUserStore((state) => state.user);
+  const { user } = useContext(AuthContext);
 
   console.log("private route user", user);
   const location = useLocation();

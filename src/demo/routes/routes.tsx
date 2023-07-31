@@ -9,8 +9,8 @@ import AuthProvider from "../providers/AuthProvider";
 
 export default function RootRoutes(): JSX.Element {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/callback" element={<Callback />} />
@@ -26,7 +26,7 @@ export default function RootRoutes(): JSX.Element {
             />
           ))}
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }

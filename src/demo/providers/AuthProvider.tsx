@@ -1,3 +1,4 @@
+// src/providers/AuthProvider.tsx
 import React, { useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
@@ -8,7 +9,10 @@ interface AuthContextType {
   signout: () => void;
 }
 
-export const AuthContext = React.createContext<AuthContextType>(null!);
+export const AuthContext = React.createContext<AuthContextType>({
+  user: null,
+  signout: () => {},
+});
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
@@ -30,6 +34,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
+        navigation("/");
+
         return;
       }
 

@@ -4,8 +4,7 @@ import { TButton } from "../../common/atoms/TButton";
 import userLogo from "../assets/user.png";
 import VCBanner from "../assets/VC-banner.png";
 import TextboxLayout from "../components/TextboxLayout";
-import { useUserStore } from "../../common/stores/user.store";
-import { randomString, api } from "@tonomy/tonomy-id-sdk";
+import { randomString } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import TModal from "../../common/molecules/TModal";
 import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
@@ -31,16 +30,12 @@ export default function W3CVCs() {
   const [vc, setVc] = useState<VerifiableCredential>();
   const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
   const [verifiedLoading, setVerifiedLoading] = useState(false);
+  const { user } = useContext(AuthContext);
 
-  let user = useUserStore((state) => state.user);
   const errorStore = useErrorStore();
 
   async function onRender() {
     try {
-      if (!user) {
-        user = await api.ExternalUser.getUser();
-      }
-
       const username = await user.getUsername();
 
       if (!username) throw new Error("No username found");
