@@ -30,7 +30,6 @@ export default function Callback() {
       const user = await api.ExternalUser.verifyLoginRequest();
 
       setUser(user);
-      // window.location.href = "/user-home";
       navigation("/user-home"); // Need to wait for before this will work https://github.com/Tonomy-Foundation/Tonomy-App-Websites/issues/85
     } catch (e) {
       if (
