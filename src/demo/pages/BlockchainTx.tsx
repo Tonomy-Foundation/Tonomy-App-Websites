@@ -33,11 +33,40 @@ import {
   EosioTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
-import { Button, Link } from "@mui/material";
+import {
+  Box,
+  Button,
+  LinearProgress,
+  Link,
+  Paper,
+  Step,
+  StepContent,
+  StepLabel,
+  Stepper,
+  Typography,
+} from "@mui/material";
 import TextboxLayout from "../components/TextboxLayout";
 import CustomizedProgressBar from "../components/CustomizedProgressBar";
 
 const eosioTokenContract = EosioTokenContract.Instance;
+
+const steps = [
+  {
+    label: "Fetching sovereign signer and checking if the key is still valid",
+  },
+  {
+    label: "Signing transaction",
+  },
+  {
+    label: "Broadcasting to the Blockchain network",
+  },
+  {
+    label: "Confirming network",
+  },
+  {
+    label: "Transacting consensus on the network",
+  },
+];
 
 export default function BlockchainTx() {
   const user = useUserStore((state) => state.user);
@@ -72,6 +101,20 @@ export default function BlockchainTx() {
   }
 
   let rendered = false;
+
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -206,9 +249,61 @@ export default function BlockchainTx() {
             <HttpsIcon /> SEND PAYMENT
           </SendPayment>
         </FormContainer>
-        <ProgressBarContainer>
-          <CustomizedProgressBar steps={[1, 2]}></CustomizedProgressBar>
-        </ProgressBarContainer>
+        <Box sx={{ m: -2 }}> </Box>
+        <Box
+          sx={{
+            maxWidth: 780,
+            backgroundColor: "white",
+            mt: 4,
+            mr: "auto",
+            ml: "auto",
+            borderRadius: 3,
+            p: 4,
+          }}
+        >
+          <LinearProgress
+            variant="determinate"
+            value={(100 / steps.length) * activeStep}
+            sx={{ mb: 4 }}
+          />
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((step, index) => (
+              <Step key={step.label}>
+                <StepLabel>{step.label}</StepLabel>
+                <StepContent>
+                  <Box sx={{ mb: 2 }}>
+                    <div>
+                      <Button
+                        variant="contained"
+                        onClick={handleNext}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        {index === steps.length - 1 ? "Finish" : "Continue"}
+                      </Button>
+                      <Button
+                        disabled={index === 0}
+                        onClick={handleBack}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        Back
+                      </Button>
+                    </div>
+                  </Box>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+          {activeStep === steps.length && (
+            <Paper square elevation={0} sx={{ p: 3 }}>
+              <Typography>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                Reset
+              </Button>
+            </Paper>
+          )}
+        </Box>
         <PageFooter>
           <p>View Documentation</p>
           <CodeSnippetCombo>
