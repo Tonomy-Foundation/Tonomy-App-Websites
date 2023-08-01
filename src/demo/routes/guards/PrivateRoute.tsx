@@ -1,4 +1,3 @@
-// src/guards/PrivateRoute.tsx
 import React, { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";

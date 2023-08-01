@@ -1,5 +1,5 @@
-import React from "react";
-import { api } from "@tonomy/tonomy-id-sdk";
+import React, { useContext, useEffect } from "react";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP } from "../../common/atoms/THeadings";
@@ -7,11 +7,44 @@ import logo from "/tonomy-logo48.png";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
+import { useNavigate } from "react-router-dom";
+import useErrorStore from "../../common/stores/errorStore";
+import { AuthContext } from "../providers/AuthProvider";
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
+
+  const navigation = useNavigate();
+  const errorStore = useErrorStore();
+
   async function onButtonPress() {
     api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
   }
+
+  async function onRender() {
+    try {
+      const user = await api.ExternalUser.getUser({ autoLogout: false });
+
+      if (user) navigation("/user-home");
+    } catch (e) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.AccountNotFound ||
+          e.code === SdkErrors.AccountDoesntExist ||
+          e.code === SdkErrors.UserNotLoggedIn)
+      ) {
+        // User not logged in
+        navigation("/");
+        return;
+      }
+
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
+
+  useEffect(() => {
+    onRender();
+  }, []);
 
   return (
     <div className="container">

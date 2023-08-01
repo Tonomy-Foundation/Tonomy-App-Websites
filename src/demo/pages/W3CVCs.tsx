@@ -51,11 +51,6 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
-      // if (!user) {
-      //   // TODO: This is a hack to get the user. We should have a better way to get the user.
-      //   user = await api.ExternalUser.getUser();
-      // }
-
       setVerifiedVc(undefined);
       const data = {
         name,

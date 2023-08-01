@@ -27,7 +27,6 @@ export default function RootRoutes(): JSX.Element {
           />
         ))}
       </Routes>
-      {/* </AuthProvider> */}
     </Router>
   );
 }

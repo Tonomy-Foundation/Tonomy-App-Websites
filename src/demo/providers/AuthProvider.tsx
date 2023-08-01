@@ -1,4 +1,3 @@
-// src/providers/AuthProvider.tsx
 import React, { useEffect, useState } from "react";
 import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
@@ -35,8 +34,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           e.code === SdkErrors.UserNotLoggedIn)
       ) {
         // User not logged in
-        window.location.href = "/";
-
+        navigation("/");
         return;
       }
 
@@ -50,7 +48,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signout = async () => {
     await user?.logout();
-    window.location.href = "/";
+    navigation("/");
   };
 
   const value = { user, signout };
