@@ -70,6 +70,7 @@ const MainLayout = (props: MainLayoutProps) => {
             </MenuItem>
 
             <MenuItem
+              active={true}
               icon={<HomeOutlinedIcon />}
               component={<Link to="/user-home" />}
             >
@@ -77,6 +78,7 @@ const MainLayout = (props: MainLayoutProps) => {
             </MenuItem>
 
             <MenuItem
+              active={false}
               icon={<DescriptionOutlinedIcon />}
               component={<Link to="/w3c-vcs" />}
             >

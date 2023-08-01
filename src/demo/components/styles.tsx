@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerStyle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
-  align-items: center;
+  background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
 
   & p {
     line-height: 30px;
