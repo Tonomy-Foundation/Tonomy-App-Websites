@@ -13,6 +13,7 @@ import {
   objToBase64Url,
   SdkError,
   SdkErrors,
+  createLoginQrCode,
   ExternalUser,
   App,
   LoginRequestPayload,
@@ -86,7 +87,7 @@ export default function Login() {
     const base64UrlPayload = objToBase64Url(payload);
 
     window.location.replace(
-      `${settings.config.tonomyIdLink}?payload=${base64UrlPayload}`
+      `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`
     );
 
     // wait 1 second
@@ -256,7 +257,7 @@ export default function Login() {
         const logInMessage = new LoginRequest(requests[1]);
         const did = logInMessage.getIssuer();
 
-        setShowQR(did);
+        setShowQR(createLoginQrCode(did));
         await subscribeToLoginRequestResponse();
         await connectToTonomyId(requests, loginToCommunication);
       }
