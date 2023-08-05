@@ -34,3 +34,59 @@
 .MuiStepLabel-label {
   margin-left: 5px;
 }
+
+.Successfully-signed {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.Circle-insurance-claims {
+  width: 130px !important;
+  height: 130px !important;
+  top: 1820px;
+  left: 330px;
+}
+
+.Circle-shipping-logistic-events {
+  width: 231px !important; 
+  height: 231px !important; 
+  top: 1863px;
+  left: 1267px;
+
+}
+
+.Circle-accounting-and-defi {
+  width: 231px !important; 
+  height: 231px !important;
+  top: 2074px;
+  left: 104px;
+
+}
+
+.Circle-games {
+  width: 88px !important; 
+  height: 88px !important;
+  top: 2087px;
+  left: 562px;
+
+}
+
+
+.Circle-ntfs {
+  width: 130px !important; 
+  height: 130px !important;
+  top: 1999px;
+  left: 1678px;
+
+}
+
+.Circle-votes {
+  width: 130px !important; 
+  height: 130px !important;
+  top: 2183px;
+  left: 1486px;
+}
+
+
+
+

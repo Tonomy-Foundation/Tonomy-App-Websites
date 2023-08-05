@@ -262,8 +262,8 @@ export const FormInput = styled.div`
   }
 `;
 
-export const SendPayment = styled.button`
-  width: 381px;
+export const TransactionButton = styled.button`
+  max-width: 100%;
   height: 75px;
   top: 2354px;
   left: 769px;
@@ -274,6 +274,8 @@ export const SendPayment = styled.button`
   font-weight: 700;
   border: 1px;
   margin-top: 40px;
+  margin: 0 auto;
+  padding: 22px 50px 50px 50px;
 `;
 
 export const PageFooter = styled.div`
@@ -307,4 +309,22 @@ export const ProgressBarContainer = styled.div`
   margin-top: 30px;
   border-radius: 10px;
   border: 1px;
+`;
+
+export const CircleContainer = styled.div`
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(103, 203, 222, 0.5) 0%,
+    rgba(76, 198, 220, 0.61) 33%,
+    rgba(55, 195, 219, 0.7) 56%
+  );
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
 `;

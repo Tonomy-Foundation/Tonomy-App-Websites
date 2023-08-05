@@ -16,12 +16,12 @@ import {
   FormHeaderContainer,
   FormHeaderContainerText,
   MakePayment,
-  SendPayment,
+  TransactionButton,
   CodeSnippetCombo,
   PageFooter,
   HeaderPictureContainer,
   FormInput,
-  ProgressBarContainer,
+  CircleContainer,
 } from "../components/styles";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
@@ -46,7 +46,7 @@ import {
   Typography,
 } from "@mui/material";
 import TextboxLayout from "../components/TextboxLayout";
-import CustomizedProgressBar from "../components/CustomizedProgressBar";
+import { TH4 } from "../../common/atoms/THeadings";
 
 const eosioTokenContract = EosioTokenContract.Instance;
 
@@ -77,6 +77,7 @@ export default function BlockchainTx() {
   >("prepurchase");
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
   const [balance, setBalance] = useState<number | undefined>(undefined);
+  const [paymentDone, setBpeymentDone] = useState<boolean | undefined>(true);
 
   async function onRender() {
     try {
@@ -191,126 +192,163 @@ export default function BlockchainTx() {
         promptly sends a secure transaction to the bank, where it is verified
         and recorded in your transaction history.
       </MainDescription>
-      <MainContainer>
-        <FormHeaderContainer>
-          <BalanceContainer>
-            <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
-            <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
-          </BalanceContainer>
-          <FormHeaderContainerText>Dashboard</FormHeaderContainerText>
-          <FormHeaderContainerText>Exchange rate</FormHeaderContainerText>
-          <FormHeaderContainerText>Transactions</FormHeaderContainerText>
-        </FormHeaderContainer>
-        <FormContainer>
-          <MakePayment>Make a payment</MakePayment>
+      {paymentDone ? (
+        <MainContainer>
+          <FormHeaderContainer>
+            <BalanceContainer>
+              <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
+              <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
+            </BalanceContainer>
+            <FormHeaderContainerText>Dashboard</FormHeaderContainerText>
+            <FormHeaderContainerText>Exchange rate</FormHeaderContainerText>
+            <FormHeaderContainerText>Transactions</FormHeaderContainerText>
+          </FormHeaderContainer>
+          <FormContainer>
+            <MakePayment>Make a payment</MakePayment>
 
-          <FormInput>
-            <div>
-              <label>From:</label>
+            <FormInput>
+              <div>
+                <label>From:</label>
 
-              <label>rabbithole20222</label>
-            </div>
-            <input id="txtAmount" type="text" />
-          </FormInput>
+                <label>rabbithole20222</label>
+              </div>
+              <input id="txtAmount" type="text" />
+            </FormInput>
 
-          <FormInput>
-            <div>
-              <label>Amount: </label>
+            <FormInput>
+              <div>
+                <label>Amount: </label>
 
-              <label>EUR 90</label>
-            </div>
-            <input id="txtAmount" type="text" />
-          </FormInput>
+                <label>EUR 90</label>
+              </div>
+              <input id="txtAmount" type="text" />
+            </FormInput>
 
-          <FormInput>
-            <div>
-              <label>Recipient: </label>
+            <FormInput>
+              <div>
+                <label>Recipient: </label>
 
-              <label>DigitalWarren1122</label>
-            </div>
-            <select id="cmbRecipient">
-              <option>Code snippet</option>
-              <option>Code snippet</option>
-              <option>Code snippet</option>
-              <option>Code snippet</option>
-            </select>
-          </FormInput>
+                <label>DigitalWarren1122</label>
+              </div>
+              <select id="cmbRecipient">
+                <option>Code snippet</option>
+                <option>Code snippet</option>
+                <option>Code snippet</option>
+                <option>Code snippet</option>
+              </select>
+            </FormInput>
 
-          <FormInput>
-            <div>
-              <label>Description: </label>
+            <FormInput>
+              <div>
+                <label>Description: </label>
 
-              <label>Art print from MONA gallery</label>
-            </div>
-            <input id="txtAmount" type="text" />
-          </FormInput>
+                <label>Art print from MONA gallery</label>
+              </div>
+              <input id="txtAmount" type="text" />
+            </FormInput>
 
-          <SendPayment>
-            <HttpsIcon /> SEND PAYMENT
-          </SendPayment>
-        </FormContainer>
-        <Box sx={{ m: -2 }}> </Box>
-        <Box
-          sx={{
-            maxWidth: 780,
-            backgroundColor: "white",
-            mt: 4,
-            mr: "auto",
-            ml: "auto",
-            borderRadius: 3,
-            p: 4,
-          }}
-        >
-          <LinearProgress
-            variant="determinate"
-            value={(100 / steps.length) * activeStep}
-            sx={{ mb: 4 }}
-          />
-          <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((step, index) => (
-              <Step key={step.label}>
-                <StepLabel>{step.label}</StepLabel>
-                <StepContent>
-                  <Box sx={{ mb: 2 }}>
-                    <div>
-                      <Button
-                        variant="contained"
-                        onClick={handleNext}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        {index === steps.length - 1 ? "Finish" : "Continue"}
-                      </Button>
-                      <Button
-                        disabled={index === 0}
-                        onClick={handleBack}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        Back
-                      </Button>
-                    </div>
-                  </Box>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-          {activeStep === steps.length && (
-            <Paper square elevation={0} sx={{ p: 3 }}>
-              <Typography>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                Reset
-              </Button>
-            </Paper>
-          )}
-        </Box>
-        <PageFooter>
-          <p>View Documentation</p>
-          <CodeSnippetCombo>
-            <option>Code snippet</option>
-          </CodeSnippetCombo>
-        </PageFooter>
-      </MainContainer>
+            <TransactionButton
+              onClick={(e) => {
+                setBpeymentDone(false);
+              }}
+            >
+              <HttpsIcon /> SEND PAYMENT
+            </TransactionButton>
+          </FormContainer>
+          <Box sx={{ m: -2 }}> </Box>
+          <Box
+            sx={{
+              maxWidth: 780,
+              backgroundColor: "white",
+              mt: 4,
+              mr: "auto",
+              ml: "auto",
+              borderRadius: 3,
+              p: 4,
+            }}
+          >
+            <LinearProgress
+              variant="determinate"
+              value={(100 / steps.length) * activeStep}
+              sx={{ mb: 4 }}
+            />
+            <Stepper activeStep={activeStep} orientation="vertical">
+              {steps.map((step, index) => (
+                <Step key={step.label}>
+                  <StepLabel>{step.label}</StepLabel>
+                  <StepContent>
+                    <Box sx={{ mb: 2 }}>
+                      <div>
+                        <Button
+                          variant="contained"
+                          onClick={handleNext}
+                          sx={{ mt: 1, mr: 1 }}
+                        >
+                          {index === steps.length - 1 ? "Finish" : "Continue"}
+                        </Button>
+                        <Button
+                          disabled={index === 0}
+                          onClick={handleBack}
+                          sx={{ mt: 1, mr: 1 }}
+                        >
+                          Back
+                        </Button>
+                      </div>
+                    </Box>
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
+            {activeStep === steps.length && (
+              <Paper square elevation={0} sx={{ p: 3 }}>
+                <Typography>
+                  All steps completed - you&apos;re finished
+                </Typography>
+                <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                  Reset
+                </Button>
+              </Paper>
+            )}
+          </Box>
+        </MainContainer>
+      ) : (
+        <MainContainer>
+          <Box
+            sx={{
+              pt: 2,
+              pb: 10,
+            }}
+          >
+            <TH4 className="Successfully-signed">Congratulations</TH4>
+            <TH4 className="Successfully-signed">
+              you have successfully signed a blockchain transaction using Tonomy
+              ID.
+            </TH4>
+          </Box>
+          <CircleContainer className="Circle-insurance-claims">
+            Insurance claims
+          </CircleContainer>
+          <CircleContainer className="Circle-shipping-logistic-events">
+            Shipping and logistic events
+          </CircleContainer>
+          <CircleContainer className="Circle-games">Games</CircleContainer>
+          <CircleContainer className="Circle-ntfs">NFTs</CircleContainer>
+          <CircleContainer className="Circle-accounting-and-defi">
+            Accounting and Defi
+          </CircleContainer>
+          <CircleContainer className="Circle-votes">Votes</CircleContainer>
+
+          <Box sx={{ display: "grid" }}>
+            <TransactionButton>TRY SIGNING A document AGAIN</TransactionButton>
+          </Box>
+        </MainContainer>
+      )}
+      <PageFooter>
+        <p>View Documentation</p>
+        <CodeSnippetCombo>
+          <option>Code snippet</option>
+        </CodeSnippetCombo>
+      </PageFooter>
     </>
   );
 }
