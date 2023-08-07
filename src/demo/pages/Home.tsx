@@ -7,7 +7,6 @@ import { TH1, TH3, TP } from "../../common/atoms/THeadings";
 import logo from "/tonomy-logo48.png";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
-import { Highlighter } from "rc-highlight";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";

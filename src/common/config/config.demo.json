@@ -19,7 +19,7 @@
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "accountSuffix": ".demo.tonomy.id",
-    "tonomyIdLink": "tonomy-id-demo://SSO",
+    "tonomyIdSchema": "tonomy-id-demo://",
     "communicationUrl": "wss://communication.demo.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.demo.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-demo.tonomy.foundation",

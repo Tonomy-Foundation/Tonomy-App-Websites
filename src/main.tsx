@@ -10,6 +10,7 @@ api.setSettings({
   ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
   blockchainUrl: settings.config.blockchainUrl,
   communicationUrl: settings.config.communicationUrl,
+  tonomyIdSchema: settings.config.tonomyIdSchema,
   loggerLevel: settings.config.loggerLevel,
 });
 
