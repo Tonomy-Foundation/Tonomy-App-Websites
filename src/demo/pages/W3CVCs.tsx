@@ -14,6 +14,16 @@ import TIcon from "../../common/atoms/TIcon";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import "./W3CVCs.css";
 
+const snippetCode = `
+// SignVc.jsx
+const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob", {
+    name: "Joe Somebody",
+    dob: new Date('1999-06-04')
+});
+
+const verifiedVc = await vc.verify();
+`;
+
 export default function W3CVCs() {
   const [username, setUsername] = useState<string>("");
   const [name, setName] = useState("Johnathan Doe");
@@ -244,19 +254,8 @@ export default function W3CVCs() {
           </div>
         </div>
         <CodeSnippetPreview
-          value={`
-  function onButtonPress() {
-  userApps.onPressLogin(
-    { callbackPath: "/callback" },
-    new JsKeyManager()
-  );
-  ...
-  }
-  <button className="tonomy-login-button"
-  onClick={onButtonPress}>
-  Login with {Your Platform Name Here}
-  </button>
-            `}
+          snippetCode={snippetCode}
+          documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
         />
       </div>
     </>

@@ -7,7 +7,7 @@ import "./ImageSlider.css";
 import CodeSnippetPreview from "./CodeSnippetPreview";
 
 const snippetCode = `
-// CallbackPage.tsx
+// CallbackPage.jsx
 const user = await api.ExternalUser.verifyLoginRequest();
 `;
 
