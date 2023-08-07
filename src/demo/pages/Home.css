@@ -46,7 +46,7 @@ body {
 .intro{
   width: 65%;
 }
-.docs{
+.main-image {
   width: 35%;
   display: flex; 
   flex-direction: column; 
@@ -55,7 +55,7 @@ body {
   flex: 1.2;
   height: 100%;
 }
-.intro{
+.intro {
   display: flex;
   justify-content: center;
   position: relative;
@@ -67,8 +67,11 @@ header {
   margin-bottom: auto;
 }
 .intro .footer {
-  margin-bottom: auto;
+  margin-bottom: 6rem;
   margin-top: 4rem;
+}
+.intro .snippet {
+  margin-bottom: auto;
 }
 .text-body {
   max-width: 34vw;
@@ -99,7 +102,7 @@ padding: 6rem 0.5rem 0rem 6.5rem;
 .hand-img{
   width: 75%;
 }
-.docs .title {
+.main-image .title {
   margin-top: auto;
   color: var(---bg);
 }
@@ -109,7 +112,7 @@ padding: 6rem 0.5rem 0rem 6.5rem;
     height: initial;
   }
   .intro,
-  .docs {
+  .main-image {
     padding: 1rem;
   }
   header {

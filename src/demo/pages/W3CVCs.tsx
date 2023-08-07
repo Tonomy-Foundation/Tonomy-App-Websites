@@ -15,7 +15,7 @@ import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import "./W3CVCs.css";
 
 const snippetCode = `
-// SignVc.jsx
+// SignVcPage.jsx
 const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob", {
     name: "Joe Somebody",
     dob: new Date('1999-06-04')
