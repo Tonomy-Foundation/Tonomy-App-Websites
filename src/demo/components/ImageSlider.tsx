@@ -6,9 +6,14 @@ import RightArrow from "../assets/arrow-right.png";
 import "./ImageSlider.css";
 import CodeSnippetPreview from "./CodeSnippetPreview";
 
+const snippetCode = `
+// CallbackPage.tsx
+const user = await api.ExternalUser.verifyLoginRequest();
+`;
+
 interface ImageSliderProps {
   images: string[];
-  linkTexts: { text: string; url: string; code: string }[];
+  linkTexts: { text: string; url: string }[];
   description: string;
 }
 
@@ -108,7 +113,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         </div>
       </div>
       {description && <p className="description">{description}</p>}{" "}
-      <CodeSnippetPreview value={linkTexts[currentPreviewIndex]["code"]} />
+      <CodeSnippetPreview
+        snippetCode={snippetCode}
+        documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#3-callback-page"
+      />
     </>
   );
 };
