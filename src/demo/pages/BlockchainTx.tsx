@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HttpsIcon from "@mui/icons-material/Https";
+import MobileScreen from "/Group_567_1.png";
 
 import {
   HeaderContainer,
@@ -338,8 +339,16 @@ export default function BlockchainTx() {
           </CircleContainer>
           <CircleContainer className="Circle-votes">Votes</CircleContainer>
 
-          <Box sx={{ display: "grid" }}>
+          <Box sx={{ display: "grid", mt: 32 }}>
+            <img
+              src={MobileScreen}
+              alt="mobile-screen"
+              className="Mobile-screen"
+            />
             <TransactionButton>TRY SIGNING A document AGAIN</TransactionButton>
+            <TH4 className="set-blockchain">
+              See it on the blockchain <a href="/">here</a>
+            </TH4>
           </Box>
         </MainContainer>
       )}

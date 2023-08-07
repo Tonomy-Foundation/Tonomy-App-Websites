@@ -47,14 +47,6 @@
   left: 330px;
 }
 
-.Circle-shipping-logistic-events {
-  width: 231px !important; 
-  height: 231px !important; 
-  top: 1863px;
-  left: 1267px;
-
-}
-
 .Circle-accounting-and-defi {
   width: 231px !important; 
   height: 231px !important;
@@ -71,22 +63,33 @@
 
 }
 
+.Circle-shipping-logistic-events {
+  width: 231px !important; 
+  height: 231px !important; 
+  top: 1863px;
+  right: 423px;
+}
 
 .Circle-ntfs {
   width: 130px !important; 
   height: 130px !important;
   top: 1999px;
-  left: 1678px;
-
+  right: 112px;
 }
 
 .Circle-votes {
   width: 130px !important; 
   height: 130px !important;
   top: 2183px;
-  left: 1486px;
+  right: 305px;
 }
 
+.Mobile-screen {
+  margin: 0 auto !important;
+}
 
+.set-blockchain {
+  margin: 30px auto !important;
+}
 
 
