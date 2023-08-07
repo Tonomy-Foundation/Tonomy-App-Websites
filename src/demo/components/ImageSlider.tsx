@@ -23,12 +23,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   description,
 }) => {
   const navigation = useNavigate();
-  const [open, setOpen] = React.useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState<number>(0);
   const [imageUrl, setImageUrl] = useState<string>(images[0]);
-  const handleOpen = () => {
-    setOpen(!open);
-  };
 
   useEffect(() => {
     setImageUrl(images[currentPreviewIndex]);
