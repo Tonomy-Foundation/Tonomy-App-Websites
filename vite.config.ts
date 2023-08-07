@@ -13,6 +13,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   };
 
   if (process.env.VITE_APP_NODE_ENV === "local") {
+    console.log("Running in local mode");
     config.resolve = {
       alias: {
         "@tonomy/tonomy-id-sdk": __dirname + "/../Tonomy-ID-SDK",
