@@ -27,10 +27,10 @@ Runs the app in development mode
 
 ### `yarn run local`
 
-Runs the app in development mode and uses nginx to route the port to the correct app
+Runs the app in development mode and uses nginx to route the port to the respective app
 
-- Demo: port 3001
-- Accounts: port 3000
+- Demo: <http://localhost:3001>
+- Accounts: <http://localhost:3000>
 
 **the vite app port isn't important**  it will only be used inside the nginx.
 
