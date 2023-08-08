@@ -39,10 +39,10 @@ try {
     parseInt(window.location.port) === 3000 ||
     subdomain === "accounts"
   ) {
-    import("./sso/module-index.js").then((module) => {
-      const sso = module.default;
+    import("./accounts/module-index.js").then((module) => {
+      const accounts = module.default;
 
-      sso(root);
+      accounts(root);
     });
   } else {
     throw new Error("Domain not supported");

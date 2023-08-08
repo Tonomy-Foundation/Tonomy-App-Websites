@@ -1,15 +1,25 @@
 import React, { useEffect } from "react";
 
-import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
-import { TH1, TH3, TP } from "../../common/atoms/THeadings";
+import { TP } from "../../common/atoms/THeadings";
 import logo from "/tonomy-logo48.png";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
+import CodeSnippetPreview from "../components/CodeSnippetPreview";
+
+const snippetCode = `
+// LoginPage.jsx
+async function onButtonPress() {
+  await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
+}
+
+<button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
+`;
 
 export default function Home() {
   const errorStore = useErrorStore();
@@ -70,10 +80,17 @@ export default function Home() {
               </button>
             </div>
           </div>
+
+          <div className="snippet">
+            <CodeSnippetPreview
+              snippetCode={snippetCode}
+              documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#2-login-page"
+            />
+          </div>
         </header>
       </div>
 
-      <div className="docs">
+      <div className="main-image">
         <img src={Rectangle} alt="mobile-view" className="mobile-img" />
         <img src={HandImage} alt="hand-img" className="hand-img" />
       </div>
