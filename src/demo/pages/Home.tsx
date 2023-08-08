@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import React, { useContext, useEffect, useState } from "react";
+import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP } from "../../common/atoms/THeadings";
@@ -12,8 +12,7 @@ import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 
 export default function Home() {
-  const { login } = useContext(AuthContext);
-
+  const { signin } = useContext(AuthContext);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
 
@@ -21,7 +20,9 @@ export default function Home() {
     try {
       const user = await api.ExternalUser.getUser({ autoLogout: false });
 
-      if (user) navigation("/user-home");
+      if (user) {
+        signin(user);
+      }
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -41,6 +42,10 @@ export default function Home() {
   useEffect(() => {
     onRender();
   }, []);
+
+  async function onButtonPress() {
+    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+  }
 
   return (
     <div className="container">
@@ -63,7 +68,7 @@ export default function Home() {
               credentials.
             </TP>
             <div className="footer">
-              <button className="tonomy-login-button" onClick={() => login()}>
+              <button className="tonomy-login-button" onClick={onButtonPress}>
                 Login with {settings.config.appName}
               </button>
             </div>

@@ -4,58 +4,31 @@ import useErrorStore from "../../common/stores/errorStore";
 import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
-  user: any;
-  login: () => void;
+  user: ExternalUser | null;
+  signin: (user: ExternalUser) => void;
   signout: () => void;
 }
 
-export const AuthContext = React.createContext<AuthContextType>({
-  user: null,
-  signout: () => {},
-  login: () => {},
-});
+export const AuthContext = React.createContext<AuthContextType>(null!);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
-  const errorStore = useErrorStore();
 
-  async function onRender() {
-    try {
-      const user = await api.ExternalUser.getUser({ autoLogout: false });
-
-      setUser(user);
-      navigation("/user-home");
-    } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
-      ) {
-        // User not logged in
-        navigation("/");
-        return;
-      }
-
-      errorStore.setError({ error: e, expected: false });
-    }
-  }
-
-  useEffect(() => {
-    onRender();
-  }, []);
+  // const errorStore = useErrorStore();
+  console.log("authUser", user);
 
   const signout = async () => {
     await user?.logout();
     navigation("/");
   };
 
-  const login = () => {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+  const signin = (user: ExternalUser) => {
+    setUser(user);
+    navigation("/user-home");
   };
 
-  const value = { user, signout, login };
+  const value = { user, signout, signin };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
