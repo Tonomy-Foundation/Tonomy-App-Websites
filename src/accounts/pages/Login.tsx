@@ -57,11 +57,8 @@ export default function Login() {
   const [app, setApp] = useState<App>();
   const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
-  const setUser = useUserStore((state) => state.setUser);
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
-  const logout = useUserStore((state) => state.logout);
   const errorStore = useErrorStore();
-  let user: ExternalUser | undefined;
+  const { user, setUser, isLoggedIn, logout } = useUserStore();
 
   let rendered = false;
 
@@ -100,14 +97,14 @@ export default function Login() {
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
   async function connectToTonomyId(
     requests: LoginRequest[],
-    loginToCommunication: AuthenticationMessage
+    loginToCommunication: AuthenticationMessage,
+    user?: ExternalUser
   ) {
     // Login to the communication server
     await communication.login(loginToCommunication);
 
-    if (isLoggedIn()) {
+    if (user) {
       setStatus("connecting");
-      if (!user) throw new Error("No user found");
 
       const tonomyIDDid = await user.getWalletDid();
 
@@ -204,10 +201,7 @@ export default function Login() {
   }
 
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
-  async function loginToTonomyAndSendRequests(
-    loggedIn = false,
-    user?: ExternalUser
-  ) {
+  async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
       const externalLoginRequest = await UserApps.onRedirectLogin();
 
@@ -215,7 +209,7 @@ export default function Login() {
       const requests = [externalLoginRequest];
       let loginToCommunication: AuthenticationMessage;
 
-      if (loggedIn === false) {
+      if (!user) {
         const { loginRequest, loginToCommunication: loginToCommunicationVal } =
           (await api.ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
@@ -259,7 +253,7 @@ export default function Login() {
 
         setShowQR(createLoginQrCode(did));
         await subscribeToLoginRequestResponse();
-        await connectToTonomyId(requests, loginToCommunication);
+        await connectToTonomyId(requests, loginToCommunication, user);
       }
     } catch (e) {
       if (e instanceof SdkError && e.code === SdkErrors.ReferrerEmpty) {
@@ -279,14 +273,15 @@ export default function Login() {
 
   // check if user is already logged in
   async function checkLoggedIn() {
-    user = await api.ExternalUser.getUser();
+    const user = await api.ExternalUser.getUser();
+
     setStatus("connecting");
     setUser(user);
     const username = await user.getUsername();
 
     setUsername(username.getBaseUsername());
 
-    loginToTonomyAndSendRequests(true, user);
+    loginToTonomyAndSendRequests(user);
   }
 
   // check if user logged in and if not starts login process from URL parameters
@@ -300,7 +295,7 @@ export default function Login() {
           e.code === SdkErrors.UserNotLoggedIn ||
           e.code === SdkErrors.AccountDoesntExist)
       ) {
-        loginToTonomyAndSendRequests(false);
+        loginToTonomyAndSendRequests();
       } else {
         errorStore.setError({ error: e, expected: false });
       }
