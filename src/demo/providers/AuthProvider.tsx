@@ -5,17 +5,18 @@ import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
   user: any;
+  login: () => void;
   signout: () => void;
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
   user: null,
   signout: () => {},
+  login: () => {},
 });
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
-  const [loading, setLoading] = useState(true);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
 
@@ -24,7 +25,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const user = await api.ExternalUser.getUser({ autoLogout: false });
 
       setUser(user);
-      setLoading(false);
       navigation("/user-home");
     } catch (e) {
       if (
@@ -51,13 +51,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     navigation("/");
   };
 
-  const value = { user, signout };
+  const login = () => {
+    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+  };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children} {/* Render children only when loading is false */}
-    </AuthContext.Provider>
-  );
+  const value = { user, signout, login };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

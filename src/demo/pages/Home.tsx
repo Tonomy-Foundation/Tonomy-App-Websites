@@ -12,14 +12,10 @@ import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const navigation = useNavigate();
   const errorStore = useErrorStore();
-
-  async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
-  }
 
   async function onRender() {
     try {
@@ -67,7 +63,7 @@ export default function Home() {
               credentials.
             </TP>
             <div className="footer">
-              <button className="tonomy-login-button" onClick={onButtonPress}>
+              <button className="tonomy-login-button" onClick={() => login()}>
                 Login with {settings.config.appName}
               </button>
             </div>
