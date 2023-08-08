@@ -10,6 +10,16 @@ import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
+import CodeSnippetPreview from "../components/CodeSnippetPreview";
+
+const snippetCode = `
+// LoginPage.jsx
+async function onButtonPress() {
+  await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
+}
+
+<button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
+`;
 
 export default function Home() {
   const { signin } = useContext(AuthContext);
@@ -73,10 +83,17 @@ export default function Home() {
               </button>
             </div>
           </div>
+
+          <div className="snippet">
+            <CodeSnippetPreview
+              snippetCode={snippetCode}
+              documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#2-login-page"
+            />
+          </div>
         </header>
       </div>
 
-      <div className="docs">
+      <div className="main-image">
         <img src={Rectangle} alt="mobile-view" className="mobile-img" />
         <img src={HandImage} alt="hand-img" className="hand-img" />
       </div>

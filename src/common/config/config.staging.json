@@ -19,7 +19,7 @@
         "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
     },
     "accountSuffix": ".stag.tonomy.id",
-    "tonomyIdLink": "tonomy-id-staging://SSO",
+    "tonomyIdSchema": "tonomy-id-staging://",
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",

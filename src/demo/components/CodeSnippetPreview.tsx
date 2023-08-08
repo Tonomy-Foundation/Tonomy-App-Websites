@@ -3,7 +3,8 @@ import HighlightedPageView from "../components/TPageHighlighted";
 import "./CodeSnippetPreview.css";
 
 export type CodeSnippetPreviewProps = {
-  value: string;
+  documentationLink: string;
+  snippetCode: string;
 };
 
 const CodeSnippetPreview = (props: CodeSnippetPreviewProps) => {
@@ -17,7 +18,9 @@ const CodeSnippetPreview = (props: CodeSnippetPreviewProps) => {
     <div className="documentation">
       <div>
         {" "}
-        <p>Documentation {`->`} </p>
+        <a href={props.documentationLink} target="_blank" rel="noreferrer">
+          <p>Documentation {`->`} </p>
+        </a>
       </div>
       <div>
         <button onClick={handleOpen}>
@@ -25,7 +28,7 @@ const CodeSnippetPreview = (props: CodeSnippetPreviewProps) => {
         </button>
         {open && (
           <div className="dropdown-content">
-            <HighlightedPageView highlighterText={props.value} />
+            <HighlightedPageView highlighterText={props.snippetCode} />
           </div>
         )}
       </div>
