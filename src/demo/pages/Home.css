@@ -55,6 +55,14 @@ body {
   flex: 1.2;
   height: 100%;
 }
+.loadinghead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  text-align: center;
+}
 .intro {
   display: flex;
   justify-content: center;

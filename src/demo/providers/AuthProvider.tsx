@@ -15,9 +15,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
 
-  // const errorStore = useErrorStore();
-  console.log("authUser", user);
-
   const signout = async () => {
     await user?.logout();
     navigation("/");

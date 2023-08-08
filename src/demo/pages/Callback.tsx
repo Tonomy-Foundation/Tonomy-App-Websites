@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   api,
   JsKeyManager,
@@ -13,6 +13,7 @@ import TProgressCircle from "../../common/atoms/TProgressCircle";
 import { TH2 } from "../../common/atoms/THeadings";
 import TModal from "../../common/molecules/TModal";
 import { useUserStore } from "../../common/stores/user.store";
+import { AuthContext } from "../providers/AuthProvider";
 
 export default function Callback() {
   const [errorTitle, setErrorTitle] = useState("");
@@ -20,6 +21,7 @@ export default function Callback() {
   const navigation = useNavigate();
   const setUser = useUserStore((state) => state.setUser);
   const errorStore = useErrorStore();
+  const { signin } = useContext(AuthContext);
 
   useEffect(() => {
     verifyLogin();
@@ -29,8 +31,9 @@ export default function Callback() {
     try {
       const user = await api.ExternalUser.verifyLoginRequest();
 
-      setUser(user);
-      navigation("/user-home"); 
+      if (user) {
+        signin(user);
+      }
     } catch (e) {
       if (
         e instanceof SdkError &&
