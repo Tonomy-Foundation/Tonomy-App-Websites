@@ -46,7 +46,7 @@ export default function W3CVCs() {
 
   async function onRender() {
     try {
-      const username = await user.getUsername();
+      const username = await user?.getUsername();
 
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
