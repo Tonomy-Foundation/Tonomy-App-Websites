@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
 import userLogo from "../assets/user.png";
 import VCBanner from "../assets/VC-banner.png";
 import TextboxLayout from "../components/TextboxLayout";
-import { useUserStore } from "../../common/stores/user.store";
-import { randomString, api } from "@tonomy/tonomy-id-sdk";
+import { randomString } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import TModal from "../../common/molecules/TModal";
 import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
 import { VerifiedCredential } from "@tonomy/did-jwt-vc";
 import TIcon from "../../common/atoms/TIcon";
+import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import "./W3CVCs.css";
 
@@ -40,17 +40,13 @@ export default function W3CVCs() {
   const [vc, setVc] = useState<VerifiableCredential>();
   const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
   const [verifiedLoading, setVerifiedLoading] = useState(false);
+  const { user } = useContext(AuthContext);
 
-  let user = useUserStore((state) => state.user);
   const errorStore = useErrorStore();
 
   async function onRender() {
     try {
-      if (!user) {
-        user = await api.ExternalUser.getUser();
-      }
-
-      const username = await user.getUsername();
+      const username = await user?.getUsername();
 
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
@@ -65,11 +61,6 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
-      if (!user) {
-        // TODO: This is a hack to get the user. We should have a better way to get the user.
-        user = await api.ExternalUser.getUser();
-      }
-
       setVerifiedVc(undefined);
       const data = {
         name,
@@ -85,7 +76,7 @@ export default function W3CVCs() {
 
       const id = window.location.origin + "/medical-record#" + randomString(8);
 
-      const vc = await user.signVc(id, "MedicalRecord", data);
+      const vc = await user?.signVc(id, "MedicalRecord", data);
 
       setVc(vc);
     } catch (e) {

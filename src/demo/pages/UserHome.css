@@ -6,9 +6,9 @@ body{
     width: 100%;
     text-align: end;
     padding: 1rem 5rem;
-    display: flex; /* Use flexbox to align items horizontally */
-    justify-content: flex-end; /* Align items to the right side */
-    align-items: center; /* Center align the items vertically */
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center;
     color: var(--black); 
     padding-top: 2rem;
 }

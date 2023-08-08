@@ -8,7 +8,7 @@ body {
     padding-left: 3rem;
    
     background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
-    clear: both; /* Clear any floats within the container */
+    clear: both; 
   }
   .bannerImg {
     width: 650px;
@@ -24,21 +24,21 @@ body {
     width: 100%;
     text-align: end;
     color: var(--black); 
-    overflow: auto; /* Create a new block formatting context */
+    overflow: auto; 
   }
   
   .leftText {
-    float: left; /* Float the paragraph to the left */
+    float: left;
   }
   
   .userLogoVC {
-    float: right; /* Float the image to the right */
-    margin-left: 0.4rem; /* Add some space between the paragraph and the image */
+    float: right; 
+    margin-left: 0.4rem; 
     display: flex;
     align-items: center;
     font-size: 1rem;
     margin-top: 2rem;
-    margin-right: 1.8rem;
+    margin-right: 4.8rem;
   }
   
   .userLogoVC img {
@@ -105,12 +105,10 @@ body {
   
   .leftSection {
     grid-column: 1;
-    /* Add any styles for the left section */
   }
   
   .rightSection {
     grid-column: 2;
-    /* Add any styles for the right section */
   }
 
   .paraSection{
@@ -142,7 +140,7 @@ body {
     padding: 0;
     margin: 0;
     margin-left: 4rem;
-    display: flex; /* This makes the list items display horizontally */
+    display: flex; 
 }
 
 ul.horizontal-list li {
@@ -152,7 +150,6 @@ ul.horizontal-list li {
     color: var(--dark-grey);
 }
 
-/* Optional style to remove margin from the last list item */
 ul.horizontal-list li:last-child {
     margin-right: 0;
 }
@@ -183,7 +180,7 @@ ul.horizontal-list li:last-child {
 .row-container {
   display: flex;
   justify-content: space-between;
-  width: 100%; /* Adjust the width as needed */
+  width: 100%;
 }
 
 .security-message {
