@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
 import userLogo from "../assets/user.png";
 import VCBanner from "../assets/VC-banner.png";
 import TextboxLayout from "../components/TextboxLayout";
 import { randomString } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
-import TModal from "../../common/molecules/TModal";
-import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
-import { VerifiedCredential } from "@tonomy/did-jwt-vc";
-import TIcon from "../../common/atoms/TIcon";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
+import VerticalLinearStepper from "../components/VerticalProgressStep";
 import "./W3CVCs.css";
 
 const snippetCode = `
@@ -23,8 +19,21 @@ const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob"
 
 const verifiedVc = await vc.verify();
 `;
+const steps = [
+  {
+    label: "Fetching sovereign signer and checking if the key is still valid",
+  },
+  {
+    label: "Checking W3C Verifiable Credential data structure",
+  },
+  {
+    label: "Signing data",
+  },
+];
 
 export default function W3CVCs() {
+  const [activeStep, setActiveStep] = useState(-1);
+  const [progressValue, setProgressValue] = useState(0);
   const [username, setUsername] = useState<string>("");
   const [name, setName] = useState("Johnathan Doe");
   const [phone, setPhone] = useState("+1 123-456-7890");
@@ -37,9 +46,6 @@ export default function W3CVCs() {
   const [treatment, setTreatment] = useState(
     "sufficient rest and increase intake of fluids"
   );
-  const [vc, setVc] = useState<VerifiableCredential>();
-  const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
-  const [verifiedLoading, setVerifiedLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
   const errorStore = useErrorStore();
@@ -61,7 +67,9 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
-      setVerifiedVc(undefined);
+      setActiveStep(0);
+      setProgressValue(0);
+
       const data = {
         name,
         phone,
@@ -76,64 +84,17 @@ export default function W3CVCs() {
 
       const id = window.location.origin + "/medical-record#" + randomString(8);
 
-      const vc = await user?.signVc(id, "MedicalRecord", data);
+      await user?.signVc(id, "MedicalRecord", data);
 
-      setVc(vc);
+      setActiveStep(2);
+      setProgressValue(100);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
   }
-
-  async function onVerify() {
-    try {
-      setVerifiedLoading(true);
-      if (!vc) throw new Error("No VC to verify");
-      const verified = await vc.verify();
-
-      if (!verified || !verified.verified) {
-        throw new Error("VC not verified");
-      }
-
-      setVerifiedVc(verified);
-      setVerifiedLoading(false);
-    } catch (e) {
-      errorStore.setError({ error: e, expected: false });
-      setVerifiedLoading(false);
-    }
-  }
-
-  const onCloseModal = async () => {
-    setVc(undefined);
-    setVerifiedVc(undefined);
-    setVerifiedLoading(false);
-  };
 
   return (
     <>
-      <TModal
-        onPress={onCloseModal}
-        icon="block"
-        iconColor="success"
-        title="Success!"
-        buttonLabel="OK"
-        open={vc !== undefined}
-      >
-        <>
-          <TH2>Medical record created</TH2>
-          <TP>Your record can now be taken and verified anywhere!</TP>
-          {!verifiedVc && (
-            <TButton variant="outlined" onClick={onVerify}>
-              Verify Document
-            </TButton>
-          )}
-          {verifiedVc && (
-            <div>
-              <TIcon icon="verified" color="success" />
-              <div>Verified</div>
-            </div>
-          )}
-        </>
-      </TModal>
       <div className="containerVC">
         <div className="userSectionVC">
           <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
@@ -244,6 +205,11 @@ export default function W3CVCs() {
             </TButton>
           </div>
         </div>
+        <VerticalLinearStepper
+          activeStep={activeStep}
+          steps={steps}
+          progressValue={progressValue}
+        />
         <CodeSnippetPreview
           snippetCode={snippetCode}
           documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
