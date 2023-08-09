@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TH2, TP } from "../../common/atoms/THeadings";
 import { TButton } from "../../common/atoms/TButton";
 import userLogo from "../assets/user.png";
 import VCBanner from "../assets/VC-banner.png";
 import TextboxLayout from "../components/TextboxLayout";
 import { randomString } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
-import TModal from "../../common/molecules/TModal";
-import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
-import { VerifiedCredential } from "@tonomy/did-jwt-vc";
-import TIcon from "../../common/atoms/TIcon";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import VerticalLinearStepper from "../components/VerticalProgressStep";
@@ -51,9 +46,6 @@ export default function W3CVCs() {
   const [treatment, setTreatment] = useState(
     "sufficient rest and increase intake of fluids"
   );
-  const [vc, setVc] = useState<VerifiableCredential>();
-  const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
-  const [verifiedLoading, setVerifiedLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
   const errorStore = useErrorStore();
@@ -76,8 +68,8 @@ export default function W3CVCs() {
   async function onSubmit() {
     try {
       setActiveStep(0);
-      setProgressValue(30);
-      setVerifiedVc(undefined);
+      setProgressValue(0);
+
       const data = {
         name,
         phone,
@@ -94,66 +86,17 @@ export default function W3CVCs() {
 
       const vc = await user?.signVc(id, "MedicalRecord", data);
 
+      setActiveStep(2);
+      setProgressValue(100);
+
       setVc(vc);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
   }
 
-  async function onVerify() {
-    try {
-      setActiveStep(1);
-      setProgressValue(30);
-      setVerifiedLoading(true);
-      if (!vc) throw new Error("No VC to verify");
-      const verified = await vc.verify();
-
-      if (!verified || !verified.verified) {
-        throw new Error("VC not verified");
-      }
-
-      setVerifiedVc(verified);
-      setVerifiedLoading(false);
-      setActiveStep(2);
-      setProgressValue(40);
-    } catch (e) {
-      errorStore.setError({ error: e, expected: false });
-      setVerifiedLoading(false);
-    }
-  }
-
-  const onCloseModal = async () => {
-    setVc(undefined);
-    setVerifiedVc(undefined);
-    setVerifiedLoading(false);
-  };
-
   return (
     <>
-      <TModal
-        onPress={onCloseModal}
-        icon="block"
-        iconColor="success"
-        title="Success!"
-        buttonLabel="OK"
-        open={vc !== undefined}
-      >
-        <>
-          <TH2>Medical record created</TH2>
-          <TP>Your record can now be taken and verified anywhere!</TP>
-          {!verifiedVc && (
-            <TButton variant="outlined" onClick={onVerify}>
-              Verify Document
-            </TButton>
-          )}
-          {verifiedVc && (
-            <div>
-              <TIcon icon="verified" color="success" />
-              <div>Verified</div>
-            </div>
-          )}
-        </>
-      </TModal>
       <div className="containerVC">
         <div className="userSectionVC">
           <p className="leftText sign-dcoument">Feature Name: Sign Document</p>

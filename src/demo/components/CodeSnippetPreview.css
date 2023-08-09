@@ -46,7 +46,7 @@
       width: 320px;
       height: 200px;
       color: white;
-      top: -17.7rem; /* This value makes the dropdown appear below the button on desktop */
+      top: -16.7rem; /* This value makes the dropdown appear below the button on desktop */
     }
   }
   
