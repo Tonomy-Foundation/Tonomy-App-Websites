@@ -9,13 +9,11 @@ import CustomizedProgressBars from "./LinearProgressBar";
 import "./VerticalProgressStep.css";
 
 const CustomStepIcon = ({ active }) => {
-  const customStepIconClass = active
-    ? "custom-step-icon active"
-    : "custom-step-icon";
+  const customStepIconClass = active ? "active" : "";
 
   return (
-    <div className={customStepIconClass}>
-      <div className={`inner-dot ${active ? "active" : ""}`} />
+    <div className={`custom-step-icon  ${customStepIconClass}`}>
+      <div className={`inner-dot ${customStepIconClass}`} />
     </div>
   );
 };
