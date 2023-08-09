@@ -84,12 +84,10 @@ export default function W3CVCs() {
 
       const id = window.location.origin + "/medical-record#" + randomString(8);
 
-      const vc = await user?.signVc(id, "MedicalRecord", data);
+      await user?.signVc(id, "MedicalRecord", data);
 
       setActiveStep(2);
       setProgressValue(100);
-
-      setVc(vc);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
