@@ -12,6 +12,7 @@ import { VerifiedCredential } from "@tonomy/did-jwt-vc";
 import TIcon from "../../common/atoms/TIcon";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
+import VerticalLinearStepper from "../components/VerticalProgressStep";
 import "./W3CVCs.css";
 
 const snippetCode = `
@@ -23,8 +24,21 @@ const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob"
 
 const verifiedVc = await vc.verify();
 `;
+const steps = [
+  {
+    label: "Fetching sovereign signer and checking if the key is still valid",
+  },
+  {
+    label: "Checking W3C Verifiable Credential data structure",
+  },
+  {
+    label: "Signing data",
+  },
+];
 
 export default function W3CVCs() {
+  const [activeStep, setActiveStep] = useState(-1);
+  const [progressValue, setProgressValue] = useState(0);
   const [username, setUsername] = useState<string>("");
   const [name, setName] = useState("Johnathan Doe");
   const [phone, setPhone] = useState("+1 123-456-7890");
@@ -61,6 +75,8 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
+      setActiveStep(0);
+      setProgressValue(30);
       setVerifiedVc(undefined);
       const data = {
         name,
@@ -86,6 +102,8 @@ export default function W3CVCs() {
 
   async function onVerify() {
     try {
+      setActiveStep(1);
+      setProgressValue(30);
       setVerifiedLoading(true);
       if (!vc) throw new Error("No VC to verify");
       const verified = await vc.verify();
@@ -96,6 +114,8 @@ export default function W3CVCs() {
 
       setVerifiedVc(verified);
       setVerifiedLoading(false);
+      setActiveStep(2);
+      setProgressValue(40);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
       setVerifiedLoading(false);
@@ -244,6 +264,11 @@ export default function W3CVCs() {
             </TButton>
           </div>
         </div>
+        <VerticalLinearStepper
+          activeStep={activeStep}
+          steps={steps}
+          progressValue={progressValue}
+        />
         <CodeSnippetPreview
           snippetCode={snippetCode}
           documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
