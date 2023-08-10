@@ -55,38 +55,6 @@ export const HeaderPictureContainer = styled.div`
   right: 0;
 `;
 
-export const HeaderDescription = styled.div`
-  display: flex;
-  width: 783px;
-  height: 290px;
-  flex-direction: column;
-  flex-shrink: 0;x;
-  color: var(--grey-dark-grey, #313938);
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-export const FeatureNameLabel = styled.p`
-  color: var(--grey-dark-grey, #313938);
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 14px;
-  letter-spacing: 0.5px;
-`;
-
-export const HowToUseLabel = styled.p`
-  color: var(--grey-dark-grey, #313938);
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 40px;
-  padding-top: 300px;
-  padding-left: 140px;
-`;
-
 export const HeaderTonomy = styled.div`
   display: flex;
   width: 1109px;
@@ -163,24 +131,6 @@ export const BalanceContainer = styled.div`
   padding: 41px 10px;
 `;
 
-export const BalanceContainerTextLeft = styled.p`
-  color: var(--grey-dark-grey, #313938);
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 40px;
-  float: left;
-`;
-
-export const BalanceContainerTextRight = styled.p`
-  color: var(--grey-dark-grey, #313938);
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 40px;
-  float: right;
-`;
-
 export const FormContainer = styled.div`
   max-width:: 100%;
   height: 679px;
@@ -190,24 +140,6 @@ export const FormContainer = styled.div`
   margin: 30px 181px 0px 181px;
   text-align: center;
   padding: 44px 67px 44px 67px;
-`;
-
-export const FormHeaderContainerText = styled.p`
-  color: var(--grey-dark-grey, #313938);
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 40px;
-  margin-top: 142px;
-  margin-left: 31px;
-  margin-right: 40px;
-`;
-
-export const MakePayment = styled.p`
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 40px;
-  letter-spacing: 0em;
 `;
 
 export const FormInput = styled.div`
@@ -298,17 +230,6 @@ export const CodeSnippetCombo = styled.select`
   background-color: #313938;
   color: white;
   padding: 10px;
-`;
-
-export const ProgressBarContainer = styled.div`
-  width: 780px;
-  background: white;
-  margin: 0 auto;
-  margin-top: 0px;
-  height: 100px;
-  margin-top: 30px;
-  border-radius: 10px;
-  border: 1px;
 `;
 
 export const CircleContainer = styled.div`

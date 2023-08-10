@@ -92,4 +92,60 @@
   margin: 30px auto !important;
 }
 
+.how-to-use-label {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 5T00;
+  line-height: 40px;
+  padding-top: 300px;
+  padding-left: 140px;
+}
 
+.header-description {
+  display: flex;
+  width: 783px;
+  height: 290px;
+  flex-direction: column;
+  color: var(--grey-dark-grey, #313938);
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.balance-container-text-left {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  float: left;
+}
+
+.balance-container-text-right {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  float: right;
+}
+
+.form-header-container-text {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  margin-top: 142px;
+  margin-left: 31px;
+  margin-right: 40px;
+}
+
+.make-payment {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0em;
+}
