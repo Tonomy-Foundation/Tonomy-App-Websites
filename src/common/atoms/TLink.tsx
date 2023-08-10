@@ -2,7 +2,7 @@ import React from "react";
 import "./buttons.css";
 import { useNavigate } from "react-router-dom";
 
-export function TA(props: React.LinkHTMLAttributes<HTMLAnchorElement>) {
+export function TLink(props: React.LinkHTMLAttributes<HTMLAnchorElement>) {
   const navigation = useNavigate();
 
   // eslint-disable-next-line react/prop-types
