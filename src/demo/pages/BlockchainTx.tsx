@@ -4,19 +4,12 @@ import MobileScreen from "/Group_567_1.png";
 
 import {
   HeaderContainer,
-  FeatureNameLabel,
-  HowToUseLabel,
   HeaderTonomy,
-  HeaderDescription,
   MainDescription,
   MainContainer,
   BalanceContainer,
-  BalanceContainerTextLeft,
-  BalanceContainerTextRight,
   FormContainer,
   FormHeaderContainer,
-  FormHeaderContainerText,
-  MakePayment,
   TransactionButton,
   CodeSnippetCombo,
   PageFooter,
@@ -46,8 +39,7 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import TextboxLayout from "../components/TextboxLayout";
-import { TH4 } from "../../common/atoms/THeadings";
+import { TH1, TH2, TH4 } from "../../common/atoms/THeadings";
 
 const eosioTokenContract = EosioTokenContract.Instance;
 
@@ -170,16 +162,15 @@ export default function BlockchainTx() {
     <>
       <HeaderContainer>
         <HeaderPictureContainer></HeaderPictureContainer>
-        <FeatureNameLabel>Feature Name: Sign Transaction</FeatureNameLabel>
+        <TH1>Feature Name: Sign Transaction</TH1>
 
-        <HowToUseLabel>How to use :</HowToUseLabel>
+        <TH1 className="how-to-use-label">How to use :</TH1>
         <HeaderTonomy>Tonomy ID</HeaderTonomy>
-        {/* <HeaderTonomyID>Tonomy ID</HeaderTonomyID> */}
-        <HeaderDescription>
+        <TH2 className="header-description">
           Tonomy ID utilizes a digital signatures and a distributed transaction
           protocol to safeguard your transactions and digital assets from
           unauthorized access or tampering.
-        </HeaderDescription>
+        </TH2>
 
         <Link href="/Test">learn about the Antelope blockchain protocol </Link>
         <br />
@@ -197,15 +188,15 @@ export default function BlockchainTx() {
         <MainContainer>
           <FormHeaderContainer>
             <BalanceContainer>
-              <BalanceContainerTextLeft>Balance: </BalanceContainerTextLeft>
-              <BalanceContainerTextRight>100 EUR</BalanceContainerTextRight>
+              <p className="balance-container-text-left">Balance: </p>
+              <p className="balance-container-text-right">100 EUR</p>
             </BalanceContainer>
-            <FormHeaderContainerText>Dashboard</FormHeaderContainerText>
-            <FormHeaderContainerText>Exchange rate</FormHeaderContainerText>
-            <FormHeaderContainerText>Transactions</FormHeaderContainerText>
+            <p className="form-header-container-text">Dashboard</p>
+            <p className="form-header-container-text">Exchange rate</p>
+            <p className="form-header-container-text">Transactions</p>
           </FormHeaderContainer>
           <FormContainer>
-            <MakePayment>Make a payment</MakePayment>
+            <p className="make-payment">Make a payment</p>
 
             <FormInput>
               <div>
