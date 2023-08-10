@@ -263,7 +263,11 @@ export default function Login() {
         await connectToTonomyId(requests, loginToCommunication, user);
       }
     } catch (e) {
-      if (e instanceof SdkError && e.code === SdkErrors.ReferrerEmpty) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.ReferrerEmpty ||
+          e.code === SdkErrors.MissingParams)
+      ) {
         errorStore.setError({
           error: new Error(
             "Please try again and do not refresh this website during login"
