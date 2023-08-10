@@ -1,20 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { TH2, TP } from "../../common/atoms/THeadings";
+import React, { useState, useEffect, useContext } from "react";
 import { TButton } from "../../common/atoms/TButton";
 import userLogo from "../assets/user.png";
 import VCBanner from "../assets/VC-banner.png";
 import TextboxLayout from "../components/TextboxLayout";
-import { useUserStore } from "../../common/stores/user.store";
-import { randomString, api } from "@tonomy/tonomy-id-sdk";
+import { randomString } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
-import TModal from "../../common/molecules/TModal";
-import { VerifiableCredential } from "@tonomy/tonomy-id-sdk/build/sdk/types/sdk/util/ssi/vc";
-import { VerifiedCredential } from "@tonomy/did-jwt-vc";
-import TIcon from "../../common/atoms/TIcon";
+import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
+import VerticalLinearStepper from "../components/VerticalProgressStep";
 import "./W3CVCs.css";
 
+const snippetCode = `
+// SignVcPage.jsx
+const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob", {
+    name: "Joe Somebody",
+    dob: new Date('1999-06-04')
+});
+
+const verifiedVc = await vc.verify();
+`;
+const steps = [
+  {
+    label: "Fetching sovereign signer and checking if the key is still valid",
+  },
+  {
+    label: "Checking W3C Verifiable Credential data structure",
+  },
+  {
+    label: "Signing data",
+  },
+];
+
 export default function W3CVCs() {
+  const [activeStep, setActiveStep] = useState(-1);
+  const [progressValue, setProgressValue] = useState(0);
   const [username, setUsername] = useState<string>("");
   const [name, setName] = useState("Johnathan Doe");
   const [phone, setPhone] = useState("+1 123-456-7890");
@@ -27,20 +46,13 @@ export default function W3CVCs() {
   const [treatment, setTreatment] = useState(
     "sufficient rest and increase intake of fluids"
   );
-  const [vc, setVc] = useState<VerifiableCredential>();
-  const [verifiedVc, setVerifiedVc] = useState<VerifiedCredential>();
-  const [verifiedLoading, setVerifiedLoading] = useState(false);
+  const { user } = useContext(AuthContext);
 
-  let user = useUserStore((state) => state.user);
   const errorStore = useErrorStore();
 
   async function onRender() {
     try {
-      if (!user) {
-        user = await api.ExternalUser.getUser();
-      }
-
-      const username = await user.getUsername();
+      const username = await user?.getUsername();
 
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
@@ -55,12 +67,9 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
-      if (!user) {
-        // TODO: This is a hack to get the user. We should have a better way to get the user.
-        user = await api.ExternalUser.getUser();
-      }
+      setActiveStep(0);
+      setProgressValue(0);
 
-      setVerifiedVc(undefined);
       const data = {
         name,
         phone,
@@ -75,64 +84,17 @@ export default function W3CVCs() {
 
       const id = window.location.origin + "/medical-record#" + randomString(8);
 
-      const vc = await user.signVc(id, "MedicalRecord", data);
+      await user?.signVc(id, "MedicalRecord", data);
 
-      setVc(vc);
+      setActiveStep(2);
+      setProgressValue(100);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
   }
-
-  async function onVerify() {
-    try {
-      setVerifiedLoading(true);
-      if (!vc) throw new Error("No VC to verify");
-      const verified = await vc.verify();
-
-      if (!verified || !verified.verified) {
-        throw new Error("VC not verified");
-      }
-
-      setVerifiedVc(verified);
-      setVerifiedLoading(false);
-    } catch (e) {
-      errorStore.setError({ error: e, expected: false });
-      setVerifiedLoading(false);
-    }
-  }
-
-  const onCloseModal = async () => {
-    setVc(undefined);
-    setVerifiedVc(undefined);
-    setVerifiedLoading(false);
-  };
 
   return (
     <>
-      <TModal
-        onPress={onCloseModal}
-        icon="block"
-        iconColor="success"
-        title="Success!"
-        buttonLabel="OK"
-        open={vc !== undefined}
-      >
-        <>
-          <TH2>Medical record created</TH2>
-          <TP>Your record can now be taken and verified anywhere!</TP>
-          {!verifiedVc && (
-            <TButton variant="outlined" onClick={onVerify}>
-              Verify Document
-            </TButton>
-          )}
-          {verifiedVc && (
-            <div>
-              <TIcon icon="verified" color="success" />
-              <div>Verified</div>
-            </div>
-          )}
-        </>
-      </TModal>
       <div className="containerVC">
         <div className="userSectionVC">
           <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
@@ -243,20 +205,14 @@ export default function W3CVCs() {
             </TButton>
           </div>
         </div>
+        <VerticalLinearStepper
+          activeStep={activeStep}
+          steps={steps}
+          progressValue={progressValue}
+        />
         <CodeSnippetPreview
-          value={`
-  function onButtonPress() {
-  userApps.onPressLogin(
-    { callbackPath: "/callback" },
-    new JsKeyManager()
-  );
-  ...
-  }
-  <button className="tonomy-login-button"
-  onClick={onButtonPress}>
-  Login with {Your Platform Name Here}
-  </button>
-            `}
+          snippetCode={snippetCode}
+          documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
         />
       </div>
     </>

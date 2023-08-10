@@ -1,52 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState, useContext, ReactNode } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { AuthContext } from "../providers/AuthProvider";
 import logo from "../assets/tonomy-logo48.png";
-import { useUserStore } from "../../common/stores/user.store";
-import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import useErrorStore from "../../common/stores/errorStore";
 import "./MainLayout.css";
 
-export type MainLayoutProps = {
-  onLogout: () => void;
-};
+interface MainLayoutProps {
+  children: ReactNode;
+}
 
-const MainLayout = (props: MainLayoutProps) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  const { signout } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(true);
-  const errorStore = useErrorStore();
-  const [user, setUser] = useState<ExternalUser | null>(null);
-
-  async function onRender() {
-    try {
-      const user = await api.ExternalUser.getUser({ autoLogout: false });
-
-      setUser(user);
-    } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
-      ) {
-        // User not logged in
-        window.location.href = "/";
-        return;
-      }
-
-      errorStore.setError({ error: e, expected: false });
-    }
-  }
-
-  useEffect(() => {
-    onRender();
-  }, []);
 
   const handleMouseEnter = () => {
     setCollapsed(false);
@@ -102,18 +72,16 @@ const MainLayout = (props: MainLayoutProps) => {
             <MenuItem
               icon={<LogoutIcon />}
               className="logoutMenu"
-              onClick={async () => {
-                await user?.logout();
-                window.location.href = "/";
-              }}
+              onClick={() => signout()}
             >
               Logout
             </MenuItem>
           </Menu>
         </Sidebar>
       </div>
+
       <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
-        <Outlet />
+        {children}
       </div>
     </div>
   );
