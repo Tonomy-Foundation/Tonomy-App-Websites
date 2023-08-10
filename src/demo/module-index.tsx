@@ -11,7 +11,7 @@ export default function initiate(root: ReactDOM.Root) {
       <ErrorHandlerProvider />
 
       <ProSidebarProvider>
-        {/* <Router /> */}
+        <Router />
         <BlockchainTx />
       </ProSidebarProvider>
     </React.StrictMode>
