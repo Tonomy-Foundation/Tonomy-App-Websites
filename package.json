@@ -10,8 +10,8 @@
     "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
     "lint:fix": "yarn lint --fix",
     "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite",
-    "generate-demo-sitemap": "ts-node ./src/generateSitemap.ts demo",
-    "generate-accounts-sitemap": "ts-node ./src/generateSitemap.ts accounts"
+    "generate-demo-sitemap": "node src/generateSitemap.js demo",
+    "generate-accounts-sitemap": "node src/generateSitemap.js accounts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
