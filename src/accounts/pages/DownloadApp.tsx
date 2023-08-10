@@ -14,12 +14,16 @@ export default function DownloadApp() {
       <TP className="paragraph">
         Tonomy ID is a self-sovereign identity digital wallet that protects your
         security and privacy. &nbsp;
-        <TLink href={settings.config.links.readMoreDownload}>Learn more</TLink>
+        <TLink href={settings.config.links.readMoreDownload} target="_blank">
+          Learn more
+        </TLink>
       </TP>
 
       <TP className="margin-bottom paragraph">
         It is open-source and maintained by the Tonomy Foundation.{" "}
-        <TLink>Learn more</TLink>
+        <TLink href={settings.config.links.readMoreFoundation} target="_blank">
+          Learn more
+        </TLink>
       </TP>
       <div>
         <a href={settings.config.links.appleStoreDownload}>
