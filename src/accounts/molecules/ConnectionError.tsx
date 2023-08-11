@@ -8,8 +8,11 @@ export default function ConnectionError({ username }: { username: string }) {
     <div className="margin-top">
       <TImage src={connectionImage} alt="Connecting Phone-PC" />
       <TP className="margin-top">
-        Could not connect to the mobile app of the user {username}. Please open
-        {settings.config.appName} on your phone and login as XXX.
+        Could not connect to the mobile app of the user <u>{username}</u>.
+      </TP>
+      <TP>
+        Please open {settings.config.appName} on your phone and login as{" "}
+        <u>{username}</u>.
       </TP>
     </div>
   );
