@@ -1,5 +1,5 @@
 import React from "react";
-import { TA } from "../../common/atoms/TA";
+import { TLink } from "../../common/atoms/TLink";
 import { TH4, TH3, TP } from "../../common/atoms/THeadings";
 import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
@@ -14,12 +14,16 @@ export default function DownloadApp() {
       <TP className="paragraph">
         Tonomy ID is a self-sovereign identity digital wallet that protects your
         security and privacy. &nbsp;
-        <TA href={settings.config.links.readMoreDownload}>Learn more</TA>
+        <TLink href={settings.config.links.readMoreDownload} target="_blank">
+          Learn more
+        </TLink>
       </TP>
 
       <TP className="margin-bottom paragraph">
         It is open-source and maintained by the Tonomy Foundation.{" "}
-        <TA>Learn more</TA>
+        <TLink href={settings.config.links.readMoreFoundation} target="_blank">
+          Learn more
+        </TLink>
       </TP>
       <div>
         <a href={settings.config.links.appleStoreDownload}>
@@ -33,7 +37,7 @@ export default function DownloadApp() {
         </a>
       </div>
       <TP>
-        Already have Tonomy? <TA href="/login">Log in here</TA>
+        Already have Tonomy? <TLink href="/login">Log in here</TLink>
       </TP>
     </div>
   );
