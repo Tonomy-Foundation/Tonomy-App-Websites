@@ -29,6 +29,7 @@ import { TButton } from "../../common/atoms/TButton";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import SuccessSection from "../components/SuccessSection";
 
 const snippetCode = `
 // SignVcPage.jsx
@@ -73,6 +74,8 @@ export default function BlockchainTx() {
   const [balance, setBalance] = useState<number | undefined>(undefined);
   const [from, setFrom] = useState<string>("rabbithole20222");
   const [recipient, setRecipient] = useState<string>("DigitalWarren1122");
+  const [success, setSuccess] = useState<boolean>(false);
+
   const [description, setDescription] = useState<string>(
     "Art print from MONA gallery"
   );
@@ -147,10 +150,11 @@ export default function BlockchainTx() {
       setActiveStep(3);
       setProgressValue(80);
 
-      await sleep(3000); // 3 seconds
+      setTimeout(() => {
+        setActiveStep(4);
+        setProgressValue(100);
+      }, 3000);
 
-      setActiveStep(4);
-      setProgressValue(100);
       setTrxUrl(url);
       setTransactionState("purchased");
     } catch (e) {
@@ -200,7 +204,7 @@ export default function BlockchainTx() {
           waiting for the doctor to arrive.`}
         </p>
       </div>
-      {progressValue < 100 ? (
+      {!success ? (
         <MainContainer>
           <FormHeaderContainer>
             <div className="blanceDiv">
@@ -257,58 +261,27 @@ export default function BlockchainTx() {
               activeStep={activeStep}
               steps={steps}
               progressValue={progressValue}
+              onContinue={() => setSuccess(true)}
             />
           </div>
         </MainContainer>
       ) : (
-        <MainContainer>
-          <Box
-            sx={{
-              pt: 2,
-              pb: 10,
-            }}
-          >
-            <TH4 className="Successfully-signed">Congratulations</TH4>
-            <TH4 className="Successfully-signed">
-              you have successfully signed a blockchain transaction using Tonomy
-              ID.
-            </TH4>
-          </Box>
-          <CircleContainer className="Circle-insurance-claims">
-            Insurance claims
-          </CircleContainer>
-          <CircleContainer className="Circle-shipping-logistic-events">
-            Shipping and logistic events
-          </CircleContainer>
-          <CircleContainer className="Circle-games">Games</CircleContainer>
-          <CircleContainer className="Circle-ntfs">NFTs</CircleContainer>
-          <CircleContainer className="Circle-accounting-and-defi">
-            Accounting and Defi
-          </CircleContainer>
-          <CircleContainer className="Circle-votes">Votes</CircleContainer>
-
-          <Box sx={{ display: "grid", mt: 18 }}>
-            <img
-              src={MobileScreen}
-              alt="mobile-screen"
-              className="Mobile-screen"
-            />
-            <TransactionButton
-              onClick={() => {
-                setProgressValue(0);
-                setActiveStep(-1);
-              }}
-            >
-              TRY SIGNING A document AGAIN
-            </TransactionButton>
-            <TH4 className="set-blockchain">
-              See it on the blockchain{" "}
-              <a target="_blank" href={trxUrl} rel="noreferrer">
-                here
-              </a>
-            </TH4>
-          </Box>
-        </MainContainer>
+        <SuccessSection
+          message="you have successfully signed a blockchain transaction using Tonomy ID."
+          labels={[
+            "Insurance claims",
+            "Shipping and logistic events",
+            "Games",
+            "NFTs",
+            "Accounting and Defi",
+            "Votes",
+          ]}
+          submit={() => {
+            setProgressValue(0);
+            setActiveStep(-1);
+            setSuccess(false);
+          }}
+        />
       )}
       <CodeSnippetPreview
         snippetCode={snippetCode}
