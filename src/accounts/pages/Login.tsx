@@ -20,6 +20,7 @@ import {
   randomString,
   KeyManagerLevel,
   JsKeyManager,
+  CommunicationError,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -276,6 +277,11 @@ export default function Login() {
           title: "Login unsuccessful",
           onClose: async () => onRefresh(),
         });
+      } else if (
+        e instanceof CommunicationError &&
+        e.exception.status === 400
+      ) {
+        // Tell user to connect
       } else {
         errorStore.setError({ error: e, expected: false });
       }
