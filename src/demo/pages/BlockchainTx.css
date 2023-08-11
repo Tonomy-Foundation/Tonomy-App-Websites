@@ -1,6 +1,35 @@
-.MuiLinearProgress-bar {
-  background: #5ECBE0 !important;
-  border-radius: 5px !important;
+.blockConatiner {
+  background: var(--white-off-white, #f9f9f9) !important;
+  padding: 0px;
+}
+.header-container {
+  width: 100%;
+  /* height: 1080px; */
+  background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
+  padding: 0rem 3rem 5.2rem;
+}
+
+.header-image {
+  width: 901px;
+  height: 800px;
+  flex-shrink: 0;
+  fill: linear-gradient(1deg, #67d7ed 0%, #67d7ed 100%);
+  position: absolute;
+  right: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 7rem;
+}
+
+.blanceDiv{
+  width: 700px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #e8f8fc 0%, #67d7ed 100%);
+  display: block ruby;
+  margin-top: 6rem;
+  padding: 2.2rem 3rem;
 }
 
 .MuiLinearProgress-root {
@@ -12,28 +41,16 @@
   color: #FFF !important;
 }
 
-.MuiStepLabel-iconContainer {
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid #5ecbe0;
-  width: 31px;
-  height: 31px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .MuiSvgIcon-root {
   margin: 4px -5px 3px 2px;
 }
-.Mui-completed {
+/* .Mui-completed {
   color: #5ecbe0 !important;
 }
 
 .MuiStepLabel-label {
   margin-left: 5px;
-}
+} */
 
 .Successfully-signed {
   text-align: center;
@@ -43,45 +60,45 @@
 .Circle-insurance-claims {
   width: 130px !important;
   height: 130px !important;
-  top: 1820px;
-  left: 330px;
+  top: 97rem;
+  left: 20rem;
 }
 
 .Circle-accounting-and-defi {
   width: 231px !important; 
   height: 231px !important;
-  top: 2074px;
-  left: 104px;
+  top: 121rem;
+  left: 5rem;
 
 }
 
 .Circle-games {
   width: 88px !important; 
   height: 88px !important;
-  top: 2087px;
-  left: 562px;
+  top: 112rem;
+  left: 36rem;
 
 }
 
 .Circle-shipping-logistic-events {
   width: 231px !important; 
   height: 231px !important; 
-  top: 1863px;
-  right: 423px;
+  top: 94rem;
+  right: 28rem;
 }
 
 .Circle-ntfs {
   width: 130px !important; 
   height: 130px !important;
-  top: 1999px;
-  right: 112px;
+  top: 113rem;
+  right: 3rem;
 }
 
 .Circle-votes {
   width: 130px !important; 
   height: 130px !important;
-  top: 2183px;
-  right: 305px;
+  top: 122rem;
+  right: 20rem;
 }
 
 .Mobile-screen {
@@ -89,29 +106,30 @@
 }
 
 .set-blockchain {
-  margin: 30px auto !important;
+  margin: 1rem auto !important;
+}
+
+.font-normal {
+  font-weight: 400 !important;
+
 }
 
 .how-to-use-label {
   color: var(--grey-dark-grey, #313938);
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 5T00;
-  line-height: 40px;
-  padding-top: 300px;
-  padding-left: 140px;
+  font-size: 4rem;
+  line-height: 30px;
+  padding-top: 15rem;
+  padding-left: 10rem;
+  font-weight: 400;
 }
 
 .header-description {
-  display: flex;
-  width: 783px;
-  height: 290px;
-  flex-direction: column;
-  color: var(--grey-dark-grey, #313938);
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  max-width: 640px;
+    margin-top: 0.8rem;
+    margin-left: 0.7rem;
+    line-height: 37px;
+    font-size: 1.7rem;
+    font-weight: 400;
 }
 
 .balance-container-text-left {
@@ -134,13 +152,23 @@
 
 .form-header-container-text {
   color: var(--grey-dark-grey, #313938);
-  font-size: 28px;
+  font-size: 1.6rem;
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
-  margin-top: 142px;
-  margin-left: 31px;
-  margin-right: 40px;
+  margin-left: 1rem;
+  margin-right: 8.5rem;
+  margin-top: 8.3rem;
+}
+
+.btnPayment{
+  padding: 0.5rem 3rem !important;
+  margin-top: 3rem;
+}
+
+.btnPayment svg {
+  margin-right: 0.3rem;
+  margin-bottom: 0.6rem;
 }
 
 .make-payment {

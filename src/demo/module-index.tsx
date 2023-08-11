@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import Router from "./routes/routes";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
-import BlockchainTx from "./pages/BlockchainTx";
 
 export default function initiate(root: ReactDOM.Root) {
   return root.render(
@@ -12,7 +11,6 @@ export default function initiate(root: ReactDOM.Root) {
 
       <ProSidebarProvider>
         <Router />
-        <BlockchainTx />
       </ProSidebarProvider>
     </React.StrictMode>
   );

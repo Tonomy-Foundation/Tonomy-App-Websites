@@ -37,24 +37,6 @@ export const BoxContainer = styled.div`
   }
 `;
 
-export const HeaderContainer = styled.div`
-  width: 100%;
-  height: 1080px;
-  background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
-  padding: 32px 32px 10px 158px;
-`;
-
-export const HeaderPictureContainer = styled.div`
-  width: 1011.611px;
-  height: 946px;
-  flex-shrink: 0;
-  fill: linear-gradient(1deg, #3d14fa 0%, #4f30bd 100%);
-  background: url("public/transaction-header.png"),
-    lightgray 50% / cover no-repeat;
-  position: absolute;
-  right: 0;
-`;
-
 export const HeaderTonomy = styled.div`
   display: flex;
   width: 1109px;
@@ -107,39 +89,25 @@ export const MainDescription = styled.div`
 
 export const MainContainer = styled.div`
   width: 100%;
-  height: 1185px;
   flex-shrink: 0;
   background: var(--white-off-white, #f9f9f9);
 `;
 
 export const FormHeaderContainer = styled.div`
 max-width:: 100%;
-margin: 0px 181px 0px 181px;
-padding-top: 17px;
-height: 234px;
+margin: 0rem 11rem;
 display: flex;
-`;
-
-export const BalanceContainer = styled.div`
-  width: 700px;
-  height: 124px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #e8f8fc 0%, #67d7ed 100%);
-  display: block ruby;
-  margin-top: 80px;
-  padding: 41px 10px;
 `;
 
 export const FormContainer = styled.div`
   max-width:: 100%;
-  height: 679px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #FFF;
-  margin: 30px 181px 0px 181px;
+  margin: 1rem 11rem 0px 11rem;
   text-align: center;
-  padding: 44px 67px 44px 67px;
+  padding: 2rem 0rem;
+  margin-top: 1.8rem;
 `;
 
 export const FormInput = styled.div`
@@ -197,17 +165,15 @@ export const FormInput = styled.div`
 export const TransactionButton = styled.button`
   max-width: 100%;
   height: 75px;
-  top: 2354px;
-  left: 769px;
   border-radius: 10px;
   background-color: #67d7ed;
   color: white;
-  font-size: 24px;
+  font-size: 1.4rem;
   font-weight: 700;
   border: 1px;
-  margin-top: 40px;
+  margin-top: 2rem !important;
   margin: 0 auto;
-  padding: 22px 50px 50px 50px;
+  padding: 0rem 2rem;
 `;
 
 export const PageFooter = styled.div`
@@ -241,11 +207,12 @@ export const CircleContainer = styled.div`
     rgba(55, 195, 219, 0.7) 56%
   );
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.005em;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
+  padding: 2.2rem;
 `;

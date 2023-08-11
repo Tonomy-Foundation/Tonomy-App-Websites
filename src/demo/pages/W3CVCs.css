@@ -88,7 +88,7 @@ body {
   .paraLink {
     display: block;
     margin-top: 4rem;
-    margin-left: 3rem;
+    margin-left: 0.7rem;
     font-size: 1.4rem;
 
   }
@@ -100,7 +100,7 @@ body {
     font-size: 1.7rem;
     border-radius: 10px;
     margin-top: 4rem;
-    margin-left: 3rem;
+    margin-left: 2rem;
   }
   
   .leftSection {
@@ -132,7 +132,7 @@ body {
 
   .formSection {
     background: var(--offWhite); 
-    padding: 4rem 6rem;
+    padding: 4rem 6rem 0rem 4rem;
   }
 
   ul.horizontal-list {
@@ -202,11 +202,14 @@ ul.horizontal-list li:last-child {
 .btnStyle1{
   background-color: var(--primary) !important;
   color: var(--white) !important;
-  padding: 0.3rem 1rem !important;
+  padding: 0.3rem 3rem !important;
   border-radius: 20px;
-  margin: 1.5rem 0rem!important;
+  margin: 1.8rem 0rem!important;
   font-weight: 600 !important;
   font-size: 16px !important;
   text-transform: uppercase;
   line-height: 2.75 !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00); 
+
 }
+

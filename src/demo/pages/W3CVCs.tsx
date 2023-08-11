@@ -94,7 +94,7 @@ export default function W3CVCs() {
   }
 
   return (
-    <>
+    <div className="blockConatiner">
       <div className="containerVC">
         <div className="userSectionVC">
           <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
@@ -210,11 +210,11 @@ export default function W3CVCs() {
           steps={steps}
           progressValue={progressValue}
         />
-        <CodeSnippetPreview
-          snippetCode={snippetCode}
-          documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
-        />
       </div>
-    </>
+      <CodeSnippetPreview
+        snippetCode={snippetCode}
+        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+      />
+    </div>
   );
 }

@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
-import HttpsIcon from "@mui/icons-material/Https";
+import React, { useEffect, useState, useContext } from "react";
+import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import MobileScreen from "/Group_567_1.png";
-
 import {
-  HeaderContainer,
   HeaderTonomy,
-  MainDescription,
   MainContainer,
-  BalanceContainer,
   FormContainer,
   FormHeaderContainer,
   TransactionButton,
-  CodeSnippetCombo,
-  PageFooter,
-  HeaderPictureContainer,
-  FormInput,
   CircleContainer,
 } from "../components/styles";
+import userLogo from "../assets/user.png";
 import "./BlockchainTx.css";
 import { useUserStore } from "../../common/stores/user.store";
 import useErrorStore from "../../common/stores/errorStore";
@@ -27,20 +20,25 @@ import {
   EosioTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
-import {
-  Box,
-  Button,
-  LinearProgress,
-  Link,
-  Paper,
-  Step,
-  StepContent,
-  StepLabel,
-  Stepper,
-  Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { TH1, TH2, TH4 } from "../../common/atoms/THeadings";
+import VerticalLinearStepper from "../components/VerticalProgressStep";
+import SignBanner from "../assets/sign-transaction.png";
+import TextboxLayout from "../components/TextboxLayout";
+import { TButton } from "../../common/atoms/TButton";
+import CodeSnippetPreview from "../components/CodeSnippetPreview";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
+const snippetCode = `
+// SignVcPage.jsx
+const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob", {
+    name: "Joe Somebody",
+    dob: new Date('1999-06-04')
+});
+
+const verifiedVc = await vc.verify();
+`;
 const eosioTokenContract = EosioTokenContract.Instance;
 
 const steps = [
@@ -62,29 +60,35 @@ const steps = [
 ];
 
 export default function BlockchainTx() {
-  const user = useUserStore((state) => state.user);
-  //const navigation = useNavigate();
+  const [activeStep, setActiveStep] = useState(-1);
+  const [username, setUsername] = useState<string>("");
+  const [progressValue, setProgressValue] = useState(0);
+  const { user } = useContext(AuthContext);
+  const navigation = useNavigate();
   const errorStore = useErrorStore();
   const [transactionState, setTransactionState] = useState<
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
   const [balance, setBalance] = useState<number | undefined>(undefined);
-  const [paymentDone, setBpeymentDone] = useState<boolean | undefined>(true);
+  const [from, setFrom] = useState<string>("rabbithole20222");
+  const [recipient, setRecipient] = useState<string>("DigitalWarren1122");
+  const [description, setDescription] = useState<string>(
+    "Art print from MONA gallery"
+  );
 
   async function onRender() {
     try {
-      if (!user) {
-        // navigation("/");
-        return;
-      }
+      const username = await user?.getUsername();
 
-      const accountName = await user.getAccountName();
+      if (!username) throw new Error("No username found");
+      setUsername(username.getBaseUsername());
+      const accountName = await user?.getAccountName();
       const accountBalance = await eosioTokenContract.getBalance(accountName);
 
       setBalance(accountBalance);
       if (accountBalance > 10) return;
-      await user.signTransaction("eosio.token", "selfissue", {
+      await user?.signTransaction("eosio.token", "selfissue", {
         to: accountName,
         quantity: "10 SYS",
         memo: "test",
@@ -95,20 +99,6 @@ export default function BlockchainTx() {
   }
 
   let rendered = false;
-
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -127,7 +117,7 @@ export default function BlockchainTx() {
       setTransactionState("loading");
 
       if (!user) throw new Error("User not logged in");
-      const from = await user.getAccountName();
+      const from = await user?.getAccountName();
       const toUsername = TonomyUsername.fromUsername(
         "cheesecakeophobia",
         AccountType.PERSON,
@@ -135,7 +125,7 @@ export default function BlockchainTx() {
       );
       const to = await getAccountNameFromUsername(toUsername);
 
-      const trx = await user.signTransaction("eosio.token", "transfer", {
+      const trx = await user?.signTransaction("eosio.token", "transfer", {
         from,
         to,
         quantity: "1 SYS",
@@ -151,6 +141,9 @@ export default function BlockchainTx() {
         ? settings.config.blockchainUrl
         : "http://localhost:8888";
 
+      setActiveStep(4);
+      setProgressValue(100);
+
       setTrxUrl(url);
       setTransactionState("purchased");
     } catch (e) {
@@ -159,10 +152,15 @@ export default function BlockchainTx() {
   }
 
   return (
-    <>
-      <HeaderContainer>
-        <HeaderPictureContainer></HeaderPictureContainer>
-        <TH1>Feature Name: Sign Transaction</TH1>
+    <div className="blockConatiner">
+      <div className="header-container">
+        <p className="leftText sign-dcoument">Feature Name: Sign Transaction</p>
+        <p className="userLogoVC">
+          {<img src={userLogo} alt="userLogo" />}
+          <span>{username}</span>
+        </p>
+        {/* <div className="header-image" /> */}
+        <img src={SignBanner} alt="banner-image" className="header-image" />
 
         <TH1 className="how-to-use-label">How to use :</TH1>
         <HeaderTonomy>Tonomy ID</HeaderTonomy>
@@ -171,137 +169,75 @@ export default function BlockchainTx() {
           protocol to safeguard your transactions and digital assets from
           unauthorized access or tampering.
         </TH2>
+        <a href="#" className="paraLink">
+          learn about the Antelope blockchain protocol{`->`}
+        </a>
 
-        <Link href="/Test">learn about the Antelope blockchain protocol </Link>
-        <br />
-        <br />
-        <Button variant="outlined" size="large">
-          Enter Demo
-        </Button>
-      </HeaderContainer>
-      <MainDescription>
-        Imagine, you find a perfect art piece. With a simple click, your
-        promptly sends a secure transaction to the bank, where it is verified
-        and recorded in your transaction history.
-      </MainDescription>
-      {paymentDone ? (
+        <p className="demoLink">
+          <a
+            href="https://demo.demo.tonomy.foundation"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none", color: "var(--dark-grey)" }}
+          >
+            Enter Demo
+          </a>
+        </p>
+      </div>
+      <div className="paraSection">
+        <p className="imagine">Imagine,</p>
+        <p className="paralines">
+          {`you go to the doctor's office for a checkup. While waiting, your
+          Tonomy ID notifies you that Dr. Smith wants access to your medical
+          files. With just one click, you can grant access to the files while
+          waiting for the doctor to arrive.`}
+        </p>
+      </div>
+      {progressValue < 100 ? (
         <MainContainer>
           <FormHeaderContainer>
-            <BalanceContainer>
+            <div className="blanceDiv">
               <p className="balance-container-text-left">Balance: </p>
               <p className="balance-container-text-right">100 EUR</p>
-            </BalanceContainer>
+            </div>
             <p className="form-header-container-text">Dashboard</p>
             <p className="form-header-container-text">Exchange rate</p>
             <p className="form-header-container-text">Transactions</p>
           </FormHeaderContainer>
           <FormContainer>
             <p className="make-payment">Make a payment</p>
-
-            <FormInput>
-              <div>
-                <label>From:</label>
-
-                <label>rabbithole20222</label>
-              </div>
-              <input id="txtAmount" type="text" />
-            </FormInput>
-
-            <FormInput>
-              <div>
-                <label>Amount: </label>
-
-                <label>EUR 90</label>
-              </div>
-              <input id="txtAmount" type="text" />
-            </FormInput>
-
-            <FormInput>
-              <div>
-                <label>Recipient: </label>
-
-                <label>DigitalWarren1122</label>
-              </div>
-              <select id="cmbRecipient">
-                <option>Code snippet</option>
-                <option>Code snippet</option>
-                <option>Code snippet</option>
-                <option>Code snippet</option>
-              </select>
-            </FormInput>
-
-            <FormInput>
-              <div>
-                <label>Description: </label>
-
-                <label>Art print from MONA gallery</label>
-              </div>
-              <input id="txtAmount" type="text" />
-            </FormInput>
-
-            <TransactionButton
-              onClick={(e) => {
-                setBpeymentDone(false);
-              }}
-            >
-              <HttpsIcon /> SEND PAYMENT
-            </TransactionButton>
-          </FormContainer>
-          <Box sx={{ m: -2 }}> </Box>
-          <Box
-            sx={{
-              maxWidth: 780,
-              backgroundColor: "white",
-              mt: 4,
-              mr: "auto",
-              ml: "auto",
-              borderRadius: 3,
-              p: 4,
-            }}
-          >
-            <LinearProgress
-              variant="determinate"
-              value={(100 / steps.length) * activeStep}
-              sx={{ mb: 4 }}
+            <TextboxLayout label="From:" value={from} onChange={setFrom} />
+            <TextboxLayout
+              label="Amount"
+              value={balance}
+              onChange={setBalance}
             />
-            <Stepper activeStep={activeStep} orientation="vertical">
-              {steps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel>{step.label}</StepLabel>
-                  <StepContent>
-                    <Box sx={{ mb: 2 }}>
-                      <div>
-                        <Button
-                          variant="contained"
-                          onClick={handleNext}
-                          sx={{ mt: 1, mr: 1 }}
-                        >
-                          {index === steps.length - 1 ? "Finish" : "Continue"}
-                        </Button>
-                        <Button
-                          disabled={index === 0}
-                          onClick={handleBack}
-                          sx={{ mt: 1, mr: 1 }}
-                        >
-                          Back
-                        </Button>
-                      </div>
-                    </Box>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-            {activeStep === steps.length && (
-              <Paper square elevation={0} sx={{ p: 3 }}>
-                <Typography>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                  Reset
-                </Button>
-              </Paper>
-            )}
-          </Box>
+            <TextboxLayout
+              label="Recipient"
+              value={recipient}
+              onChange={setRecipient}
+            />
+            <TextboxLayout
+              label="Description"
+              value={description}
+              onChange={setDescription}
+            />
+            <div>
+              <TButton
+                className="btnPayment btnStyle1 "
+                onClick={() => onBuy()}
+              >
+                <HttpsOutlinedIcon /> Send Payment
+              </TButton>
+            </div>
+          </FormContainer>
+          <div style={{ marginTop: "1.5rem" }}>
+            <VerticalLinearStepper
+              activeStep={activeStep}
+              steps={steps}
+              progressValue={progressValue}
+            />
+          </div>
         </MainContainer>
       ) : (
         <MainContainer>
@@ -330,25 +266,33 @@ export default function BlockchainTx() {
           </CircleContainer>
           <CircleContainer className="Circle-votes">Votes</CircleContainer>
 
-          <Box sx={{ display: "grid", mt: 32 }}>
+          <Box sx={{ display: "grid", mt: 18 }}>
             <img
               src={MobileScreen}
               alt="mobile-screen"
               className="Mobile-screen"
             />
-            <TransactionButton>TRY SIGNING A document AGAIN</TransactionButton>
+            <TransactionButton
+              onClick={() => {
+                setProgressValue(0);
+                setActiveStep(-1);
+              }}
+            >
+              TRY SIGNING A document AGAIN
+            </TransactionButton>
             <TH4 className="set-blockchain">
-              See it on the blockchain <a href="/">here</a>
+              See it on the blockchain{" "}
+              <a target="_blank" href={trxUrl} rel="noreferrer">
+                here
+              </a>
             </TH4>
           </Box>
         </MainContainer>
       )}
-      <PageFooter>
-        <p>View Documentation</p>
-        <CodeSnippetCombo>
-          <option>Code snippet</option>
-        </CodeSnippetCombo>
-      </PageFooter>
-    </>
+      <CodeSnippetPreview
+        snippetCode={snippetCode}
+        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+      />
+    </div>
   );
 }

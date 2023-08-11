@@ -1,0 +1,33 @@
+
+.input-container {
+    position: relative;
+    width: 100%;
+    padding: 1rem 10rem;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  
+  .transparent-textbox {
+    background-color: #E8F8FC;
+    border: 0px;
+    padding: 2.2rem 1.4rem;
+    width: 100%;
+    border-radius: 10px;
+    padding-bottom: 0.9rem;
+  }
+  
+  .textbox-label {
+    position: absolute;
+    top: 1.4em;
+    left: 11.5rem;
+    color: black;
+    pointer-events: none;
+  }
+  
+  /* Optional: To add a border when the textbox is focused */
+  .transparent-textbox:active {
+    outline: none;
+    border: 2px solid var(--primary) !important;
+  }
+  
