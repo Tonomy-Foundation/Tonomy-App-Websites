@@ -214,12 +214,25 @@ export default function BlockchainTx() {
           <FormContainer>
             <p className="make-payment">Make a payment</p>
             <TextboxLayout label="From:" value={from} onChange={setFrom} />
-            <TextboxLayout
-              label="Amount"
-              type="number"
-              value={balance}
-              onChange={setBalance}
-            />
+            <div className="input-container">
+              <input
+                type="number"
+                className="transparent-textbox"
+                id="inputField"
+                value={balance}
+                onChange={(e) => {
+                  const newValue =
+                    e.target.value !== ""
+                      ? parseInt(e.target.value)
+                      : undefined;
+
+                  setBalance(newValue);
+                }}
+              />
+              <label htmlFor="inputField" className="textbox-label">
+                Balance
+              </label>
+            </div>
             <TextboxLayout
               label="Recipient"
               value={recipient}
