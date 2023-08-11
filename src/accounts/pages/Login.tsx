@@ -149,7 +149,15 @@ export default function Login() {
 
           setStatus("app");
         } catch (e) {
-          errorStore.setError({ error: e, expected: false });
+          if (
+            e instanceof CommunicationError &&
+            e.exception.status === 400 &&
+            e.exception.message.startsWith("Recipient not connected")
+          ) {
+            setConnectionError(true);
+          } else {
+            errorStore.setError({ error: e, expected: false });
+          }
         }
       }, IdentifyMessage.getType());
     }
@@ -281,9 +289,9 @@ export default function Login() {
         });
       } else if (
         e instanceof CommunicationError &&
-        e.exception.status === 400
+        e.exception.status === 400 &&
+        e.exception.message.startsWith("Recipient not connected")
       ) {
-        // Tell user to connect
         setConnectionError(true);
       } else {
         errorStore.setError({ error: e, expected: false });
@@ -415,7 +423,7 @@ export default function Login() {
         {status === "connecting" && (
           <>
             {connectionError ? (
-              <ConnectionError username={username as string} />
+              <ConnectionError username={username} />
             ) : (
               <LinkingPhone />
             )}
