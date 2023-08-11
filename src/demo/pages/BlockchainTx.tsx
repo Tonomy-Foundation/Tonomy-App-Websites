@@ -52,10 +52,10 @@ const steps = [
     label: "Broadcasting to the Blockchain network",
   },
   {
-    label: "Confirming network",
+    label: "Confirmed by receiving node",
   },
   {
-    label: "Transacting consensus on the network",
+    label: "Transaction consensus on all nodes in the network",
   },
 ];
 
@@ -144,9 +144,13 @@ export default function BlockchainTx() {
         ? settings.config.blockchainUrl
         : "http://localhost:8888";
 
+      setActiveStep(3);
+      setProgressValue(80);
+
+      await sleep(3000); // 3 seconds
+
       setActiveStep(4);
       setProgressValue(100);
-
       setTrxUrl(url);
       setTransactionState("purchased");
     } catch (e) {
