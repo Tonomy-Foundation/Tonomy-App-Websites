@@ -37,6 +37,7 @@ import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
 import { useLoginStore } from "../stores/loginStore";
+import ConnectionError from "../molecules/ConnectionError";
 
 const styles = {
   container: {
@@ -62,6 +63,7 @@ export default function Login() {
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
   const { request, setRequest } = useLoginStore();
+  const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
 
@@ -282,6 +284,7 @@ export default function Login() {
         e.exception.status === 400
       ) {
         // Tell user to connect
+        setConnectionError(true);
       } else {
         errorStore.setError({ error: e, expected: false });
       }
@@ -411,7 +414,11 @@ export default function Login() {
 
         {status === "connecting" && (
           <>
-            <LinkingPhone />
+            {connectionError ? (
+              <ConnectionError username={username as string} />
+            ) : (
+              <LinkingPhone />
+            )}
           </>
         )}
         {status === "app" && (
