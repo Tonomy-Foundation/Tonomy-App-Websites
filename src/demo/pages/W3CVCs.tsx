@@ -8,7 +8,10 @@ import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import VerticalLinearStepper from "../components/VerticalProgressStep";
+import { HeaderTonomy } from "../components/styles";
+import { TH1, TH2 } from "../../common/atoms/THeadings";
 import "./W3CVCs.css";
+import SuccessSection from "../components/SuccessSection";
 
 const snippetCode = `
 // SignVcPage.jsx
@@ -34,6 +37,7 @@ const steps = [
 export default function W3CVCs() {
   const [activeStep, setActiveStep] = useState(-1);
   const [progressValue, setProgressValue] = useState(0);
+  const [success, setSuccess] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [name, setName] = useState("Johnathan Doe");
   const [phone, setPhone] = useState("+1 123-456-7890");
@@ -86,54 +90,47 @@ export default function W3CVCs() {
 
       await user?.signVc(id, "MedicalRecord", data);
 
-      setActiveStep(2);
-      setProgressValue(100);
+      setTimeout(() => {
+        setActiveStep(2);
+        setProgressValue(100);
+      }, 3000);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
   }
 
   return (
-    <>
-      <div className="containerVC">
-        <div className="userSectionVC">
-          <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
-          <p className="userLogoVC">
-            {<img src={userLogo} alt="userLogo" />}
-            <span>{username}</span>
-          </p>
-        </div>
-        <div className="gridView">
-          <div className="leftSection">
-            <div className="headSection">
-              <p className="howText">How to use:</p>
-              <p className="tonomy-head">
-                Tonomy <span className="tonomy-d">ID</span>
-              </p>
-            </div>
-            <p className="paraDetail">
-              Sign and verify sensitive information with Tonomy ID. The W3C
-              Verifiable Credential standard can help ensure trust and security
-              when sharing sensitive and tamper-proof data.
-            </p>
-            <a href="#" className="paraLink">
-              Learn about the W3C Verifiable Credentials {`->`}
-            </a>
-            <p className="demoLink">
-              <a
-                href="https://demo.demo.tonomy.foundation"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: "none", color: "var(--dark-grey)" }}
-              >
-                Enter Demo
-              </a>
-            </p>
-          </div>
-          <div className="rightSection">
-            <img src={VCBanner} alt="banner-image" className="bannerImg" />
-          </div>
-        </div>
+    <div className="blockConatiner">
+      <div className="header-container">
+        <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
+        <p className="userLogoVC">
+          {<img src={userLogo} alt="userLogo" />}
+          <span>{username}</span>
+        </p>
+        {/* <div className="header-image" /> */}
+        <img src={VCBanner} alt="banner-image" className="header-image" />
+
+        <TH1 className="how-to-use-label">How to use :</TH1>
+        <HeaderTonomy>Tonomy ID</HeaderTonomy>
+        <TH2 className="header-description">
+          Sign and verify sensitive information with Tonomy ID. The W3C
+          Verifiable Credential standard can help ensure trust and security when
+          sharing sensitive and tamper-proof data.
+        </TH2>
+        <a href="#" className="paraLink">
+          Learn about the W3C Verifiable Credentials {`->`}
+        </a>
+
+        <p className="demoLink">
+          <a
+            href="https://demo.demo.tonomy.foundation"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none", color: "var(--dark-grey)" }}
+          >
+            Enter Demo
+          </a>
+        </p>
       </div>
       <div className="paraSection">
         <p className="imagine">Imagine,</p>
@@ -144,77 +141,98 @@ export default function W3CVCs() {
           waiting for the doctor to arrive.`}
         </p>
       </div>
-      <div className="formSection">
-        <ul className="horizontal-list">
-          <li>Appointment</li>
-          <li>Messages</li>
-          <li className="border-bottom-margin">
-            <span></span>Results
-          </li>
-        </ul>
-        <div className="clientSection">
-          <h4 className="head">Client details</h4>
+      {!success ? (
+        <div className="formSection">
+          <ul className="horizontal-list">
+            <li>Appointment</li>
+            <li>Messages</li>
+            <li className="border-bottom-margin">
+              <span></span>Results
+            </li>
+          </ul>
+          <div className="clientSection">
+            <h4 className="head">Client details</h4>
 
-          <TextboxLayout label="Name:" value={name} onChange={setName} />
-          <TextboxLayout
-            label="Phone number:"
-            value={phone}
-            onChange={setPhone}
-          />
-          <TextboxLayout
-            label="Address:"
-            value={address}
-            onChange={setAddress}
-          />
-          <TextboxLayout label="Birth Date:" value={dob} onChange={setDob} />
-          <div className="row-container">
+            <TextboxLayout label="Name:" value={name} onChange={setName} />
             <TextboxLayout
-              label="Weight:"
-              value={weight}
-              onChange={setWeight}
+              label="Phone number:"
+              value={phone}
+              onChange={setPhone}
             />
             <TextboxLayout
-              label="Height:"
-              value={height}
-              onChange={setHeight}
+              label="Address:"
+              value={address}
+              onChange={setAddress}
             />
+            <TextboxLayout label="Birth Date:" value={dob} onChange={setDob} />
+            <div className="row-container">
+              <TextboxLayout
+                label="Weight:"
+                value={weight}
+                onChange={setWeight}
+              />
+              <TextboxLayout
+                label="Height:"
+                value={height}
+                onChange={setHeight}
+              />
+            </div>
+            <TextboxLayout
+              label="Allergies:"
+              value={allergies}
+              onChange={setAllergies}
+            />
+            <TextboxLayout
+              label="Medication:"
+              value={medications}
+              onChange={setMedications}
+            />
+            <TextboxLayout
+              label="Treatment plan:"
+              value={treatment}
+              onChange={setTreatment}
+            />
+            <div className="security-message">
+              {" "}
+              This data is fully private never stored on servers.{" "}
+              <a className="linkColor">Learn more</a>
+            </div>
+            <div>
+              <TButton className="btnStyle1" onClick={onSubmit}>
+                Sign using your tonomy DID
+              </TButton>
+            </div>
           </div>
-          <TextboxLayout
-            label="Allergies:"
-            value={allergies}
-            onChange={setAllergies}
+          <VerticalLinearStepper
+            activeStep={activeStep}
+            steps={steps}
+            progressValue={progressValue}
+            onContinue={() => setSuccess(true)}
           />
-          <TextboxLayout
-            label="Medication:"
-            value={medications}
-            onChange={setMedications}
-          />
-          <TextboxLayout
-            label="Treatment plan:"
-            value={treatment}
-            onChange={setTreatment}
-          />
-          <div className="security-message">
-            {" "}
-            This data is fully private never stored on servers.{" "}
-            <a className="linkColor">Learn more</a>
-          </div>
-          <div>
-            <TButton className="btnStyle1" onClick={onSubmit}>
-              Sign using your tonomy DID
-            </TButton>
-          </div>
         </div>
-        <VerticalLinearStepper
-          activeStep={activeStep}
-          steps={steps}
-          progressValue={progressValue}
+      ) : (
+        <SuccessSection
+          message="you have successfully signed a document using Tonomy ID."
+          labels={[
+            "Education Diplomas",
+            "Shipping and logistic events",
+            "Tickets",
+            "Certificates",
+            "Legal contracts",
+            "Travel Documents",
+          ]}
+          submit={() => {
+            setProgressValue(0);
+            setActiveStep(-1);
+            setSuccess(false);
+          }}
         />
-        <CodeSnippetPreview
-          snippetCode={snippetCode}
-          documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
-        />
-      </div>
-    </>
+      )}
+
+      <CodeSnippetPreview
+        snippetCode={snippetCode}
+        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+      />
+    </div>
   );
 }

@@ -1,211 +1,179 @@
-body {
-    background: var(---bg);
-    padding: 0px;
-    margin: 0px;
-  }
-  .MuiGrid-container  {
-    height: 100%;
-  }
-
-  .boxStyle1 {
-    padding: 2rem 2rem 2.8rem 2rem;
-  }
-
-  .successBox {
-    padding: 2rem 2rem 3rem 2rem;
-
-  }
-  
-  header {
-    align-self: flex-start;
-    margin-bottom: auto;
-  }
-
-  
-  .text-body {
-    max-width: 34vw;
-  }
-  
-  h1 {
-    text-align: left !important;
-    margin-bottom: 1rem;
-  }
-  
-  .text-header {
-    margin-bottom: 1rem;
-  }
-
-  .nftImage {
-    float: left;
-    background: var(--white);
-    border-radius: 120px;
-    margin-left: 10px;
-    padding-left: 1.4rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    width: 150px;
-    height: 300px;
-    margin-right: 3rem;
-
-  }
-  .tryAgainbtn {
-    background-color: var(--primary) !important;
-    color: var(--white) !important;
-    padding: 0.3rem 1rem !important;
-    border-radius: 20px;
-    margin-top: 1rem !important;
-    font-weight: 600 !important;
-    font-size: 18px !important;
-    margin-bottom: 1.5rem !important;
-  }
-
-  .btnDiv{
-    position: absolute;
-    background: var(--white);
-    border: 1px solid var(--offWhite);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 1rem;
-    display: initial;
-    margin-left: -7.5rem;
-  }
-
-  .blockchainBtn{
-    background: var(--white);
-    border: 1px solid var(--offWhite);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    top: 4rem;
-    position: initial !important;
-    padding: 0.7rem !important;
-    color: var(--black) !important;
-    font-size: 0.8rem !important;
-    font-weight: 400 !important;
-  }
-
-  .blockchainLink {
-    margin-left: 0.2rem;
-  }
-
-  .nftImageCenter{
-    float: none;
-    margin-right:0rem;
-  }
-
-  .centerAlign{
-    text-align: center !important;
-  }
-  .nftImageColumn p {
-    line-height: 2.5rem;
-  }
-  
-  .title {
-    background-color: transparent;
-    text-align: left
-  }
-   .title {
-    color: var(---bg);
-  }
-
-  .list li {
-    display: flex; 
-    align-items: center;
-  }
-
-  .listIcon {
-    width: 22px;
-    margin-right: 8px;
-
-  }
-  
-  .floating-copy-button {
-    display: flex;
-  }
-  
-  .link {
-    font-size: 20px;
-    color: var(---bg);
-    font-weight: 500;
-  }
-
-  .nftImageColumn {
-    margin-top: 2rem;
-  }
-  
-
-.list {
-    margin-top: 2rem;
+.blockConatiner {
+  background: var(--white-off-white, #f9f9f9) !important;
+  padding: 0px;
+}
+.header-container {
+  width: 100%;
+  /* height: 1080px; */
+  background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
+  padding: 0rem 3rem 5.2rem;
 }
 
-.marginTop {
-  margin-top: 1.5rem;
+.header-image {
+  width: 901px;
+  height: 800px;
+  flex-shrink: 0;
+  fill: linear-gradient(1deg, #67d7ed 0%, #67d7ed 100%);
+  position: absolute;
+  right: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 7rem;
 }
-.paddingTop{
-  padding-top: 2rem;
+
+.blanceDiv{
+  width: 700px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #e8f8fc 0%, #67d7ed 100%);
+  display: block ruby;
+  margin-top: 6rem;
+  padding: 2.2rem 3rem;
 }
-.imgConatiner {
-  display: flex;
-  justify-content: center;
+
+.MuiLinearProgress-root {
+  height: 23px !important;
+  border-radius: 5px !important;
 }
-.tbuttonstyle {
-  background: var(--accent1) !important;
-  color: var(--white) !important;
-  font-weight: 600 !important;
-  font-size: 18px !important;
-  padding: 0.3rem 1.8rem !important;
+
+.MuiSvgIcon-root  > circle {
+  color: #FFF !important;
+}
+
+.MuiSvgIcon-root {
+  margin: 4px -5px 3px 2px;
+}
+/* .Mui-completed {
+  color: #5ecbe0 !important;
+}
+
+.MuiStepLabel-label {
+  margin-left: 5px;
+} */
+
+.Successfully-signed {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.Circle-insurance-claims {
+  width: 130px !important;
+  height: 130px !important;
+  top: 97rem;
+  left: 20rem;
+}
+
+.Circle-accounting-and-defi {
+  width: 231px !important; 
+  height: 231px !important;
+  top: 121rem;
+  left: 5rem;
+
+}
+
+.Circle-games {
+  width: 88px !important; 
+  height: 88px !important;
+  top: 112rem;
+  left: 36rem;
+
+}
+
+.Circle-shipping-logistic-events {
+  width: 231px !important; 
+  height: 231px !important; 
+  top: 94rem;
+  right: 28rem;
+}
+
+.Circle-ntfs {
+  width: 130px !important; 
+  height: 130px !important;
+  top: 113rem;
+  right: 3rem;
+}
+
+.Circle-votes {
+  width: 130px !important; 
+  height: 130px !important;
+  top: 122rem;
+  right: 20rem;
+}
+
+.Mobile-screen {
+  margin: 0 auto !important;
+}
+
+.set-blockchain {
+  margin: 1rem auto !important;
+}
+
+.font-normal {
+  font-weight: 400 !important;
+
+}
+
+.how-to-use-label {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 4rem;
+  line-height: 30px;
+  padding-top: 15rem;
+  padding-left: 10rem;
+  font-weight: 400;
+}
+
+.header-description {
+  max-width: 640px;
+    margin-top: 0.8rem;
+    margin-left: 0.7rem;
+    line-height: 37px;
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.balance-container-text-left {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  float: left;
+}
+
+.balance-container-text-right {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
   float: right;
-  margin-top: 3rem !important;
-}
-.backgroundGrey{
-  background-color: var(--offWhite);
-  padding: 0.4rem 3rem ;
-
 }
 
-.list li{
-    margin-left: 2rem;
+.form-header-container-text {
+  color: var(--grey-dark-grey, #313938);
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  margin-left: 1rem;
+  margin-right: 8.5rem;
+  margin-top: 8.3rem;
 }
 
+.btnPayment{
+  padding: 0.5rem 3rem !important;
+  margin-top: 3rem;
+}
 
-  @media only screen and (max-width: 768px) {
-    .container {
-      height: initial;
-    }
-  
-    .pageIntro {
-      padding: 1rem;
-    }
-  
-    header {
-      margin-bottom: 3rem;
-    }
-  
-    .pageIntro {
-      align-items: center;
-      text-align: center;
-     
-    }
-  
-    h1 {
-      text-align: center !important;
-    }
-  
-    .text-body {
-      max-width: 80%;
-    }
-  
-    .pageIntro .footer {
-      margin-bottom: 2rem;
-    }
-  
-    
-  
-    .link {
-      font-size: 16px;
-    }
-  
-    .link.footer {
-      margin-top: 2rem;
-    }
-    
-  }
+.btnPayment svg {
+  margin-right: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.make-payment {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0em;
+}
