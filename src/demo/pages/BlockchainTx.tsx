@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
-import MobileScreen from "/Group_567_1.png";
+import MobileScreen from "../assets/Group_567_1.png";
 import {
   HeaderTonomy,
   MainContainer,
