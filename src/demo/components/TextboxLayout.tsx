@@ -1,16 +1,18 @@
+import React, { Dispatch, SetStateAction } from "react";
 import "./TextboxLayout.css";
 
 export type TextboxLayoutProps = {
   label: string;
-  value: string;
-  onChange?: (value: string) => void;
+  value: string | number | undefined;
+  type?: string;
+  onChange?: Dispatch<SetStateAction<string | number | undefined>>;
 };
 
 const TextboxLayout = (props: TextboxLayoutProps) => {
   return (
     <div className="input-container">
       <input
-        type="text"
+        type={props.type ? props.type : "text"}
         className="transparent-textbox"
         id="inputField"
         value={props.value || ""}

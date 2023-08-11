@@ -84,15 +84,18 @@ export default function BlockchainTx() {
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
       const accountName = await user?.getAccountName();
-      const accountBalance = await eosioTokenContract.getBalance(accountName);
 
-      setBalance(accountBalance);
-      if (accountBalance > 10) return;
-      await user?.signTransaction("eosio.token", "selfissue", {
-        to: accountName,
-        quantity: "10 SYS",
-        memo: "test",
-      });
+      if (accountName) {
+        const accountBalance = await eosioTokenContract.getBalance(accountName);
+
+        setBalance(accountBalance);
+        if (accountBalance > 10) return;
+        await user?.signTransaction("eosio.token", "selfissue", {
+          to: accountName,
+          quantity: "10 SYS",
+          memo: "test",
+        });
+      }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -209,6 +212,7 @@ export default function BlockchainTx() {
             <TextboxLayout label="From:" value={from} onChange={setFrom} />
             <TextboxLayout
               label="Amount"
+              type="number"
               value={balance}
               onChange={setBalance}
             />
