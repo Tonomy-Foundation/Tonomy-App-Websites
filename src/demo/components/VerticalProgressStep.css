@@ -57,3 +57,11 @@
     margin-left: 26rem !important;
     padding: 0.4rem 1.4rem !important;
 }
+
+.MuiStepLabel-vertical {
+  padding: 0rem !important;
+}
+
+.MuiStepConnector-line {
+  min-height: 38px !important;
+}

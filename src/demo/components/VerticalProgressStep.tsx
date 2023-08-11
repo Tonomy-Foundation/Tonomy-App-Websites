@@ -29,7 +29,7 @@ export default function VerticalLinearStepper(props: VerticalStepperProps) {
     <div className="progressContainer">
       <CustomizedProgressBars progressValue={props.progressValue} />
       <Box
-        sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
+        sx={{ display: "flex", justifyContent: "center", marginTop: "1.7rem" }}
       >
         <Stepper activeStep={props.activeStep} orientation="vertical">
           {props.steps.map((step, index) => (
@@ -45,7 +45,7 @@ export default function VerticalLinearStepper(props: VerticalStepperProps) {
       </Box>
       {props.activeStep === props.steps.length - 1 && (
         <Button
-          sx={{ mt: 1 }}
+          sx={{ mt: 3 }}
           className="continueBtn"
           onClick={props.onContinue}
         >

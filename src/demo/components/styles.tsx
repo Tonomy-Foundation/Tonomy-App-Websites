@@ -168,7 +168,7 @@ export const TransactionButton = styled.button`
   border-radius: 10px;
   background-color: #67d7ed;
   color: white;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
   border: 1px;
   margin-top: 2rem !important;
