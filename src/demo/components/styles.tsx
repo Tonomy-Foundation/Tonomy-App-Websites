@@ -39,7 +39,7 @@ export const BoxContainer = styled.div`
 
 export const HeaderTonomy = styled.div`
   display: flex;
-  width: 1109px;
+  width: 1140px;
   height: 180px;
   flex-direction: column;
   justify-content: center;

@@ -156,8 +156,8 @@
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
-  margin-left: 1rem;
-  margin-right: 8.5rem;
+  margin-left: 1.8rem;
+  margin-right: 2.1rem;
   margin-top: 8.3rem;
 }
 
@@ -176,4 +176,18 @@
   font-weight: 700;
   line-height: 40px;
   letter-spacing: 0em;
+}
+
+.transa-bottom-margin {
+  position: relative;
+}
+
+.transa-bottom-margin::after{
+  content: "";
+  position: absolute;
+  bottom: 14px;
+  left: 28px;
+  right: -11px;
+  height: 5px;
+  background-color: var(--primary);
 }

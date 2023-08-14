@@ -93,6 +93,7 @@ body {
 
   }
   .demoLink {
+    cursor: pointer;
     background-color: white;
     color: black;
     padding: 1rem 2rem;
