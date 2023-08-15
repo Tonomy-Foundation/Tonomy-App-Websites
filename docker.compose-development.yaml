@@ -4,8 +4,6 @@ services:
     image: nginx:1.23.3-alpine
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./public:/usr/share/nginx/html # Mount the sitemap into the Nginx container
     container_name: webserver
     restart: unless-stopped
     network_mode: host
-    command: ["sh", "-c", "node src/generate-sitemap.js && nginx -g 'daemon off;'"] # Run sitemap generation and then start Nginx
