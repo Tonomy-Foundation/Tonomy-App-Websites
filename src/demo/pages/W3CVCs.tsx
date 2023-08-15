@@ -131,7 +131,7 @@ export default function W3CVCs() {
           sharing sensitive and tamper-proof data.
         </TH2>
         <a
-          href="https://docs.eosnetwork.com/"
+          href="https://www.youtube.com/watch?v=vuSPy1xMNVg"
           target="_blank"
           className="paraLink"
           rel="noreferrer"
