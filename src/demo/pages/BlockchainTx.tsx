@@ -32,13 +32,13 @@ import { AuthContext } from "../providers/AuthProvider";
 import SuccessSection from "../components/SuccessSection";
 
 const snippetCode = `
-// SignVcPage.jsx
-const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob", {
-    name: "Joe Somebody",
-    dob: new Date('1999-06-04')
-});
-
-const verifiedVc = await vc.verify();
+// SignBlockchain.jsx
+const trx = await user.signTransaction('eosio.token', 'transfer', {
+  from: "me",
+  to: "you",
+  quantity: '1 SYS',
+  memo: 'test memo',
+})
 `;
 const eosioTokenContract = EosioTokenContract.Instance;
 
@@ -188,8 +188,13 @@ export default function BlockchainTx() {
           protocol to safeguard your transactions and digital assets from
           unauthorized access or tampering.
         </TH2>
-        <a href="#" className="paraLink">
-          learn about the Antelope blockchain protocol{`->`}
+        <a
+          href="https://docs.eosnetwork.com/"
+          target="_blank"
+          className="paraLink"
+          rel="noreferrer"
+        >
+          Learn about the Antelope blockchain protocol{`->`}
         </a>
 
         <button
@@ -258,6 +263,9 @@ export default function BlockchainTx() {
                 <TButton
                   className="btnPayment btnStyle1 "
                   onClick={() => onBuy()}
+                  disabled={
+                    progressValue > 0 && progressValue <= 100 ? true : false
+                  }
                 >
                   <HttpsOutlinedIcon /> Send Payment
                 </TButton>
@@ -294,7 +302,7 @@ export default function BlockchainTx() {
       )}
       <CodeSnippetPreview
         snippetCode={snippetCode}
-        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"
       />
     </div>
   );

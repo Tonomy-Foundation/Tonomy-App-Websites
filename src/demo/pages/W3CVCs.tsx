@@ -91,6 +91,11 @@ export default function W3CVCs() {
       await user?.signVc(id, "MedicalRecord", data);
 
       setTimeout(() => {
+        setActiveStep(1);
+        setProgressValue(50);
+      }, 3000);
+
+      setTimeout(() => {
         setActiveStep(2);
         setProgressValue(100);
       }, 3000);
@@ -125,7 +130,12 @@ export default function W3CVCs() {
           Verifiable Credential standard can help ensure trust and security when
           sharing sensitive and tamper-proof data.
         </TH2>
-        <a href="#" className="paraLink">
+        <a
+          href="https://docs.eosnetwork.com/"
+          target="_blank"
+          className="paraLink"
+          rel="noreferrer"
+        >
           Learn about the W3C Verifiable Credentials {`->`}
         </a>
 
@@ -207,7 +217,13 @@ export default function W3CVCs() {
                 <a className="linkColor">Learn more</a>
               </div>
               <div>
-                <TButton className="btnStyle1" onClick={onSubmit}>
+                <TButton
+                  className="btnStyle1"
+                  onClick={onSubmit}
+                  disabled={
+                    progressValue > 0 && progressValue <= 100 ? true : false
+                  }
+                >
                   Sign using your tonomy DID
                 </TButton>
               </div>
@@ -216,7 +232,11 @@ export default function W3CVCs() {
               activeStep={activeStep}
               steps={steps}
               progressValue={progressValue}
-              onContinue={() => setSuccess(true)}
+              onContinue={() => {
+                setTimeout(() => {
+                  setSuccess(true);
+                }, 2000);
+              }}
             />
           </div>
         </section>

@@ -174,6 +174,7 @@ export const TransactionButton = styled.button`
   margin-top: 2rem !important;
   margin: 0 auto;
   padding: 0rem 2rem;
+  cursor: pointer;
 `;
 
 export const PageFooter = styled.div`

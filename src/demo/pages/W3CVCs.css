@@ -102,6 +102,7 @@ body {
     border-radius: 10px;
     margin-top: 4rem;
     margin-left: 2rem;
+    border: none;
   }
   
   .leftSection {
@@ -214,3 +215,7 @@ ul.horizontal-list li:last-child {
 
 }
 
+input:focus {
+  outline-color: var(--primary) !important;
+  border: 2px solid var(--primary);
+}
