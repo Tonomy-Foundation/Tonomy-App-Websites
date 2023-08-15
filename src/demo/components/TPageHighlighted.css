@@ -5,6 +5,10 @@
   overflow-wrap: break-word; 
 }
 
+.rightDocs {
+  padding: 0rem 2rem;
+}
+
   .rightDocs, .title {
     color: var(---bg);
   }

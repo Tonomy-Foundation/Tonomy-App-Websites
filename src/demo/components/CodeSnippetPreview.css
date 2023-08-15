@@ -3,6 +3,7 @@
     position: relative;
     text-align: left;
     margin-bottom: 0.5rem;
+    padding: 4rem 6rem;
   }
   
   .documentation p {
@@ -46,7 +47,7 @@
       width: 320px;
       height: 200px;
       color: white;
-      top: -16.7rem; /* This value makes the dropdown appear below the button on desktop */
+      top: -13rem; /* This value makes the dropdown appear below the button on desktop */
     }
   }
   

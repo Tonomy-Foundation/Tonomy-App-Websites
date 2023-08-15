@@ -7,13 +7,13 @@ import LinearProgress, {
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 16,
-  borderRadius: 0,
+  borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor:
       theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
   },
   [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 0,
+    borderRadius: 5,
     backgroundColor: theme.palette.mode === "light" ? "#67D7ED" : "#E4E4E4",
   },
 }));
@@ -37,9 +37,10 @@ export default function CustomizedProgressBars(props: ProgressBarProps) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          maxWidth: "440px",
+          maxWidth: "510px",
           width: "100%", // Ensure the Box takes full width
         }}
+        className={props.progressValue > 0 ? "stepCOntainer" : ""}
       >
         <BorderLinearProgress
           variant="determinate"
