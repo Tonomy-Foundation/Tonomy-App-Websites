@@ -1,0 +1,48 @@
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+      <url>
+        <loc>http://demo.localhost:5174/</loc>
+      </url>
+
+      <url>
+        <loc>http://demo.localhost:5174/home</loc>
+      </url>
+
+      <url>
+        <loc>http://demo.localhost:5174/user-home</loc>
+      </url>
+
+      <url>
+        <loc>http://demo.localhost:5174/blockchain-tx</loc>
+      </url>
+
+      <url>
+        <loc>http://demo.localhost:5174/messages</loc>
+      </url>
+
+      <url>
+        <loc>http://demo.localhost:5174/w3c-vcs</loc>
+      </url>
+
+      <url>
+        <loc>http://demo.localhost:5174/callback</loc>
+      </url>
+      
+        <url>
+          <loc>http://accounts.localhost:5174/</loc>
+        </url>
+
+        <url>
+          <loc>http://accounts.localhost:5174/download</loc>
+        </url>
+
+        <url>
+          <loc>http://accounts.localhost:5174/login</loc>
+        </url>
+
+        <url>
+          <loc>http://accounts.localhost:5174/callback</loc>
+        </url>
+  </urlset>
