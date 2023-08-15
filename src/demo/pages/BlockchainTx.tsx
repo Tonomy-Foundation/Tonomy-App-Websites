@@ -32,13 +32,13 @@ import { AuthContext } from "../providers/AuthProvider";
 import SuccessSection from "../components/SuccessSection";
 
 const snippetCode = `
-// SignVcPage.jsx
-const vc = await user.signVc("https://example.com/example-vc/1234", "NameAndDob", {
-    name: "Joe Somebody",
-    dob: new Date('1999-06-04')
-});
-
-const verifiedVc = await vc.verify();
+// SignBlockchain.jsx
+const trx = await user.signTransaction('eosio.token', 'transfer', {
+  from: "me",
+  to: "you",
+  quantity: '1 SYS',
+  memo: 'test memo',
+})
 `;
 const eosioTokenContract = EosioTokenContract.Instance;
 
@@ -162,6 +162,14 @@ export default function BlockchainTx() {
     }
   }
 
+  const scrollToDemo = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="blockConatiner">
       <div className="header-container">
@@ -180,20 +188,21 @@ export default function BlockchainTx() {
           protocol to safeguard your transactions and digital assets from
           unauthorized access or tampering.
         </TH2>
-        <a href="#" className="paraLink">
-          learn about the Antelope blockchain protocol{`->`}
+        <a
+          href="https://docs.eosnetwork.com/"
+          target="_blank"
+          className="paraLink"
+          rel="noreferrer"
+        >
+          Learn about the Antelope blockchain protocol{`->`}
         </a>
 
-        <p className="demoLink">
-          <a
-            href="https://demo.demo.tonomy.foundation"
-            target="_blank"
-            rel="noreferrer"
-            style={{ textDecoration: "none", color: "var(--dark-grey)" }}
-          >
-            Enter Demo
-          </a>
-        </p>
+        <button
+          className="demoLink"
+          onClick={() => scrollToDemo("demoSection")}
+        >
+          Enter Demo
+        </button>
       </div>
       <div className="paraSection">
         <p className="imagine">Imagine,</p>
@@ -205,66 +214,73 @@ export default function BlockchainTx() {
         </p>
       </div>
       {!success ? (
-        <MainContainer>
-          <FormHeaderContainer>
-            <div className="blanceDiv">
-              <p className="balance-container-text-left">Balance: </p>
-              <p className="balance-container-text-right">100 EUR</p>
-            </div>
-            <p className="form-header-container-text">Dashboard</p>
-            <p className="form-header-container-text">Exchange rate</p>
-            <p className="form-header-container-text">Transactions</p>
-          </FormHeaderContainer>
-          <FormContainer>
-            <p className="make-payment">Make a payment</p>
-            <TextboxLayout label="From:" value={from} onChange={setFrom} />
-            <div className="input-container">
-              <input
-                type="number"
-                className="transparent-textbox"
-                id="inputField"
-                value={balance}
-                onChange={(e) => {
-                  const newValue =
-                    e.target.value !== ""
-                      ? parseInt(e.target.value)
-                      : undefined;
+        <section id="demoSection">
+          <MainContainer>
+            <FormHeaderContainer>
+              <div className="blanceDiv">
+                <p className="balance-container-text-left">Balance: </p>
+                <p className="balance-container-text-right">100 EUR</p>
+              </div>
+              <p className="form-header-container-text">Dashboard</p>
+              <p className="form-header-container-text">Exchange rate</p>
+              <p className="form-header-container-text transa-bottom-margin">
+                <span></span>Transactions
+              </p>
+            </FormHeaderContainer>
+            <FormContainer>
+              <p className="make-payment">Make a payment</p>
+              <TextboxLayout label="From:" value={from} onChange={setFrom} />
+              <div className="input-container">
+                <input
+                  type="number"
+                  className="transparent-textbox"
+                  id="inputField"
+                  value={balance}
+                  onChange={(e) => {
+                    const newValue =
+                      e.target.value !== ""
+                        ? parseInt(e.target.value)
+                        : undefined;
 
-                  setBalance(newValue);
-                }}
+                    setBalance(newValue);
+                  }}
+                />
+                <label htmlFor="inputField" className="textbox-label">
+                  Balance
+                </label>
+              </div>
+              <TextboxLayout
+                label="Recipient"
+                value={recipient}
+                onChange={setRecipient}
               />
-              <label htmlFor="inputField" className="textbox-label">
-                Balance
-              </label>
+              <TextboxLayout
+                label="Description"
+                value={description}
+                onChange={setDescription}
+              />
+              <div>
+                <TButton
+                  className="btnPayment btnStyle1 "
+                  onClick={() => onBuy()}
+                  disabled={
+                    progressValue > 0 && progressValue <= 100 ? true : false
+                  }
+                >
+                  <HttpsOutlinedIcon /> Send Payment
+                </TButton>
+              </div>
+            </FormContainer>
+            <div style={{ marginTop: "1.5rem" }}>
+              <VerticalLinearStepper
+                activeStep={activeStep}
+                steps={steps}
+                progressValue={progressValue}
+                onContinue={() => setSuccess(true)}
+              />
             </div>
-            <TextboxLayout
-              label="Recipient"
-              value={recipient}
-              onChange={setRecipient}
-            />
-            <TextboxLayout
-              label="Description"
-              value={description}
-              onChange={setDescription}
-            />
-            <div>
-              <TButton
-                className="btnPayment btnStyle1 "
-                onClick={() => onBuy()}
-              >
-                <HttpsOutlinedIcon /> Send Payment
-              </TButton>
-            </div>
-          </FormContainer>
-          <div style={{ marginTop: "1.5rem" }}>
-            <VerticalLinearStepper
-              activeStep={activeStep}
-              steps={steps}
-              progressValue={progressValue}
-              onContinue={() => setSuccess(true)}
-            />
-          </div>
-        </MainContainer>
+          </MainContainer>
+        </section>
       ) : (
         <SuccessSection
           message="you have successfully signed a blockchain transaction using Tonomy ID."
@@ -281,11 +297,12 @@ export default function BlockchainTx() {
             setActiveStep(-1);
             setSuccess(false);
           }}
+          url={trxUrl}
         />
       )}
       <CodeSnippetPreview
         snippetCode={snippetCode}
-        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"
       />
     </div>
   );

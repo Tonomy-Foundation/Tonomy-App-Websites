@@ -45,7 +45,7 @@ const SuccessSection = (props: SuccessSectionProps) => {
         {props.labels[5]}
       </CircleContainer>
 
-      <Box sx={{ display: "grid", mt: 18 }}>
+      <Box sx={{ display: "grid", mt: 5 }}>
         <img src={MobileScreen} alt="mobile-screen" className="Mobile-screen" />
         <TransactionButton onClick={props.submit}>
           TRY SIGNING A DOCUMENT AGAIN

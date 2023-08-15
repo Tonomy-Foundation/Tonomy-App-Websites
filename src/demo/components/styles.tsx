@@ -39,7 +39,7 @@ export const BoxContainer = styled.div`
 
 export const HeaderTonomy = styled.div`
   display: flex;
-  width: 1109px;
+  width: 1140px;
   height: 180px;
   flex-direction: column;
   justify-content: center;
@@ -174,6 +174,7 @@ export const TransactionButton = styled.button`
   margin-top: 2rem !important;
   margin: 0 auto;
   padding: 0rem 2rem;
+  cursor: pointer;
 `;
 
 export const PageFooter = styled.div`

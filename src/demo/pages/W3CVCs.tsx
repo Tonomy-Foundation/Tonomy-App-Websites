@@ -91,6 +91,11 @@ export default function W3CVCs() {
       await user?.signVc(id, "MedicalRecord", data);
 
       setTimeout(() => {
+        setActiveStep(1);
+        setProgressValue(50);
+      }, 3000);
+
+      setTimeout(() => {
         setActiveStep(2);
         setProgressValue(100);
       }, 3000);
@@ -98,6 +103,14 @@ export default function W3CVCs() {
       errorStore.setError({ error: e, expected: false });
     }
   }
+
+  const scrollToDemo = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="blockConatiner">
@@ -117,20 +130,21 @@ export default function W3CVCs() {
           Verifiable Credential standard can help ensure trust and security when
           sharing sensitive and tamper-proof data.
         </TH2>
-        <a href="#" className="paraLink">
+        <a
+          href="https://www.youtube.com/watch?v=vuSPy1xMNVg"
+          target="_blank"
+          className="paraLink"
+          rel="noreferrer"
+        >
           Learn about the W3C Verifiable Credentials {`->`}
         </a>
 
-        <p className="demoLink">
-          <a
-            href="https://demo.demo.tonomy.foundation"
-            target="_blank"
-            rel="noreferrer"
-            style={{ textDecoration: "none", color: "var(--dark-grey)" }}
-          >
-            Enter Demo
-          </a>
-        </p>
+        <button
+          className="demoLink"
+          onClick={() => scrollToDemo("VCdemoSection")}
+        >
+          Enter Demo
+        </button>
       </div>
       <div className="paraSection">
         <p className="imagine">Imagine,</p>
@@ -142,74 +156,90 @@ export default function W3CVCs() {
         </p>
       </div>
       {!success ? (
-        <div className="formSection">
-          <ul className="horizontal-list">
-            <li>Appointment</li>
-            <li>Messages</li>
-            <li className="border-bottom-margin">
-              <span></span>Results
-            </li>
-          </ul>
-          <div className="clientSection">
-            <h4 className="head">Client details</h4>
+        <section id="VCdemoSection">
+          <div className="formSection">
+            <ul className="horizontal-list">
+              <li>Appointment</li>
+              <li>Messages</li>
+              <li className="border-bottom-margin">
+                <span></span>Results
+              </li>
+            </ul>
+            <div className="clientSection">
+              <h4 className="head">Client details</h4>
 
-            <TextboxLayout label="Name:" value={name} onChange={setName} />
-            <TextboxLayout
-              label="Phone number:"
-              value={phone}
-              onChange={setPhone}
-            />
-            <TextboxLayout
-              label="Address:"
-              value={address}
-              onChange={setAddress}
-            />
-            <TextboxLayout label="Birth Date:" value={dob} onChange={setDob} />
-            <div className="row-container">
+              <TextboxLayout label="Name:" value={name} onChange={setName} />
               <TextboxLayout
-                label="Weight:"
-                value={weight}
-                onChange={setWeight}
+                label="Phone number:"
+                value={phone}
+                onChange={setPhone}
               />
               <TextboxLayout
-                label="Height:"
-                value={height}
-                onChange={setHeight}
+                label="Address:"
+                value={address}
+                onChange={setAddress}
               />
+              <TextboxLayout
+                label="Birth Date:"
+                value={dob}
+                onChange={setDob}
+              />
+              <div className="row-container">
+                <TextboxLayout
+                  label="Weight:"
+                  value={weight}
+                  onChange={setWeight}
+                />
+                <TextboxLayout
+                  label="Height:"
+                  value={height}
+                  onChange={setHeight}
+                />
+              </div>
+              <TextboxLayout
+                label="Allergies:"
+                value={allergies}
+                onChange={setAllergies}
+              />
+              <TextboxLayout
+                label="Medication:"
+                value={medications}
+                onChange={setMedications}
+              />
+              <TextboxLayout
+                label="Treatment plan:"
+                value={treatment}
+                onChange={setTreatment}
+              />
+              <div className="security-message">
+                {" "}
+                This data is fully private never stored on servers.{" "}
+                <a className="linkColor">Learn more</a>
+              </div>
+              <div>
+                <TButton
+                  className="btnStyle1"
+                  onClick={onSubmit}
+                  disabled={
+                    progressValue > 0 && progressValue <= 100 ? true : false
+                  }
+                >
+                  Sign using your tonomy DID
+                </TButton>
+              </div>
             </div>
-            <TextboxLayout
-              label="Allergies:"
-              value={allergies}
-              onChange={setAllergies}
+            <VerticalLinearStepper
+              activeStep={activeStep}
+              steps={steps}
+              progressValue={progressValue}
+              onContinue={() => {
+                setTimeout(() => {
+                  setSuccess(true);
+                }, 2000);
+              }}
             />
-            <TextboxLayout
-              label="Medication:"
-              value={medications}
-              onChange={setMedications}
-            />
-            <TextboxLayout
-              label="Treatment plan:"
-              value={treatment}
-              onChange={setTreatment}
-            />
-            <div className="security-message">
-              {" "}
-              This data is fully private never stored on servers.{" "}
-              <a className="linkColor">Learn more</a>
-            </div>
-            <div>
-              <TButton className="btnStyle1" onClick={onSubmit}>
-                Sign using your tonomy DID
-              </TButton>
-            </div>
           </div>
-          <VerticalLinearStepper
-            activeStep={activeStep}
-            steps={steps}
-            progressValue={progressValue}
-            onContinue={() => setSuccess(true)}
-          />
-        </div>
+        </section>
       ) : (
         <SuccessSection
           message="you have successfully signed a document using Tonomy ID."
