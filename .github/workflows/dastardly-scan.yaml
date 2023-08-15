@@ -1,4 +1,6 @@
-name: Dastardly Scan Action
+name: 'Dastardly Scan Action'
+description: 'Runs a Dastardly scan against a target site'
+author: 'PortSwigger'
 
 on:
   push:
@@ -17,7 +19,10 @@ jobs:
         run: docker build -t dastardly-image .
 
       - name: Run Dastardly Scan
-        run: docker run --rm -e DASTARDLY_TARGET_URL="https://demo.staging.tonomy.foundation" -e DASTARDLY_OUTPUT_FILE="dastardly-report.xml" -v ${{ github.workspace }}:/github/workspace dastardly-image
+        run: docker run --rm -e DASTARDLY_TARGET_URL="http://demo.staging.tonomy.foundation" -e DASTARDLY_OUTPUT_FILE="dastardly-report.xml -v ${{ github.workspace }}:/github/workspace dastardly-image
+        env:
+          DASTARDLY_TARGET_URL: "http://demo.staging.tonomy.foundation"
+          DASTARDLY_OUTPUT_FILE: /github/workspace/dastardly-report.xml
 
       - name: List Files After Scan
         run: ls -l
@@ -26,4 +31,19 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dastardly-scan-report
-          path: dastardly-report.xml
+          path: "./dastardly-report.xml"
+          if-no-files-found: warn
+          continue-on-error: true
+
+inputs:
+  target-url:
+    description: 'The full url (including scheme) of the site to scan'
+    required: true
+  output-filename:
+    description: 'The filename used for the scan report. This filepath relates to the dastardly container, and will exist in the github workspace (/github/workspace)'
+    required: false
+    default: dastardly-report.xml
+
+branding:
+  icon: 'activity'
+  color: 'green'
