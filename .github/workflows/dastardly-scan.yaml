@@ -3,7 +3,7 @@ name: Dastardly Scan Action
 on:
   push:
     branches:
-      - feature/149-dastardly-scan
+      - feature/149-dastardly-actions
       - development
       - master
 
