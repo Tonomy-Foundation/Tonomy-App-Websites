@@ -18,7 +18,7 @@ jobs:
 
       - name: Run Dastardly Scan
         run: docker run --rm -e DASTARDLY_TARGET_URL="https://demo.staging.tonomy.foundation" -e DASTARDLY_OUTPUT_FILE="/dastardly-report.xml" -v ${{ github.workspace }}:/github/workspace dastardly-image
-
+      
       - name: List Files After Scan
         run: ls -l
 
@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dastardly-scan-report
-          path: ./dastardly-report.xml
+          path: dastardly-report.xml
