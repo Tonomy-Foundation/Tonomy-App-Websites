@@ -17,29 +17,29 @@ if (environment === "demo") {
   accountUrl = "http://accounts.localhost:5174";
 }
 
-const demoRoutes = [
-  {
-    path: "/",
-  },
-  {
-    path: "/home",
-  },
-  {
-    path: "/user-home",
-  },
-  {
-    path: "/blockchain-tx",
-  },
-  {
-    path: "/messages",
-  },
-  {
-    path: "/w3c-vcs",
-  },
-  {
-    path: "/callback",
-  },
-];
+// const demoRoutes = [
+//   {
+//     path: "/",
+//   },
+//   {
+//     path: "/home",
+//   },
+//   {
+//     path: "/user-home",
+//   },
+//   {
+//     path: "/blockchain-tx",
+//   },
+//   {
+//     path: "/messages",
+//   },
+//   {
+//     path: "/w3c-vcs",
+//   },
+//   {
+//     path: "/callback",
+//   },
+// ];
 
 const accountsRoutes = [
   {
@@ -55,17 +55,16 @@ const accountsRoutes = [
     path: "/callback",
   },
 ];
-
+// `${demoRoutes
+//   .map(
+//     (route) => `
+//   <url>
+//     <loc>${demoUrl}${route.path}</loc>
+//   </url>`
+//   )
+// .join("\n")}
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${demoRoutes
-      .map(
-        (route) => `
-      <url>
-        <loc>${demoUrl}${route.path}</loc>
-      </url>`
-      )
-      .join("\n")}
       ${accountsRoutes
         .map(
           (route) => `

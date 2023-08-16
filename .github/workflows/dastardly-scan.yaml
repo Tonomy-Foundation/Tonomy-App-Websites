@@ -21,36 +21,34 @@ jobs:
       - name: Set Target URL
         id: set-target-url
         run: |
-          if [[ ${GITHUB_REF#refs/*/} == "development" ]]; then
-            node src/generate-sitemap.js staging
-            target_url="https://demo.staging.tonomy.foundation/sitemap.xml"
-          elif [[ ${GITHUB_REF#refs/*/} == "master" ]]; then
-            node src/generate-sitemap.js demo
-            target_url="https://demo.demo.tonomy.foundation/sitemap.xml"
-          else
-            node src/generate-sitemap.js
-            target_url="http://demo.localhost:5147"
-          fi
-          echo "$target_url"
-
-      - name: Extract URLs from sitemap.xml
-        id: extract-urls
-        run: |
-          # Extract URLs from sitemap.xml and store them in a file
-          target_url=${{ steps.set-target-url.outputs.target_url }}
-          curl -s "$target_url" | grep -o '<loc>[^<]*</loc>' | sed -e 's/<loc>\(.*\)<\/loc>/\1/' > urls.txt
-          
+          node src/generate-sitemap.js
+          target_url="http://demo.localhost:5147"
+        # run: |
+        #   if [[ ${GITHUB_REF#refs/*/} == "development" ]]; then
+        #     node src/generate-sitemap.js staging
+        #     target_url="https://demo.staging.tonomy.foundation/sitemap.xml"
+        #   elif [[ ${GITHUB_REF#refs/*/} == "master" ]]; then
+        #     node src/generate-sitemap.js demo
+        #     target_url="https://demo.demo.tonomy.foundation/sitemap.xml"
+        #   else
+        #     node src/generate-sitemap.js
+        #     target_url="http://demo.localhost:5147"
+        #   fi
+        #   echo "$target_url"
+    
       - name: Run Dastardly Scan and Capture Output
-        id: run-scan
-        run: |
-          # Iterate through each URL and run Dastardly scan
-          while IFS= read -r url; do
-            docker run --rm \
-              -e DASTARDLY_TARGET_URL="$url" \
-              -e DASTARDLY_OUTPUT_FILE="/dastardly-report.xml" \
-              -v ${{ github.workspace }}:/github/workspace dastardly-image \
-              >> scan-output.xml 2>&1
-          done < urls.txt
+        uses: PortSwigger/dastardly-github-action@main
+        with:
+          target-url: 'http://demo.localhost:5147/sitemap.xml'
+        # run: |
+        #   # Iterate through each URL and run Dastardly scan
+        #   while IFS= read -r url; do
+        #     docker run --rm \
+        #       -e DASTARDLY_TARGET_URL="$url" \
+        #       -e DASTARDLY_OUTPUT_FILE="/dastardly-report.xml" \
+        #       -v ${{ github.workspace }}:/github/workspace dastardly-image \
+        #       >> scan-output.xml 2>&1
+        #   done < urls.txt
 
       - name: Upload Scan Output
         uses: actions/upload-artifact@v3
