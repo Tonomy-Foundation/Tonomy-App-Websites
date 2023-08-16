@@ -9,16 +9,14 @@
     "preview": "vite preview",
     "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
     "lint:fix": "yarn lint --fix",
-    "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite",
-    "generate-demo-sitemap": "node src/generateSitemap.js demo",
-    "generate-accounts-sitemap": "node src/generateSitemap.js accounts"
+    "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.10",
-    "@tonomy/tonomy-id-sdk": "development",
+    "@tonomy/tonomy-id-sdk": "^0.14.0",
     "@wharfkit/antelope": "^0.7.1",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
@@ -50,8 +48,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.4",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6",
+    "typescript": "*",
     "vite": "^4.1.0"
   },
   "packageManager": "yarn@3.1.1",
