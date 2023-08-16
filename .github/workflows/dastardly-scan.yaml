@@ -3,7 +3,8 @@ name: Dastardly Scan Action
 on:
   push:
     branches:
-      - feature/149-dastardly-actions
+      - development
+      - master
 
 jobs:
   dastardly-scan:
@@ -20,10 +21,13 @@ jobs:
         id: set-target-url
          run: |
           if [[ ${GITHUB_REF#refs/*/} == "development" ]]; then
+            node src/generate-sitemap.js staging
             target_url="https://demo.staging.tonomy.foundation/sitemap.xml"
           elif [[ ${GITHUB_REF#refs/*/} == "master" ]]; then
+            node src/generate-sitemap.js demo
             target_url="https://demo.demo.tonomy.foundation/sitemap.xml"
           else
+            node src/generate-sitemap.js
             target_url="http://demo.localhost:5147"
           fi
           echo "::set-output name=target_url::$target_url"
