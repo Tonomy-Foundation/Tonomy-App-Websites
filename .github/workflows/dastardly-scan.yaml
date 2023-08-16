@@ -19,7 +19,7 @@ jobs:
 
       - name: Set Target URL
         id: set-target-url
-         run: |
+        run: |
           if [[ ${GITHUB_REF#refs/*/} == "development" ]]; then
             node src/generate-sitemap.js staging
             target_url="https://demo.staging.tonomy.foundation/sitemap.xml"
