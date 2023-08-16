@@ -39,7 +39,7 @@ jobs:
       - name: Run Dastardly Scan and Capture Output
         uses: PortSwigger/dastardly-github-action@main
         with:
-          target-url: 'http://demo.localhost:5147/sitemap.xml'
+          target-url: 'http://accounts.localhost:5147'
         # run: |
         #   # Iterate through each URL and run Dastardly scan
         #   while IFS= read -r url; do
