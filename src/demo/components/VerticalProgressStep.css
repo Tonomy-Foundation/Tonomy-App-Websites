@@ -1,0 +1,67 @@
+.progressContainer {
+  border-radius: 10px;
+  border: 1px solid #E4E4E4;
+  background: #FDFEFF; 
+  justify-content: center;
+  align-items: center;
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 2rem 0rem;
+  box-shadow: 4px 4px 4px 0px rgba(103, 215, 237, 0.12), -4px 4px 4px 0px rgba(103, 215, 237, 0.12); 
+}
+.MuiStepConnector-vertical  {
+  margin-left: 8px !important;
+}
+
+.MuiStepConnector-line .MuiStepConnector-lineVertical{
+  min-height : 38px
+}
+
+.MuiStepLabel-label{
+  font-weight: bold !important;
+  padding: 0rem !important;
+}
+
+.stepCOntainer {
+  box-shadow: 4px 4px 4px 0px rgba(103, 215, 237, 0.12), -4px 4px 4px 0px rgba(103, 215, 237, 0.12); 
+}
+
+
+.custom-step-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 2px solid #67D7ED;
+  }
+  
+.inner-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.inner-dot.active {
+  background-color: #67D7ED;
+}
+  
+.continueBtn{
+    border-radius: 8px;
+    background: var(--primary-primary, #67D7ED) !important;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00);
+    color: white !important;
+    margin-left: 26rem !important;
+    padding: 0.4rem 1.4rem !important;
+}
+
+.MuiStepLabel-vertical {
+  padding: 0rem !important;
+}
+
+.MuiStepConnector-line {
+  min-height: 38px !important;
+}

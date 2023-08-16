@@ -8,7 +8,7 @@ body {
     padding-left: 3rem;
    
     background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
-    clear: both; /* Clear any floats within the container */
+    clear: both; 
   }
   .bannerImg {
     width: 650px;
@@ -24,21 +24,21 @@ body {
     width: 100%;
     text-align: end;
     color: var(--black); 
-    overflow: auto; /* Create a new block formatting context */
+    overflow: auto; 
   }
   
   .leftText {
-    float: left; /* Float the paragraph to the left */
+    float: left;
   }
   
   .userLogoVC {
-    float: right; /* Float the image to the right */
-    margin-left: 0.4rem; /* Add some space between the paragraph and the image */
+    float: right; 
+    margin-left: 0.4rem; 
     display: flex;
     align-items: center;
     font-size: 1rem;
     margin-top: 2rem;
-    margin-right: 1.8rem;
+    margin-right: 4.8rem;
   }
   
   .userLogoVC img {
@@ -88,11 +88,12 @@ body {
   .paraLink {
     display: block;
     margin-top: 4rem;
-    margin-left: 3rem;
+    margin-left: 0.7rem;
     font-size: 1.4rem;
 
   }
   .demoLink {
+    cursor: pointer;
     background-color: white;
     color: black;
     padding: 1rem 2rem;
@@ -100,17 +101,16 @@ body {
     font-size: 1.7rem;
     border-radius: 10px;
     margin-top: 4rem;
-    margin-left: 3rem;
+    margin-left: 2rem;
+    border: none;
   }
   
   .leftSection {
     grid-column: 1;
-    /* Add any styles for the left section */
   }
   
   .rightSection {
     grid-column: 2;
-    /* Add any styles for the right section */
   }
 
   .paraSection{
@@ -134,7 +134,7 @@ body {
 
   .formSection {
     background: var(--offWhite); 
-    padding: 4rem 6rem;
+    padding: 4rem 6rem 0rem 4rem;
   }
 
   ul.horizontal-list {
@@ -142,7 +142,7 @@ body {
     padding: 0;
     margin: 0;
     margin-left: 4rem;
-    display: flex; /* This makes the list items display horizontally */
+    display: flex; 
 }
 
 ul.horizontal-list li {
@@ -152,7 +152,6 @@ ul.horizontal-list li {
     color: var(--dark-grey);
 }
 
-/* Optional style to remove margin from the last list item */
 ul.horizontal-list li:last-child {
     margin-right: 0;
 }
@@ -175,7 +174,7 @@ ul.horizontal-list li:last-child {
     text-align: center;
     margin: 2rem;
     background: var(--white);
-    padding: 3rem;
+    padding: 3rem 3rem 1rem 3rem;
 }
 .clientSection .head {
   margin-bottom: 1.5rem;;
@@ -183,7 +182,7 @@ ul.horizontal-list li:last-child {
 .row-container {
   display: flex;
   justify-content: space-between;
-  width: 100%; /* Adjust the width as needed */
+  width: 100%;
 }
 
 .security-message {
@@ -205,11 +204,18 @@ ul.horizontal-list li:last-child {
 .btnStyle1{
   background-color: var(--primary) !important;
   color: var(--white) !important;
-  padding: 0.3rem 1rem !important;
+  padding: 0.3rem 3rem !important;
   border-radius: 20px;
-  margin: 1.5rem 0rem!important;
+  margin: 1.8rem 0rem!important;
   font-weight: 600 !important;
   font-size: 16px !important;
   text-transform: uppercase;
   line-height: 2.75 !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00); 
+
+}
+
+input:focus {
+  outline-color: var(--primary) !important;
+  border: 2px solid var(--primary);
 }

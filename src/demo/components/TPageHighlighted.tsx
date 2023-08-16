@@ -1,4 +1,3 @@
-import { TH2 } from "../../common/atoms/THeadings";
 import { Highlighter } from "rc-highlight";
 import "./TPageHighlighted.css";
 
