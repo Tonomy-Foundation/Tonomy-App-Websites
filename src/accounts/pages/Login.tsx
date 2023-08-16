@@ -20,6 +20,7 @@ import {
   randomString,
   KeyManagerLevel,
   JsKeyManager,
+  CommunicationError,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -36,6 +37,7 @@ import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
 import { useLoginStore } from "../stores/loginStore";
+import ConnectionError from "../molecules/ConnectionError";
 
 const styles = {
   container: {
@@ -61,6 +63,7 @@ export default function Login() {
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
   const { request, setRequest } = useLoginStore();
+  const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
 
@@ -146,7 +149,15 @@ export default function Login() {
 
           setStatus("app");
         } catch (e) {
-          errorStore.setError({ error: e, expected: false });
+          if (
+            e instanceof CommunicationError &&
+            e.exception.status === 400 &&
+            e.exception.message.startsWith("Recipient not connected")
+          ) {
+            setConnectionError(true);
+          } else {
+            errorStore.setError({ error: e, expected: false });
+          }
         }
       }, IdentifyMessage.getType());
     }
@@ -276,6 +287,12 @@ export default function Login() {
           title: "Login unsuccessful",
           onClose: async () => onRefresh(),
         });
+      } else if (
+        e instanceof CommunicationError &&
+        e.exception.status === 400 &&
+        e.exception.message.startsWith("Recipient not connected")
+      ) {
+        setConnectionError(true);
       } else {
         errorStore.setError({ error: e, expected: false });
       }
@@ -405,7 +422,14 @@ export default function Login() {
 
         {status === "connecting" && (
           <>
-            <LinkingPhone />
+            {connectionError ? (
+              <ConnectionError
+                username={username}
+                tryAgainLink={window.document.referrer}
+              />
+            ) : (
+              <LinkingPhone />
+            )}
           </>
         )}
         {status === "app" && (
