@@ -2,8 +2,15 @@ import connectionImage from "../assets/connecting.png";
 import { TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import settings from "../../common/settings";
+import { TLink } from "../../common/atoms/TLink";
 
-export default function ConnectionError({ username }: { username?: string }) {
+export default function ConnectionError({
+  username,
+  tryAgainLink,
+}: {
+  username?: string;
+  tryAgainLink?: string;
+}) {
   return (
     <div className="margin-top">
       <TImage src={connectionImage} alt="Connecting Phone-PC" />
@@ -15,7 +22,7 @@ export default function ConnectionError({ username }: { username?: string }) {
           </TP>
           <TP>
             Please open {settings.config.appName} on your phone and login as{" "}
-            <u>{username}</u>.
+            <u>{username}</u> and <TLink href={tryAgainLink}>try again</TLink>.
           </TP>
         </>
       ) : (
@@ -23,7 +30,9 @@ export default function ConnectionError({ username }: { username?: string }) {
           <TP className="margin-top">
             Could not connect to the {settings.config.appName}.
           </TP>
-          <TP>Please try again.</TP>
+          <TP>
+            Please <TLink href={tryAgainLink}>try again</TLink>.
+          </TP>
         </>
       )}
     </div>

@@ -423,7 +423,10 @@ export default function Login() {
         {status === "connecting" && (
           <>
             {connectionError ? (
-              <ConnectionError username={username} />
+              <ConnectionError
+                username={username}
+                tryAgainLink={window.document.referrer}
+              />
             ) : (
               <LinkingPhone />
             )}
