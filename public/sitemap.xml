@@ -3,46 +3,46 @@
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
       <url>
-        <loc>http://demo.localhost:5174/</loc>
+        <loc>https://demo.staging.tonomy.foundation/</loc>
       </url>
 
       <url>
-        <loc>http://demo.localhost:5174/home</loc>
+        <loc>https://demo.staging.tonomy.foundation/home</loc>
       </url>
 
       <url>
-        <loc>http://demo.localhost:5174/user-home</loc>
+        <loc>https://demo.staging.tonomy.foundation/user-home</loc>
       </url>
 
       <url>
-        <loc>http://demo.localhost:5174/blockchain-tx</loc>
+        <loc>https://demo.staging.tonomy.foundation/blockchain-tx</loc>
       </url>
 
       <url>
-        <loc>http://demo.localhost:5174/messages</loc>
+        <loc>https://demo.staging.tonomy.foundation/messages</loc>
       </url>
 
       <url>
-        <loc>http://demo.localhost:5174/w3c-vcs</loc>
+        <loc>https://demo.staging.tonomy.foundation/w3c-vcs</loc>
       </url>
 
       <url>
-        <loc>http://demo.localhost:5174/callback</loc>
+        <loc>https://demo.staging.tonomy.foundation/callback</loc>
       </url>
       
         <url>
-          <loc>http://accounts.localhost:5174/</loc>
+          <loc>https://accounts.staging.tonomy.foundation/</loc>
         </url>
 
         <url>
-          <loc>http://accounts.localhost:5174/download</loc>
+          <loc>https://accounts.staging.tonomy.foundation/download</loc>
         </url>
 
         <url>
-          <loc>http://accounts.localhost:5174/login</loc>
+          <loc>https://accounts.staging.tonomy.foundation/login</loc>
         </url>
 
         <url>
-          <loc>http://accounts.localhost:5174/callback</loc>
+          <loc>https://accounts.staging.tonomy.foundation/callback</loc>
         </url>
   </urlset>
