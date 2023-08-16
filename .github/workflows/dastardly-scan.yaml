@@ -17,10 +17,7 @@ jobs:
         run: docker build -t dastardly-image .
 
       - name: Run Dastardly Scan
-        run: docker run --rm -e DASTARDLY_TARGET_URL="http://demo.staging.tonomy.foundation" -e DASTARDLY_OUTPUT_FILE="dastardly-report.xml" -v ${{ github.workspace }}:/github/workspace dastardly-image
-        env:
-          DASTARDLY_TARGET_URL: "http://demo.staging.tonomy.foundation"
-          DASTARDLY_OUTPUT_FILE: dastardly-report.xml
+        run: docker run --rm -e DASTARDLY_TARGET_URL="https://demo.staging.tonomy.foundation" -e DASTARDLY_OUTPUT_FILE="dastardly-report.xml" -v ${{ github.workspace }}:/github/workspace dastardly-image
 
       - name: List Files After Scan
         run: ls -l
@@ -29,7 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dastardly-scan-report
-          path: "./dastardly-report.xml"
-          if-no-files-found: warn
-          continue-on-error: true
-          
+          path: dastardly-report.xml
