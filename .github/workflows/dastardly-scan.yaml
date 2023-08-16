@@ -16,14 +16,20 @@ jobs:
       - name: Build Docker Image
         run: docker build -t dastardly-image .
 
-      - name: Run Dastardly Scan
-        run: docker run --rm -e DASTARDLY_TARGET_URL="https://demo.staging.tonomy.foundation" -e DASTARDLY_OUTPUT_FILE="/dastardly-report.xml" -v ${{ github.workspace }}:/github/workspace dastardly-image
-      
+      - name: Run Dastardly Scan and Capture Output
+        id: run-scan
+        run: |
+          docker run --rm \
+            -e DASTARDLY_TARGET_URL="https://demo.staging.tonomy.foundation" \
+            -e DASTARDLY_OUTPUT_FILE="/dastardly-report.xml" \
+            -v ${{ github.workspace }}:/github/workspace dastardly-image \
+            > scan-output.txt 2>&1
+
       - name: List Files After Scan
         run: ls -l
 
-      - name: Upload Scan Report
-        uses: actions/upload-artifact@v3
+      - name: Upload Scan Output
+        uses: actions/upload-artifact@v2
         with:
-          name: dastardly-scan-report
-          path: dastardly-report.xml
+          name: dastardly-scan-output
+          path: scan-output.txt
