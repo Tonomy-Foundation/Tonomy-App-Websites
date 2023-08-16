@@ -40,6 +40,7 @@ jobs:
         uses: PortSwigger/dastardly-github-action@main
         with:
           target-url: 'https://accounts.staging.tonomy.foundation'
+          output-filename: 'dastardly-report.xml'
         # run: |
         #   # Iterate through each URL and run Dastardly scan
         #   while IFS= read -r url; do
@@ -54,4 +55,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dastardly-scan-output
-          path: scan-output.xml
+          path: dastardly-report.xml
