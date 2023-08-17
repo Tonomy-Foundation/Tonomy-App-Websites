@@ -12,17 +12,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Enable Debug Mode
+        run: echo "::set-env name=ACTIONS_STEP_DEBUG::true"
+
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build Docker Image
         run: docker build -t dastardly-image .
 
-      - name: Set Target URL
-        id: set-target-url
-        run: |
-          node src/generate-sitemap.js
-          target_url="http://demo.localhost:5147"
+      - name: 🚀 Build and publish tonomy app
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+      - run: corepack enable
+      - run: node src/generate-sitemap.js
+      - run: yarn install
+      - run: yarn run build
+      - run: echo "${PWD}"
+      - run: yarn run start:prod &
+      - run: sleep 10
+      - run: ls 
+      - run: cat "${PWD}/build.txt"
+      - run: curl http://accounts.localhost:5147
+
+      # - name: Set Target URL
+      #   id: set-target-url
+      #   run: |
+      #     target_url="http://accounts.localhost:5147"
         # run: |
         #   if [[ ${GITHUB_REF#refs/*/} == "development" ]]; then
         #     node src/generate-sitemap.js staging
@@ -37,22 +54,21 @@ jobs:
         #   echo "$target_url"
     
       - name: Run Dastardly Scan and Capture Output
-        uses: PortSwigger/dastardly-github-action@main
-        with:
-          target-url: 'https://accounts.staging.tonomy.foundation'
-          output-filename: 'dastardly-report.xml'
-        # run: |
-        #   # Iterate through each URL and run Dastardly scan
-        #   while IFS= read -r url; do
-        #     docker run --rm \
-        #       -e DASTARDLY_TARGET_URL="$url" \
-        #       -e DASTARDLY_OUTPUT_FILE="/dastardly-report.xml" \
-        #       -v ${{ github.workspace }}:/github/workspace dastardly-image \
-        #       >> scan-output.xml 2>&1
-        #   done < urls.txt
+        # uses: PortSwigger/dastardly-github-action@main
+        # with:
+        #   target-url: 'http://accounts.localhost:5147'
+        #   output-filename: '${PWD}/dastardly-report.xml'        
+        run: |
+          # Iterate through each URL and run Dastardly scan
+          while IFS= read -r url; do
+            docker run --rm \
+              -e DASTARDLY_TARGET_URL="http://accounts.localhost:5147" \
+              -e DASTARDLY_OUTPUT_FILE="${PWD}/dastardly-report.xml" \
+              >> scan-output.xml 2>&1
+          done < urls.txt
 
-      - name: Upload Scan Output
-        uses: actions/upload-artifact@v3
-        with:
-          name: dastardly-scan-output
-          path: dastardly-report.xml
+      # - name: Upload Scan Output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dastardly-scan-output
+      #     path: dastardly-report.xml

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
     "lint:fix": "yarn lint --fix",
-    "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite"
+    "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite",
+    "start:prod": "npx serve dist -l 5147 > build.txt 2>&1"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -26,6 +27,7 @@
     "react-pro-sidebar": "^1.0.0",
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.8.1",
+    "serve": "^14.2.0",
     "styled-components": "^6.0.0-rc.1",
     "web-vitals": "^3.1.1",
     "zustand": "^4.3.6"
