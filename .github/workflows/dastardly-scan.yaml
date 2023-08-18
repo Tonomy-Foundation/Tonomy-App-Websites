@@ -41,8 +41,7 @@ jobs:
       # - run: yarn run start:prod &
       # https://github.com/sindresorhus/clipboardy/issues/63#issuecomment-676484369
       - run: sleep 8
-      # - run: ls /etc
-      # - run: ps x
+      - run: ps x
       # - run: netstat -tunlp
       # - run: cat "${PWD}/build.txt"
       - run: curl http://localhost:5147
