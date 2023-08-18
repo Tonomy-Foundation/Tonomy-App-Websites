@@ -14,7 +14,8 @@
         "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
-        "readMoreDownload": "https://tonomy.foundation/solutions/tonomy-id",
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
         "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
     },

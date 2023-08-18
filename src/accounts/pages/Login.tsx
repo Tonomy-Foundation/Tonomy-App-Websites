@@ -35,6 +35,7 @@ import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
+import { useLoginStore } from "../stores/loginStore";
 
 const styles = {
   container: {
@@ -59,6 +60,7 @@ export default function Login() {
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
+  const { request, setRequest } = useLoginStore();
 
   let rendered = false;
 
@@ -203,7 +205,12 @@ export default function Login() {
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
-      const externalLoginRequest = await UserApps.onRedirectLogin();
+      let externalLoginRequest = request;
+
+      if (!externalLoginRequest) {
+        externalLoginRequest = await UserApps.onRedirectLogin();
+        setRequest(externalLoginRequest);
+      }
 
       getAppDetails(externalLoginRequest);
       const requests = [externalLoginRequest];
@@ -256,7 +263,11 @@ export default function Login() {
         await connectToTonomyId(requests, loginToCommunication, user);
       }
     } catch (e) {
-      if (e instanceof SdkError && e.code === SdkErrors.ReferrerEmpty) {
+      if (
+        e instanceof SdkError &&
+        (e.code === SdkErrors.ReferrerEmpty ||
+          e.code === SdkErrors.MissingParams)
+      ) {
         errorStore.setError({
           error: new Error(
             "Please try again and do not refresh this website during login"

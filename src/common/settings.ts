@@ -25,6 +25,7 @@ export type ConfigType = {
   };
   links: {
     readMoreDownload: string;
+    readMoreFoundation: string;
     appleStoreDownload: string;
     playStoreDownload: string;
   };
