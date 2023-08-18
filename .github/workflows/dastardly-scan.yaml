@@ -31,7 +31,14 @@ jobs:
       - run: sleep 8
 
       - name: Run Dastardly scan on accounts website
-        run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000 -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml -u root -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest dastardly
+        run: docker run \
+          --add-host host.docker.internal:host-gateway \
+          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000 \
+          -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml \
+          -u root \
+          -v $(pwd):/dastardly \
+          public.ecr.aws/portswigger/dastardly:latest \
+          dastardly
 
       - name: 🚀 Run demo website
         uses: actions/setup-node@v3
@@ -43,7 +50,13 @@ jobs:
       - run: sleep 8
 
       - name: Run Dastardly scan on demo website
-        run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001 -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml -u root -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest dastardly
+        run: docker run \
+          --add-host host.docker.internal:host-gateway \
+          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001 \
+          -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml \
+          -u root \
+          -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest \
+          dastardly
 
       - name: Upload Scan Output
         uses: actions/upload-artifact@v3
