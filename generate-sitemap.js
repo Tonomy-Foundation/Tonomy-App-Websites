@@ -8,29 +8,29 @@ const site = process.argv[2];
 const demoUrl = "http://host.docker.internal:3001";
 const accountUrl = "http://host.docker.internal:3000";
 
-// const demoRoutes = [
-//   {
-//     path: "/",
-//   },
-//   {
-//     path: "/home",
-//   },
-//   {
-//     path: "/user-home",
-//   },
-//   {
-//     path: "/blockchain-tx",
-//   },
-//   {
-//     path: "/messages",
-//   },
-//   {
-//     path: "/w3c-vcs",
-//   },
-//   {
-//     path: "/callback",
-//   },
-// ];
+const demoRoutes = [
+  {
+    path: "/",
+  },
+  {
+    path: "/home",
+  },
+  {
+    path: "/user-home",
+  },
+  {
+    path: "/blockchain-tx",
+  },
+  {
+    path: "/messages",
+  },
+  {
+    path: "/w3c-vcs",
+  },
+  {
+    path: "/callback",
+  },
+];
 
 const accountsRoutes = [
   {
@@ -46,17 +46,16 @@ const accountsRoutes = [
     path: "/callback",
   },
 ];
-// `${demoRoutes
-//   .map(
-//     (route) => `
-//   <url>
-//     <loc>${demoUrl}${route.path}</loc>
-//   </url>`
-//   )
-// .join("\n")}
+
+if (["demo", "accounts"].indexOf(site) === -1) {
+  throw new Error("Invalid site name");
+}
+
+const routesToUse = site === "demo" ? demoRoutes : accountsRoutes;
+
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${accountsRoutes
+      ${routesToUse
         .map(
           (route) => `
         <url>

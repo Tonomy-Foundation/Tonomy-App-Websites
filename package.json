@@ -10,7 +10,8 @@
     "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
     "lint:fix": "yarn lint --fix",
     "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite",
-    "start:prod:accounts": "serve dist -l 3000 -n"
+    "start:prod:accounts": "serve dist -l 3000 -n",
+    "start:prod:demo": "serve dist -l 3001 -n"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
