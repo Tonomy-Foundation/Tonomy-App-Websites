@@ -1,21 +1,12 @@
-console.log("Generating sitemap...");
 import fs from "fs";
 
-console.log("routes");
-let demoUrl;
-let accountUrl;
-const environment = process.argv[2];
+console.log("Generating sitemap...");
+console.log("Args", process.argv);
 
-if (environment === "demo") {
-  demoUrl = "https://demo.demo.tonomy.foundation";
-  accountUrl = "https://accounts.demo.tonomy.foundation";
-} else if (environment === "staging") {
-  demoUrl = "https://demo.staging.tonomy.foundation";
-  accountUrl = "https://accounts.staging.tonomy.foundation";
-} else {
-  demoUrl = "http://demo.host.docker.internal:5174";
-  accountUrl = "http://accounts.host.docker.internal:5174";
-}
+const site = process.argv[2];
+
+const demoUrl = "http://host.docker.internal:3001";
+const accountUrl = "http://host.docker.internal:3000";
 
 // const demoRoutes = [
 //   {
@@ -76,5 +67,6 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   </urlset>
 `;
 
-fs.writeFileSync("public/sitemap.xml", sitemapXml);
+fs.writeFileSync("dist/sitemap.xml", sitemapXml);
+
 console.log("Sitemap generated successfully.");

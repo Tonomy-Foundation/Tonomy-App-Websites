@@ -21,15 +21,15 @@ jobs:
       - run: node src/generate-sitemap.js
       - run: yarn install --immutable
       - run: yarn run build
-      - run: yarn run start:prod &
+      - run: yarn run start:prod:accounts &
       - run: sleep 8
 
       - name: Run Dastardly scan on accounts website
         uses: actions/setup-node@v3
         with:
           node-version: 18.12.1
-      - run: curl http://accounts.localhost:5147
-      - run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:5147 -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml -u root -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest dastardly
+      - run: curl http://localhost:3000
+      - run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000 -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml -u root -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest dastardly
 
       - name: Upload Scan Output
         uses: actions/upload-artifact@v3
