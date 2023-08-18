@@ -21,7 +21,8 @@ jobs:
       - run: node src/generate-sitemap.js
       - run: yarn install --immutable
       - run: yarn run build
-      - run: yarn run start:prod &
+      # - run: yarn run start:prod &
+      - run: RUNNER_TRACKING_ID="" && (nohup yarn run start:prod &)
       - run: sleep 8
       - run: curl http://localhost:5147
       - run: curl http://accounts.localhost:5147
@@ -31,7 +32,7 @@ jobs:
         uses: PortSwigger/dastardly-github-action@main
         with:
           target-url: 'http://accounts.localhost:5147'
-
+          output-filename: 'dastardly-report.xml'
 
       # - name: Build Docker Image
       #   run: docker build -t dastardly-image .
@@ -67,8 +68,8 @@ jobs:
       #         >> scan-output.xml 2>&1
       #     done < urls.txt
 
-      # - name: Upload Scan Output
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: dastardly-scan-output
-      #     path: dastardly-report.xml
+      - name: Upload Scan Output
+        uses: actions/upload-artifact@v3
+        with:
+          name: dastardly-scan-output
+          path: dastardly-report.xml
