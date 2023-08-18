@@ -45,13 +45,6 @@ jobs:
       - name: Run Dastardly scan on demo website
         run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001 -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml -u root -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest dastardly
 
-      - name: Publish Test Report
-        if: always()
-        uses: mikepenz/action-junit-report@v3
-        with:
-          report_paths: '*dastardly-report.xml'
-          require_tests: true
-        
       - name: Upload Scan Output
         uses: actions/upload-artifact@v3
         with:

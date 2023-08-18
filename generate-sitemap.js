@@ -51,6 +51,7 @@ if (["demo", "accounts"].indexOf(site) === -1) {
   throw new Error("Invalid site name");
 }
 
+const urlToUse = site === "demo" ? demoUrl : accountUrl;
 const routesToUse = site === "demo" ? demoRoutes : accountsRoutes;
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -59,7 +60,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
         .map(
           (route) => `
         <url>
-          <loc>${accountUrl}${route.path}</loc>
+          <loc>${urlToUse}${route.path}</loc>
         </url>`
         )
         .join("\n")}
