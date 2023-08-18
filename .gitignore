@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 
-dastardly-report.xml
+*dastardly-report.xml
 
 # # Editor directories and files
 # .vscode/*
