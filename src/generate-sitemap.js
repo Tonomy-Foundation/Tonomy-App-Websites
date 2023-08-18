@@ -13,8 +13,8 @@ if (environment === "demo") {
   demoUrl = "https://demo.staging.tonomy.foundation";
   accountUrl = "https://accounts.staging.tonomy.foundation";
 } else {
-  demoUrl = "http://demo.localhost:5174";
-  accountUrl = "http://accounts.localhost:5174";
+  demoUrl = "http://demo.host.docker.internal:5174";
+  accountUrl = "http://accounts.host.docker.internal:5174";
 }
 
 // const demoRoutes = [
