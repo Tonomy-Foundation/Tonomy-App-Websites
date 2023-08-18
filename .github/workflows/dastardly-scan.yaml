@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: 18.12.1
       - run: curl http://localhost:5147
+      - run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:5147 -e DASTARDLY_OUTPUT_FILE=dastardly-report.xml public.ecr.aws/portswigger/dastardly:latest dastardly && ls -la
+      # this is working!
 
       # - name: Run Dastardly Action Step
       #   uses: PortSwigger/dastardly-github-action@main
@@ -40,12 +42,13 @@ jobs:
       #     target-url: 'http://accounts.localhost:5147'
       #     output-filename: 'dastardly-report.xml'
 
-      - name: Run Dastardly Action Step
-        uses: PortSwigger/dastardly-github-action@main
-        with:
-          target-url: 'http://accounts.localhost:5147'
-          output-filename: 'dastardly-report.xml'
-      - run: curl http://localhost:5147
+      # - name: Run Dastardly Action Step
+      #   uses: PortSwigger/dastardly-github-action@main
+      #   with:
+      #     target-url: 'http://accounts.localhost:5147'
+      #     output-filename: 'dastardly-report.xml'
+      # - run: curl http://localhost:5147
+      # - run: docker run --add-host host.docker.internal:host-gateway -e DASTARDLY_TARGET_URL=http://host.docker.internal:5147 -e DASTARDLY_OUTPUT_FILE=dastardly-report.xml public.ecr.aws/portswigger/dastardly:latest dastardly && ls -la
   
       # - name: Build Docker Image
       #   run: docker build -t dastardly-image .
@@ -53,7 +56,16 @@ jobs:
       # - name: Set Target URL
       #   id: set-target-url
       #   run: |
-      #     target_url="http://accounts.localhost:5147"
+      #     target_url="http://accounts.localhost:5147"        
+      #   run: |
+      #     # Iterate through each URL and run Dastardly scan
+      #     while IFS= read -r url; do
+      #       docker run --rm \
+      #         -e DASTARDLY_TARGET_URL="http://accounts.localhost:5147" \
+      #         -e DASTARDLY_OUTPUT_FILE="${PWD}/dastardly-report.xml" \
+      #         >> scan-output.xml 2>&1
+      #     done < urls.txt
+
       # run: |
         #   if [[ ${GITHUB_REF#refs/*/} == "development" ]]; then
         #     node src/generate-sitemap.js staging
@@ -71,15 +83,7 @@ jobs:
       #   # uses: PortSwigger/dastardly-github-action@main
       #   # with:
       #   #   target-url: 'http://accounts.localhost:5147'
-      #   #   output-filename: '${PWD}/dastardly-report.xml'        
-      #   run: |
-      #     # Iterate through each URL and run Dastardly scan
-      #     while IFS= read -r url; do
-      #       docker run --rm \
-      #         -e DASTARDLY_TARGET_URL="http://accounts.localhost:5147" \
-      #         -e DASTARDLY_OUTPUT_FILE="${PWD}/dastardly-report.xml" \
-      #         >> scan-output.xml 2>&1
-      #     done < urls.txt
+      #   #   output-filename: '${PWD}/dastardly-report.xml'
 
       - name: Upload Scan Output
         uses: actions/upload-artifact@v3
