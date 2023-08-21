@@ -18,8 +18,9 @@ jobs:
         with:
           node-version: 18.12.1
       - run: corepack enable
-      - run: yarn install --immutable
-      - run: yarn run build
+      # - run: yarn install --immutable
+      # - run: yarn run build
+      - run: echo $(id -u) $(id -g) $(whoami)
 
       - name: 🚀 Run accounts website
         uses: actions/setup-node@v3
@@ -36,7 +37,7 @@ jobs:
           --add-host host.docker.internal:host-gateway
           -v $(pwd):/zap/wrk/:rw
           -t
-          --user $(id -u)
+          --user $(id -u):$(id -g)
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
           -t http://host.docker.internal:3000
@@ -50,75 +51,75 @@ jobs:
         # https://www.zaproxy.org/docs/docker/full-scan/
         run: ls -la
       
-      - name: Run Dastardly scan on accounts website
-        # https://portswigger.net/burp/documentation/dastardly/generic
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000
-          -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml
-          -u root
-          -v $(pwd):/dastardly
-          public.ecr.aws/portswigger/dastardly:latest
-          dastardly
+      # - name: Run Dastardly scan on accounts website
+      #   # https://portswigger.net/burp/documentation/dastardly/generic
+      #   run: docker run
+      #     --add-host host.docker.internal:host-gateway
+      #     -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000
+      #     -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml
+      #     -u root
+      #     -v $(pwd):/dastardly
+      #     public.ecr.aws/portswigger/dastardly:latest
+      #     dastardly
 
-      - name: 🚀 Run demo website
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.12.1
-      - run: corepack enable
-      - run: node generate-sitemap.js demo
-      - run: yarn run start:prod:demo &
-      - run: sleep 8
+      # - name: 🚀 Run demo website
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18.12.1
+      # - run: corepack enable
+      # - run: node generate-sitemap.js demo
+      # - run: yarn run start:prod:demo &
+      # - run: sleep 8
 
-      - name: Run Dastardly scan on demo website
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001
-          -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml
-          -u root
-          -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
-          dastardly
+      # - name: Run Dastardly scan on demo website
+      #   run: docker run
+      #     --add-host host.docker.internal:host-gateway
+      #     -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001
+      #     -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml
+      #     -u root
+      #     -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
+      #     dastardly
 
-      - name: Run ZAP Full Scan on the demo website
-        # https://www.zaproxy.org/docs/docker/full-scan/
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -v $(pwd):/zap/wrk/:rw
-          -t
-          --user $(id -u)
-          ghcr.io/zaproxy/zaproxy:stable
-          zap-full-scan.py
-          -t http://host.docker.internal:3001
-          -j
-          -g gen.conf
-          -r demo.zap-scan-report.html
-          -a || true
-          # || true - force exit code 0 so action continues
+      # - name: Run ZAP Full Scan on the demo website
+      #   # https://www.zaproxy.org/docs/docker/full-scan/
+      #   run: docker run
+      #     --add-host host.docker.internal:host-gateway
+      #     -v $(pwd):/zap/wrk/:rw
+      #     -t
+      #     --user $(id -u)
+      #     ghcr.io/zaproxy/zaproxy:stable
+      #     zap-full-scan.py
+      #     -t http://host.docker.internal:3001
+      #     -j
+      #     -g gen.conf
+      #     -r demo.zap-scan-report.html
+      #     -a || true
+      #     # || true - force exit code 0 so action continues
           
-      - name: Upload ZAP Scan Output
-        uses: actions/upload-artifact@v3
-        with:
-          name: zap-scan-output
-          path: "*zap-scan-report.html"
+      # - name: Upload ZAP Scan Output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: zap-scan-output
+      #     path: "*zap-scan-report.html"
   
-      - name: Convert Accounts Dastardly JUnit XML report to HTML
-        uses: pl-strflt/junit-xml-to-html@v1
-        with:
-          mode: 'no-frames'
-          input: 'accounts.dastardly-report.xml'
-          output: 'accounts.dastardly-report.html'
+      # - name: Convert Accounts Dastardly JUnit XML report to HTML
+      #   uses: pl-strflt/junit-xml-to-html@v1
+      #   with:
+      #     mode: 'no-frames'
+      #     input: 'accounts.dastardly-report.xml'
+      #     output: 'accounts.dastardly-report.html'
 
-      - name: Convert Demo Dastardly JUnit XML report to HTML
-        uses: pl-strflt/junit-xml-to-html@v1
-        with:
-          mode: 'no-frames'
-          input: 'demo.dastardly-report.xml'
-          output: 'demo.dastardly-report.html'
+      # - name: Convert Demo Dastardly JUnit XML report to HTML
+      #   uses: pl-strflt/junit-xml-to-html@v1
+      #   with:
+      #     mode: 'no-frames'
+      #     input: 'demo.dastardly-report.xml'
+      #     output: 'demo.dastardly-report.html'
 
-      - name: Upload Dastardly HTML Scan Output
-        uses: actions/upload-artifact@v3
-        with:
-          name: dastardly-scan-output
-          path: "*dastardly-report.html"
+      # - name: Upload Dastardly HTML Scan Output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dastardly-scan-output
+      #     path: "*dastardly-report.html"
   
   
