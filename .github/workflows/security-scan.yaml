@@ -36,6 +36,7 @@ jobs:
           --add-host host.docker.internal:host-gateway
           -v $(pwd):/zap/wrk/:rw
           -t
+          --user $(id -u)
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
           -t http://host.docker.internal:3000
@@ -45,6 +46,10 @@ jobs:
           -a || true
           # || true - force exit code 0 so action continues
 
+      - name: Check scan
+        # https://www.zaproxy.org/docs/docker/full-scan/
+        run: ls -la
+      
       - name: Run Dastardly scan on accounts website
         # https://portswigger.net/burp/documentation/dastardly/generic
         run: docker run
@@ -80,6 +85,7 @@ jobs:
           --add-host host.docker.internal:host-gateway
           -v $(pwd):/zap/wrk/:rw
           -t
+          --user $(id -u)
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
           -t http://host.docker.internal:3001
@@ -108,13 +114,7 @@ jobs:
           mode: 'no-frames'
           input: 'demo.dastardly-report.xml'
           output: 'demo.dastardly-report.html'
-  
-      - name: Upload Dastardly XML Scan Output
-        uses: actions/upload-artifact@v3
-        with:
-          name: dastardly-scan-output-xml
-          path: "*dastardly-report.xml"
-      
+
       - name: Upload Dastardly HTML Scan Output
         uses: actions/upload-artifact@v3
         with:
