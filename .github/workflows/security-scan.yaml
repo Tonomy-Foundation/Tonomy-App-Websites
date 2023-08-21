@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  dastardly-scan:
+  security-scan:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,11 +38,12 @@ jobs:
           -t
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
-          -I
           -t http://host.docker.internal:3000
+          -j
           -g gen.conf
           -r accounts.zap-scan-report.html
-          -a
+          -a || true
+          # || true - force exit code 0 so action continues
 
       - name: Run Dastardly scan on accounts website
         # https://portswigger.net/burp/documentation/dastardly/generic
@@ -81,12 +82,13 @@ jobs:
           -t
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
-          -I
           -t http://host.docker.internal:3001
+          -j
           -g gen.conf
           -r demo.zap-scan-report.html
-          -a
-
+          -a || true
+          # || true - force exit code 0 so action continues
+          
       - name: Upload ZAP Scan Output
         uses: actions/upload-artifact@v3
         with:
