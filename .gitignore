@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 
+*zap-scan-report.html
 *dastardly-report.xml
 
 # # Editor directories and files
