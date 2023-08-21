@@ -37,7 +37,6 @@ jobs:
           --add-host host.docker.internal:host-gateway
           -v $(pwd):/zap/wrk/:rw
           -t
-          --user $(id -u):$(id -g)
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
           -t http://host.docker.internal:3000
