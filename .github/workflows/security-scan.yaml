@@ -40,7 +40,6 @@ jobs:
           ghcr.io/zaproxy/zaproxy:stable
           zap-full-scan.py
           -t http://host.docker.internal:3000
-          -j
           -g gen.conf
           -r accounts.zap-scan-report.html
           -a || true
