@@ -30,7 +30,21 @@ jobs:
       - run: yarn run start:prod:accounts &
       - run: sleep 8
 
+      - name: Run ZAP Full Scan on the accounts website
+        # https://www.zaproxy.org/docs/docker/full-scan/
+        run: docker run
+          --add-host host.docker.internal:host-gateway
+          -v $(pwd):/zap/wrk/:rw
+          -t
+          ghcr.io/zaproxy/zaproxy:stable
+          zap-full-scan.py
+          -t http://host.docker.internal:3000
+          -g gen.conf
+          -r accounts.zap-scan-report.html
+          -a
+
       - name: Run Dastardly scan on accounts website
+        # https://portswigger.net/burp/documentation/dastardly/generic
         run: docker run
           --add-host host.docker.internal:host-gateway
           -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000
@@ -58,8 +72,34 @@ jobs:
           -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
           dastardly
 
-      - name: Upload Scan Output
+      - name: Run ZAP Full Scan on the demo website
+        # https://www.zaproxy.org/docs/docker/full-scan/
+        run: docker run
+          --add-host host.docker.internal:host-gateway
+          -v $(pwd):/zap/wrk/:rw
+          -t
+          ghcr.io/zaproxy/zaproxy:stable
+          zap-full-scan.py
+          -t http://host.docker.internal:3000
+          -g gen.conf
+          -r accounts.zap-scan-report.html
+          -a
+
+      - name: Convert Dastardly JUnit XML to HTML
+        uses: pl-strflt/junit-xml-to-html@v1
+        with:
+          mode: 'no-frames'
+          input: '/dastardly/demo.dastardly-report.xml'
+          output: '/dastardly/demo.dastardly-report.html'
+
+      - name: Upload Dastardly Scan Output
         uses: actions/upload-artifact@v3
         with:
           name: dastardly-scan-output
           path: "*dastardly-report.xml"
+
+      - name: Upload ZAP Scan Output
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-scan-output
+          path: "*zap-scan-report.html"
