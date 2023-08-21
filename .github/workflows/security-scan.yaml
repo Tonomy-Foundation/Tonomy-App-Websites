@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: 18.12.1
       - run: corepack enable
-      # - run: yarn install --immutable
-      # - run: yarn run build
+      - run: yarn install --immutable
+      - run: yarn run build
       - run: echo $(id -u) $(id -g) $(whoami)
 
       - name: 🚀 Run accounts website
