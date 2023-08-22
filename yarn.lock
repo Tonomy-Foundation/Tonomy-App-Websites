@@ -2799,9 +2799,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.14.0"
+"@tonomy/tonomy-id-sdk@npm:development":
+  version: 0.13.0-development.9
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.13.0-development.9"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@tonomy/antelope-did": ^0.1.5
@@ -2816,7 +2816,7 @@ __metadata:
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
     universal-base64url: ^1.1.0
-  checksum: cb2670a0b8a47cbd621033e01ebd02b373dd867fc1e333e6a31e01678a5fce0957f400962d977207a87afbae899327375e69ad38ab0523a30f9ab89d6623c0ae
+  checksum: 37ed75735901ab3217cc44fb5b0efe1cf0827b4e6749fa63c1ced7d734c62211786db36c171c7541f911ce248c9817217fabb474e017a37cec153e7ef429c777
   languageName: node
   linkType: hard
 
@@ -7456,7 +7456,7 @@ __metadata:
     "@mui/material": ^5.11.10
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": ^0.14.0
+    "@tonomy/tonomy-id-sdk": development
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
