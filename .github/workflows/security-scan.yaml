@@ -60,7 +60,7 @@ jobs:
           -v $(pwd):/dastardly
           public.ecr.aws/portswigger/dastardly:latest
           dastardly
-          echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
+          echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_ENV
 
 
       - name: 🚀 Run demo website
@@ -80,7 +80,7 @@ jobs:
           -u root
           -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
           dastardly
-          echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
+          echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_ENV
 
       - name: Run ZAP Full Scan on the demo website
         # https://www.zaproxy.org/docs/docker/full-scan/
@@ -133,14 +133,14 @@ jobs:
             exit ${{ steps.zap_scan.outputs.EXIT_CODE }}
           fi
 
-          if [[ ${{ steps.dastardly_accounts_scan.outputs.DASTARDLY_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
+          if [[ ${{ env.DASTARDLY_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
             echo "Dastardly Scan on accounts website"
-            exit ${{ steps.dastardly_accounts_scan.outputs.DASTARDLY_ACCOUNTS_EXIT_CODE }}
+            exit ${{ env.DASTARDLY_ACCOUNTS_EXIT_CODE }}
           fi
 
-          if [[ ${{ steps.dastardly_demo_scan.outputs.DASTARDLY_DEMO_EXIT_CODE }} -gt 0 ]]; then
+          if [[ ${{ env.DASTARDLY_DEMO_EXIT_CODE }} -gt 0 ]]; then
             echo "Dastardly Scan on demo website"
-            exit ${{ steps.dastardly_demo_scan.outputs.DASTARDLY_DEMO_EXIT_CODE }}
+            exit ${{ env.DASTARDLY_DEMO_EXIT_CODE }}
           fi
 
           if [[ ${{ steps.zap_demo_scan.outputs.ZAP_DEMO_EXIT_CODE }} -gt 0 ]]; then
