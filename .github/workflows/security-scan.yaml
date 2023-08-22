@@ -48,8 +48,7 @@ jobs:
           -g gen.conf \
           -r accounts.zap-scan-report.html \
           -a
-        EXIT_CODE="$?"
-        echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_OUTPUT
+          echo "ZAP_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Run Dastardly scan on accounts website
         # https://portswigger.net/burp/documentation/dastardly/generic
@@ -61,6 +60,8 @@ jobs:
           -v $(pwd):/dastardly
           public.ecr.aws/portswigger/dastardly:latest
           dastardly
+          echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
+
 
       - name: 🚀 Run demo website
         uses: actions/setup-node@v3
@@ -79,6 +80,7 @@ jobs:
           -u root
           -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
           dastardly
+          echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Run ZAP Full Scan on the demo website
         # https://www.zaproxy.org/docs/docker/full-scan/
@@ -96,16 +98,13 @@ jobs:
           -g gen.conf \
           -r demo.zap-scan-report.html \
           -a
-        EXIT_CODE="$?"
-        echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_OUTPUT
+          echo "ZAP_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
           
       - name: Upload ZAP Scan Output
         uses: actions/upload-artifact@v3
         with:
           name: zap-scan-output
           path: "*zap-scan-report.html"
-        # Exit with the exit code of the ZAP scan
-      - run: exit "${{ steps.zap_scan.outputs.EXIT_CODE }}"
   
       - name: Convert Accounts Dastardly JUnit XML report to HTML
         uses: pl-strflt/junit-xml-to-html@v1
@@ -126,5 +125,27 @@ jobs:
         with:
           name: dastardly-scan-output
           path: "*dastardly-report.html"
-  
+
+      - name: Check scan exit codes
+        run: |
+          if [[ ${{ steps.zap_scan.outputs.EXIT_CODE }} -gt 0 ]]; then
+            echo "ZAP Scan on accounts website"
+            exit ${{ steps.zap_scan.outputs.EXIT_CODE }}
+          fi
+
+          if [[ ${{ steps.dastardly_accounts_scan.outputs.DASTARDLY_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
+            echo "Dastardly Scan on accounts website"
+            exit ${{ steps.dastardly_accounts_scan.outputs.DASTARDLY_ACCOUNTS_EXIT_CODE }}
+          fi
+
+          if [[ ${{ steps.dastardly_demo_scan.outputs.DASTARDLY_DEMO_EXIT_CODE }} -gt 0 ]]; then
+            echo "Dastardly Scan on demo website"
+            exit ${{ steps.dastardly_demo_scan.outputs.DASTARDLY_DEMO_EXIT_CODE }}
+          fi
+
+          if [[ ${{ steps.zap_demo_scan.outputs.ZAP_DEMO_EXIT_CODE }} -gt 0 ]]; then
+            echo "ZAP Scan on demo website"
+            exit ${{ steps.zap_demo_scan.outputs.ZAP_DEMO_EXIT_CODE }}
+          fi       
+
   
