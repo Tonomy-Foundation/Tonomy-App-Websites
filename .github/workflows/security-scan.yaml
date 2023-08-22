@@ -32,7 +32,7 @@ jobs:
       - run: sleep 8
 
       - name: Run ZAP Full Scan on the accounts website
-        id: zap_scan
+        id: account_zap_scan
         # https://www.zaproxy.org/docs/docker/full-scan/
         run: |
           set +e        
@@ -52,16 +52,18 @@ jobs:
 
       - name: Run Dastardly scan on accounts website
         # https://portswigger.net/burp/documentation/dastardly/generic
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000
-          -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml
-          -u root
-          -v $(pwd):/dastardly
-          public.ecr.aws/portswigger/dastardly:latest
-          dastardly
-          echo $? > dastardly_accounts_exit_code.txt
-          # echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_ENV
+        id: account_dastardly_scan
+        run: |
+          set +e    
+          docker run \
+          --add-host host.docker.internal:host-gateway \
+          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000 \
+          -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml \
+          -u root \
+          -v $(pwd):/dastardly \
+          public.ecr.aws/portswigger/dastardly:latest \
+          dastardly \
+          echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
 
       - name: 🚀 Run demo website
@@ -74,17 +76,21 @@ jobs:
       - run: sleep 8
 
       - name: Run Dastardly scan on demo website
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001
-          -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml
-          -u root
-          -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
-          dastardly
-          echo $? > dastardly_demo_exit_code.txt
+        id: demo_dastardly_scan
+        run: |
+          set +e     
+          docker run \
+          --add-host host.docker.internal:host-gateway \
+          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001 \
+          -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml \
+          -u root \
+          -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest \
+          dastardly \
+          echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Run ZAP Full Scan on the demo website
         # https://www.zaproxy.org/docs/docker/full-scan/
+        id: demo_zap_scan
         run: |
           set +e       
           docker run \
@@ -129,24 +135,24 @@ jobs:
 
       - name: Check scan exit codes
         run: |
-          if [[ -f "dastardly_accounts_exit_code.txt" && $(cat dastardly_accounts_exit_code.txt) -gt 0 ]]; then
+          if [[ ${{ steps.account_dastardly_scan.outputs.DASTARDLY_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
             echo "Dastardly Scan on accounts website"
-            exit $(cat dastardly_accounts_exit_code.txt)
+            exit ${{ steps.account_dastardly_scan.outputs.DASTARDLY_ACCOUNTS_EXIT_CODE }}
           fi
 
-          if [[ -f "dastardly_demo_exit_code.txt" && $(cat dastardly_demo_exit_code.txt) -gt 0 ]]; then
+          if [[ ${{ steps.demo_dastardly_scan.outputs.DASTARDLY_DEMO_EXIT_CODE }} -gt 0 ]]; then
             echo "Dastardly Scan on demo website"
-            exit $(cat dastardly_demo_exit_code.txt)
+            exit ${{ steps.demo_dastardly_scan.outputs.DASTARDLY_DEMO_EXIT_CODE }}
           fi
 
-          if [[ ${{ steps.zap_scan.outputs.ZAP_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
+          if [[ ${{ steps.account_zap_scan.outputs.ZAP_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
             echo "ZAP Scan on accounts website"
-            exit ${{ steps.zap_scan.outputs.ZAP_ACCOUNTS_EXIT_CODE }}
+            exit ${{ steps.account_zap_scan.outputs.ZAP_ACCOUNTS_EXIT_CODE }}
           fi
 
-          if [[ ${{ steps.zap_demo_scan.outputs.ZAP_DEMO_EXIT_CODE }} -gt 0 ]]; then
+          if [[ ${{ steps.demo_zap_scan.outputs.ZAP_DEMO_EXIT_CODE }} -gt 0 ]]; then
             echo "ZAP Scan on demo website"
-            exit ${{ steps.zap_demo_scan.outputs.ZAP_DEMO_EXIT_CODE }}
+            exit ${{ steps.demo_zap_scan.outputs.ZAP_DEMO_EXIT_CODE }}
           fi       
 
   
