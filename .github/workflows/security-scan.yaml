@@ -126,6 +126,7 @@ jobs:
         with:
           name: dastardly-scan-output
           path: "*dastardly-report.html"
+
       - name: Check scan exit codes
         run: |
           if [[ ${{ steps.zap_scan.outputs.ZAP_ACCOUNTS_EXIT_CODE }} -gt 0 ]]; then
@@ -135,12 +136,12 @@ jobs:
 
           if [[ -f "dastardly_accounts_exit_code.txt" && $(cat dastardly_accounts_exit_code.txt) -gt 0 ]]; then
             echo "Dastardly Scan on accounts website"
-            exit ${{ cat dastardly_accounts_exit_code.txt }}
+            exit $(cat dastardly_accounts_exit_code.txt)
           fi
 
           if [[ -f "dastardly_demo_exit_code.txt" && $(cat dastardly_demo_exit_code.txt) -gt 0 ]]; then
             echo "Dastardly Scan on demo website"
-            exit ${{ cat dastardly_demo_exit_code.txt }}
+            exit $(cat dastardly_demo_exit_code.txt)
           fi
 
           if [[ ${{ steps.zap_demo_scan.outputs.ZAP_DEMO_EXIT_CODE }} -gt 0 ]]; then
