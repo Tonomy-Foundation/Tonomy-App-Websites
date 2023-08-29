@@ -33,7 +33,6 @@ export default function TErrorModal(props: TErrorModalProps) {
 
   if (props?.expected === false) {
     console.error(props.error);
-    console.log(JSON.stringify(props.error, null, 2), props.expected);
     // TODO: log to Tonomy Foundation team
   }
 
