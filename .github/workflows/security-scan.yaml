@@ -62,8 +62,8 @@ jobs:
           -u root \
           -v $(pwd):/dastardly \
           public.ecr.aws/portswigger/dastardly:latest \
-          dastardly \
-      # echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
+          dastardly 
+          echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
 
       - name: 🚀 Run demo website
