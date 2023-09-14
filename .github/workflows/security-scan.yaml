@@ -1,9 +1,7 @@
 name: Run Security Scan with Dastardly and ZAP Full Scan
 
 on:
-  pull_request:
-    branches-ignore:
-      - master
+  pull_request
 
 jobs:
   security-scan:
