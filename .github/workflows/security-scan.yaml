@@ -83,8 +83,8 @@ jobs:
           -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml \
           -u root \
           -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest \
-          dastardly \
-      # echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
+          dastardly 
+          echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Run ZAP Full Scan on the demo website
         # https://www.zaproxy.org/docs/docker/full-scan/
@@ -131,8 +131,8 @@ jobs:
           name: dastardly-scan-output
           path: "*dastardly-report.html"
 
-      #uncomment this when work on zap fixes
+      # uncomment this when work on zap fixes
       - name: Check scan exit codes
-        run:  exit $((ZAP_DEMO_EXIT_CODE + ZAP_ACCOUNTS_EXIT_CODE ))   
+        run:  exit $((ZAP_DEMO_EXIT_CODE + ZAP_ACCOUNTS_EXIT_CODE + DASTARDLY_DEMO_EXIT_CODE + DASTARDLY_ACCOUNTS_EXIT_CODE))   
 
   
