@@ -131,8 +131,6 @@ jobs:
           name: dastardly-scan-output
           path: "*dastardly-report.html"
 
-      # uncomment this when work on zap fixes
       - name: Check scan exit codes
         run:  exit $((ZAP_DEMO_EXIT_CODE + ZAP_ACCOUNTS_EXIT_CODE + DASTARDLY_DEMO_EXIT_CODE + DASTARDLY_ACCOUNTS_EXIT_CODE))   
-
   
