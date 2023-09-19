@@ -1,9 +1,7 @@
 name: Run Security Scan with Dastardly and ZAP Full Scan
 
 on:
-  pull_request:
-    branches-ignore:
-      - master
+  pull_request
 
 jobs:
   security-scan:
@@ -32,31 +30,39 @@ jobs:
       - run: sleep 8
 
       - name: Run ZAP Full Scan on the accounts website
+        id: account_zap_scan
         # https://www.zaproxy.org/docs/docker/full-scan/
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -v $(pwd):/zap/wrk/:rw
-          -u root
-          -t
-          ghcr.io/zaproxy/zaproxy:stable
-          zap-full-scan.py
-          -t http://host.docker.internal:3000
-          -j
-          -g gen.conf
-          -r accounts.zap-scan-report.html
-          -a || true
-          # || true - force exit code 0 so action continues
+        run: |
+          set +e        
+          docker run \
+          --add-host host.docker.internal:host-gateway \
+          -v $(pwd):/zap/wrk/:rw \
+          -u root \
+          -t \
+          ghcr.io/zaproxy/zaproxy:stable \
+          zap-full-scan.py \
+          -t http://host.docker.internal:3000 \
+          -j \
+          -g gen.conf \
+          -r accounts.zap-scan-report.html \
+          -a
+          echo "ZAP_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Run Dastardly scan on accounts website
         # https://portswigger.net/burp/documentation/dastardly/generic
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000
-          -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml
-          -u root
-          -v $(pwd):/dastardly
-          public.ecr.aws/portswigger/dastardly:latest
-          dastardly
+        id: account_dastardly_scan
+        run: |
+          set +e    
+          docker run \
+          --add-host host.docker.internal:host-gateway \
+          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3000 \
+          -e DASTARDLY_OUTPUT_FILE=/dastardly/accounts.dastardly-report.xml \
+          -u root \
+          -v $(pwd):/dastardly \
+          public.ecr.aws/portswigger/dastardly:latest \
+          dastardly 
+          echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
+
 
       - name: 🚀 Run demo website
         uses: actions/setup-node@v3
@@ -68,29 +74,36 @@ jobs:
       - run: sleep 8
 
       - name: Run Dastardly scan on demo website
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001
-          -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml
-          -u root
-          -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest
-          dastardly
+        id: demo_dastardly_scan
+        run: |
+          set +e     
+          docker run \
+          --add-host host.docker.internal:host-gateway \
+          -e DASTARDLY_TARGET_URL=http://host.docker.internal:3001 \
+          -e DASTARDLY_OUTPUT_FILE=/dastardly/demo.dastardly-report.xml \
+          -u root \
+          -v $(pwd):/dastardly public.ecr.aws/portswigger/dastardly:latest \
+          dastardly 
+          echo "DASTARDLY_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Run ZAP Full Scan on the demo website
         # https://www.zaproxy.org/docs/docker/full-scan/
-        run: docker run
-          --add-host host.docker.internal:host-gateway
-          -v $(pwd):/zap/wrk/:rw
-          -t
-          -u root
-          ghcr.io/zaproxy/zaproxy:stable
-          zap-full-scan.py
-          -t http://host.docker.internal:3001
-          -j
-          -g gen.conf
-          -r demo.zap-scan-report.html
-          -a || true
-          # || true - force exit code 0 so action continues
+        id: demo_zap_scan
+        run: |
+          set +e       
+          docker run \
+          --add-host host.docker.internal:host-gateway \
+          -v $(pwd):/zap/wrk/:rw \
+          -t \
+          -u root \
+          ghcr.io/zaproxy/zaproxy:stable \
+          zap-full-scan.py \
+          -t http://host.docker.internal:3001 \
+          -j \
+          -g gen.conf \
+          -r demo.zap-scan-report.html \
+          -a
+          echo "ZAP_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
           
       - name: Upload ZAP Scan Output
         uses: actions/upload-artifact@v3
@@ -117,5 +130,7 @@ jobs:
         with:
           name: dastardly-scan-output
           path: "*dastardly-report.html"
-  
+
+      - name: Check scan exit codes
+        run:  exit $((ZAP_DEMO_EXIT_CODE + ZAP_ACCOUNTS_EXIT_CODE + DASTARDLY_DEMO_EXIT_CODE + DASTARDLY_ACCOUNTS_EXIT_CODE))   
   
