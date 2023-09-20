@@ -33,10 +33,6 @@ Runs the app in development mode and uses nginx to route the port to the respect
 
 **the vite app port isn't important**  it will only be used inside the nginx.
 
-### `yarn add @tonomy/tonomy-id-sdk@development`
-
-this install the tonomy-id-sdk with development tag
-
 ### `yarn run build`
 
 builds the apps into `./dist` folder.
@@ -46,6 +42,14 @@ Making the apps ready for production.
 
 test how the apps will look like on production. <br>
 this is still experimental and needs some proxy configuration to make it works
+
+## Update the Tonomy-ID-SDK version to the latest
+
+```bash
+yarn run updateSdkVersion development
+# or
+yarn run updateSdkVersion master
+```
 
 ### `yarn run lint`
 
