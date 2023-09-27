@@ -51,6 +51,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               active={false}
               icon={<DescriptionOutlinedIcon />}
               component={<Link to="/w3c-vcs" />}
+              onClick={() => window.scrollTo(0, 0)}
             >
               W3C VCs
             </MenuItem>
@@ -58,6 +59,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <MenuItem
               icon={<SwapHorizOutlinedIcon />}
               component={<Link to="/blockchain-tx" />}
+              onClick={() => window.scrollTo(0, 0)}
             >
               Blockchain Tx
             </MenuItem>

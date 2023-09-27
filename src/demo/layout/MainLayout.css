@@ -27,8 +27,6 @@ body {
 }
 
 
-
-
 .ps-menu-root ul {
   display: flex;
   flex-direction: column;
@@ -40,20 +38,17 @@ body {
 }
 
 .sidebar {
+  flex: 0 0 3.9%;
   position: fixed;
-  display: flex;
-  align-items: flex-start;
-  width: 3.9%;
   height: 100vh;
 }
 
 .main-content {
-  position: fixed;
-  right: 0;
-  width: 96.1%;
-  height: 100%;
-  overflow: auto;
+  flex: 1;
+  margin-left: 3.9%; 
+  height: calc(100vh - 3.9%); 
 }
+
 
 .ps-sidebar-container , h3{
   background: var(--offWhite);

@@ -13,7 +13,6 @@ export const PageIntroStyle = styled.div`
   align-items: center;
   text-align: left;
   max-height: 100vh;
-  overflow: auto;
   padding: 1rem;
   display: inline;
   flex-direction: column;

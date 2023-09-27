@@ -6,23 +6,23 @@ import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
-import UserHome from "../pages/UserHome";
+import BlockchainTx from "../pages/BlockchainTx";
 
 export default function RootRoutes(): JSX.Element {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<UserHome />} />
+          <Route path="/" element={<BlockchainTx />} />
           <Route path="/callback" element={<Callback />} />
           {mainRoutes.map((route) => (
             <Route
               key={route.path}
               path={route.path}
               element={
-                <PrivateRoute>
-                  <MainLayout>{route.element}</MainLayout>
-                </PrivateRoute>
+                // <PrivateRoute>
+                <MainLayout>{route.element}</MainLayout>
+                // </PrivateRoute>
               }
             />
           ))}

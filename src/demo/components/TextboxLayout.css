@@ -23,6 +23,7 @@
     left: 11.5rem;
     color: black;
     pointer-events: none;
+    font-weight: 500;
   }
   
   /* Optional: To add a border when the textbox is focused */

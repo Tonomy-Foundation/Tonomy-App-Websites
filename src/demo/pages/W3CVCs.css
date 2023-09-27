@@ -24,7 +24,7 @@ body {
     width: 100%;
     text-align: end;
     color: var(--black); 
-    overflow: auto; 
+    /* overflow: auto;  */
   }
   
   .leftText {
@@ -47,7 +47,7 @@ body {
   
   .sign-dcoument {
     color: var(--dark-grey);
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 500;
     line-height: 14px;
     letter-spacing: 0.5px;

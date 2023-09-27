@@ -246,16 +246,16 @@ export default function BlockchainTx() {
                   }}
                 />
                 <label htmlFor="inputField" className="textbox-label">
-                  Balance
+                  Balance:
                 </label>
               </div>
               <TextboxLayout
-                label="Recipient"
+                label="Recipient:"
                 value={recipient}
                 onChange={setRecipient}
               />
               <TextboxLayout
-                label="Description"
+                label="Description:"
                 value={description}
                 onChange={setDescription}
               />

@@ -26,6 +26,7 @@
   padding: 1.7rem 1rem;
   clip-path: inset(0 0 0 var(--_f) round var(--r));
   cursor: pointer;
+  margin-top:-0.2rem
 }
 
 .left-side-image {
