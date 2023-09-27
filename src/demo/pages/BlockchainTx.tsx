@@ -250,11 +250,27 @@ export default function BlockchainTx() {
                   Balance:
                 </label>
               </div>
-              <TextboxLayout
-                label="Recipient:"
-                value={recipient}
-                onChange={setRecipient}
-              />
+              <div className="input-container">
+                <select
+                  className="transparent-textbox"
+                  id="selectField"
+                  value={recipient}
+                  onChange={(e) => {
+                    setRecipient(e.target.value);
+                  }}
+                >
+                  <option value="DigitalWarren1122">DigitalWarren1122</option>
+                  <option value="DreamWeave47">DreamWeave47</option>
+                  <option value="BitMazer13">BitMazer13</option>
+                  <option value="Crypto4Quill">Crypto4Quill</option>
+                  <option value="CopperSwift8767">CopperSwift8767</option>
+                  <option value="QuantumLily">QuantumLily</option>
+                </select>
+                <label htmlFor="selectField" className="textbox-label">
+                  Recipient:
+                </label>
+              </div>
+
               <TextboxLayout
                 label="Description:"
                 value={description}
@@ -277,7 +293,11 @@ export default function BlockchainTx() {
                 activeStep={activeStep}
                 steps={steps}
                 progressValue={progressValue}
-                onContinue={() => setSuccess(true)}
+                onContinue={() => {
+                  setTimeout(() => {
+                    setSuccess(true);
+                  }, 2000);
+                }}
               />
             </div>
           </MainContainer>

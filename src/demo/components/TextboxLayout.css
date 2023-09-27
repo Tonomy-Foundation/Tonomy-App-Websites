@@ -16,6 +16,12 @@
     border-radius: 10px;
     padding-bottom: 0.9rem;
   }
+  .transparent-textbox:focus {
+    background-color: transparent;
+    outline: none;
+    border: 2px solid var(--primary) !important;
+  }
+  
   
   .textbox-label {
     position: absolute;
@@ -25,10 +31,5 @@
     pointer-events: none;
     font-weight: 500;
   }
-  
-  /* Optional: To add a border when the textbox is focused */
-  .transparent-textbox:active {
-    outline: none;
-    border: 2px solid var(--primary) !important;
-  }
+ 
   
