@@ -163,16 +163,16 @@ export const FormInput = styled.div`
 
 export const TransactionButton = styled.button`
   max-width: 100%;
-  height: 75px;
+  height: 65px;
   border-radius: 10px;
   background-color: #67d7ed;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   border: 1px;
   margin-top: 2rem !important;
   margin: 0 auto;
-  padding: 0rem 2rem;
+  padding: 0rem 1.7rem;
   cursor: pointer;
 `;
 

@@ -71,7 +71,7 @@ export default function BlockchainTx() {
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
-  const [balance, setBalance] = useState<number | undefined>(undefined);
+  const [balance, setBalance] = useState<number | undefined>(10);
   const [from, setFrom] = useState<string>("rabbithole20222");
   const [recipient, setRecipient] = useState<string>("DigitalWarren1122");
   const [success, setSuccess] = useState<boolean>(false);
