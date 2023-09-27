@@ -24,7 +24,6 @@ body {
     width: 100%;
     text-align: end;
     color: var(--black); 
-    /* overflow: auto;  */
   }
   
   .leftText {
