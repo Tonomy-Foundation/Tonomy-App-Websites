@@ -135,7 +135,7 @@
 
 .balance-container-text-left {
   color: var(--grey-dark-grey, #313938);
-  font-size: 36px;
+  font-size: 34px;
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
@@ -144,7 +144,7 @@
 
 .balance-container-text-right {
   color: var(--grey-dark-grey, #313938);
-  font-size: 36px;
+  font-size: 34px;
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
@@ -153,11 +153,11 @@
 
 .form-header-container-text {
   color: var(--grey-dark-grey, #313938);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
-  margin-left: 1.8rem;
+  margin-left: 1.7rem;
   margin-right: 2.1rem;
   margin-top: 8.3rem;
 }
