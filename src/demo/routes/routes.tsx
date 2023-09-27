@@ -6,13 +6,14 @@ import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
+import UserHome from "../pages/UserHome";
 
 export default function RootRoutes(): JSX.Element {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route path="/" element={<UserHome />} />
           <Route path="/callback" element={<Callback />} />
           {mainRoutes.map((route) => (
             <Route
