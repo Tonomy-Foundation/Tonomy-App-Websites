@@ -180,9 +180,11 @@ export default function BlockchainTx() {
         </p>
         {/* <div className="header-image" /> */}
         <img src={SignBanner} alt="banner-image" className="header-image" />
-
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>Tonomy ID</HeaderTonomy>
+        <HeaderTonomy>
+          Tonomy
+          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
+        </HeaderTonomy>
         <TH2 className="header-description">
           Tonomy ID utilizes a digital signatures and a distributed transaction
           protocol to safeguard your transactions and digital assets from
@@ -196,7 +198,6 @@ export default function BlockchainTx() {
         >
           Learn about the Antelope blockchain protocol{`->`}
         </a>
-
         <button
           className="demoLink"
           onClick={() => scrollToDemo("demoSection")}
