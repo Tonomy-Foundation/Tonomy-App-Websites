@@ -40,7 +40,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </MenuItem>
 
             <MenuItem
-              active={true}
+              active={location.pathname === "/user-home"}
               icon={<HomeOutlinedIcon />}
               component={<Link to="/user-home" />}
             >
@@ -48,18 +48,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </MenuItem>
 
             <MenuItem
-              active={false}
+              active={location.pathname === "/w3c-vcs"}
               icon={<DescriptionOutlinedIcon />}
               component={<Link to="/w3c-vcs" />}
-              onClick={() => window.scrollTo(0, 0)}
             >
               W3C VCs
             </MenuItem>
 
             <MenuItem
+              active={location.pathname === "/blockchain-tx"}
               icon={<SwapHorizOutlinedIcon />}
               component={<Link to="/blockchain-tx" />}
-              onClick={() => window.scrollTo(0, 0)}
             >
               Blockchain Tx
             </MenuItem>

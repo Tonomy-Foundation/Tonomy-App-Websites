@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { api, ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
-import useErrorStore from "../../common/stores/errorStore";
+import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface AuthContextType {
@@ -16,9 +15,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigation = useNavigate();
   const { pathname } = useLocation();
 
-  console.log("pathname", pathname);
   useEffect(() => {
-    console.log("useEffect");
     window.scrollTo(0, 0);
   }, [pathname]);
 
