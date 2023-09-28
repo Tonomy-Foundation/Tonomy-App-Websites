@@ -1,3 +1,4 @@
+
 .wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -18,12 +19,16 @@
   height: 95%;
 }
 
+.ps-active {
+  color: var(--primary);
+
+}
+
+
 .ps-sidebar-root{
   height: 100%;
   background: var(--offWhite);
 }
-
-
 
 
 .ps-menu-root ul {
@@ -37,20 +42,17 @@
 }
 
 .sidebar {
+  flex: 0 0 3.9%;
   position: fixed;
-  display: flex;
-  align-items: flex-start;
-  width: 3.9%;
   height: 100vh;
 }
 
 .main-content {
-  position: fixed;
-  right: 0;
-  width: 96.1%;
-  height: 100%;
-  overflow: auto;
+  flex: 1;
+  margin-left: 3.9%; 
+  height: calc(100vh - 3.9%); 
 }
+
 
 .ps-sidebar-container , h3{
   background: var(--offWhite);
@@ -72,13 +74,7 @@ a {
 
 .ps-menuitem-root .ps-menu-button:hover {
   background: none !important;
-  color: var(--primary);
-  border-right: 4px solid var(--primary);
-}
-.ps-menuitem-root .ps-menu-button:active {
-  color: var(--primary);
-  background: none !important;
-
+  color: var(--dark-grey);
 }
 
 a {

@@ -23,8 +23,10 @@
   clip-path: inset(0 var(--_f) 0 0 round var(--r));
   transform: perspective(400px) var(--_t,rotateY(var(--_a)));
   transition: .5s;
-  padding: 2rem 1rem;
+  padding: 1.7rem 1rem;
   clip-path: inset(0 0 0 var(--_f) round var(--r));
+  cursor: pointer;
+  margin-top:-0.2rem
 }
 
 .left-side-image {
@@ -39,11 +41,13 @@
 
 }
 .left-side-image img, .right-side-image img {
-  height: 60% !important;
+  height: 70% !important;
 }
 .center-image {
   flex: 1.5;
   text-align: center;
+  cursor: pointer;
+
 }
 
 .center-image img {
@@ -53,14 +57,14 @@
 .centerImageText {
   color: var(--dark-grey);
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-style: normal;
   font-weight: 500;
   line-height: 40px; 
   cursor: pointer;
-  margin: -0.4rem 1.55rem;
+  margin: -0.4rem 2rem;
   background: var(--white);
-  padding:1rem;
+  padding:0.65rem;
 }
 
 .sideImageText {
@@ -72,8 +76,8 @@
   line-height: 40px; 
   cursor: pointer;
   background: var(--white);
-  padding:0.7rem;
-  margin: -0.4rem 0rem 4rem 4rem
+  padding:0.65rem;
+  margin-top: -0.4rem;
 
 }
 
@@ -127,9 +131,10 @@ line-height: 35px !important;
 
 .documentation p {
   color: var(--dark-grey);
-font-size: 1rem;
-font-style: normal;
-font-weight: 700;
-line-height: 14px;
-letter-spacing: 0.5px; 
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0.5px; 
+  text-decoration: none;
 }

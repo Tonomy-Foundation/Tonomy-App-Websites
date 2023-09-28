@@ -1,6 +1,7 @@
 import React from "react";
 import HighlightedPageView from "../components/TPageHighlighted";
 import "./CodeSnippetPreview.css";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export type CodeSnippetPreviewProps = {
   documentationLink: string;
@@ -23,8 +24,11 @@ const CodeSnippetPreview = (props: CodeSnippetPreviewProps) => {
         </a>
       </div>
       <div>
-        <button onClick={handleOpen}>
-          Code Snippet<span className="dropdown-arrow">v</span>
+        <button onClick={handleOpen} className="centered-button">
+          Code Snippet
+          <span className="dropdown-arrow">
+            <ExpandMoreIcon></ExpandMoreIcon>
+          </span>
         </button>
         {open && (
           <div className="dropdown-content">
