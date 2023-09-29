@@ -146,7 +146,7 @@ export default function BlockchainTx() {
       await setTimeout(() => {
         setActiveStep(2);
         setProgressValue(60);
-      }, 4000);
+      }, 3000);
       let url =
         "https://local.bloks.io/transaction/" +
         trx?.transaction_id +
@@ -159,14 +159,14 @@ export default function BlockchainTx() {
       await setTimeout(() => {
         setActiveStep(3);
         setProgressValue(80);
-      }, 5000);
+      }, 4000);
 
       await setTimeout(() => {
         setActiveStep(4);
         setProgressValue(100);
         setTrxUrl(url);
         setTransactionState("purchased");
-      }, 6000);
+      }, 5200);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
