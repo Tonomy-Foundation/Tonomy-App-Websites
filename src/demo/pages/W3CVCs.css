@@ -38,6 +38,9 @@ body {
   .userLogoVC img {
     margin-right: 0.3rem;
   }
+  .userLogoVC span {
+    font-size: 1.1rem;
+  }
   
   .sign-dcoument {
     color: var(--dark-grey);
