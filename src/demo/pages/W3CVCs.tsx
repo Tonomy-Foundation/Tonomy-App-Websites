@@ -130,7 +130,10 @@ export default function W3CVCs() {
         <img src={VCBanner} alt="banner-image" className="header-image" />
 
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>Tonomy ID</HeaderTonomy>
+        <HeaderTonomy>
+          Tonomy
+          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
+        </HeaderTonomy>
         <TH2 className="header-description">
           Sign and verify sensitive information with Tonomy ID. The W3C
           Verifiable Credential standard can help ensure trust and security when
