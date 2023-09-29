@@ -121,7 +121,8 @@ export default function BlockchainTx() {
   async function onBuy() {
     try {
       setTransactionState("loading");
-
+      setActiveStep(0);
+      setProgressValue(20);
       if (!user) throw new Error("User not logged in");
       const from = await user?.getAccountName();
       const toUsername = TonomyUsername.fromUsername(
@@ -131,6 +132,10 @@ export default function BlockchainTx() {
       );
       const to = await getAccountNameFromUsername(toUsername);
 
+      await setTimeout(() => {
+        setActiveStep(1);
+        setProgressValue(40);
+      }, 2000);
       const trx = await user?.signTransaction("eosio.token", "transfer", {
         from,
         to,
@@ -138,25 +143,30 @@ export default function BlockchainTx() {
         memo: "test",
       });
 
+      await setTimeout(() => {
+        setActiveStep(2);
+        setProgressValue(60);
+      }, 4000);
       let url =
         "https://local.bloks.io/transaction/" +
-        trx.transaction_id +
+        trx?.transaction_id +
         "?nodeUrl=";
 
       url += settings.isProduction()
         ? settings.config.blockchainUrl
         : "http://localhost:8888";
 
-      setActiveStep(3);
-      setProgressValue(80);
+      await setTimeout(() => {
+        setActiveStep(3);
+        setProgressValue(80);
+      }, 5000);
 
-      setTimeout(() => {
+      await setTimeout(() => {
         setActiveStep(4);
         setProgressValue(100);
-      }, 3000);
-
-      setTrxUrl(url);
-      setTransactionState("purchased");
+        setTrxUrl(url);
+        setTransactionState("purchased");
+      }, 6000);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -280,9 +290,7 @@ export default function BlockchainTx() {
                 <TButton
                   className="btnPayment btnStyle1 "
                   onClick={() => onBuy()}
-                  disabled={
-                    progressValue > 0 && progressValue <= 100 ? true : false
-                  }
+                  disabled={transactionState === "loading" ? true : false}
                 >
                   <HttpsOutlinedIcon /> Send Payment
                 </TButton>
