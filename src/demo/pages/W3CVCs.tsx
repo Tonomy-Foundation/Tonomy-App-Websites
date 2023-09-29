@@ -72,7 +72,6 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
-      console.log("submitt");
       setLoading(true);
 
       await setTimeout(() => {
