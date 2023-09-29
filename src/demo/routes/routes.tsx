@@ -19,9 +19,9 @@ export default function RootRoutes(): JSX.Element {
               key={route.path}
               path={route.path}
               element={
-                // <PrivateRoute>
-                <MainLayout>{route.element}</MainLayout>
-                // </PrivateRoute>
+                <PrivateRoute>
+                  <MainLayout>{route.element}</MainLayout>
+                </PrivateRoute>
               }
             />
           ))}
