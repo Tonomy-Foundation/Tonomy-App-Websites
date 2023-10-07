@@ -50,6 +50,7 @@ export default function W3CVCs() {
   const [treatment, setTreatment] = useState(
     "sufficient rest and increase intake of fluids"
   );
+  const [loading, setLoading] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
 
   const errorStore = useErrorStore();
@@ -71,9 +72,12 @@ export default function W3CVCs() {
 
   async function onSubmit() {
     try {
-      setActiveStep(0);
-      setProgressValue(0);
+      setLoading(true);
 
+      await setTimeout(() => {
+        setActiveStep(0);
+        setProgressValue(20);
+      }, 2000);
       const data = {
         name,
         phone,
@@ -90,16 +94,18 @@ export default function W3CVCs() {
 
       await user?.signVc(id, "MedicalRecord", data);
 
-      setTimeout(() => {
+      await setTimeout(() => {
         setActiveStep(1);
         setProgressValue(50);
       }, 3000);
-
-      setTimeout(() => {
+      await setTimeout(() => {
         setActiveStep(2);
         setProgressValue(100);
-      }, 3000);
+        setLoading(false);
+      }, 4000);
     } catch (e) {
+      setLoading(false);
+
       errorStore.setError({ error: e, expected: false });
     }
   }
@@ -124,7 +130,10 @@ export default function W3CVCs() {
         <img src={VCBanner} alt="banner-image" className="header-image" />
 
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>Tonomy ID</HeaderTonomy>
+        <HeaderTonomy>
+          Tonomy
+          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
+        </HeaderTonomy>
         <TH2 className="header-description">
           Sign and verify sensitive information with Tonomy ID. The W3C
           Verifiable Credential standard can help ensure trust and security when
@@ -220,9 +229,7 @@ export default function W3CVCs() {
                 <TButton
                   className="btnStyle1"
                   onClick={onSubmit}
-                  disabled={
-                    progressValue > 0 && progressValue <= 100 ? true : false
-                  }
+                  disabled={loading ? true : false}
                 >
                   Sign using your tonomy DID
                 </TButton>

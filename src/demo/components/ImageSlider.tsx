@@ -72,13 +72,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             src={images[(currentPreviewIndex + 1) % images.length]}
             alt={`Image ${currentPreviewIndex + 1}`}
           />
-          <p
-            className="sideImageText"
-            style={{
-              margin: "-0.4rem 4rem 4rem 0rem",
-              paddingLeft: "1.6rem",
-            }}
-          >
+          <p className="sideImageText">
             {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
           </p>
         </div>

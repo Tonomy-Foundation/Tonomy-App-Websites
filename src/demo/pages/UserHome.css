@@ -11,9 +11,10 @@ body{
     align-items: center;
     color: var(--black); 
     padding-top: 2rem;
+    font-size: 1.4rem;
 }
 .userLogo {
-    margin-right: 0.4rem;
+    margin-right: 0.5rem;
 }
 
 .imageSlider {

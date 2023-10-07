@@ -71,7 +71,7 @@ export default function BlockchainTx() {
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
-  const [balance, setBalance] = useState<number | undefined>(undefined);
+  const [balance, setBalance] = useState<number | undefined>(10);
   const [from, setFrom] = useState<string>("rabbithole20222");
   const [recipient, setRecipient] = useState<string>("DigitalWarren1122");
   const [success, setSuccess] = useState<boolean>(false);
@@ -121,7 +121,8 @@ export default function BlockchainTx() {
   async function onBuy() {
     try {
       setTransactionState("loading");
-
+      setActiveStep(0);
+      setProgressValue(20);
       if (!user) throw new Error("User not logged in");
       const from = await user?.getAccountName();
       const toUsername = TonomyUsername.fromUsername(
@@ -131,6 +132,10 @@ export default function BlockchainTx() {
       );
       const to = await getAccountNameFromUsername(toUsername);
 
+      await setTimeout(() => {
+        setActiveStep(1);
+        setProgressValue(40);
+      }, 2000);
       const trx = await user?.signTransaction("eosio.token", "transfer", {
         from,
         to,
@@ -138,25 +143,30 @@ export default function BlockchainTx() {
         memo: "test",
       });
 
+      await setTimeout(() => {
+        setActiveStep(2);
+        setProgressValue(60);
+      }, 3000);
       let url =
         "https://local.bloks.io/transaction/" +
-        trx.transaction_id +
+        trx?.transaction_id +
         "?nodeUrl=";
 
       url += settings.isProduction()
         ? settings.config.blockchainUrl
         : "http://localhost:8888";
 
-      setActiveStep(3);
-      setProgressValue(80);
+      await setTimeout(() => {
+        setActiveStep(3);
+        setProgressValue(80);
+      }, 4000);
 
-      setTimeout(() => {
+      await setTimeout(() => {
         setActiveStep(4);
         setProgressValue(100);
-      }, 3000);
-
-      setTrxUrl(url);
-      setTransactionState("purchased");
+        setTrxUrl(url);
+        setTransactionState("purchased");
+      }, 5200);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -180,9 +190,11 @@ export default function BlockchainTx() {
         </p>
         {/* <div className="header-image" /> */}
         <img src={SignBanner} alt="banner-image" className="header-image" />
-
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>Tonomy ID</HeaderTonomy>
+        <HeaderTonomy>
+          Tonomy
+          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
+        </HeaderTonomy>
         <TH2 className="header-description">
           Tonomy ID utilizes a digital signatures and a distributed transaction
           protocol to safeguard your transactions and digital assets from
@@ -196,7 +208,6 @@ export default function BlockchainTx() {
         >
           Learn about the Antelope blockchain protocol{`->`}
         </a>
-
         <button
           className="demoLink"
           onClick={() => scrollToDemo("demoSection")}
@@ -246,16 +257,32 @@ export default function BlockchainTx() {
                   }}
                 />
                 <label htmlFor="inputField" className="textbox-label">
-                  Balance
+                  Balance:
                 </label>
               </div>
+              <div className="input-container">
+                <select
+                  className="transparent-textbox"
+                  id="selectField"
+                  value={recipient}
+                  onChange={(e) => {
+                    setRecipient(e.target.value);
+                  }}
+                >
+                  <option value="DigitalWarren1122">DigitalWarren1122</option>
+                  <option value="DreamWeave47">DreamWeave47</option>
+                  <option value="BitMazer13">BitMazer13</option>
+                  <option value="Crypto4Quill">Crypto4Quill</option>
+                  <option value="CopperSwift8767">CopperSwift8767</option>
+                  <option value="QuantumLily">QuantumLily</option>
+                </select>
+                <label htmlFor="selectField" className="textbox-label">
+                  Recipient:
+                </label>
+              </div>
+
               <TextboxLayout
-                label="Recipient"
-                value={recipient}
-                onChange={setRecipient}
-              />
-              <TextboxLayout
-                label="Description"
+                label="Description:"
                 value={description}
                 onChange={setDescription}
               />
@@ -263,9 +290,7 @@ export default function BlockchainTx() {
                 <TButton
                   className="btnPayment btnStyle1 "
                   onClick={() => onBuy()}
-                  disabled={
-                    progressValue > 0 && progressValue <= 100 ? true : false
-                  }
+                  disabled={transactionState === "loading" ? true : false}
                 >
                   <HttpsOutlinedIcon /> Send Payment
                 </TButton>
@@ -276,7 +301,11 @@ export default function BlockchainTx() {
                 activeStep={activeStep}
                 steps={steps}
                 progressValue={progressValue}
-                onContinue={() => setSuccess(true)}
+                onContinue={() => {
+                  setTimeout(() => {
+                    setSuccess(true);
+                  }, 2000);
+                }}
               />
             </div>
           </MainContainer>

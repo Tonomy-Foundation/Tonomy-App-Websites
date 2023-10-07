@@ -10,7 +10,9 @@
     margin-bottom: 0.3rem;
     text-decoration-line: underline;
   }
-  
+  .documentation a {
+    text-decoration: none;
+  }
   .documentation button {
     width: 230px;
     height: 46px;
@@ -47,24 +49,28 @@
       width: 320px;
       height: 200px;
       color: white;
-      top: -13rem; /* This value makes the dropdown appear below the button on desktop */
+      top: -11rem; /* This value makes the dropdown appear below the button on desktop */
     }
   }
   
   /* Media query for mobile */
   @media (max-width: 767px) {
     .documentation {
-      display: block; /* Stack elements vertically on mobile */
+      display: block; 
     }
   
     .dropdown-content {
-      /* You can adjust these styles based on your mobile layout requirements */
-      position: static; /* Remove absolute positioning */
-      width: 100%; /* Make the dropdown take the full width on mobile */
-      height: auto; /* Allow height to adjust based on content */
-      margin-top: 10px; /* Add some spacing between the button and the dropdown on mobile */
+      position: static; 
+      width: 100%;
+      height: auto; 
+      margin-top: 10px; 
+    }
     }
   
-    /* Adjust other styles as needed for mobile layout */
+  .centered-button {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 56px; 
   }
   
