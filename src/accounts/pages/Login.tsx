@@ -232,6 +232,7 @@ export default function Login() {
           (await api.ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
             redirect: false,
+            dataRequest: { username: true },
           })) as LoginWithTonomyMessages;
 
         requests.push(loginRequest);

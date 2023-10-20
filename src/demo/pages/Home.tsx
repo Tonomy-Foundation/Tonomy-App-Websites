@@ -15,7 +15,10 @@ import CodeSnippetPreview from "../components/CodeSnippetPreview";
 const snippetCode = `
 // LoginPage.jsx
 async function onButtonPress() {
-  await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
+  await api.ExternalUser.loginWithTonomy({ 
+    callbackPath: '/callback',
+    dataRequest: { username: true }
+  });
 }
 
 <button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
@@ -58,7 +61,10 @@ export default function Home() {
   }, []);
 
   async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+    api.ExternalUser.loginWithTonomy({
+      callbackPath: "/callback",
+      dataRequest: { username: true },
+    });
   }
 
   return (
