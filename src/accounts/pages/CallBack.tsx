@@ -7,10 +7,8 @@ import {
   SdkErrors,
   objToBase64Url,
   getLoginRequestResponseFromUrl,
-  verifyRequests,
   getLoginRequestFromUrl,
-  DataSharingRequest,
-  LoginRequest,
+  RequestManager,
 } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
@@ -25,21 +23,17 @@ export default function CallBackPage() {
       const { success, error, requests, response } =
         getLoginRequestResponseFromUrl();
 
+      const managedRequests = new RequestManager(requests);
+
       if (success) {
         if (!requests || !response) {
           throw new Error("Invalid response");
         }
 
-        await verifyRequests(requests);
+        await managedRequests.verify();
 
-        const externalLoginRequest = requests.find(
-          (request) => request.getPayload().origin !== window.location.origin
-        );
-
-        if (!externalLoginRequest) {
-          throw new Error("Login request for external site was not found");
-          //TODO: handle this here
-        }
+        const externalLoginRequest =
+          managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
         if (!response?.data?.username) throw new Error("No username found");
 
@@ -60,22 +54,12 @@ export default function CallBackPage() {
           });
         window.location.href = url;
       } else {
-        const externalLoginRequest = requests.find(
-          (r) =>
-            r.getType() === LoginRequest.getType() &&
-            r.getPayload().origin !== window.location.origin
-        );
-
-        if (!externalLoginRequest)
-          throw new Error("No external login request found");
+        const externalLoginRequest =
+          managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
         if (!error) throw new Error("Error not defined");
         const callbackUrl = await UserApps.terminateLoginRequest(
-          requests.filter(
-            (r) =>
-              r.getType() === DataSharingRequest.getType() ||
-              r.getPayload().origin !== window.location.origin
-          ),
+          managedRequests.getRequestsDifferentOriginOrThrow(),
           "mobile",
           error,
           {
@@ -93,21 +77,15 @@ export default function CallBackPage() {
       ) {
         try {
           const { requests } = await getLoginRequestFromUrl();
-          const externalLoginRequest = requests.find(
-            (r) =>
-              r.getType() === LoginRequest.getType() &&
-              r.getPayload().origin !== window.location.origin
-          );
+          const managedRequests = new RequestManager(requests);
+          const externalLoginRequest =
+            managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
           if (!externalLoginRequest)
             throw new Error("No external login request found");
 
           const callbackUrl = await UserApps.terminateLoginRequest(
-            requests.filter(
-              (r) =>
-                r.getType() === DataSharingRequest.getType() ||
-                r.getPayload().origin !== window.location.origin
-            ),
+            managedRequests.getRequestsDifferentOriginOrThrow(),
             "mobile",
             {
               code: e.code,

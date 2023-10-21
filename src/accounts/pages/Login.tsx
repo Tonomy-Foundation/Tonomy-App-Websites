@@ -26,6 +26,7 @@ import {
   getLoginRequestFromUrl,
   onRedirectLogin,
   DataSharingRequest,
+  RequestManager,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -41,7 +42,7 @@ import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
-import { useLoginStore } from "../stores/loginStore";
+import { useTonomyRequestsStore } from "../stores/loginStore";
 import ConnectionError from "../molecules/ConnectionError";
 
 const styles = {
@@ -67,7 +68,7 @@ export default function Login() {
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
-  const { request, setRequest } = useLoginStore();
+  const { requests, setRequests } = useTonomyRequestsStore();
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
@@ -176,27 +177,19 @@ export default function Login() {
           message
         ).getPayload();
 
-        const requests = loginRequestResponsePayload.requests;
-
-        const externalLoginRequest = requests.find(
-          (r) =>
-            r.getType() === LoginRequest.getType() &&
-            r.getPayload().origin !== window.location.origin
+        const managedRequests = new RequestManager(
+          loginRequestResponsePayload.requests
         );
 
-        if (!externalLoginRequest)
-          throw new Error("No external login request found");
+        const externalLoginRequest =
+          managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
         if (!loginRequestResponsePayload.success) {
           const error = loginRequestResponsePayload.error;
 
           if (!error) throw new Error("No error message found");
           const url = await UserApps.terminateLoginRequest(
-            requests.filter(
-              (r) =>
-                r.getType() === DataSharingRequest.getType() ||
-                r.getPayload().origin !== window.location.origin
-            ),
+            managedRequests.getRequestsSameOriginOrThrow(),
             "mobile",
             error,
             {
@@ -226,15 +219,20 @@ export default function Login() {
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
-      let externalLoginRequest = request;
+      const externalRequests = requests;
 
-      if (!externalLoginRequest) {
-        externalLoginRequest = await onRedirectLogin();
-        setRequest(externalLoginRequest);
+      if (!externalRequests) {
+        setRequests(await onRedirectLogin());
+        return;
       }
 
+      const externalLoginRequest =
+        externalRequests.getLoginRequestWithDifferentOriginOrThrow();
+
       getAppDetails(externalLoginRequest);
-      const requests: TonomyRequest = [externalLoginRequest];
+
+      const requestsToSend: TonomyRequest[] = [...requests.getRequests()];
+
       let loginToCommunication: AuthenticationMessage;
 
       if (!user) {
@@ -250,7 +248,9 @@ export default function Login() {
           },
         })) as LoginWithTonomyMessages;
 
-        requests.push(loginRequest, dataSharingRequest);
+        requestsToSend.push(loginRequest);
+        if (dataSharingRequest) requestsToSend.push(dataSharingRequest);
+
         loginToCommunication = loginToCommunicationVal;
       } else {
         if (!user) throw new Error("No user found");
@@ -273,21 +273,24 @@ export default function Login() {
           issuer
         );
 
-        requests.push(loginRequest);
+        requestsToSend.push(loginRequest);
 
         loginToCommunication =
           await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       }
 
+      const managedRequestsToSend = new RequestManager(requestsToSend);
+
       if (isMobile()) {
-        await redirectToMobileAppUrl(requests);
+        await redirectToMobileAppUrl(requestsToSend);
       } else {
-        const logInMessage = new LoginRequest(requests[1]);
-        const did = logInMessage.getIssuer();
+        const did = managedRequestsToSend
+          .getLoginRequestWithSameOriginOrThrow()
+          .getIssuer();
 
         setShowQR(createLoginQrCode(did));
         await subscribeToLoginRequestResponse();
-        await connectToTonomyId(requests, loginToCommunication, user);
+        await connectToTonomyId(requestsToSend, loginToCommunication, user);
       }
     } catch (e) {
       if (
@@ -323,6 +326,7 @@ export default function Login() {
     setUser(user);
     const username = await user.getUsername();
 
+    if (!username) throw new Error("No username found");
     setUsername(username.getBaseUsername());
 
     loginToTonomyAndSendRequests(user);
@@ -348,14 +352,10 @@ export default function Login() {
 
   async function terminateLoginRequest(error): Promise<string> {
     const { requests } = await getLoginRequestFromUrl();
-    const externalLoginRequest = requests.find(
-      (r) =>
-        r.getType() === LoginRequest.getType() &&
-        r.getPayload().origin !== window.location.origin
-    );
+    const managedReqests = new RequestManager(requests);
 
-    if (!externalLoginRequest)
-      throw new Error("No external login request found");
+    const externalLoginRequest =
+      managedReqests.getLoginRequestWithDifferentOriginOrThrow();
 
     return (await UserApps.terminateLoginRequest(requests, "mobile", error, {
       callbackOrigin: externalLoginRequest.getPayload().origin,
