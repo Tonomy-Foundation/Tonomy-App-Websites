@@ -21,6 +21,11 @@ import {
   KeyManagerLevel,
   JsKeyManager,
   CommunicationError,
+  TonomyRequest,
+  getJwkIssuerFromStorage,
+  getLoginRequestFromUrl,
+  onRedirectLogin,
+  DataSharingRequest,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -136,7 +141,7 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await UserApps.getJwkIssuerFromStorage();
+          const jwkIssuer = await getJwkIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
@@ -173,21 +178,26 @@ export default function Login() {
 
         const requests = loginRequestResponsePayload.requests;
 
-        const externalLoginRequest = requests?.find((r: LoginRequest) => {
-          return r.getPayload().origin !== window.location.origin;
-        });
+        const externalLoginRequest = requests.find(
+          (r) =>
+            r.getType() === LoginRequest.getType() &&
+            r.getPayload().origin !== window.location.origin
+        );
 
-        if (!externalLoginRequest) {
+        if (!externalLoginRequest)
           throw new Error("No external login request found");
-        }
 
         if (!loginRequestResponsePayload.success) {
           const error = loginRequestResponsePayload.error;
 
           if (!error) throw new Error("No error message found");
           const url = await UserApps.terminateLoginRequest(
-            [externalLoginRequest],
-            "url",
+            requests.filter(
+              (r) =>
+                r.getType() === DataSharingRequest.getType() ||
+                r.getPayload().origin !== window.location.origin
+            ),
+            "mobile",
             error,
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
@@ -219,22 +229,28 @@ export default function Login() {
       let externalLoginRequest = request;
 
       if (!externalLoginRequest) {
-        externalLoginRequest = await UserApps.onRedirectLogin();
+        externalLoginRequest = await onRedirectLogin();
         setRequest(externalLoginRequest);
       }
 
       getAppDetails(externalLoginRequest);
-      const requests = [externalLoginRequest];
+      const requests: TonomyRequest = [externalLoginRequest];
       let loginToCommunication: AuthenticationMessage;
 
       if (!user) {
-        const { loginRequest, loginToCommunication: loginToCommunicationVal } =
-          (await api.ExternalUser.loginWithTonomy({
-            callbackPath: "/callback",
-            redirect: false,
-          })) as LoginWithTonomyMessages;
+        const {
+          loginRequest,
+          dataSharingRequest,
+          loginToCommunication: loginToCommunicationVal,
+        } = (await api.ExternalUser.loginWithTonomy({
+          callbackPath: "/callback",
+          redirect: false,
+          dataRequest: {
+            username: true,
+          },
+        })) as LoginWithTonomyMessages;
 
-        requests.push(loginRequest);
+        requests.push(loginRequest, dataSharingRequest);
         loginToCommunication = loginToCommunicationVal;
       } else {
         if (!user) throw new Error("No user found");
@@ -330,22 +346,29 @@ export default function Login() {
     }
   }
 
+  async function terminateLoginRequest(error): Promise<string> {
+    const { requests } = await getLoginRequestFromUrl();
+    const externalLoginRequest = requests.find(
+      (r) =>
+        r.getType() === LoginRequest.getType() &&
+        r.getPayload().origin !== window.location.origin
+    );
+
+    if (!externalLoginRequest)
+      throw new Error("No external login request found");
+
+    return (await UserApps.terminateLoginRequest(requests, "mobile", error, {
+      callbackOrigin: externalLoginRequest.getPayload().origin,
+      callbackPath: externalLoginRequest.getPayload().callbackPath,
+    })) as string;
+  }
+
   const onLogout = async () => {
     try {
-      const { requests } = await UserApps.getLoginRequestFromUrl();
-
-      const callbackUrl = await UserApps.terminateLoginRequest(
-        requests,
-        "url",
-        {
-          code: SdkErrors.UserLogout,
-          reason: "User logged out",
-        },
-        {
-          callbackOrigin: requests[0].getPayload().origin,
-          callbackPath: requests[0].getPayload().callbackPath,
-        }
-      );
+      const callbackUrl = await terminateLoginRequest({
+        code: SdkErrors.UserLogout,
+        reason: "User logged out",
+      });
 
       if (isLoggedIn()) await logout();
 
@@ -357,20 +380,10 @@ export default function Login() {
 
   const onCancel = async () => {
     try {
-      const { requests } = await UserApps.getLoginRequestFromUrl();
-
-      const callbackUrl = await UserApps.terminateLoginRequest(
-        requests,
-        "url",
-        {
-          code: SdkErrors.UserCancelled,
-          reason: "User cancelled login",
-        },
-        {
-          callbackOrigin: requests[0].getPayload().origin,
-          callbackPath: requests[0].getPayload().callbackPath,
-        }
-      );
+      const callbackUrl = await terminateLoginRequest({
+        code: SdkErrors.UserCancelled,
+        reason: "User cancelled login",
+      });
 
       if (isLoggedIn()) {
         // TODO send a message to Tonomy ID telling it the request is cancelled
@@ -384,20 +397,10 @@ export default function Login() {
 
   const onRefresh = async () => {
     try {
-      const { requests } = await UserApps.getLoginRequestFromUrl();
-
-      const callbackUrl = await UserApps.terminateLoginRequest(
-        requests,
-        "url",
-        {
-          code: SdkErrors.UserRefreshed,
-          reason: "User refreshed during login",
-        },
-        {
-          callbackOrigin: requests[0].getPayload().origin,
-          callbackPath: requests[0].getPayload().callbackPath,
-        }
-      );
+      const callbackUrl = await terminateLoginRequest({
+        code: SdkErrors.UserRefreshed,
+        reason: "User refreshed during login",
+      });
 
       window.location.href = callbackUrl as string;
     } catch (e) {
