@@ -8,7 +8,7 @@ import {
   objToBase64Url,
   getLoginRequestResponseFromUrl,
   getLoginRequestFromUrl,
-  RequestManager,
+  RequestsManager,
 } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
@@ -23,7 +23,7 @@ export default function CallBackPage() {
       const { success, error, requests, response } =
         getLoginRequestResponseFromUrl();
 
-      const managedRequests = new RequestManager(requests);
+      const managedRequests = new RequestsManager(requests);
 
       if (success) {
         if (!requests || !response) {
@@ -77,7 +77,7 @@ export default function CallBackPage() {
       ) {
         try {
           const { requests } = await getLoginRequestFromUrl();
-          const managedRequests = new RequestManager(requests);
+          const managedRequests = new RequestsManager(requests);
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 

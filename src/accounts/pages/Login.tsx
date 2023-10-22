@@ -26,7 +26,7 @@ import {
   getLoginRequestFromUrl,
   onRedirectLogin,
   DataSharingRequest,
-  RequestManager,
+  RequestsManager,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -177,7 +177,7 @@ export default function Login() {
           message
         ).getPayload();
 
-        const managedRequests = new RequestManager(
+        const managedRequests = new RequestsManager(
           loginRequestResponsePayload.requests
         );
 
@@ -279,7 +279,7 @@ export default function Login() {
           await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       }
 
-      const managedRequestsToSend = new RequestManager(requestsToSend);
+      const managedRequestsToSend = new RequestsManager(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);
@@ -352,7 +352,7 @@ export default function Login() {
 
   async function terminateLoginRequest(error): Promise<string> {
     const { requests } = await getLoginRequestFromUrl();
-    const managedReqests = new RequestManager(requests);
+    const managedReqests = new RequestsManager(requests);
 
     const externalLoginRequest =
       managedReqests.getLoginRequestWithDifferentOriginOrThrow();
