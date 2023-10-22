@@ -21,7 +21,7 @@ import {
   KeyManagerLevel,
   JsKeyManager,
   CommunicationError,
-  TonomyRequest,
+  WalletRequest,
   getJwkIssuerFromStorage,
   getLoginRequestFromUrl,
   onRedirectLogin,
@@ -42,7 +42,7 @@ import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
-import { useTonomyRequestsStore } from "../stores/loginStore";
+import { useWalletRequestsStore } from "../stores/loginStore";
 import ConnectionError from "../molecules/ConnectionError";
 
 const styles = {
@@ -68,7 +68,7 @@ export default function Login() {
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
-  const { requests, setRequests } = useTonomyRequestsStore();
+  const { requests, setRequests } = useWalletRequestsStore();
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
@@ -231,7 +231,7 @@ export default function Login() {
 
       getAppDetails(externalLoginRequest);
 
-      const requestsToSend: TonomyRequest[] = [...requests.getRequests()];
+      const requestsToSend: WalletRequest[] = [...requests.getRequests()];
 
       let loginToCommunication: AuthenticationMessage;
 

@@ -1,15 +1,15 @@
-import { RequestsManager, TonomyRequest } from "@tonomy/tonomy-id-sdk";
+import { RequestsManager, WalletRequest } from "@tonomy/tonomy-id-sdk";
 import { create } from "zustand";
 
-interface TonomyRequestsStore {
+interface WalletRequestsStore {
   requests?: RequestsManager;
-  setRequests: (request: TonomyRequest[]) => void;
+  setRequests: (request: WalletRequest[]) => void;
 }
 
-export const useTonomyRequestsStore = create<TonomyRequestsStore>(
+export const useWalletRequestsStore = create<WalletRequestsStore>(
   (set, get) => ({
     requests: undefined,
-    setRequests: (requests: TonomyRequest[]) => {
+    setRequests: (requests: WalletRequest[]) => {
       set({ requests: new RequestsManager(requests) });
     },
   })
