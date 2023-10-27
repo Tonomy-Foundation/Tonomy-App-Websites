@@ -9,6 +9,8 @@ import {
   getLoginRequestResponseFromUrl,
   getLoginRequestFromUrl,
   RequestsManager,
+  ResponsesManager,
+  LoginRequestResponseMessagePayload,
 } from "@tonomy/tonomy-id-sdk";
 
 export default function CallBackPage() {
@@ -20,46 +22,50 @@ export default function CallBackPage() {
     try {
       await api.ExternalUser.verifyLoginRequest();
 
-      const { success, error, requests, response } =
-        getLoginRequestResponseFromUrl();
-
-      const managedRequests = new RequestsManager(requests);
+      const { success, error, response } = getLoginRequestResponseFromUrl();
 
       if (success) {
-        if (!requests || !response) {
+        if (!response) {
           throw new Error("Invalid response");
         }
 
-        await managedRequests.verify();
+        const managedResponses = new ResponsesManager(response);
+        const managedRequests = new RequestsManager(
+          managedResponses.getRequests()
+        );
 
-        const externalLoginRequest =
-          managedRequests.getLoginRequestWithDifferentOriginOrThrow();
+        await managedResponses.verify();
 
-        if (!response?.data?.username) throw new Error("No username found");
-
-        const { accountName } = response;
-        const username = response.data.username;
-
-        const loginRequestPayload = externalLoginRequest.getPayload();
-
+        const loginRequestPayload = managedRequests
+          .getLoginRequestWithDifferentOriginOrThrow()
+          .getPayload();
         let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
 
-        url +=
-          "?payload=" +
-          objToBase64Url({
-            success: true,
-            accountName,
-            username,
-            requests: [externalLoginRequest],
-          });
+        const externalResponse = managedResponses
+          .getResponsesWithDifferentOriginOrThrow()
+          .map((response) => response.getRequestAndResponse());
+
+        const responsePayload: LoginRequestResponseMessagePayload = {
+          success: true,
+          response: externalResponse,
+        };
+
+        url += "?payload=" + objToBase64Url(responsePayload);
         window.location.href = url;
       } else {
+        if (!error) throw new Error("Error not defined");
+
+        const managedRequests = new RequestsManager(error.requests);
         const externalLoginRequest =
           managedRequests.getLoginRequestWithDifferentOriginOrThrow();
+
+        const managedExternalRequests = new RequestsManager(
+          managedRequests.getRequestsDifferentOriginOrThrow()
+        );
 
         if (!error) throw new Error("Error not defined");
         const callbackUrl = await UserApps.terminateLoginRequest(
-          managedRequests.getRequestsDifferentOriginOrThrow(),
+          new ResponsesManager(managedExternalRequests),
           "mobile",
           error,
           {
@@ -81,11 +87,12 @@ export default function CallBackPage() {
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
-          if (!externalLoginRequest)
-            throw new Error("No external login request found");
-
           const callbackUrl = await UserApps.terminateLoginRequest(
-            managedRequests.getRequestsDifferentOriginOrThrow(),
+            new ResponsesManager(
+              new RequestsManager(
+                managedRequests.getRequestsDifferentOriginOrThrow()
+              )
+            ),
             "mobile",
             {
               code: e.code,

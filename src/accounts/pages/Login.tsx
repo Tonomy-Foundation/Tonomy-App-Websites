@@ -25,8 +25,8 @@ import {
   getJwkIssuerFromStorage,
   getLoginRequestFromUrl,
   onRedirectLogin,
-  DataSharingRequest,
   RequestsManager,
+  ResponsesManager,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -87,7 +87,7 @@ export default function Login() {
   }, []);
 
   // sends the login request to Tonomy ID via URL
-  async function redirectToMobileAppUrl(requests: LoginRequest[]) {
+  async function redirectToMobileAppUrl(requests: WalletRequest[]) {
     const payload = {
       requests,
     };
@@ -177,21 +177,28 @@ export default function Login() {
           message
         ).getPayload();
 
-        const managedRequests = new RequestsManager(
-          loginRequestResponsePayload.requests
-        );
-
-        const externalLoginRequest =
-          managedRequests.getLoginRequestWithDifferentOriginOrThrow();
-
-        if (!loginRequestResponsePayload.success) {
+        if (loginRequestResponsePayload.success !== true) {
           const error = loginRequestResponsePayload.error;
 
-          if (!error) throw new Error("No error message found");
+          if (!error) throw new Error("No error found");
+          const managedRequests = new RequestsManager(error.requests);
+          const externalRequests =
+            managedRequests.getRequestsDifferentOriginOrThrow();
+
+          const managedExternalResponses = new ResponsesManager(
+            new RequestsManager(externalRequests)
+          );
+          const externalLoginRequest =
+            managedRequests.getLoginRequestWithDifferentOriginOrThrow();
+
+          const externalError = {
+            ...error,
+            requests: externalRequests,
+          };
           const url = await UserApps.terminateLoginRequest(
-            managedRequests.getRequestsSameOriginOrThrow(),
+            managedExternalResponses,
             "mobile",
-            error,
+            externalError,
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
               callbackPath: externalLoginRequest.getPayload().callbackPath,
@@ -200,6 +207,9 @@ export default function Login() {
 
           window.location.href = url as string;
         } else {
+          if (!loginRequestResponsePayload.response)
+            throw new Error("No response found");
+
           const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
 
           window.location.replace("/callback?payload=" + base64UrlPayload);
@@ -352,15 +362,22 @@ export default function Login() {
 
   async function terminateLoginRequest(error): Promise<string> {
     const { requests } = await getLoginRequestFromUrl();
-    const managedReqests = new RequestsManager(requests);
+    const managedRequests = new RequestsManager(requests);
 
     const externalLoginRequest =
-      managedReqests.getLoginRequestWithDifferentOriginOrThrow();
+      managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
-    return (await UserApps.terminateLoginRequest(requests, "mobile", error, {
-      callbackOrigin: externalLoginRequest.getPayload().origin,
-      callbackPath: externalLoginRequest.getPayload().callbackPath,
-    })) as string;
+    const managedResponses = new ResponsesManager(managedRequests);
+
+    return (await UserApps.terminateLoginRequest(
+      managedResponses,
+      "mobile",
+      error,
+      {
+        callbackOrigin: externalLoginRequest.getPayload().origin,
+        callbackPath: externalLoginRequest.getPayload().callbackPath,
+      }
+    )) as string;
   }
 
   const onLogout = async () => {
@@ -372,7 +389,7 @@ export default function Login() {
 
       if (isLoggedIn()) await logout();
 
-      window.location.href = callbackUrl as string;
+      window.location.href = callbackUrl;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -389,7 +406,7 @@ export default function Login() {
         // TODO send a message to Tonomy ID telling it the request is cancelled
       }
 
-      window.location.href = callbackUrl as string;
+      window.location.href = callbackUrl;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -402,7 +419,7 @@ export default function Login() {
         reason: "User refreshed during login",
       });
 
-      window.location.href = callbackUrl as string;
+      window.location.href = callbackUrl;
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
