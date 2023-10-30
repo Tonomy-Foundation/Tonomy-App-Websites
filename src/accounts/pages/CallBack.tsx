@@ -35,6 +35,7 @@ export default function CallBackPage() {
         );
 
         await managedResponses.verify();
+        await managedResponses.fetchMeta();
 
         const loginRequestPayload = managedRequests
           .getLoginRequestWithDifferentOriginOrThrow()
