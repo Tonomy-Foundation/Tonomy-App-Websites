@@ -27,6 +27,7 @@ import {
   onRedirectLogin,
   RequestsManager,
   ResponsesManager,
+  getSettings,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -88,6 +89,9 @@ export default function Login() {
 
   // sends the login request to Tonomy ID via URL
   async function redirectToMobileAppUrl(requests: WalletRequest[]) {
+    if (getSettings().loggerLevel === "debug")
+      console.log("redirectToMobileAppUrl()", requests.length);
+
     const payload = {
       requests,
     };
@@ -111,6 +115,8 @@ export default function Login() {
     loginToCommunication: AuthenticationMessage,
     user?: ExternalUser
   ) {
+    if (getSettings().loggerLevel === "debug")
+      console.log("connectToTonomyId()", requests.length, typeof user);
     // Login to the communication server
     await communication.login(loginToCommunication);
 
@@ -173,6 +179,9 @@ export default function Login() {
   async function subscribeToLoginRequestResponse() {
     communication.subscribeMessage(async (message: Message) => {
       try {
+        if (getSettings().loggerLevel === "debug")
+          console.log("subscribeToLoginRequestResponse()");
+
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
           message
         ).getPayload();
@@ -221,6 +230,9 @@ export default function Login() {
   }
 
   async function getAppDetails(loginRequest: LoginRequest) {
+    if (getSettings().loggerLevel === "debug")
+      console.log("getAppDetails()", loginRequest.getPayload().origin);
+
     const app = await App.getApp(loginRequest.getPayload().origin);
 
     setApp(app);
@@ -229,15 +241,16 @@ export default function Login() {
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
-      const externalRequests = requests;
+      if (getSettings().loggerLevel === "debug")
+        console.log("loginToTonomyAndSendRequests()", typeof user);
 
-      if (!externalRequests) {
+      if (!requests) {
         setRequests(await onRedirectLogin());
         return;
       }
 
       const externalLoginRequest =
-        externalRequests.getLoginRequestWithDifferentOriginOrThrow();
+        requests.getLoginRequestWithDifferentOriginOrThrow();
 
       getAppDetails(externalLoginRequest);
 
@@ -330,6 +343,8 @@ export default function Login() {
 
   // check if user is already logged in
   async function checkLoggedIn() {
+    if (getSettings().loggerLevel === "debug") console.log("checkLoggedIn()");
+
     const user = await api.ExternalUser.getUser();
 
     setStatus("connecting");
