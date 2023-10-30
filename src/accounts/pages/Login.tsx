@@ -242,19 +242,27 @@ export default function Login() {
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
       if (getSettings().loggerLevel === "debug")
-        console.log("loginToTonomyAndSendRequests()", typeof user);
+        console.log(
+          "loginToTonomyAndSendRequests()",
+          typeof user,
+          typeof requests
+        );
 
-      if (!requests) {
-        setRequests(await onRedirectLogin());
-        return;
+      let managedRequests = requests;
+
+      if (!managedRequests) {
+        managedRequests = await onRedirectLogin();
+        setRequests(managedRequests);
       }
 
       const externalLoginRequest =
-        requests.getLoginRequestWithDifferentOriginOrThrow();
+        managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
       getAppDetails(externalLoginRequest);
 
-      const requestsToSend: WalletRequest[] = [...requests.getRequests()];
+      const requestsToSend: WalletRequest[] = [
+        ...managedRequests.getRequests(),
+      ];
 
       let loginToCommunication: AuthenticationMessage;
 
