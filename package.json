@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "lint": "eslint src --ext '[.ts, .tsx]' --resolve-plugins-relative-to .",
     "lint:fix": "yarn lint --fix",
-    "local": "docker-compose -f ./docker.compose-development.yaml up -d && vite",
     "start:prod:accounts": "serve -s dist -l 3000 -n",
     "start:prod:demo": "serve -s dist -l 3001 -n",
     "updateSdkVersion": "./update_sdk_version.sh"
