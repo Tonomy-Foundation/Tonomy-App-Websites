@@ -64,9 +64,9 @@ export default function BlockchainTx() {
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
-  const [balance, setBalance] = useState<number | undefined>(10);
-  const [from, setFrom] = useState<string>("rabbithole20222");
-  const [recipient, setRecipient] = useState<string>("DigitalWarren1122");
+  const [balance, setBalance] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(0);
+  const [recipient, setRecipient] = useState<string>("cheesecakeophobia");
   const [success, setSuccess] = useState<boolean>(false);
 
   const [description, setDescription] = useState<string>(
@@ -82,15 +82,20 @@ export default function BlockchainTx() {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
-        const accountBalance = await eosioTokenContract.getBalance(accountName);
+        let accountBalance = await eosioTokenContract.getBalance(accountName);
 
         setBalance(accountBalance);
+        setAmount(Math.floor(accountBalance / 2));
         if (accountBalance > 10) return;
+
         await user?.signTransaction("eosio.token", "selfissue", {
           to: accountName,
           quantity: "10 SYS",
           memo: "test",
         });
+        accountBalance = accountBalance + 10;
+        setBalance(accountBalance);
+        setAmount(Math.floor(accountBalance / 2));
       }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
@@ -111,15 +116,24 @@ export default function BlockchainTx() {
     onRender();
   }, []);
 
+  function onChangeAmount(value: string) {
+    let newValue = value.replace(/[^0-9]/g, "");
+
+    if (newValue.length === 0) newValue = "0";
+
+    setAmount(parseInt(newValue));
+  }
+
   async function onBuy() {
     try {
+      if (!user) throw new Error("User not logged in");
+
       setTransactionState("loading");
       setActiveStep(0);
       setProgressValue(20);
-      if (!user) throw new Error("User not logged in");
-      const from = await user?.getAccountName();
+
       const toUsername = TonomyUsername.fromUsername(
-        "cheesecakeophobia",
+        recipient,
         AccountType.PERSON,
         settings.config.accountSuffix
       );
@@ -130,12 +144,13 @@ export default function BlockchainTx() {
         setProgressValue(40);
       }, 200);
       const trx = await user?.signTransaction("eosio.token", "transfer", {
-        from,
+        from: await user.getAccountName(),
         to,
-        quantity: "1 SYS",
+        quantity: amount + " SYS",
         memo: "test",
       });
 
+      setBalance((balance) => balance - amount);
       setActiveStep(2);
       setProgressValue(60);
       let url =
@@ -221,7 +236,7 @@ export default function BlockchainTx() {
             <FormHeaderContainer>
               <div className="blanceDiv">
                 <p className="balance-container-text-left">Balance: </p>
-                <p className="balance-container-text-right">100 EUR</p>
+                <p className="balance-container-text-right">{balance} EUR</p>
               </div>
               <p className="form-header-container-text">Dashboard</p>
               <p className="form-header-container-text">Exchange rate</p>
@@ -231,21 +246,14 @@ export default function BlockchainTx() {
             </FormHeaderContainer>
             <FormContainer>
               <p className="make-payment">Make a payment</p>
-              <TextboxLayout label="From:" value={from} onChange={setFrom} />
+              <TextboxLayout label="From:" value={username} />
               <div className="input-container">
                 <input
                   type="number"
                   className="transparent-textbox"
                   id="inputField"
-                  value={balance}
-                  onChange={(e) => {
-                    const newValue =
-                      e.target.value !== ""
-                        ? parseInt(e.target.value)
-                        : undefined;
-
-                    setBalance(newValue);
-                  }}
+                  value={amount}
+                  onChange={(e) => onChangeAmount(e.target.value)}
                 />
                 <label htmlFor="inputField" className="textbox-label">
                   Balance:
@@ -260,12 +268,12 @@ export default function BlockchainTx() {
                     setRecipient(e.target.value);
                   }}
                 >
-                  <option value="DigitalWarren1122">DigitalWarren1122</option>
-                  <option value="DreamWeave47">DreamWeave47</option>
-                  <option value="BitMazer13">BitMazer13</option>
-                  <option value="Crypto4Quill">Crypto4Quill</option>
-                  <option value="CopperSwift8767">CopperSwift8767</option>
-                  <option value="QuantumLily">QuantumLily</option>
+                  <option value="lovesboost">lovesboost</option>
+                  <option value="sweetkristy">sweetkristy</option>
+                  <option value="cheesecakeophobia">cheesecakeophobia</option>
+                  <option value="ultimateBeast">ultimateBeast</option>
+                  <option value="tomtom">tomtom</option>
+                  <option value="readingpro">readingpro</option>
                 </select>
                 <label htmlFor="selectField" className="textbox-label">
                   Recipient:
@@ -279,9 +287,9 @@ export default function BlockchainTx() {
               />
               <div>
                 <TButton
-                  className="btnPayment btnStyle1 "
+                  className="btnPayment btnStyle1"
                   onClick={() => onBuy()}
-                  disabled={transactionState === "loading" ? true : false}
+                  disabled={transactionState === "loading"}
                 >
                   <HttpsOutlinedIcon /> Send Payment
                 </TButton>
