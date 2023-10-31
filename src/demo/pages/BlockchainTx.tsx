@@ -134,7 +134,7 @@ export default function BlockchainTx() {
       await setTimeout(() => {
         setActiveStep(1);
         setProgressValue(40);
-      }, 2000);
+      }, 200);
       const trx = await user?.signTransaction("eosio.token", "transfer", {
         from,
         to,
@@ -142,10 +142,8 @@ export default function BlockchainTx() {
         memo: "test",
       });
 
-      await setTimeout(() => {
-        setActiveStep(2);
-        setProgressValue(60);
-      }, 3000);
+      setActiveStep(2);
+      setProgressValue(60);
       let url =
         "https://local.bloks.io/transaction/" +
         trx?.transaction_id +
@@ -158,14 +156,14 @@ export default function BlockchainTx() {
       await setTimeout(() => {
         setActiveStep(3);
         setProgressValue(80);
-      }, 4000);
+      }, 500);
 
       await setTimeout(() => {
         setActiveStep(4);
         setProgressValue(100);
         setTrxUrl(url);
         setTransactionState("purchased");
-      }, 5200);
+      }, 1000);
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }

@@ -74,10 +74,8 @@ export default function W3CVCs() {
     try {
       setLoading(true);
 
-      await setTimeout(() => {
-        setActiveStep(0);
-        setProgressValue(20);
-      }, 2000);
+      setActiveStep(0);
+      setProgressValue(0);
       const data = {
         name,
         phone,
@@ -92,17 +90,14 @@ export default function W3CVCs() {
 
       const id = window.location.origin + "/medical-record#" + randomString(8);
 
+      setActiveStep(1);
+      setProgressValue(50);
+      setActiveStep(2);
+      setProgressValue(100);
+
       await user?.signVc(id, "MedicalRecord", data);
 
-      await setTimeout(() => {
-        setActiveStep(1);
-        setProgressValue(50);
-      }, 3000);
-      await setTimeout(() => {
-        setActiveStep(2);
-        setProgressValue(100);
-        setLoading(false);
-      }, 4000);
+      setLoading(false);
     } catch (e) {
       setLoading(false);
 
