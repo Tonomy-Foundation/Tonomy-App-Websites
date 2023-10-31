@@ -229,7 +229,8 @@ export default function W3CVCs() {
                 <TButton
                   className="btnStyle1"
                   onClick={onSubmit}
-                  disabled={loading ? true : false}
+                  disabled={loading}
+                  loading={loading}
                 >
                   Sign using your tonomy DID
                 </TButton>

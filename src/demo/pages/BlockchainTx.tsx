@@ -65,7 +65,6 @@ export default function BlockchainTx() {
   const [username, setUsername] = useState<string>("");
   const [progressValue, setProgressValue] = useState(0);
   const { user } = useContext(AuthContext);
-  const navigation = useNavigate();
   const errorStore = useErrorStore();
   const [transactionState, setTransactionState] = useState<
     "prepurchase" | "loading" | "purchased"
@@ -291,6 +290,7 @@ export default function BlockchainTx() {
                   className="btnPayment btnStyle1 "
                   onClick={() => onBuy()}
                   disabled={transactionState === "loading" ? true : false}
+                  loading={transactionState === "loading" ? true : false}
                 >
                   <HttpsOutlinedIcon /> Send Payment
                 </TButton>
