@@ -10,11 +10,6 @@ This repo contains all the following react apps that the Tonomy-Foundation uses:
 - Linux debian distribution (Ubuntu 20.0.4 LTS used)
 - [Nodejs](https://nodejs.org) v18.0.0+ suggested installed with [nvm](https://github.com/nvm-sh/nvm) with corepack enabled. (installing yarn alone is also fine)
 
-Extra dependencies for `yarn run local`
-
-- [docker](https://www.docker.com/) v20.10.16+
-- [docker-compose](https://docs.docker.com/compose/) v1.29.2+
-
 ## Usage
 
 ### `yarn run dev`
@@ -23,13 +18,6 @@ Runs the app in development mode
 
 - Demo: <http://demo.localhost:5174>
 - Accounts: <http://accounts.localhost:5174>
-
-### `yarn run local`
-
-Runs the app in development mode and uses nginx to route the port to the respective app
-
-- Demo: <http://localhost:3001>
-- Accounts: <http://localhost:3000>
 
 **the vite app port isn't important**  it will only be used inside the nginx.
 

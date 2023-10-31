@@ -58,7 +58,10 @@ export default function Home() {
   }, []);
 
   async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+    api.ExternalUser.loginWithTonomy({
+      callbackPath: "/callback",
+      dataRequest: { username: true },
+    });
   }
 
   return (
