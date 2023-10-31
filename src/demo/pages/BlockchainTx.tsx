@@ -1,17 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
-import MobileScreen from "../assets/Group_567_1.png";
 import {
   HeaderTonomy,
   MainContainer,
   FormContainer,
   FormHeaderContainer,
-  TransactionButton,
-  CircleContainer,
 } from "../components/styles";
 import userLogo from "../assets/user.png";
 import "./BlockchainTx.css";
-import { useUserStore } from "../../common/stores/user.store";
 import useErrorStore from "../../common/stores/errorStore";
 import {
   AccountType,
@@ -20,14 +16,12 @@ import {
   EosioTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
-import { Box } from "@mui/material";
-import { TH1, TH2, TH4 } from "../../common/atoms/THeadings";
+import { TH1, TH2 } from "../../common/atoms/THeadings";
 import VerticalLinearStepper from "../components/VerticalProgressStep";
 import SignBanner from "../assets/sign-transaction.png";
 import TextboxLayout from "../components/TextboxLayout";
 import { TButton } from "../../common/atoms/TButton";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import SuccessSection from "../components/SuccessSection";
 
@@ -288,7 +282,6 @@ export default function BlockchainTx() {
                   className="btnPayment btnStyle1 "
                   onClick={() => onBuy()}
                   disabled={transactionState === "loading" ? true : false}
-                  loading={transactionState === "loading" ? true : false}
                 >
                   <HttpsOutlinedIcon /> Send Payment
                 </TButton>
@@ -299,11 +292,7 @@ export default function BlockchainTx() {
                 activeStep={activeStep}
                 steps={steps}
                 progressValue={progressValue}
-                onContinue={() => {
-                  setTimeout(() => {
-                    setSuccess(true);
-                  }, 2000);
-                }}
+                onContinue={() => setSuccess(true)}
               />
             </div>
           </MainContainer>
