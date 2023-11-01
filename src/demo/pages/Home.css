@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(115.56deg, #C1EEF8 44.33%, #67D7ED 89.31%) ;  
+  background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
 }
 .container {
   display: flex;
@@ -151,7 +151,7 @@ padding: 6rem 0.5rem 0rem 6.5rem;
     align-items: center; 
     margin-top: 0rem;
     overflow-x: hidden;
-    background: linear-gradient(164deg, #E0F7FC 51.39%, #8BE1F1 86.19%);
+    background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
 
   }
   .intro {

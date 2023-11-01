@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
-import MobileHomeScreen from "../mobilePages/Home";
 import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
