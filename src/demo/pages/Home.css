@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(115.56deg, #C1EEF8 44.33%, #67D7ED 89.31%) !important;  
+  background: linear-gradient(115.56deg, #C1EEF8 44.33%, #67D7ED 89.31%) ;  
 }
 .container {
   display: flex;
@@ -114,6 +114,9 @@ padding: 6rem 0.5rem 0rem 6.5rem;
   margin-top: auto;
   color: var(---bg);
 }
+.mobile-logo{
+  display: none;
+}
 
 @media only screen and (max-width: 768px) {
   .container {
@@ -139,4 +142,77 @@ padding: 6rem 0.5rem 0rem 6.5rem;
   .intro .footer {
     margin-bottom: 3rem;
   }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-top: 0rem;
+    overflow-x: hidden;
+    background: linear-gradient(164deg, #E0F7FC 51.39%, #8BE1F1 86.19%);
+
+  }
+  .intro {
+    width: 100%;
+  }
+  .box{
+    display: block;
+  }
+  .demo-head{
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1;
+    margin-top: 1.2rem;
+
+  }
+  .demo-main{
+    font-size: 2.8rem;
+    text-align: center;
+    line-height: 1;
+  }
+  .intro-container{
+    padding: 0rem;
+    margin-top: 0.5rem;
+  }
+  .display-none{
+    display: none;
+  }
+  .text-body{
+    text-align: center;
+    max-width: 90%;
+  }
+  .t-button{
+    border-radius: 0.5rem;
+    
+  }
+  .main-img{
+    position: relative;
+
+  }
+  .hand-img{
+    position: relative;
+    width: 265%;
+    top: -6rem;
+    left: 9.2rem;
+    right: 0rem;
+  }
+  .mobile-img{
+    position: relative;
+    right: 0rem;
+    width: 180%;
+    left: 2rem;
+    top: -6rem;
+  }
+  .intro .footer{
+    margin-top: 1.8rem;
+  }
+  .mobile-logo{
+    width: 100px;
+    height: 100px;
+    display: inline;
+    margin-top: 1rem;
+  }
+  
 }

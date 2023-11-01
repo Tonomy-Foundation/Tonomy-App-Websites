@@ -9,12 +9,11 @@ import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
 
 export default function RootRoutes(): JSX.Element {
-  const isMobile = window.innerWidth <= 768;
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={isMobile? <MobileHomeScreen /> :<HomeScreen />} />
+          <Route path="/" element={<HomeScreen />} />
           <Route path="/callback" element={<Callback />} />
           {mainRoutes.map((route) => (
             <Route
