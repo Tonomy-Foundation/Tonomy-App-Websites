@@ -37,7 +37,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
   return (
     <div className="slider-container">
       <div
-        className={`arrow left ${currentPreviewIndex === 0 ? "disabled" : ""}`}
+        className={`arrow left display-none ${currentPreviewIndex === 0 ? "disabled" : ""}`}
         onClick={slidePrevious}
       >
         <img src={LeftArrow} alt="left-arrow" />
@@ -63,7 +63,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
           onClick={() => navigation(linkTexts[currentPreviewIndex]["url"])}
         >
           <img src={imageUrl} alt={`Image ${currentPreviewIndex}`} />
-          <p className="centerImageText">
+          <p className="centerImageText ">
             {linkTexts[currentPreviewIndex]["text"]}
           </p>
         </div>
@@ -78,7 +78,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
         </div>
       </div>{" "}
       <div
-        className={`arrow right ${
+        className={`arrow right display-none ${
           currentPreviewIndex === images.length - 1 ? "disabled" : ""
         }`}
         onClick={slideNext}

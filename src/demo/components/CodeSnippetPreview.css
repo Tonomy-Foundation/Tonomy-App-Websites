@@ -74,3 +74,8 @@
     gap: 56px; 
   }
   
+  @media only screen and (min-width: 375px) and (max-width: 767px) {
+    .display-none{
+      display: none;
+    }
+  }
