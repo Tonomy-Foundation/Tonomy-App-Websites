@@ -1,6 +1,5 @@
 body{
-    background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
-    height: 100%;
+    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
 }
 .userSection {
     width: 100%;
@@ -21,3 +20,34 @@ body{
     margin-top: 4.5rem;
 }
 
+.pageHeading .description{
+    line-height: 30px;
+}
+
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+    .homeContainer{
+        background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
+        padding-top: 2.5rem;
+
+    }
+    .imageSlider{
+        margin-top: 1.5rem;
+      }
+    .pageHeading{
+        text-align: center;
+        font-size: 1.9rem;
+        font-weight: 700;
+        line-height: 37px;
+    }
+    .display-none{
+        display: none;
+    }
+    .description{
+        text-align: center;
+        padding: 0rem 0.6rem;
+        line-height: 1.6;
+        margin-top: 3.5rem;
+        font-size: 1.2rem;
+        color: var(--grey-dark-grey)
+    }
+}
