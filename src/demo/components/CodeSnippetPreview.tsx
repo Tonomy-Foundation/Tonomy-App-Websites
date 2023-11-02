@@ -16,7 +16,7 @@ const CodeSnippetPreview = (props: CodeSnippetPreviewProps) => {
   };
 
   return (
-    <div className="documentation display-none">
+    <div className="documentation mobile-display-none">
       <div>
         {" "}
         <a href={props.documentationLink} target="_blank" rel="noreferrer">
