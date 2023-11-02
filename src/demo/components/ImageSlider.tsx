@@ -51,7 +51,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             }
             alt={`Image ${currentPreviewIndex - 1}`}
           />
-          <p className="sideImageText">
+          <p className="side-image-text">
             {
               linkTexts[
                 (currentPreviewIndex - 1 + images.length) % images.length
@@ -64,7 +64,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
           onClick={() => navigation(linkTexts[currentPreviewIndex]["url"])}
         >
           <img src={imageUrl} alt={`Image ${currentPreviewIndex}`} />
-          <p className="centerImageText ">
+          <p className="center-image-text ">
             {linkTexts[currentPreviewIndex]["text"]}
           </p>
         </div>
@@ -73,7 +73,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             src={images[(currentPreviewIndex + 1) % images.length]}
             alt={`Image ${currentPreviewIndex + 1}`}
           />
-          <p className="sideImageText">
+          <p className="side-image-text">
             {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
           </p>
         </div>

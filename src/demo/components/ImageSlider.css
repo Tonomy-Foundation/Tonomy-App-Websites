@@ -67,7 +67,7 @@
   padding:0.65rem;
 }
 
-.sideImageText {
+.side-image-text {
   color: var(--dark-grey);
   text-align: center;
   font-size: 1.1rem;
@@ -185,7 +185,7 @@ line-height: 35px !important;
     width: 100%;
   }
 
-  .centerImageText {
+  .center-image-text {
     margin: -0.4rem 1.6rem;
     padding:0rem;
   }
@@ -218,7 +218,7 @@ line-height: 35px !important;
     line-height: 1.4;
   }
 
-  .sideImageText {
+  .side-image-text {
     padding:0rem;
     margin-top: -0.3rem;
   }
