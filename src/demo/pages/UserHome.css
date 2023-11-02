@@ -1,5 +1,5 @@
 body{
-    background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
+    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
 }
 .userSection {
     width: 100%;

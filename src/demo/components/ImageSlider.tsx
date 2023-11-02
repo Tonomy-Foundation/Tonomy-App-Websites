@@ -33,8 +33,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
     setImageUrl(images[previousIndex]);
     setCurrentPreviewIndex(previousIndex);
   };
+  console.log("currentPreviewIndex", currentPreviewIndex)
 
   return (
+    <>
     <div className="slider-container">
       <div
         className={`arrow left display-none ${currentPreviewIndex === 0 ? "disabled" : ""}`}
@@ -76,7 +78,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
           </p>
         </div>
-      </div>{" "}
+      </div>
       <div
         className={`arrow right display-none ${
           currentPreviewIndex === images.length - 1 ? "disabled" : ""
@@ -85,7 +87,19 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
       >
         <img src={RightArrow} alt="right-arrow" />
       </div>
+
     </div>
+    <div className="ellipse-container">
+      <div         
+        onClick={slidePrevious}
+        className={`ellipse ${currentPreviewIndex === 2? "active-ellipse":""}`}></div>
+      <div className={`ellipse ${currentPreviewIndex === 0? "active-ellipse":""}`}></div>
+      <div         
+        onClick={slideNext}
+        className={`ellipse ${currentPreviewIndex === 1? "active-ellipse":""}`}></div>
+    </div>
+
+    </>
   );
 };
 
