@@ -148,7 +148,7 @@ line-height: 35px !important;
 .ellipse{
   width: 18px; 
   height: 18px; 
-  border: 1px solid var(--white) ;
+  border: 2px solid var(--white) ;
   border-radius: 50%;
   margin: 0 10px;
   cursor: pointer;

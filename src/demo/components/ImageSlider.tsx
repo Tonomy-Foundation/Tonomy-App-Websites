@@ -33,7 +33,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
     setImageUrl(images[previousIndex]);
     setCurrentPreviewIndex(previousIndex);
   };
-  console.log("currentPreviewIndex", currentPreviewIndex)
 
   return (
     <>
