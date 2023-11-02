@@ -30,7 +30,7 @@ const USerHome: React.FC = () => {
   }
 
   useEffect(() => {
-    // onRender();
+    onRender();
   }, []);
 
   return (
