@@ -1,8 +1,6 @@
 
 .wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
+ 
 }
 
 .heading {
@@ -51,6 +49,7 @@
   flex: 1;
   margin-left: 3.9%; 
   height: calc(100vh - 3.9%); 
+  padding-bottom: 4rem;
 }
 
 
@@ -79,4 +78,49 @@ a {
 
 a {
   color: var(--dark-blue);
+}
+
+/* Style the fixed bottom navigation bar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--offWhite); /* Change the background color as desired */
+  color: var(--dark-grey); /* Change the text color as desired */
+  z-index: 999999;
+}
+
+/* Style the navigation links */
+.bottom-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 0;
+}
+
+.bottom-nav li {
+  text-align: center;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
+/* Style the links on hover (optional) */
+.bottom-nav a:hover {
+  text-decoration: underline;
+}
+
+.sidebar{
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+  .display-none{
+    display: none;
+  }
 }

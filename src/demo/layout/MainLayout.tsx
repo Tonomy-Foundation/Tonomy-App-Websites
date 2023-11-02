@@ -28,7 +28,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="wrapper">
-      <div className="sidebar" style={{ display: "flex", height: "100%" }}>
+      <div className="sidebar display-none" >
         <Sidebar
           defaultCollapsed={collapsed}
           onMouseEnter={handleMouseEnter}
@@ -80,6 +80,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </Menu>
         </Sidebar>
       </div>
+      <nav className="bottom-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+        </ul>
+      </nav>
 
       <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
         {children}
