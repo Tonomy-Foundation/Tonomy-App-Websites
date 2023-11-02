@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
+import mobileLogo from "../assets/tonomy-mobile-logo.png";
 
 const snippetCode = `
 // LoginPage.jsx
@@ -58,7 +59,10 @@ export default function Home() {
   }, []);
 
   async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({ callbackPath: "/callback" });
+    api.ExternalUser.loginWithTonomy({
+      callbackPath: "/callback",
+      dataRequest: { username: true },
+    });
   }
 
   return (
@@ -70,13 +74,16 @@ export default function Home() {
           <div className="intro">
             <header>
               <div className="box">
-                <img src={logo} alt="Tonomy-logo" />
-                <div className="box-heading">
+                <img src={logo} className="display-none" alt="Tonomy-logo" />
+                <img src={mobileLogo} className="mobile-logo" alt="Tonomy-logo" />
+
+                <div className="box-heading display-none">
                   <span>Tonomy ID</span>
                   <div className="box-subheading">demo</div>
                 </div>
               </div>
               <div className="intro-container">
+               
                 <TP className="demo-head">Explore our demo features</TP>
                 <TP className="demo-main">Solution that works for you.</TP>
 
@@ -95,7 +102,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="snippet">
+              <div className="snippet display-none">
                 <CodeSnippetPreview
                   snippetCode={snippetCode}
                   documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#2-login-page"

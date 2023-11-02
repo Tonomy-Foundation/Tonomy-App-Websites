@@ -1,14 +1,16 @@
-import { LoginRequest } from "@tonomy/tonomy-id-sdk";
+import { RequestsManager } from "@tonomy/tonomy-id-sdk";
 import { create } from "zustand";
 
-interface LoginStore {
-  request?: LoginRequest;
-  setRequest: (request: LoginRequest) => void;
+interface WalletRequestsStore {
+  requests?: RequestsManager;
+  setRequests: (requests: RequestsManager) => void;
 }
 
-export const useLoginStore = create<LoginStore>((set, get) => ({
-  request: undefined,
-  setRequest: (request: LoginRequest) => {
-    set({ request });
-  },
-}));
+export const useWalletRequestsStore = create<WalletRequestsStore>(
+  (set, get) => ({
+    requests: undefined,
+    setRequests: (requests: RequestsManager) => {
+      set({ requests });
+    },
+  })
+);
