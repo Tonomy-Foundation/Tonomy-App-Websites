@@ -31,11 +31,11 @@ const USerHome: React.FC = () => {
   }
 
   useEffect(() => {
-    onRender();
+    // onRender();
   }, []);
 
   return (
-    <ContainerStyle className="home-container">
+    <div className="home-container">
       <div className="mobile-container">
         <div className="user-section">
           <img src={userLogo} alt="userLogo" className="user-logo" />
@@ -61,7 +61,7 @@ const USerHome: React.FC = () => {
         snippetCode={snippetCode}
         documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#3-callback-page"
       /> 
-    </ContainerStyle>
+    </div>
   );
 };
 
