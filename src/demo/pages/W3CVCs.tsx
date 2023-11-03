@@ -74,10 +74,8 @@ export default function W3CVCs() {
     try {
       setLoading(true);
 
-      await setTimeout(() => {
-        setActiveStep(0);
-        setProgressValue(20);
-      }, 2000);
+      setActiveStep(0);
+      setProgressValue(0);
       const data = {
         name,
         phone,
@@ -92,17 +90,17 @@ export default function W3CVCs() {
 
       const id = window.location.origin + "/medical-record#" + randomString(8);
 
-      await user?.signVc(id, "MedicalRecord", data);
-
       await setTimeout(() => {
         setActiveStep(1);
         setProgressValue(50);
-      }, 3000);
+      }, 200);
       await setTimeout(() => {
         setActiveStep(2);
         setProgressValue(100);
-        setLoading(false);
-      }, 4000);
+      }, 200);
+      await user?.signVc(id, "MedicalRecord", data);
+
+      setLoading(false);
     } catch (e) {
       setLoading(false);
 
@@ -229,7 +227,7 @@ export default function W3CVCs() {
                 <TButton
                   className="btnStyle1"
                   onClick={onSubmit}
-                  disabled={loading ? true : false}
+                  disabled={loading}
                 >
                   Sign using your tonomy DID
                 </TButton>
@@ -239,11 +237,7 @@ export default function W3CVCs() {
               activeStep={activeStep}
               steps={steps}
               progressValue={progressValue}
-              onContinue={() => {
-                setTimeout(() => {
-                  setSuccess(true);
-                }, 2000);
-              }}
+              onContinue={() => setSuccess(true)}
             />
           </div>
         </section>

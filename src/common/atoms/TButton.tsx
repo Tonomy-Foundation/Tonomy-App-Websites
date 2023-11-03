@@ -1,6 +1,6 @@
-import { Button, ButtonProps } from "@mui/material";
+import LoadingButton, { LoadingButtonProps } from "@mui/lab/LoadingButton";
 import React from "react";
 
-export function TButton(props: ButtonProps) {
-  return <Button {...props}></Button>;
+export function TButton(props: LoadingButtonProps) {
+  return <LoadingButton {...props}></LoadingButton>;
 }
