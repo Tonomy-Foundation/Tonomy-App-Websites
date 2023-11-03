@@ -4,6 +4,8 @@ export const ContainerStyle = styled.div`
   width: 100%;
   height: 100%;
   align-items: center;
+  background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
+
 `;
 
 export const HeaderTonomy = styled.div`
