@@ -39,7 +39,7 @@ const USerHome: React.FC = () => {
       <div className="mobile-container">
         <div className="user-section">
           <img src={userLogo} alt="userLogo" className="user-logo" />
-          <span>{username}jack tanner</span>
+          <span>{username}</span>
         </div>
         <div className="mobile-logout-section">
           <LogoutIcon className="user-logo" />
