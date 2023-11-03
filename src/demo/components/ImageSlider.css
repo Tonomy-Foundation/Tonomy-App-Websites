@@ -54,7 +54,7 @@
   height: 75%;
 }
 
-.centerImageText {
+.center-image-text {
   color: var(--dark-grey);
   text-align: center;
   font-size: 1.1rem;
@@ -113,12 +113,12 @@
 
 .description {
   color: var(--dark-grey);
-text-align: center;
-font-size: 1.6rem;
-font-style: normal;
-font-weight: initial; 
-padding: 3.2rem 28.2rem 0rem 28.2rem;
-line-height: 35px !important;
+  text-align: center;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: initial; 
+  padding: 3.2rem 28.2rem 0rem 28.2rem;
+  line-height: 35px !important;
 }
 
 .pageHeading {
