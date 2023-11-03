@@ -8,6 +8,8 @@ body {
   height: 100%;
   align-items: center;
   justify-content: space-between;
+  background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
+
 }
 .box{
   display: flex;
