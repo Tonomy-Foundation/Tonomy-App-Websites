@@ -35,9 +35,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
   };
 
   return (
+    <>
     <div className="slider-container">
       <div
-        className={`arrow left ${currentPreviewIndex === 0 ? "disabled" : ""}`}
+        className={`arrow left display-none ${currentPreviewIndex === 0 ? "disabled" : ""}`}
         onClick={slidePrevious}
       >
         <img src={LeftArrow} alt="left-arrow" />
@@ -50,7 +51,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             }
             alt={`Image ${currentPreviewIndex - 1}`}
           />
-          <p className="sideImageText">
+          <p className="side-image-text">
             {
               linkTexts[
                 (currentPreviewIndex - 1 + images.length) % images.length
@@ -63,7 +64,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
           onClick={() => navigation(linkTexts[currentPreviewIndex]["url"])}
         >
           <img src={imageUrl} alt={`Image ${currentPreviewIndex}`} />
-          <p className="centerImageText">
+          <p className="center-image-text ">
             {linkTexts[currentPreviewIndex]["text"]}
           </p>
         </div>
@@ -72,20 +73,32 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             src={images[(currentPreviewIndex + 1) % images.length]}
             alt={`Image ${currentPreviewIndex + 1}`}
           />
-          <p className="sideImageText">
+          <p className="side-image-text">
             {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
           </p>
         </div>
-      </div>{" "}
+      </div>
       <div
-        className={`arrow right ${
+        className={`arrow right display-none ${
           currentPreviewIndex === images.length - 1 ? "disabled" : ""
         }`}
         onClick={slideNext}
       >
         <img src={RightArrow} alt="right-arrow" />
       </div>
+
     </div>
+    <div className="ellipse-container">
+      <div         
+        onClick={slidePrevious}
+        className={`ellipse ${currentPreviewIndex === 2? "active-ellipse":""}`}></div>
+      <div className={`ellipse ${currentPreviewIndex === 0? "active-ellipse":""}`}></div>
+      <div         
+        onClick={slideNext}
+        className={`ellipse ${currentPreviewIndex === 1? "active-ellipse":""}`}></div>
+    </div>
+
+    </>
   );
 };
 

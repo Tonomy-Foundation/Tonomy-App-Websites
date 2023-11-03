@@ -34,15 +34,15 @@ const USerHome: React.FC = () => {
   }, []);
 
   return (
-    <ContainerStyle>
-      <div className="userSection">
-        <img src={userLogo} alt="userLogo" className="userLogo" />
+    <ContainerStyle className="home-container">
+      <div className="user-section display-none">
+        <img src={userLogo} alt="userLogo" className="user-logo" />
         <span>{username}</span>
       </div>
       <div>
-        <p className="pageHeading">Test the possibilities of Tonomy ID</p>
+        <p className="page-heading">Test the possibilities of Tonomy ID</p>
       </div>
-      <div className="imageSlider">
+      <div className="image-slider">
         <ImageSlider images={images} linkTexts={linkTexts} />
       </div>
       <p className="description">
@@ -50,10 +50,10 @@ const USerHome: React.FC = () => {
         administrators. As a user, Tonomy ID enables you access to a variety of
         features. Some you can test on our demo website:
       </p>
-      <CodeSnippetPreview
+      <CodeSnippetPreview 
         snippetCode={snippetCode}
         documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#3-callback-page"
-      />
+      /> 
     </ContainerStyle>
   );
 };

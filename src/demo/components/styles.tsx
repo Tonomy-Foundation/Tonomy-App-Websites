@@ -4,9 +4,6 @@ export const ContainerStyle = styled.div`
   width: 100%;
   height: 100%;
   align-items: center;
-  & p {
-    line-height: 30px;
-  }
 `;
 
 export const HeaderTonomy = styled.div`
