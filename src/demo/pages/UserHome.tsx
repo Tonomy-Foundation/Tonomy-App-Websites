@@ -34,15 +34,15 @@ const USerHome: React.FC = () => {
   }, []);
 
   return (
-    <ContainerStyle className="homeContainer">
-      <div className="userSection display-none">
-        <img src={userLogo} alt="userLogo" className="userLogo" />
+    <ContainerStyle className="home-container">
+      <div className="user-section display-none">
+        <img src={userLogo} alt="userLogo" className="user-logo" />
         <span>{username}</span>
       </div>
       <div>
-        <p className="pageHeading">Test the possibilities of Tonomy ID</p>
+        <p className="page-heading">Test the possibilities of Tonomy ID</p>
       </div>
-      <div className="imageSlider">
+      <div className="image-slider">
         <ImageSlider images={images} linkTexts={linkTexts} />
       </div>
       <p className="description">

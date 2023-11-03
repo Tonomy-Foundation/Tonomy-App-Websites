@@ -1,7 +1,7 @@
 body{
     background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
 }
-.userSection {
+.user-section {
     width: 100%;
     text-align: end;
     padding: 1rem 5rem;
@@ -12,15 +12,15 @@ body{
     padding-top: 2rem;
     font-size: 1.4rem;
 }
-.userLogo {
+.user-logo {
     margin-right: 0.5rem;
 }
 
-.imageSlider {
+.image-slider {
     margin-top: 4.5rem;
 }
 
-.pageHeading .description{
+.page-heading .description{
     line-height: 30px;
 }
 
@@ -33,10 +33,10 @@ body{
         padding-top: 2.5rem;
 
     }
-    .imageSlider{
+    .image-slider{
         margin-top: 1.5rem;
       }
-    .pageHeading{
+    .page-heading{
         text-align: center;
         font-size: 1.9rem;
         font-weight: 700;
