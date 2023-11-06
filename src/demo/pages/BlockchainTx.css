@@ -286,7 +286,7 @@
     margin-left: 0rem;
     cursor: pointer;
     color: var(--white);
-    padding: 1rem 2rem;
+    padding: 0.9rem 1.8rem;
     display: inline-block;
     font-size: 1.5rem;
     border-radius: 10px;
@@ -300,4 +300,9 @@
     margin-top: 2rem;
   }
 
+  .imagine-mobile {
+    background-color: var(--white);
+
+  }
+ 
 }
