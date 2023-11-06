@@ -25,8 +25,7 @@ export default function BlockchainTx() {
   const [progressValue, setProgressValue] = useState(0);
   const { user, signout } = useContext(AuthContext);
   const errorStore = useErrorStore();
-  const [imagineSection, setImagineSection] = useState(false);
-  const [introSection, setIntroSection] = useState(true);
+  const [activeSection, setActiveSection] = useState("intro");
   const [success, setSuccess] = useState<boolean>(false);
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
 
@@ -62,49 +61,95 @@ export default function BlockchainTx() {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+  const isMobile = window.innerWidth <= 768;
 
   return (
     <div className="blockConatiner">
-      <SignTransactionIntro
-        username={username}
-        scrollToDemo={() => scrollToDemo("demoSection")}
-        signout={signout}
-        setImagineSection={setImagineSection}
-        setIntroSection={setIntroSection}
-        introSection={introSection}
-      />
-      <SignTransactionImagine />
-      <SignTransactionConfirmation
-        trxUrl={trxUrl}
-        setSuccess={setSuccess}
-        setProgressValue={setProgressValue}
-        setActiveStep={setActiveStep}
-        balance={90}
-      />
-      {!success ? (
+      {isMobile ? (
         <>
-          <SignTransactionSendPayment
-            setActiveStep={setActiveStep}
-            setProgressValue={setProgressValue}
-            username={username}
-            setTrxUrl={setTrxUrl}
-          />
+          {activeSection === "intro" && (
+            <SignTransactionIntro
+              username={username}
+              scrollToDemo={() => scrollToDemo("demoSection")}
+              signout={signout}
+              setActiveSection={setActiveSection}
+            />
+          )}
+          {activeSection === "imagine" && (
+            <SignTransactionImagine setActiveSection={setActiveSection} />
+          )}
 
-          <SignTransactionProgress
-            activeStep={activeStep}
-            progressValue={progressValue}
-            setSuccess={setSuccess}
-          />
+          {!success ? (
+            <>
+              {activeSection === "sendPayment" && (
+                <SignTransactionSendPayment
+                  setActiveStep={setActiveStep}
+                  setProgressValue={setProgressValue}
+                  username={username}
+                  setTrxUrl={setTrxUrl}
+                  setActiveSection={setActiveSection}
+                />
+              )}
+              {activeSection === "progress" && (
+                <SignTransactionProgress
+                  activeStep={activeStep}
+                  progressValue={progressValue}
+                  setSuccess={setSuccess}
+                  setActiveSection={setActiveSection}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              {activeSection === "confirmation" && (
+                <SignTransactionConfirmation
+                  trxUrl={trxUrl}
+                  setSuccess={setSuccess}
+                  setProgressValue={setProgressValue}
+                  setActiveStep={setActiveStep}
+                  balance={90}
+                  setActiveSection={setActiveSection}
+                />
+              )}
+            </>
+          )}
         </>
       ) : (
-        <SignTransactionConfirmation
-          trxUrl={trxUrl}
-          setSuccess={setSuccess}
-          setProgressValue={setProgressValue}
-          setActiveStep={setActiveStep}
-          balance={90}
-        />
+        <>
+          <SignTransactionIntro
+            username={username}
+            scrollToDemo={() => scrollToDemo("demoSection")}
+            signout={signout}
+          />
+          <SignTransactionImagine />
+
+          {!success ? (
+            <>
+              <SignTransactionSendPayment
+                setActiveStep={setActiveStep}
+                setProgressValue={setProgressValue}
+                username={username}
+                setTrxUrl={setTrxUrl}
+              />
+
+              <SignTransactionProgress
+                activeStep={activeStep}
+                progressValue={progressValue}
+                setSuccess={setSuccess}
+              />
+            </>
+          ) : (
+            <SignTransactionConfirmation
+              trxUrl={trxUrl}
+              setSuccess={setSuccess}
+              setProgressValue={setProgressValue}
+              setActiveStep={setActiveStep}
+              balance={90}
+            />
+          )}
+        </>
       )}
+
       <CodeSnippetPreview
         snippetCode={snippetCode}
         documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"

@@ -1,7 +1,11 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { TH2 } from "../../../common/atoms/THeadings";
 
-const SignTransactionImagine = () => (
+export type SignTransactionImagineProps = {
+  setActiveSection?: (section: string) => void;
+};
+
+const SignTransactionImagine = (props: SignTransactionImagineProps) => (
   <>
     <div className="mobile-container mobile-view imagine-mobile">
       <div className="user-section" style={{ width: "40%" }}>
@@ -22,16 +26,17 @@ const SignTransactionImagine = () => (
           files. With just one click, you can grant access to the files while
           waiting for the doctor to arrive.`}
       </p>
-      <button
-        className="mobile-demo-link mobile-view"
-        style={{ marginTop: "3rem" }}
-        //   onClick={() => {
-        //     props.setImagineSection(false);
-        //     props.setPaymentSection(true);
-        //   }}
-      >
-        Next
-      </button>
+      {props?.setActiveSection && (
+        <button
+          className="mobile-demo-link mobile-view"
+          style={{ marginTop: "3rem" }}
+          onClick={() => {
+            props?.setActiveSection("sendPayment");
+          }}
+        >
+          Next
+        </button>
+      )}
     </div>
   </>
 );

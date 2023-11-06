@@ -8,9 +8,7 @@ export type SignTransactionIntroProps = {
   username: string;
   scrollToDemo: () => void;
   signout: () => void;
-  setImagineSection: (imageSection: boolean) => void;
-  setIntroSection: (introSection: boolean) => void;
-  introSection: boolean;
+  setActiveSection?: (section: string) => void;
 };
 
 const SignTransactionIntro = (props: SignTransactionIntroProps) => (
@@ -63,15 +61,14 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <button className="demoLink web-view" onClick={props.scrollToDemo}>
         Enter Demo
       </button>
-      <button
-        className="mobile-demo-link mobile-view"
-        onClick={() => {
-          props.setImagineSection(true);
-          props.setIntroSection(false);
-        }}
-      >
-        Enter Demo
-      </button>
+      {props?.setActiveSection && (
+        <button
+          className="mobile-demo-link mobile-view"
+          onClick={() => props?.setActiveSection("imagine")}
+        >
+          Enter Demo
+        </button>
+      )}
     </div>
   </>
 );

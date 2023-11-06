@@ -8,6 +8,7 @@ export type SignTransactionConfirmationProps = {
   setProgressValue: (progressValue: number) => void;
   setActiveStep: (active: number) => void;
   balance: number;
+  setActiveSection?: (section: string) => void;
 };
 
 const SignTransactionConfirmation = (
@@ -54,16 +55,17 @@ const SignTransactionConfirmation = (
         <p>
           you have successfully signed a blockchain transaction using Tonomy ID
         </p>
-        <button
-          className="mobile-demo-link mobile-view"
-          style={{ marginTop: "3rem" }}
-          //   onClick={() => {
-          //     props.setImagineSection(false);
-          //     props.setPaymentSection(true);
-          //   }}
-        >
-          Go back home
-        </button>
+        {props?.setActiveSection && (
+          <button
+            className="mobile-demo-link mobile-view"
+            style={{ marginTop: "3rem" }}
+            onClick={() => {
+              props?.setActiveSection("intro");
+            }}
+          >
+            Go back home
+          </button>
+        )}
       </div>
     </div>
   </>

@@ -24,6 +24,7 @@ export type SignTransactionProgressProps = {
   activeStep: number;
   progressValue: number;
   setSuccess: (success: boolean) => void;
+  setActiveSection?: (section: string) => void;
 };
 
 const SignTransactionProgress = (props: SignTransactionProgressProps) => (
@@ -46,16 +47,17 @@ const SignTransactionProgress = (props: SignTransactionProgressProps) => (
         progressValue={props.progressValue}
         onContinue={() => props.setSuccess(true)}
       />
-      <button
-        className="mobile-demo-link mobile-view"
-        style={{ marginTop: "3rem" }}
-        //   onClick={() => {
-        //     props.setImagineSection(false);
-        //     props.setPaymentSection(true);
-        //   }}
-      >
-        Send Payment
-      </button>
+      {props?.setActiveSection && (
+        <button
+          className="mobile-demo-link mobile-view"
+          style={{ marginTop: "3rem" }}
+          onClick={() => {
+            props?.setActiveSection("confirmation");
+          }}
+        >
+          Send Payment
+        </button>
+      )}
     </div>
   </>
 );

@@ -26,6 +26,7 @@ export type SignTransactionSendPaymentProps = {
   setActiveStep: (step: number) => void;
   setProgressValue: (progressValue: number) => void;
   setTrxUrl: (url: string) => void;
+  setActiveSection?: (section: string) => void;
 };
 
 const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
@@ -91,7 +92,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   async function onBuy() {
     try {
       if (!user) throw new Error("User not logged in");
-
+      if (props?.setActiveSection) props.setActiveSection("progress");
       setTransactionState("loading");
       props.setActiveStep(0);
       props.setProgressValue(20);
