@@ -84,26 +84,8 @@
   font-size: 1.6rem;
 }
 
-.paraLink {
-  display: block;
-  margin-top: 4rem;
-  margin-left: 0.7rem;
-  font-size: 1.4rem;
 
-}
 
-.demoLink {
-  cursor: pointer;
-  background-color: white;
-  color: black;
-  padding: 1rem 2rem;
-  display: inline-block;
-  font-size: 1.7rem;
-  border-radius: 10px;
-  margin-top: 4rem;
-  margin-left: 2rem;
-  border: none;
-}
 
 .leftSection {
   grid-column: 1;
@@ -225,4 +207,11 @@ ul.horizontal-list li:last-child {
 input:focus {
   outline-color: var(--primary) !important;
   border: 2px solid var(--primary);
+}
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+
+.paraSection {
+  padding: 7rem 2rem;
+}
+
 }

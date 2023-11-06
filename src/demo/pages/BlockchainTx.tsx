@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import {
-  HeaderTonomy,
   MainContainer,
   FormContainer,
   FormHeaderContainer,
 } from "../components/styles";
-import userLogo from "../assets/user.png";
 import "./BlockchainTx.css";
 import useErrorStore from "../../common/stores/errorStore";
 import {
@@ -16,14 +14,14 @@ import {
   EosioTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
-import { TH1, TH2 } from "../../common/atoms/THeadings";
 import VerticalLinearStepper from "../components/VerticalProgressStep";
-import SignBanner from "../assets/sign-transaction.png";
 import TextboxLayout from "../components/TextboxLayout";
 import { TButton } from "../../common/atoms/TButton";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import { AuthContext } from "../providers/AuthProvider";
 import SuccessSection from "../components/SuccessSection";
+import SignTransactionIntro from "./BlockchainTransaction/SignTransactionIntro";
+import SignTransactionImagine from "./BlockchainTransaction/SignTransactionImagine";
 
 const snippetCode = `
 // SignBlockchain.jsx
@@ -58,7 +56,7 @@ export default function BlockchainTx() {
   const [activeStep, setActiveStep] = useState(-1);
   const [username, setUsername] = useState<string>("");
   const [progressValue, setProgressValue] = useState(0);
-  const { user } = useContext(AuthContext);
+  const { user, signout } = useContext(AuthContext);
   const errorStore = useErrorStore();
   const [transactionState, setTransactionState] = useState<
     "prepurchase" | "loading" | "purchased"
@@ -68,6 +66,8 @@ export default function BlockchainTx() {
   const [amount, setAmount] = useState<number>(0);
   const [recipient, setRecipient] = useState<string>("cheesecakeophobia");
   const [success, setSuccess] = useState<boolean>(false);
+  const [imagineSection, setImagineSection] = useState(false);
+  const [introSection, setIntroSection] = useState(true);
 
   const [description, setDescription] = useState<string>(
     "Art print from MONA gallery"
@@ -113,7 +113,7 @@ export default function BlockchainTx() {
       return;
     }
 
-    onRender();
+    // onRender();
   }, []);
 
   function onChangeAmount(value: string) {
@@ -188,40 +188,16 @@ export default function BlockchainTx() {
 
   return (
     <div className="blockConatiner">
-      <div className="header-container">
-        <p className="leftText sign-dcoument">Feature Name: Sign Transaction</p>
-        <p className="userLogoVC">
-          {<img src={userLogo} alt="userLogo" />}
-          <span>{username}</span>
-        </p>
-        {/* <div className="header-image" /> */}
-        <img src={SignBanner} alt="banner-image" className="header-image" />
-        <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>
-          Tonomy
-          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
-        </HeaderTonomy>
-        <TH2 className="header-description">
-          Tonomy ID utilizes a digital signatures and a distributed transaction
-          protocol to safeguard your transactions and digital assets from
-          unauthorized access or tampering.
-        </TH2>
-        <a
-          href="https://docs.eosnetwork.com/"
-          target="_blank"
-          className="paraLink"
-          rel="noreferrer"
-        >
-          Learn about the Antelope blockchain protocol{`->`}
-        </a>
-        <button
-          className="demoLink"
-          onClick={() => scrollToDemo("demoSection")}
-        >
-          Enter Demo
-        </button>
-      </div>
-      <div className="paraSection">
+      {/* <SignTransactionIntro
+        username={username}
+        scrollToDemo={() => scrollToDemo("demoSection")}
+        signout={signout}
+        setImagineSection={setImagineSection}
+        setIntroSection={setIntroSection}
+        introSection={introSection}
+      /> */}
+      <SignTransactionImagine />
+      {/* <div className="paraSection">
         <p className="imagine">Imagine,</p>
         <p className="paralines">
           {`you go to the doctor's office for a checkup. While waiting, your
@@ -323,7 +299,7 @@ export default function BlockchainTx() {
           }}
           url={trxUrl}
         />
-      )}
+      )} */}
       <CodeSnippetPreview
         snippetCode={snippetCode}
         documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"

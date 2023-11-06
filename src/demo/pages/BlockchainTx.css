@@ -193,8 +193,111 @@
   background-color: var(--primary);
 }
 
+.mobile-view {
+  display: none;
+}
+.web-view {
+  display: block;
+}
+.demoLink {
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  padding: 1rem 2rem;
+  display: inline-block;
+  font-size: 1.7rem;
+  border-radius: 10px;
+  margin-top: 4rem;
+  margin-left: 2rem;
+  border: none;
+}
+
+.paraLink {
+  display: block;
+  margin-top: 4rem;
+  margin-left: 0.7rem;
+  font-size: 1.4rem;
+
+}
+
+.paraSection {
+  padding: 8rem 6rem;
+}
+
 @media only screen and (min-width: 375px) and (max-width: 767px) {
   .MuiSvgIcon-root {
     margin: 0.3rem;
   }
+  .mobile-view {
+    display: block;
+  }
+  .mobile-container {
+    width : 100%;
+  }
+  .web-view{
+    display: none;
+  }
+  .header-image{
+    width: 75%;
+    margin-top: 1rem;
+    height: auto;
+    position: unset;
+  
+  }
+  .header-container {
+    padding: 1rem;
+    
+  }
+  .how-to-use-label{
+    padding-top: 1rem;
+    font-size: 1.5rem;
+    padding-left: 0rem;
+    text-align: left;
+
+  }
+  .mobile-page-container {
+    align-items: center; 
+    justify-content: center; 
+    display: flex;
+    flex-direction: column;
+  }
+  .tonomy-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 0.8rem;
+  }
+  .header-description {
+    margin-left: 0;
+    font-size: 1.3rem;
+  }
+  .paraLink{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 0rem;
+    margin-top: 1.5rem;
+    display: block;
+
+  }
+  .mobile-demo-link {
+    margin-top: 2.3rem;
+    background-color: var(--main-blue-gradient);
+    width: 100%;
+    margin-left: 0rem;
+    cursor: pointer;
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: inline-block;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    border: none;
+  }
+  .mobile-display-none{
+    display: none !important;
+  }
+  
+  .paralines {
+    margin-top: 2rem;
+  }
+
 }

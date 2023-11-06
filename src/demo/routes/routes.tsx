@@ -7,7 +7,7 @@ import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
 import UserHome from "../pages/UserHome";
-import W3CVCs from "../pages/W3CVCs";
+import BlockchainTx from "../pages/BlockchainTx";
 
 export default function RootRoutes(): JSX.Element {
   return (
@@ -18,7 +18,7 @@ export default function RootRoutes(): JSX.Element {
             path="/"
             element={
               <MainLayout>
-                <UserHome />
+                <BlockchainTx />
               </MainLayout>
             }
           />
