@@ -148,7 +148,10 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       <section>
         <div className="mobile-container mobile-view imagine-mobile">
           <div className="user-section" style={{ width: "40%" }}>
-            <ArrowBackIosIcon className="user-logo" />
+            <ArrowBackIosIcon
+              className="user-logo"
+              onClick={() => props?.setActiveSection("imagine")}
+            />
           </div>
           <div
             className="mobile-logout-section"

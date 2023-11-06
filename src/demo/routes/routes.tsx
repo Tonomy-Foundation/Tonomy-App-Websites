@@ -14,14 +14,7 @@ export default function RootRoutes(): JSX.Element {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MainLayout>
-                <BlockchainTx />
-              </MainLayout>
-            }
-          />
+          <Route path="/" element={<HomeScreen />} />
           <Route path="/callback" element={<Callback />} />
           {mainRoutes.map((route) => (
             <Route

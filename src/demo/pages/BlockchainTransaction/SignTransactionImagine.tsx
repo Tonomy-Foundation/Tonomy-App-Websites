@@ -9,7 +9,10 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
   <>
     <div className="mobile-container mobile-view imagine-mobile">
       <div className="user-section" style={{ width: "40%" }}>
-        <ArrowBackIosIcon className="user-logo" />
+        <ArrowBackIosIcon
+          className="user-logo"
+          onClick={() => props?.setActiveSection("intro")}
+        />
       </div>
       <div
         className="mobile-logout-section"
@@ -29,7 +32,7 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
       {props?.setActiveSection && (
         <button
           className="mobile-demo-link mobile-view"
-          style={{ marginTop: "3rem" }}
+          style={{ marginTop: "5rem" }}
           onClick={() => {
             props?.setActiveSection("sendPayment");
           }}

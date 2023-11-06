@@ -220,10 +220,6 @@
 
 }
 
-.paraSection {
-  padding: 8rem 6rem;
-}
-
 @media only screen and (min-width: 375px) and (max-width: 767px) {
   .MuiSvgIcon-root {
     margin: 0.3rem;
@@ -238,16 +234,18 @@
     display: none;
   }
   .header-image{
-    width: 75%;
-    margin-top: 1rem;
+    width: 84%;
+    margin-top: 0.7rem;
     height: auto;
     position: unset;
+    padding-left: 4rem;
   
   }
   .header-container {
     padding: 1rem;
     
   }
+  
   .how-to-use-label{
     padding-top: 1rem;
     font-size: 1.5rem;
@@ -291,6 +289,7 @@
     font-size: 1.5rem;
     border-radius: 10px;
     border: none;
+    margin-bottom: 4rem;
   }
   .mobile-display-none{
     display: none !important;
@@ -325,9 +324,11 @@
   .btn-container-mobile{
     margin: 0rem 2rem;
   }
-  .blockConatiner {
+  .mobile-main-container {
     background: var(--white);
-    padding: 0px;
+    padding-bottom: 0rem;
+    height: 100%;
+    margin-bottom: 0rem;
   }
   .mobile-success-section{
     padding: 3rem 2rem;

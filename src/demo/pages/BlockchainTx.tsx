@@ -64,9 +64,9 @@ export default function BlockchainTx() {
   const isMobile = window.innerWidth <= 768;
 
   return (
-    <div className="blockConatiner">
+    <>
       {isMobile ? (
-        <>
+        <div className="mobile-main-container">
           {activeSection === "intro" && (
             <SignTransactionIntro
               username={username}
@@ -113,9 +113,9 @@ export default function BlockchainTx() {
               )}
             </>
           )}
-        </>
+        </div>
       ) : (
-        <>
+        <div className="blockConatiner">
           <SignTransactionIntro
             username={username}
             scrollToDemo={() => scrollToDemo("demoSection")}
@@ -147,13 +147,12 @@ export default function BlockchainTx() {
               balance={90}
             />
           )}
-        </>
+          <CodeSnippetPreview
+            snippetCode={snippetCode}
+            documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"
+          />
+        </div>
       )}
-
-      <CodeSnippetPreview
-        snippetCode={snippetCode}
-        documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"
-      />
-    </div>
+    </>
   );
 }

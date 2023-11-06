@@ -38,6 +38,7 @@
   }
   .transparent-textbox{
     padding: 1rem 1.4rem 1.4rem 1.4rem;
+    height: 40%
   }
   .textbox-label {
     position: absolute;
