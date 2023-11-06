@@ -126,7 +126,7 @@ a {
 }
 
 
-@media only screen and (min-width: 375px) and (max-width: 767px) {
+@media only screen and (min-width: 325px) and (max-width: 767px) {
   .mobile-error-handler{
     padding: 0rem !important;
   }

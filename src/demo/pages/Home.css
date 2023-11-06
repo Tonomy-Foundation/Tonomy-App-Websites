@@ -144,7 +144,7 @@ padding: 6rem 0.5rem 0rem 6.5rem;
   }
 }
 
-@media only screen and (min-width: 375px) and (max-width: 767px) {
+@media only screen and (min-width: 325px) and (max-width: 767px) {
   .container{
     display: flex;
     flex-direction: column;

@@ -208,7 +208,7 @@ input:focus {
   outline-color: var(--primary) !important;
   border: 2px solid var(--primary);
 }
-@media only screen and (min-width: 375px) and (max-width: 767px) {
+@media only screen and (min-width: 325px) and (max-width: 767px) {
 
 .paraSection {
   padding: 4rem 2rem;

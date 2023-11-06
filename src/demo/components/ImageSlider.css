@@ -157,7 +157,7 @@
   background-color: var(--white);
 
 }
-@media only screen and (min-width: 375px) and (max-width: 767px) {
+@media only screen and (min-width: 325px) and (max-width: 767px) {
   .slider-container {
     flex-direction: column;
     overflow-x: hidden;

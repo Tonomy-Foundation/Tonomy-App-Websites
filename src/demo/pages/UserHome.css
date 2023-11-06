@@ -41,7 +41,7 @@
     background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
 }
 
-@media only screen and (min-width: 375px) and (max-width: 767px) {    
+@media only screen and (min-width: 325px) and (max-width: 767px) {    
     .home-container{
         background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
     }
