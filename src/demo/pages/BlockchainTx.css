@@ -1,5 +1,5 @@
 .blockConatiner {
-  background: var(--white-off-white, #f9f9f9) !important;
+  background: var(--white-off-white, #f9f9f9);
   padding: 0px;
 }
 .header-container {
@@ -304,5 +304,40 @@
     background-color: var(--white);
 
   }
- 
+
+  .display-mobile-balance h1{
+    text-align: left;
+    font-size: 26px;
+  }
+  .display-mobile-balance{
+    padding: 3rem 3rem 1rem 4rem;
+  }
+  .display-mobile-balance p {
+    font-size: 3rem;
+    color: var(--dark-blue);
+    font-weight: 700;
+    margin-top: 1rem
+  }
+  .mobile-textbox-label{
+    margin-left: 1.5rem;
+    font-size: 1.2rem;
+  }
+  .btn-container-mobile{
+    margin: 0rem 2rem;
+  }
+  .blockConatiner {
+    background: var(--white);
+    padding: 0px;
+  }
+  .mobile-success-section{
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .mobile-success-section p{
+    line-height: 1.4;
+    font-size: 1.5rem;
+  }
+  .btnStyle1{
+    width : 88% !important;
+  }
 }

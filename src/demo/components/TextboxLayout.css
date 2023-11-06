@@ -31,5 +31,19 @@
     pointer-events: none;
     font-weight: 500;
   }
- 
-  
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+  .input-container{
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .transparent-textbox{
+    padding: 1rem 1.4rem 1.4rem 1.4rem;
+  }
+  .textbox-label {
+    position: absolute;
+    top: -1.1rem;
+    left: 1.3rem;
+    font-weight: 500;
+    bottom: 0rem;
+}
+}
