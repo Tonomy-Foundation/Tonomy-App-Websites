@@ -201,7 +201,6 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
             <div className="input-container">
               <select
                 className="transparent-textbox"
-                id="selectField"
                 value={recipient}
                 onChange={(e) => {
                   setRecipient(e.target.value);
@@ -214,9 +213,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                 <option value="tomtom">tomtom</option>
                 <option value="readingpro">readingpro</option>
               </select>
-              <label htmlFor="selectField" className="textbox-label">
-                Recipient:
-              </label>
+              <label className="textbox-label">Recipient:</label>
             </div>
 
             <TextboxLayout
