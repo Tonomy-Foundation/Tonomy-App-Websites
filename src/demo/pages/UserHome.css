@@ -1,6 +1,4 @@
-body{
-    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
-}
+
 .user-section {
     width: 100%;
     text-align: end;
@@ -40,14 +38,9 @@ body{
     width: 100%;
     height: 100%;
     align-items: center;
-    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
 }
 
-@media only screen and (min-width: 375px) and (max-width: 767px) {
-    .home-container{
-        background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
-    }
-    
+@media only screen and (min-width: 375px) and (max-width: 767px) {    
     .image-slider{
         margin-top: 0.8rem;
       }

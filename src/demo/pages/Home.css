@@ -1,6 +1,4 @@
-body {
-  background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
-}
+
 .container {
   display: flex;
   flex-wrap: wrap;
