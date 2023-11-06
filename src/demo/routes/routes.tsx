@@ -6,8 +6,6 @@ import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
-import UserHome from "../pages/UserHome";
-import BlockchainTx from "../pages/BlockchainTx";
 
 export default function RootRoutes(): JSX.Element {
   return (

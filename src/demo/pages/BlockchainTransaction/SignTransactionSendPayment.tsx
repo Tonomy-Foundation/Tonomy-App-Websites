@@ -27,6 +27,8 @@ export type SignTransactionSendPaymentProps = {
   setProgressValue: (progressValue: number) => void;
   setTrxUrl: (url: string) => void;
   setActiveSection?: (section: string) => void;
+  balance: number;
+  setBalance: (balance: number) => void;
 };
 
 const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
@@ -36,7 +38,6 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   const [transactionState, setTransactionState] = useState<
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
-  const [balance, setBalance] = useState<number>(0);
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState<string>(
     "Art print from MONA gallery"
@@ -49,7 +50,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       if (accountName) {
         let accountBalance = await eosioTokenContract.getBalance(accountName);
 
-        setBalance(accountBalance);
+        props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
         if (accountBalance > 10) return;
 
@@ -59,7 +60,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           memo: "test",
         });
         accountBalance = accountBalance + 10;
-        setBalance(accountBalance);
+        props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
       }
     } catch (e) {
@@ -114,8 +115,9 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         quantity: amount + " SYS",
         memo: "test",
       });
+      const updateBalance = props.balance - amount;
 
-      setBalance((balance) => balance - amount);
+      props.setBalance(updateBalance);
       props.setActiveStep(2);
       props.setProgressValue(60);
       let url =
@@ -165,7 +167,9 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
             <FormHeaderContainer>
               <div className="blanceDiv">
                 <p className="balance-container-text-left">Balance: </p>
-                <p className="balance-container-text-right">{balance} EUR</p>
+                <p className="balance-container-text-right">
+                  {props.balance} EUR
+                </p>
               </div>
               <p className="form-header-container-text">Dashboard</p>
               <p className="form-header-container-text">Exchange rate</p>
@@ -177,7 +181,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
 
           <div className="mobile-view display-mobile-balance">
             <TH1>Your Balance</TH1>
-            <p>{balance}100.00 EUR</p>
+            <p>{props.balance} EUR</p>
           </div>
           <FormContainer>
             <p className="make-payment web-view">Make a payment</p>

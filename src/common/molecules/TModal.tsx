@@ -15,15 +15,15 @@ export type ModalProps = React.ComponentProps<typeof Modal> & {
   onPress: () => void;
   icon: string;
   iconColor?:
-  | "inherit"
-  | "action"
-  | "disabled"
-  | "primary"
-  | "secondary"
-  | "error"
-  | "info"
-  | "success"
-  | "warning";
+    | "inherit"
+    | "action"
+    | "disabled"
+    | "primary"
+    | "secondary"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
   title: string;
   buttonLabel?: string;
   open: boolean;
@@ -52,7 +52,7 @@ const styles = {
 export default function TModal(props: ModalProps) {
   return (
     <Modal open={props.open} onClose={props.onPress}>
-      <Box sx={styles.modal}>
+      <Box sx={styles.modal} className="mobile-error-handler">
         <Box sx={styles.modalContent}>
           <div style={{ textAlign: "center" }}>
             <TIcon color={props.iconColor} icon={props.icon} />

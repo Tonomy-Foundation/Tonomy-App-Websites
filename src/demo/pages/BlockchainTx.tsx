@@ -28,6 +28,7 @@ export default function BlockchainTx() {
   const [activeSection, setActiveSection] = useState("intro");
   const [success, setSuccess] = useState<boolean>(false);
   const [trxUrl, setTrxUrl] = useState<string | undefined>(undefined);
+  const [balance, setBalance] = useState<number>(0);
 
   async function onRender() {
     try {
@@ -88,6 +89,8 @@ export default function BlockchainTx() {
                   username={username}
                   setTrxUrl={setTrxUrl}
                   setActiveSection={setActiveSection}
+                  setBalance={setBalance}
+                  balance={balance}
                 />
               )}
               {activeSection === "progress" && (
@@ -130,6 +133,8 @@ export default function BlockchainTx() {
                 setProgressValue={setProgressValue}
                 username={username}
                 setTrxUrl={setTrxUrl}
+                setBalance={setBalance}
+                balance={balance}
               />
 
               <SignTransactionProgress

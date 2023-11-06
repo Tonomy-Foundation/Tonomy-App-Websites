@@ -124,15 +124,12 @@ a {
 .menu-icon{
   font-size: 2rem;
 }
-/* 
-body {
-  background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
-} */
+
 
 @media only screen and (min-width: 375px) and (max-width: 767px) {
-  /* body {
-    background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
-  } */
+  .mobile-error-handler{
+    padding: 0rem !important;
+  }
   .mobile-display-none{
     display: none;
   }
