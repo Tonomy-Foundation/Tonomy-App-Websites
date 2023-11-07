@@ -64,8 +64,6 @@ export default function BlockchainTx() {
   };
   const isMobile = window.innerWidth <= 768;
 
-  console.log("success", success, activeSection);
-
   return (
     <>
       {isMobile ? (
