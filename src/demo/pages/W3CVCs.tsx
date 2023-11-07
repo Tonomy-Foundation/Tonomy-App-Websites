@@ -142,12 +142,6 @@ export default function W3CVCs() {
           />
         </div>
       )}
-      <W3VCConfirmation
-        setSuccess={setSuccess}
-        setProgressValue={setProgressValue}
-        setActiveStep={setActiveStep}
-        setActiveSection={setActiveSection}
-      />
     </>
   );
 }
