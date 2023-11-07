@@ -1,7 +1,7 @@
 import "./TextboxLayout.css";
 
 export type TextboxLayoutProps = {
-  label: string;
+  label?: string;
   value: string;
   onChange?: (value: string) => void;
 };
@@ -18,9 +18,11 @@ const TextboxLayout = (props: TextboxLayoutProps) => {
           if (props.onChange) props.onChange(e.target.value);
         }}
       />
-      <label htmlFor="inputField" className="textbox-label">
-        {props.label}
-      </label>
+      {props.label && (
+        <label htmlFor="inputField" className="textbox-label">
+          {props.label}
+        </label>
+      )}
     </div>
   );
 };

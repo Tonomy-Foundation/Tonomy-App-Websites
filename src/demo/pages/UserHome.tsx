@@ -57,10 +57,10 @@ const USerHome: React.FC = () => {
         administrators. As a user, Tonomy ID enables you access to a variety of
         features. Some you can test on our demo website:
       </p>
-      <CodeSnippetPreview 
+      <CodeSnippetPreview
         snippetCode={snippetCode}
         documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#3-callback-page"
-      /> 
+      />
     </div>
   );
 };

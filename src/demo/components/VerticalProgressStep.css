@@ -66,3 +66,12 @@
 .MuiStepConnector-line {
   min-height: 38px !important;
 }
+@media only screen and (min-width: 325px) and (max-width: 767px) {
+  .mobile-progress-container{
+    padding: 1rem 2rem 5rem 2rem;
+    
+  }
+  .progressContainer{
+    padding: 1.2rem;
+  }
+}

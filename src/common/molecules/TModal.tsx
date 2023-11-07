@@ -15,15 +15,15 @@ export type ModalProps = React.ComponentProps<typeof Modal> & {
   onPress: () => void;
   icon: string;
   iconColor?:
-  | "inherit"
-  | "action"
-  | "disabled"
-  | "primary"
-  | "secondary"
-  | "error"
-  | "info"
-  | "success"
-  | "warning";
+    | "inherit"
+    | "action"
+    | "disabled"
+    | "primary"
+    | "secondary"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
   title: string;
   buttonLabel?: string;
   open: boolean;
@@ -36,6 +36,12 @@ const styles = {
     alignItems: "center",
     padding: 50,
     backgroundColor: "rgba(0,0,0,0.5)",
+
+    "@media only screen and (min-width: 325px) and (max-width: 767px)": {
+      "&": {
+        padding: "0rem",
+      },
+    },
   },
   modalContent: {
     backgroundColor: "white",
