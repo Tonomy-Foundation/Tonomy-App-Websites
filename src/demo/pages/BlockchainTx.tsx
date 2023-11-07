@@ -116,7 +116,7 @@ export default function BlockchainTx() {
                   setSuccess={setSuccess}
                   setProgressValue={setProgressValue}
                   setActiveStep={setActiveStep}
-                  balance={90}
+                  balance={balance}
                   setActiveSection={setActiveSection}
                 />
               )}
@@ -155,7 +155,7 @@ export default function BlockchainTx() {
               setSuccess={setSuccess}
               setProgressValue={setProgressValue}
               setActiveStep={setActiveStep}
-              balance={90}
+              balance={balance}
             />
           )}
           <CodeSnippetPreview
