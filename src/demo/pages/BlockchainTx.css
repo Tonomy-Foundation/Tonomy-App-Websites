@@ -220,6 +220,10 @@
 
 }
 
+.btnStyle1{
+  width : auto;
+}
+
 @media only screen and (min-width: 325px) and (max-width: 767px) {
   .MuiSvgIcon-root {
     margin: 0.3rem;
@@ -292,7 +296,7 @@
     margin-bottom: 4rem;
   }
   .mobile-display-none{
-    display: none !important;
+    display: none;
   }
   
   .paralines {
@@ -309,7 +313,7 @@
     font-size: 26px;
   }
   .display-mobile-balance{
-    padding: 3rem 3rem 1rem 4rem;
+    padding: 2rem 2rem 0rem 4rem
   }
   .display-mobile-balance p {
     font-size: 3rem;
@@ -339,6 +343,6 @@
     font-size: 1.5rem;
   }
   .btnStyle1{
-    width : 88% !important;
+    width : 88%;
   }
 }

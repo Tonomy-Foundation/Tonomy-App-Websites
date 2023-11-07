@@ -128,7 +128,7 @@ a {
 
 @media only screen and (min-width: 325px) and (max-width: 767px) {
   .mobile-error-handler{
-    padding: 0rem !important;
+    padding: 11rem 1rem !important;
   }
   .mobile-display-none{
     display: none;

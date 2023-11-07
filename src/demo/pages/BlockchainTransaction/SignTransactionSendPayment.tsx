@@ -79,7 +79,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       return;
     }
 
-    // onRender();
+    onRender();
   }, []);
 
   function onChangeAmount(value: string) {
@@ -181,7 +181,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
 
           <div className="mobile-view display-mobile-balance">
             <TH1>Your Balance</TH1>
-            <p>{props.balance} EUR</p>
+            <p>€{props.balance} EUR</p>
           </div>
           <FormContainer>
             <p className="make-payment web-view">Make a payment</p>

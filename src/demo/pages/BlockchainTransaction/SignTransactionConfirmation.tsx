@@ -51,7 +51,7 @@ const SignTransactionConfirmation = (
       </div>
       <div className=" display-mobile-balance">
         <TH1>Your Balance</TH1>
-        <p>{props.balance}100.00 EUR</p>
+        <p>€{props.balance} EUR</p>
       </div>
       <div className="mobile-success-section">
         <p>Congratulations,</p>

@@ -52,7 +52,7 @@ export default function BlockchainTx() {
       return;
     }
 
-    // onRender();
+    onRender();
   }, []);
 
   const scrollToDemo = (sectionId: string) => {
