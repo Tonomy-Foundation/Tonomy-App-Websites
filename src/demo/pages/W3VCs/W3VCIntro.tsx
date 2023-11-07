@@ -31,7 +31,6 @@ const W3VCIntro = (props: W3VCIntroProps) => (
           <span onClick={() => props.signout()}>Log out</span>
         </div>
       </div>
-      {/* <div className="header-image" /> */}
       <img src={VCBanner} alt="banner-image" className="header-image" />
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
