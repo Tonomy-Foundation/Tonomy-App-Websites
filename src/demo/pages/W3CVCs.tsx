@@ -106,11 +106,6 @@ export default function W3CVCs() {
               )}
             </>
           )}
-          {activeSection && (
-            <div
-              ref={(el) => el && el.scrollIntoView({ behavior: "smooth" })}
-            />
-          )}
         </div>
       ) : (
         <div className="blockConatiner">
