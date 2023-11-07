@@ -23,16 +23,20 @@ export type W3VCProgressProps = {
 
 const W3VCProgress = (props: W3VCProgressProps) => (
   <>
-    <div className="mobile-container mobile-view imagine-mobile">
-      <div className="user-section" style={{ width: "40%" }}>
+    <div className="mobile-container  imagine-mobile">
+      <div className="user-section" style={{ width: "30%" }}>
         <ArrowBackIosIcon
           className="user-logo"
-          onClick={() => props?.setActiveSection?.("signDocument")}
+          onClick={() => props?.setActiveSection?.("progress")}
         />
       </div>
       <div
         className="mobile-logout-section"
-        style={{ justifyContent: "flex-start", fontSize: "0.7rem" }}
+        style={{
+          justifyContent: "flex-start",
+          width: "70%",
+          fontSize: "0.7rem",
+        }}
       >
         <TH2>Signing Documents</TH2>
       </div>
@@ -42,19 +46,14 @@ const W3VCProgress = (props: W3VCProgressProps) => (
         activeStep={props.activeStep}
         steps={steps}
         progressValue={props.progressValue}
-        onContinue={() => props.setSuccess(true)}
-      />
-      {props?.setActiveSection && (
-        <button
-          className="mobile-demo-link mobile-view"
-          style={{ marginTop: "3rem" }}
-          onClick={() => {
+        onContinue={() => {
+          props.setSuccess(true);
+
+          if (props?.setActiveSection) {
             props?.setActiveSection?.("confirmation");
-          }}
-        >
-          Send Payment
-        </button>
-      )}
+          }
+        }}
+      />
     </div>
   </>
 );

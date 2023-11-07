@@ -31,7 +31,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
     </div>
     <div className="mobile-view">
       <div className="mobile-container  imagine-mobile">
-        <div className="user-section" style={{ width: "40%" }}>
+        <div className="user-section" style={{ width: "30%" }}>
           <ArrowBackIosIcon
             className="user-logo"
             onClick={() => props?.setActiveSection?.("progress")}
@@ -39,7 +39,11 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
         </div>
         <div
           className="mobile-logout-section"
-          style={{ justifyContent: "flex-start", fontSize: "0.7rem" }}
+          style={{
+            justifyContent: "flex-start",
+            width: "70%",
+            fontSize: "0.7rem",
+          }}
         >
           <TH2>Signing Documents</TH2>
         </div>

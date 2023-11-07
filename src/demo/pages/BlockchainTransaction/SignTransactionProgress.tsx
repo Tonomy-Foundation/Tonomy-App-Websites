@@ -48,19 +48,14 @@ const SignTransactionProgress = (props: SignTransactionProgressProps) => (
         activeStep={props.activeStep}
         steps={steps}
         progressValue={props.progressValue}
-        onContinue={() => props.setSuccess(true)}
-      />
-      {props?.setActiveSection && (
-        <button
-          className="mobile-demo-link mobile-view"
-          style={{ marginTop: "3rem" }}
-          onClick={() => {
+        onContinue={() => {
+          props.setSuccess(true);
+
+          if (props?.setActiveSection) {
             props?.setActiveSection?.("confirmation");
-          }}
-        >
-          Send Payment
-        </button>
-      )}
+          }
+        }}
+      />
     </div>
   </>
 );

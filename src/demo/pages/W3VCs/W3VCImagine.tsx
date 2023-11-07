@@ -7,16 +7,20 @@ export type W3VCImagineProps = {
 
 const W3VCImagine = (props: W3VCImagineProps) => (
   <>
-    <div className="mobile-container mobile-view imagine-mobile">
-      <div className="user-section" style={{ width: "40%" }}>
+    <div className="mobile-container  imagine-mobile">
+      <div className="user-section" style={{ width: "30%" }}>
         <ArrowBackIosIcon
           className="user-logo"
-          onClick={() => props?.setActiveSection?.("intro")}
+          onClick={() => props?.setActiveSection?.("progress")}
         />
       </div>
       <div
         className="mobile-logout-section"
-        style={{ justifyContent: "flex-start", fontSize: "0.7rem" }}
+        style={{
+          justifyContent: "flex-start",
+          width: "70%",
+          fontSize: "0.7rem",
+        }}
       >
         <TH2>Signing Documents</TH2>
       </div>

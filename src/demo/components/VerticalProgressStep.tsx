@@ -43,15 +43,24 @@ export default function VerticalLinearStepper(props: VerticalStepperProps) {
           ))}
         </Stepper>
       </Box>
-      {props.activeStep === props.steps.length - 1 && (
+      {/* {props.activeStep === props.steps.length - 1 && ( */}
+      <>
         <Button
           sx={{ mt: 3 }}
-          className="continueBtn"
+          className="continueBtn web-view"
           onClick={props.onContinue}
         >
           Continue
         </Button>
-      )}
+        <button
+          className="mobile-demo-link mobile-view"
+          style={{ marginTop: "0rem" }}
+          onClick={props.onContinue}
+        >
+          Send Payment
+        </button>
+      </>
+      {/* )} */}
     </div>
   );
 }
