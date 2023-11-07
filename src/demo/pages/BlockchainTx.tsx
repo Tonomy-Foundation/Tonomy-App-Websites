@@ -64,6 +64,12 @@ export default function BlockchainTx() {
   };
   const isMobile = window.innerWidth <= 768;
 
+  useEffect(() => {
+    if (isMobile) {
+      window.scrollTo(0, 0);
+    }
+  }, [activeSection, isMobile]);
+
   return (
     <>
       {isMobile ? (
@@ -110,7 +116,7 @@ export default function BlockchainTx() {
                   setSuccess={setSuccess}
                   setProgressValue={setProgressValue}
                   setActiveStep={setActiveStep}
-                  balance={90}
+                  balance={balance}
                   setActiveSection={setActiveSection}
                 />
               )}
@@ -149,7 +155,7 @@ export default function BlockchainTx() {
               setSuccess={setSuccess}
               setProgressValue={setProgressValue}
               setActiveStep={setActiveStep}
-              balance={90}
+              balance={balance}
             />
           )}
           <CodeSnippetPreview

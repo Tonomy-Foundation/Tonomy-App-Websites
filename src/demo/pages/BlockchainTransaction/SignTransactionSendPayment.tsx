@@ -115,6 +115,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         quantity: amount + " SYS",
         memo: "test",
       });
+
       const updateBalance = props.balance - amount;
 
       props.setBalance(updateBalance);

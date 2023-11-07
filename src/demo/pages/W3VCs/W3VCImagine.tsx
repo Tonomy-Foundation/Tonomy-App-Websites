@@ -11,7 +11,7 @@ const W3VCImagine = (props: W3VCImagineProps) => (
       <div className="user-section" style={{ width: "30%" }}>
         <ArrowBackIosIcon
           className="user-logo"
-          onClick={() => props?.setActiveSection?.("progress")}
+          onClick={() => props?.setActiveSection?.("intro")}
         />
       </div>
       <div

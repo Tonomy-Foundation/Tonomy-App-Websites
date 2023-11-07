@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { TH1, TH2 } from "../../../common/atoms/THeadings";
+import { TH2 } from "../../../common/atoms/THeadings";
 import TextboxLayout from "../../components/TextboxLayout";
 import { TButton } from "../../../common/atoms/TButton";
 import { randomString } from "@tonomy/tonomy-id-sdk";
-import { MainContainer, FormHeaderContainer } from "../../components/styles";
 import { AuthContext } from "../../providers/AuthProvider";
 import useErrorStore from "../../../common/stores/errorStore";
 
@@ -62,6 +61,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
       await user?.signVc(id, "MedicalRecord", data);
 
       setLoading(false);
+      props?.setActiveSection?.("progress");
     } catch (e) {
       setLoading(false);
 
@@ -76,7 +76,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
           <div className="user-section" style={{ width: "30%" }}>
             <ArrowBackIosIcon
               className="user-logo"
-              onClick={() => props?.setActiveSection?.("progress")}
+              onClick={() => props?.setActiveSection?.("imagine")}
             />
           </div>
           <div
@@ -162,7 +162,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
               <div>
                 <TButton
                   className="btnStyle1"
-                  onClick={onSubmit}
+                  onClick={() => onSubmit()}
                   disabled={loading}
                 >
                   Sign using your tonomy DID

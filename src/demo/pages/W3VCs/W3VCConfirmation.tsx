@@ -34,7 +34,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
         <div className="user-section" style={{ width: "30%" }}>
           <ArrowBackIosIcon
             className="user-logo"
-            onClick={() => props?.setActiveSection?.("progress")}
+            onClick={() => props?.setActiveSection?.("intro")}
           />
         </div>
         <div
@@ -55,7 +55,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
         {props?.setActiveSection && (
           <button
             className="mobile-demo-link mobile-view"
-            style={{ marginTop: "3rem" }}
+            style={{ marginTop: "5rem" }}
             onClick={() => {
               props?.setActiveSection?.("intro");
             }}
