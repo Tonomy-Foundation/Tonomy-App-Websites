@@ -8,7 +8,7 @@ import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import VerticalLinearStepper from "../components/VerticalProgressStep";
-import { HeaderTonomy } from "../components/styles";
+import W3VCIntro from "./W3VCs/W3VCIntro";
 import { TH1, TH2 } from "../../common/atoms/THeadings";
 import "./W3CVCs.css";
 import SuccessSection from "../components/SuccessSection";
@@ -51,7 +51,8 @@ export default function W3CVCs() {
     "sufficient rest and increase intake of fluids"
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const { user } = useContext(AuthContext);
+  const { user, signout } = useContext(AuthContext);
+  const [activeSection, setActiveSection] = useState("intro");
 
   const errorStore = useErrorStore();
 
@@ -118,41 +119,12 @@ export default function W3CVCs() {
 
   return (
     <div className="blockConatiner">
-      <div className="header-container">
-        <p className="leftText sign-dcoument">Feature Name: Sign Document</p>
-        <p className="userLogoVC">
-          {<img src={userLogo} alt="userLogo" />}
-          <span>{username}</span>
-        </p>
-        {/* <div className="header-image" /> */}
-        <img src={VCBanner} alt="banner-image" className="header-image" />
-
-        <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>
-          Tonomy
-          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
-        </HeaderTonomy>
-        <TH2 className="header-description">
-          Sign and verify sensitive information with Tonomy ID. The W3C
-          Verifiable Credential standard can help ensure trust and security when
-          sharing sensitive and tamper-proof data.
-        </TH2>
-        <a
-          href="https://www.youtube.com/watch?v=vuSPy1xMNVg"
-          target="_blank"
-          className="paraLink"
-          rel="noreferrer"
-        >
-          Learn about the W3C Verifiable Credentials {`->`}
-        </a>
-
-        <button
-          className="demoLink"
-          onClick={() => scrollToDemo("VCdemoSection")}
-        >
-          Enter Demo
-        </button>
-      </div>
+      <W3VCIntro
+        username={username}
+        scrollToDemo={() => scrollToDemo("demoSection")}
+        signout={signout}
+        setActiveSection={setActiveSection}
+      />
       <div className="paraSection">
         <p className="imagine">Imagine,</p>
         <p className="paralines">
