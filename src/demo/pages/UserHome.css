@@ -1,8 +1,5 @@
-body{
-    background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
-    height: 100%;
-}
-.userSection {
+
+.user-section {
     width: 100%;
     text-align: end;
     padding: 1rem 5rem;
@@ -13,11 +10,86 @@ body{
     padding-top: 2rem;
     font-size: 1.4rem;
 }
-.userLogo {
+.user-logo {
     margin-right: 0.5rem;
 }
 
-.imageSlider {
+.image-slider {
     margin-top: 4.5rem;
 }
 
+.page-heading .description{
+    line-height: 30px;
+}
+
+.mobile-logout-section {
+    display: none;
+}
+.page-heading{
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 37px;
+    padding-top: 1.4rem;
+
+}
+
+.home-container {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
+}
+
+@media only screen and (min-width: 325px) and (max-width: 767px) {    
+    .home-container{
+        background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
+    }
+    .image-slider{
+        margin-top: 0.8rem;
+      }
+    .page-heading{
+        text-align: center;
+        font-size: 1.9rem;
+        font-weight: 700;
+        line-height: 37px;
+        padding-top: 1.4rem;
+        padding-bottom: 1rem;
+
+    }
+    .display-none{
+        display: none;
+    }
+    .description{
+        text-align: center;
+        padding: 0.7rem 0.6rem 4rem 0.6rem;
+        line-height: 1.6;
+        margin-top: 2.2rem;
+        font-size: 1.2rem;
+        color: var(--grey-dark-grey);
+    }
+    .user-section{
+        justify-content: flex-start;
+        padding: 0.3rem;
+    }
+    .mobile-logout-section{
+        display: block;
+    }
+    .mobile-container {
+        display: flex;
+        justify-content: space-between;
+    }
+      
+    .user-section, .mobile-logout-section {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        width: 50%;
+        font-size: 1rem;
+    }
+    .mobile-logout-section {
+        justify-content: flex-end;
+        margin-right: 2rem;
+
+    }
+}

@@ -28,7 +28,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="wrapper">
-      <div className="sidebar" style={{ display: "flex", height: "100%" }}>
+      <div className="sidebar mobile-display-none" >
         <Sidebar
           defaultCollapsed={collapsed}
           onMouseEnter={handleMouseEnter}
@@ -80,9 +80,28 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </Menu>
         </Sidebar>
       </div>
+      <nav className="bottom-nav mobile-display">
+        <ul>
+          <li className={location.pathname === "/user-home"?"active-item": ""}>
+            <Link to="/user-home"><HomeOutlinedIcon sx={{ fontSize: 26 }} />     
+              <span className="mobile-text">Home</span>
+            </Link>
+          </li>
+          <li className={location.pathname === "/w3c-vcs"?"active-item": ""}>
+            <Link to="/w3c-vcs"><DescriptionOutlinedIcon sx={{ fontSize: 26 }} />     
+              <span className="mobile-text">W3C VCs</span>
+            </Link>
+          </li>
+          <li className={location.pathname === "/blockchain-tx"?"active-item": ""}>
+            <Link to="/blockchain-tx"><SwapHorizOutlinedIcon sx={{ fontSize: 26 }} />     
+              <span className="mobile-text">Blockchain Tx</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
       <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
-        {children}
+          {children}
       </div>
     </div>
   );

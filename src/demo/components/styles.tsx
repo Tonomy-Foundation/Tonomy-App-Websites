@@ -4,9 +4,11 @@ export const ContainerStyle = styled.div`
   width: 100%;
   height: 100%;
   align-items: center;
-  & p {
-    line-height: 30px;
-  }
+  background: linear-gradient(
+    115.56deg,
+    var(--main-light-gradient) 44.33%,
+    var(--main-blue-gradient) 89.31%
+  );
 `;
 
 export const HeaderTonomy = styled.div`
@@ -29,6 +31,9 @@ export const MainContainer = styled.div`
   width: 100%;
   flex-shrink: 0;
   background: var(--white-off-white, #f9f9f9);
+  @media only screen and (min-width: 325px) and (max-width: 767px) {
+    background: var(--white);
+  }
 `;
 
 export const FormHeaderContainer = styled.div`
@@ -46,6 +51,10 @@ export const FormContainer = styled.div`
   text-align: center;
   padding: 2rem 0rem;
   margin-top: 1.8rem;
+  @media only screen and (min-width: 325px) and (max-width: 767px) {
+    margin: 1rem;
+
+  }
 `;
 
 export const TransactionButton = styled.button`

@@ -7,6 +7,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import { images, linkTexts } from "./userHomeHelper";
 import "./UserHome.css";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const snippetCode = `
 // CallbackPage.jsx
@@ -16,7 +17,7 @@ const user = await api.ExternalUser.verifyLoginRequest();
 const USerHome: React.FC = () => {
   const errorStore = useErrorStore();
   const [username, setUsername] = useState<string>("");
-  const { user } = useContext(AuthContext);
+  const { user, signout } = useContext(AuthContext);
 
   async function onRender() {
     try {
@@ -34,15 +35,21 @@ const USerHome: React.FC = () => {
   }, []);
 
   return (
-    <ContainerStyle>
-      <div className="userSection">
-        <img src={userLogo} alt="userLogo" className="userLogo" />
-        <span>{username}</span>
+    <div className="home-container">
+      <div className="mobile-container" style={{ padding: "1rem" }}>
+        <div className="user-section">
+          <img src={userLogo} alt="userLogo" className="user-logo" />
+          <span>{username}</span>
+        </div>
+        <div className="mobile-logout-section">
+          <LogoutIcon className="user-logo" />
+          <span onClick={() => signout()}>Log out</span>
+        </div>
       </div>
       <div>
-        <p className="pageHeading">Test the possibilities of Tonomy ID</p>
+        <p className="page-heading">Test the possibilities of Tonomy ID</p>
       </div>
-      <div className="imageSlider">
+      <div className="image-slider">
         <ImageSlider images={images} linkTexts={linkTexts} />
       </div>
       <p className="description">
@@ -54,7 +61,7 @@ const USerHome: React.FC = () => {
         snippetCode={snippetCode}
         documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#3-callback-page"
       />
-    </ContainerStyle>
+    </div>
   );
 };
 
