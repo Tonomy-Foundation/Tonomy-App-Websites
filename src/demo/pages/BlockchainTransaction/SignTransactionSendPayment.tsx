@@ -48,20 +48,15 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
-        let accountBalance = await eosioTokenContract.getBalance(accountName);
+        const accountBalance = await eosioTokenContract.getBalance(accountName);
 
         props.setBalance(accountBalance);
-        setAmount(Math.floor(accountBalance / 2));
         if (accountBalance > 10) return;
-
         await user?.signTransaction("eosio.token", "selfissue", {
           to: accountName,
           quantity: "10 SYS",
           memo: "test",
         });
-        accountBalance = accountBalance + 10;
-        props.setBalance(accountBalance);
-        setAmount(Math.floor(accountBalance / 2));
       }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
@@ -88,6 +83,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
     if (newValue.length === 0) newValue = "0";
 
     setAmount(parseInt(newValue));
+    props.setBalance(parseInt(newValue));
   }
 
   async function onBuy() {
@@ -115,9 +111,8 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         quantity: amount + " SYS",
         memo: "test",
       });
-      const updateBalance = props.balance - amount;
 
-      props.setBalance(updateBalance);
+      props.setBalance(amount);
       props.setActiveStep(2);
       props.setProgressValue(60);
       let url =

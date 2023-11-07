@@ -61,7 +61,7 @@ const SignTransactionConfirmation = (
         {props?.setActiveSection && (
           <button
             className="mobile-demo-link mobile-view"
-            style={{ marginTop: "3rem" }}
+            style={{ marginTop: "5rem" }}
             onClick={() => {
               props?.setActiveSection?.("intro");
             }}

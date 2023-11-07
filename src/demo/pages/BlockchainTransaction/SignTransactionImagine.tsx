@@ -24,10 +24,9 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
     <div className="paraSection">
       <p className="imagine">Imagine,</p>
       <p className="paralines">
-        {`you go to the doctor's office for a checkup. While waiting, your
-          Tonomy ID notifies you that Dr. Smith wants access to your medical
-          files. With just one click, you can grant access to the files while
-          waiting for the doctor to arrive.`}
+        you find a perfect art piece. With a simple click, your account promptly
+        sends a secure transaction to the bank, where it is verified and
+        recorded in your transaction history
       </p>
       {props?.setActiveSection && (
         <button

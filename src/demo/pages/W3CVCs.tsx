@@ -53,6 +53,12 @@ export default function W3CVCs() {
   };
   const isMobile = window.innerWidth <= 768;
 
+  useEffect(() => {
+    if (isMobile) {
+      window.scrollTo(0, 0);
+    }
+  }, [activeSection, isMobile]);
+
   return (
     <>
       {isMobile ? (
@@ -99,6 +105,11 @@ export default function W3CVCs() {
                 />
               )}
             </>
+          )}
+          {activeSection && (
+            <div
+              ref={(el) => el && el.scrollIntoView({ behavior: "smooth" })}
+            />
           )}
         </div>
       ) : (

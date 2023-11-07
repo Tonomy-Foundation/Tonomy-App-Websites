@@ -160,11 +160,25 @@
 @media only screen and (min-width: 325px) and (max-width: 767px) {
   .slider-container {
     flex-direction: column;
-    overflow-x: hidden;
+    overflow-x: scroll;
     overflow-y: hidden;
     margin-top: 1.4rem;
-
+    margin-left: 1rem;
   }
+
+  .slider-container::-webkit-scrollbar {
+    width: 0px
+  }
+
+  .mobile-slider {
+    display: flex;
+    padding-bottom: 1rem
+  }
+
+  .slider{
+    display: none;
+  }
+
 
   .center-image {
     padding: 0;
@@ -186,8 +200,8 @@
   }
 
   .center-image-text {
-    margin: -0.4rem 1.6rem;
-    padding:0rem;
+    margin: -0.9rem 1.6rem;
+    font-size: 0.9rem;
   }
   .left-side-image{
     margin-left: -20.5rem;

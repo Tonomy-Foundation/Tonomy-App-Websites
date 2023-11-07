@@ -27,7 +27,7 @@ const W3VCProgress = (props: W3VCProgressProps) => (
       <div className="user-section" style={{ width: "30%" }}>
         <ArrowBackIosIcon
           className="user-logo"
-          onClick={() => props?.setActiveSection?.("progress")}
+          onClick={() => props?.setActiveSection?.("signDocument")}
         />
       </div>
       <div
@@ -64,7 +64,6 @@ const W3VCProgress = (props: W3VCProgressProps) => (
             props?.setActiveSection?.("confirmation");
           }
         }}
-        btnTitle="Sign in using your tonomy ID"
       />
     </div>
   </>
