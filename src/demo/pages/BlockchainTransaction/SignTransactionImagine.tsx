@@ -3,6 +3,7 @@ import { TH2 } from "../../../common/atoms/THeadings";
 
 export type SignTransactionImagineProps = {
   setActiveSection?: (section: string) => void;
+  setSuccess?: (success: boolean) => void;
 };
 
 const SignTransactionImagine = (props: SignTransactionImagineProps) => (
@@ -34,6 +35,7 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
           style={{ marginTop: "5rem" }}
           onClick={() => {
             props?.setActiveSection?.("sendPayment");
+            props?.setSuccess?.(false);
           }}
         >
           Next

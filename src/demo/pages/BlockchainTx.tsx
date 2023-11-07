@@ -83,7 +83,10 @@ export default function BlockchainTx() {
             />
           )}
           {activeSection === "imagine" && (
-            <SignTransactionImagine setActiveSection={setActiveSection} />
+            <SignTransactionImagine
+              setSuccess={setSuccess}
+              setActiveSection={setActiveSection}
+            />
           )}
 
           {!success ? (
