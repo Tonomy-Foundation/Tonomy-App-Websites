@@ -41,7 +41,18 @@ const W3VCProgress = (props: W3VCProgressProps) => (
         <TH2>Signing Documents</TH2>
       </div>
     </div>
-    <div style={{ marginTop: "1.5rem" }} className="mobile-progress-container">
+    <div
+      className="mobile-view display-mobile-w3vc"
+      style={{ marginTop: "1rem" }}
+    >
+      <p>Sign and verify sensitive information with Tonomy ID </p>
+
+      <p className="blue-text">
+        The W3C Verifiable Credential standard help ensure trust and security
+        when sharing sensitive and tamper-proof data
+      </p>
+    </div>
+    <div style={{ marginTop: "0rem" }} className="mobile-progress-container">
       <VerticalLinearStepper
         activeStep={props.activeStep}
         steps={steps}
