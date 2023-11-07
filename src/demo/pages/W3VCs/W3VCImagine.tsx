@@ -16,9 +16,9 @@ const W3VCImagine = (props: W3VCImagineProps) => (
       </div>
       <div
         className="mobile-logout-section"
-        style={{ justifyContent: "flex-start" }}
+        style={{ justifyContent: "flex-start", fontSize: "0.7rem" }}
       >
-        <TH2>Payment</TH2>
+        <TH2>Signing Documents</TH2>
       </div>
     </div>
     <div className="paraSection">
@@ -34,7 +34,7 @@ const W3VCImagine = (props: W3VCImagineProps) => (
           className="mobile-demo-link mobile-view"
           style={{ marginTop: "5rem" }}
           onClick={() => {
-            props?.setActiveSection?.("sendPayment");
+            props?.setActiveSection?.("signDocument");
           }}
         >
           Next
