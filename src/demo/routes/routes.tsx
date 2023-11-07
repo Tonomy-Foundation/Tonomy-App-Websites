@@ -6,13 +6,21 @@ import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
+import W3CVCs from "../pages/W3CVCs";
 
 export default function RootRoutes(): JSX.Element {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route
+            path="/"
+            element={
+              <MainLayout>
+                <W3CVCs />
+              </MainLayout>
+            }
+          />
           <Route path="/callback" element={<Callback />} />
           {mainRoutes.map((route) => (
             <Route
