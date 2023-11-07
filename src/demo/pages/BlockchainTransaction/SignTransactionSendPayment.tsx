@@ -88,7 +88,6 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
     if (newValue.length === 0) newValue = "0";
 
     setAmount(parseInt(newValue));
-    props.setBalance(parseInt(newValue));
   }
 
   async function onBuy() {
