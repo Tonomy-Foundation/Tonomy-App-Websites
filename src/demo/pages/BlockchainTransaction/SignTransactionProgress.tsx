@@ -55,6 +55,7 @@ const SignTransactionProgress = (props: SignTransactionProgressProps) => (
             props?.setActiveSection?.("confirmation");
           }
         }}
+        btnTitle="Send Payment"
       />
     </div>
   </>

@@ -64,6 +64,7 @@ const W3VCProgress = (props: W3VCProgressProps) => (
             props?.setActiveSection?.("confirmation");
           }
         }}
+        btnTitle="Sign in using your tonomy ID"
       />
     </div>
   </>
