@@ -27,9 +27,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
     setCurrentPreviewIndex(nextIndex);
   };
 
+  function calculatePreviousIndex(): number {
+    return (currentPreviewIndex - 1 + images.length) % images.length;
+  }
+
+  function calculateNextIndex(): number {
+    return (currentPreviewIndex + 1) % images.length;
+  }
+
   const slidePrevious = () => {
-    const previousIndex =
-      (currentPreviewIndex - 1 + images.length) % images.length;
+    const previousIndex = calculatePreviousIndex();
 
     setImageUrl(images[previousIndex]);
     setCurrentPreviewIndex(previousIndex);
@@ -49,19 +56,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
         <div className="slider web-view">
           <div className="side-image left-side-image">
             <img
-              src={
-                images[
-                  (currentPreviewIndex - 1 + images.length) % images.length
-                ]
-              }
+              src={images[calculatePreviousIndex()]}
               alt={`Image ${currentPreviewIndex - 1}`}
             />
             <p className="side-image-text">
-              {
-                linkTexts[
-                  (currentPreviewIndex - 1 + images.length) % images.length
-                ]["text"]
-              }
+              {linkTexts[calculatePreviousIndex()]["text"]}
             </p>
           </div>
           <div
@@ -75,11 +74,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
           </div>
           <div className="side-image right-side-image">
             <img
-              src={images[(currentPreviewIndex + 1) % images.length]}
+              src={images[calculateNextIndex()]}
               alt={`Image ${currentPreviewIndex + 1}`}
             />
             <p className="side-image-text">
-              {linkTexts[(currentPreviewIndex + 1) % images.length]["text"]}
+              {linkTexts[calculateNextIndex()]["text"]}
             </p>
           </div>
         </div>
