@@ -124,12 +124,11 @@ a {
 .menu-icon{
   font-size: 2rem;
 }
-
+.mobile-error-handler{
+  padding: 400px;
+}
 
 @media only screen and (min-width: 325px) and (max-width: 767px) {
-  .mobile-error-handler{
-    padding: 11rem 1rem !important;
-  }
   .mobile-display-none{
     display: none;
   }

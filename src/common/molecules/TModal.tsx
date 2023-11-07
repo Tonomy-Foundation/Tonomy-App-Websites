@@ -36,6 +36,12 @@ const styles = {
     alignItems: "center",
     padding: 50,
     backgroundColor: "rgba(0,0,0,0.5)",
+
+    "@media only screen and (min-width: 325px) and (max-width: 767px)": {
+      "&": {
+        padding: "0rem",
+      },
+    },
   },
   modalContent: {
     backgroundColor: "white",
@@ -52,7 +58,7 @@ const styles = {
 export default function TModal(props: ModalProps) {
   return (
     <Modal open={props.open} onClose={props.onPress}>
-      <Box sx={styles.modal} className="mobile-error-handler">
+      <Box sx={styles.modal}>
         <Box sx={styles.modalContent}>
           <div style={{ textAlign: "center" }}>
             <TIcon color={props.iconColor} icon={props.icon} />
