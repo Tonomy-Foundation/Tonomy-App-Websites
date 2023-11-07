@@ -22,6 +22,7 @@ export type VerticalStepperProps = {
   steps: Array<{ label: string }>;
   progressValue: number;
   onContinue?: () => void;
+  btnTitle?: string;
 };
 
 export default function VerticalLinearStepper(props: VerticalStepperProps) {
@@ -44,13 +45,22 @@ export default function VerticalLinearStepper(props: VerticalStepperProps) {
         </Stepper>
       </Box>
       {props.activeStep === props.steps.length - 1 && (
-        <Button
-          sx={{ mt: 3 }}
-          className="continueBtn"
-          onClick={props.onContinue}
-        >
-          Continue
-        </Button>
+        <>
+          <Button
+            sx={{ mt: 3 }}
+            className="continueBtn web-view"
+            onClick={props.onContinue}
+          >
+            Continue
+          </Button>
+          <button
+            className="mobile-demo-link mobile-view"
+            style={{ marginTop: "0rem" }}
+            onClick={props.onContinue}
+          >
+            {props?.btnTitle || "Next"}
+          </button>
+        </>
       )}
     </div>
   );

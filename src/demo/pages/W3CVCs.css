@@ -194,7 +194,7 @@ ul.horizontal-list li:last-child {
   border-radius: 20px;
   margin: 1.8rem 0rem !important;
   font-weight: 600 !important;
-  font-size: 16px !important;
+  font-size: 16px;
   text-transform: uppercase;
   line-height: 2.75 !important;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00);
@@ -216,5 +216,32 @@ input:focus {
   .userLogoVC {
     display: none;
   }
-
+  ul.horizontal-list {
+    display: none;
+  }
+  .formSection {
+    background: var(--white);
+    padding: 2rem 0rem;
+  }
+  .display-mobile-w3vc{
+    padding: 0rem 1.3rem;
+    margin-bottom: 1.7rem;
+  }
+  .display-mobile-w3vc p{
+    line-height: 29px;
+  }
+  .display-mobile-w3vc .blue-text{
+    color: var(--dark-blue);
+    margin-top: 0.6rem;
+  }
+  .clientSection{
+    margin: 0rem;
+    padding: 0rem;
+  }
+  .security-message {
+    margin: 1rem;
+  }
+  .btnStyle1{
+    font-size: 0.9rem;
+  }
 }

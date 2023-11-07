@@ -39,6 +39,7 @@
   flex: 0 0 3.9%;
   position: fixed;
   height: 100vh;
+  z-index: 1;
 }
 
 .main-content {
