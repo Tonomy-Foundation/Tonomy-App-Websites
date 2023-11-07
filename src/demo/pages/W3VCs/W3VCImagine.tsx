@@ -3,6 +3,7 @@ import { TH2 } from "../../../common/atoms/THeadings";
 
 export type W3VCImagineProps = {
   setActiveSection?: (section: string) => void;
+  setSuccess: (success: boolean) => void;
 };
 
 const W3VCImagine = (props: W3VCImagineProps) => (
@@ -39,6 +40,7 @@ const W3VCImagine = (props: W3VCImagineProps) => (
           style={{ marginTop: "5rem" }}
           onClick={() => {
             props?.setActiveSection?.("signDocument");
+            props.setSuccess(false);
           }}
         >
           Next

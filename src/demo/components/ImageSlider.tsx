@@ -84,14 +84,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
         </div>
         <div className="mobile-slider mobile-view">
           {images.map((image, index) => (
-            <div className="center-image" key={index}>
+            <div
+              className="center-image"
+              key={index}
+              onClick={() => navigation(linkTexts[index].url)}
+            >
               <img src={image} alt={`Image ${index}`} />
-              <p
-                className="center-image-text"
-                onClick={() => navigation(linkTexts[index].url)}
-              >
-                {linkTexts[index].text}
-              </p>
+              <p className="center-image-text">{linkTexts[index].text}</p>
             </div>
           ))}
         </div>
@@ -104,7 +103,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
           <img src={RightArrow} alt="right-arrow" />
         </div>
       </div>
-      <div className="ellipse-container">
+      {/* <div className="ellipse-container">
         <div
           onClick={slidePrevious}
           className={`ellipse ${
@@ -122,7 +121,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, linkTexts }) => {
             currentPreviewIndex === 1 ? "active-ellipse" : ""
           }`}
         ></div>
-      </div>
+      </div> */}
     </>
   );
 };

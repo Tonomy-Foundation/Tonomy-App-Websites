@@ -36,7 +36,7 @@ const USerHome: React.FC = () => {
 
   return (
     <div className="home-container">
-      <div className="mobile-container">
+      <div className="mobile-container" style={{ padding: "1rem" }}>
         <div className="user-section">
           <img src={userLogo} alt="userLogo" className="user-logo" />
           <span>{username}</span>
