@@ -64,7 +64,7 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       {props?.setActiveSection && (
         <button
           className="mobile-demo-link mobile-view"
-          onClick={() => props?.setActiveSection("imagine")}
+          onClick={() => props?.setActiveSection?.("imagine")}
         >
           Enter Demo
         </button>

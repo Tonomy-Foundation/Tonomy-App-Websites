@@ -11,7 +11,7 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
       <div className="user-section" style={{ width: "40%" }}>
         <ArrowBackIosIcon
           className="user-logo"
-          onClick={() => props?.setActiveSection("intro")}
+          onClick={() => props?.setActiveSection?.("intro")}
         />
       </div>
       <div
@@ -34,7 +34,7 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
           className="mobile-demo-link mobile-view"
           style={{ marginTop: "5rem" }}
           onClick={() => {
-            props?.setActiveSection("sendPayment");
+            props?.setActiveSection?.("sendPayment");
           }}
         >
           Next

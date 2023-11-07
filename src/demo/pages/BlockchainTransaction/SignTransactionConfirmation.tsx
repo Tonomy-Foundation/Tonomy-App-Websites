@@ -39,7 +39,7 @@ const SignTransactionConfirmation = (
         <div className="user-section" style={{ width: "40%" }}>
           <ArrowBackIosIcon
             className="user-logo"
-            onClick={() => props?.setActiveSection("progress")}
+            onClick={() => props?.setActiveSection?.("progress")}
           />
         </div>
         <div
@@ -63,7 +63,7 @@ const SignTransactionConfirmation = (
             className="mobile-demo-link mobile-view"
             style={{ marginTop: "3rem" }}
             onClick={() => {
-              props?.setActiveSection("intro");
+              props?.setActiveSection?.("intro");
             }}
           >
             Go back home

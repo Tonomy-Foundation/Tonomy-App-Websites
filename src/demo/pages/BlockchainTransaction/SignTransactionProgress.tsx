@@ -33,7 +33,7 @@ const SignTransactionProgress = (props: SignTransactionProgressProps) => (
       <div className="user-section" style={{ width: "40%" }}>
         <ArrowBackIosIcon
           className="user-logo"
-          onClick={() => props?.setActiveSection("sendPayment")}
+          onClick={() => props?.setActiveSection?.("sendPayment")}
         />
       </div>
       <div
@@ -55,7 +55,7 @@ const SignTransactionProgress = (props: SignTransactionProgressProps) => (
           className="mobile-demo-link mobile-view"
           style={{ marginTop: "3rem" }}
           onClick={() => {
-            props?.setActiveSection("confirmation");
+            props?.setActiveSection?.("confirmation");
           }}
         >
           Send Payment

@@ -152,7 +152,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           <div className="user-section" style={{ width: "40%" }}>
             <ArrowBackIosIcon
               className="user-logo"
-              onClick={() => props?.setActiveSection("imagine")}
+              onClick={() => props?.setActiveSection?.("imagine")}
             />
           </div>
           <div
