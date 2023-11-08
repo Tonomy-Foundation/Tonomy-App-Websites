@@ -58,3 +58,13 @@ Other environment variables override the values in the config file:
 - VITE_BLOCKCHAIN_URL
 - VITE_SSO_WEBSITE_ORIGIN
 - VITE_COMMUNICATION_URL
+
+## Errors
+
+### Common errors and how to fix
+
+`Origin not found`
+
+You might be running in stand-alone mode and trying to complete the SSO loin flow. This is not possible stand-alone mode.
+
+**FIX:** Run Tonomy ID using `./app.sh` with the Tonomy ID Integration repository.
