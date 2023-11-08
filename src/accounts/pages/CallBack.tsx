@@ -83,8 +83,11 @@ export default function CallBackPage() {
         (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
       ) {
         try {
-          const { requests } = await getLoginRequestFromUrl();
-          const managedRequests = new RequestsManager(requests);
+          const { error } = getLoginRequestResponseFromUrl();
+
+          if (!error) throw new Error("Error not defined");
+          const managedRequests = new RequestsManager(error.requests);
+
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
