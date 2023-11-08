@@ -23,7 +23,7 @@ export type W3VCProgressProps = {
 
 const W3VCProgress = (props: W3VCProgressProps) => (
   <>
-    <div className="mobile-container  imagine-mobile">
+    <div className="mobile-container mobile-view imagine-mobile">
       <div className="user-section" style={{ width: "30%" }}>
         <ArrowBackIosIcon
           className="user-logo"

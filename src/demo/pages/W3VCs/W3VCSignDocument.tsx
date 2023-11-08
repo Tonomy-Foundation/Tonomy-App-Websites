@@ -72,7 +72,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
   return (
     <>
       <section>
-        <div className="mobile-container  imagine-mobile">
+        <div className="mobile-container mobile-view imagine-mobile">
           <div className="user-section" style={{ width: "30%" }}>
             <ArrowBackIosIcon
               className="user-logo"

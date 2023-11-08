@@ -8,7 +8,7 @@ export type W3VCImagineProps = {
 
 const W3VCImagine = (props: W3VCImagineProps) => (
   <>
-    <div className="mobile-container  imagine-mobile">
+    <div className="mobile-container mobile-view imagine-mobile">
       <div className="user-section" style={{ width: "30%" }}>
         <ArrowBackIosIcon
           className="user-logo"
