@@ -35,7 +35,7 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
         <HeaderTonomy>
-          Tonomy
+          Tonomy{" "}
           <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
         </HeaderTonomy>
       </div>
