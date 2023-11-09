@@ -26,7 +26,7 @@ export type VerticalStepperProps = {
 
 export default function VerticalLinearStepper(props: VerticalStepperProps) {
   return (
-    <div className="progressContainer">
+    <div className="progressbar-container">
       <CustomizedProgressBars progressValue={props.progressValue} />
       <Box
         sx={{ display: "flex", justifyContent: "center", marginTop: "1.7rem" }}
@@ -47,7 +47,7 @@ export default function VerticalLinearStepper(props: VerticalStepperProps) {
         <>
           <Button
             sx={{ mt: 3 }}
-            className="continueBtn web-view"
+            className="continue-btn web-view"
             onClick={props.onContinue}
           >
             Continue

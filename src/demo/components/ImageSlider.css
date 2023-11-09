@@ -121,14 +121,6 @@
   line-height: 35px !important;
 }
 
-.pageHeading {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: normal;
-  padding-top: 2.5rem;
-  text-align: center;
-}
-
 .documentation p {
   color: var(--dark-grey);
   font-size: 1.1rem;
