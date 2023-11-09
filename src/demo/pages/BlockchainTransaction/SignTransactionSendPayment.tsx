@@ -166,7 +166,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         <MainContainer>
           <div className="web-view " id="demoSection">
             <FormHeaderContainer>
-              <div className="blanceDiv">
+              <div className="display-balance">
                 <p className="balance-container-text-left">Balance: </p>
                 <p className="balance-container-text-right">
                   {props.balance} EUR
@@ -224,7 +224,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
             />
             <div>
               <TButton
-                className="btnPayment btnStyle1"
+                className="payment-btn btn-style"
                 onClick={() => onBuy()}
                 disabled={transactionState === "loading"}
               >

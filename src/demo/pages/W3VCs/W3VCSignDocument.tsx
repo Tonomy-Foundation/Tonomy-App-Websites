@@ -162,7 +162,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
               </div>
               <div>
                 <TButton
-                  className="btnStyle1"
+                  className="btn-style"
                   onClick={() => onSubmit()}
                   disabled={loading}
                 >

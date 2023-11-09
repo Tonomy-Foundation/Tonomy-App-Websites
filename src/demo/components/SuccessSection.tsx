@@ -23,30 +23,30 @@ const SuccessSection = (props: SuccessSectionProps) => {
           pb: 10,
         }}
       >
-        <TH4 className="Successfully-signed">Congratulations</TH4>
-        <TH4 className="Successfully-signed">{props.message}</TH4>
+        <TH4 className="successfully-signed">Congratulations</TH4>
+        <TH4 className="successfully-signed">{props.message}</TH4>
       </Box>
-      <CircleContainer className="Circle-insurance-claims">
+      <CircleContainer className="circle-insurance-claims">
         {props.labels[0]}
       </CircleContainer>
-      <CircleContainer className="Circle-shipping-logistic-events">
+      <CircleContainer className="circle-shipping-logistic-events">
         {props.labels[1]}
       </CircleContainer>
       <CircleContainer className="Circle-games">
         {props.labels[2]}
       </CircleContainer>
-      <CircleContainer className="Circle-ntfs">
+      <CircleContainer className="circle-ntfs">
         {props.labels[3]}
       </CircleContainer>
-      <CircleContainer className="Circle-accounting-and-defi">
+      <CircleContainer className="circle-accounting-and-defi">
         {props.labels[4]}
       </CircleContainer>
-      <CircleContainer className="Circle-votes">
+      <CircleContainer className="circle-votes">
         {props.labels[5]}
       </CircleContainer>
 
       <Box sx={{ display: "grid", mt: 5 }}>
-        <img src={MobileScreen} alt="mobile-screen" className="Mobile-screen" />
+        <img src={MobileScreen} alt="mobile-screen" className="mobile-screen" />
         <TransactionButton onClick={props.submit}>
           TRY SIGNING A DOCUMENT AGAIN
         </TransactionButton>

@@ -112,7 +112,7 @@ export default function W3CVCs() {
           )}
         </div>
       ) : (
-        <div className="blockConatiner">
+        <div className="block-container">
           <W3VCIntro
             username={username}
             scrollToDemo={() => scrollToDemo("demoSection")}

@@ -52,12 +52,12 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       <a
         href="https://www.youtube.com/watch?v=vuSPy1xMNVg"
         target="_blank"
-        className="paraLink"
+        className="paragrapgh-link"
         rel="noreferrer"
       >
         Learn about the W3C Verifiable Credentials{`->`}
       </a>
-      <button className="demoLink web-view" onClick={props.scrollToDemo}>
+      <button className="demo-link web-view" onClick={props.scrollToDemo}>
         Enter Demo
       </button>
       {props?.setActiveSection && (

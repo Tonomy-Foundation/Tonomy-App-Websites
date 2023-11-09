@@ -53,12 +53,12 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <a
         href="https://docs.eosnetwork.com/"
         target="_blank"
-        className="paraLink"
+        className="paragrapgh-link"
         rel="noreferrer"
       >
         Learn about the Antelope blockchain protocol{`->`}
       </a>
-      <button className="demoLink web-view" onClick={props.scrollToDemo}>
+      <button className="demo-link web-view" onClick={props.scrollToDemo}>
         Enter Demo
       </button>
       {props?.setActiveSection && (

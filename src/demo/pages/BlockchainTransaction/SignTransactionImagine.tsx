@@ -24,7 +24,7 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
     </div>
     <div className="paraSection">
       <p className="imagine">Imagine,</p>
-      <p className="paralines">
+      <p className="paragraph-detail">
         you find a perfect art piece. With a simple click, your account promptly
         sends a secure transaction to the bank, where it is verified and
         recorded in your transaction history
