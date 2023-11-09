@@ -1,9 +1,8 @@
-
 .heading {
   margin-bottom: 30px;
 }
 
-.whiteColor {
+.white-color {
   color:var(--white-color);
   margin-left: 8px;
 }
@@ -15,15 +14,12 @@
 
 .ps-active {
   color: var(--primary);
-
 }
-
 
 .ps-sidebar-root{
   height: 100%;
   background: var(--offWhite);
 }
-
 
 .ps-menu-root ul {
   display: flex;
@@ -31,7 +27,7 @@
   height: 95%;
 }
 
-.logoutMenu {
+.logout-menu {
   margin-top: auto;
 }
 
@@ -51,7 +47,6 @@
 
 .ps-sidebar-container , h3{
   background: var(--offWhite);
-
   color: var(--dark-grey);
 }
 

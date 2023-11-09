@@ -28,7 +28,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="wrapper">
-      <div className="sidebar mobile-display-none" >
+      <div className="sidebar mobile-display-none">
         <Sidebar
           defaultCollapsed={collapsed}
           onMouseEnter={handleMouseEnter}
@@ -36,7 +36,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         >
           <Menu>
             <MenuItem icon={<img src={logo} alt="" />} className="heading">
-              <h4 className="whiteColor">Tonomy ID</h4>{" "}
+              <h4 className="white-color">Tonomy ID</h4>{" "}
             </MenuItem>
 
             <MenuItem
@@ -72,7 +72,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
             <MenuItem
               icon={<LogoutIcon />}
-              className="logoutMenu"
+              className="logout-menu"
               onClick={() => signout()}
             >
               Logout
@@ -82,18 +82,27 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </div>
       <nav className="bottom-nav mobile-display">
         <ul>
-          <li className={location.pathname === "/user-home"?"active-item": ""}>
-            <Link to="/user-home"><HomeOutlinedIcon sx={{ fontSize: 26 }} />     
+          <li
+            className={location.pathname === "/user-home" ? "active-item" : ""}
+          >
+            <Link to="/user-home">
+              <HomeOutlinedIcon sx={{ fontSize: 26 }} />
               <span className="mobile-text">Home</span>
             </Link>
           </li>
-          <li className={location.pathname === "/w3c-vcs"?"active-item": ""}>
-            <Link to="/w3c-vcs"><DescriptionOutlinedIcon sx={{ fontSize: 26 }} />     
+          <li className={location.pathname === "/w3c-vcs" ? "active-item" : ""}>
+            <Link to="/w3c-vcs">
+              <DescriptionOutlinedIcon sx={{ fontSize: 26 }} />
               <span className="mobile-text">W3C VCs</span>
             </Link>
           </li>
-          <li className={location.pathname === "/blockchain-tx"?"active-item": ""}>
-            <Link to="/blockchain-tx"><SwapHorizOutlinedIcon sx={{ fontSize: 26 }} />     
+          <li
+            className={
+              location.pathname === "/blockchain-tx" ? "active-item" : ""
+            }
+          >
+            <Link to="/blockchain-tx">
+              <SwapHorizOutlinedIcon sx={{ fontSize: 26 }} />
               <span className="mobile-text">Blockchain Tx</span>
             </Link>
           </li>
@@ -101,7 +110,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </nav>
 
       <div className="main-content" style={{ zIndex: !collapsed ? -1 : 0 }}>
-          {children}
+        {children}
       </div>
     </div>
   );
