@@ -118,7 +118,7 @@
   font-style: normal;
   font-weight: initial; 
   padding: 3.2rem 28.2rem 0rem 28.2rem;
-  line-height: 35px !important;
+  line-height: 35px;
 }
 
 .documentation p {
@@ -149,7 +149,34 @@
   background-color: var(--white);
 
 }
-@media only screen and (min-width: 325px) and (max-width: 767px) {
+@media only screen and (max-width: 325px) {
+  .center-image-text {
+    font-size: 0.8rem;
+    margin-left: 0rem;
+    padding: 0rem;
+  }
+  .center-image img {
+    max-width: 87%;
+  }
+  .center-image {
+    min-width: 85%;
+    height: 100%;
+    margin-left: 0rem;
+    text-align: left;
+
+  }
+  
+}
+@media only screen and (max-width: 767px) {
+  .slider{
+    display: none;
+  }
+
+  .mobile-slider {
+    display: flex;
+    padding-bottom: 1rem
+  }
+
   .slider-container {
     flex-direction: column;
     overflow-x: scroll;
@@ -162,23 +189,7 @@
     width: 0px
   }
 
-  .mobile-slider {
-    display: flex;
-    padding-bottom: 1rem
-  }
-
-  .slider{
-    display: none;
-  }
-
-
-  .center-image {
-    padding: 0;
-    max-width: 100%;
-    text-align: center;
-    min-width: 90%;
-    margin-left: -2.5rem;
-  }
+ 
   .left-side-image,
   .right-side-image {
     text-align: center;
@@ -191,10 +202,7 @@
     width: 100%;
   }
 
-  .center-image-text {
-    margin: -0.9rem 1.6rem;
-    font-size: 0.9rem;
-  }
+ 
   .left-side-image{
     margin-left: -20.5rem;
   }
@@ -208,24 +216,40 @@
     width: 100%;
   }
 
-  .center-image img {
-    height: 84%;
-    width: 100%;
-    max-width: 85%;
-  }
+ 
   .side-image{
     padding: 1rem 0.3rem;
     min-width: 90%;
     height: 90%;
   }
-  .description {
-    padding: 1rem;
-    font-size: 1.2rem;
-    line-height: 1.4;
-  }
+  
 
   .side-image-text {
     padding:0rem;
     margin-top: -0.3rem;
+  }
+}
+@media only screen and (min-width: 325px) and (max-width: 767px) {
+  .center-image img {
+    height: 84%;
+    width: 100%;
+    max-width: 85%;
+  }
+  .center-image-text {
+    margin: -0.9rem 1.6rem;
+    font-size: 0.9rem;
+
+  }
+  .center-image {
+    padding: 0;
+    max-width: 100%;
+    text-align: center;
+    min-width: 90%;
+    margin-left: -2.5rem;
+  }
+  .description {
+    padding: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.4;
   }
 }
