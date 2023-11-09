@@ -62,7 +62,7 @@
   font-weight: 500;
   line-height: 40px; 
   cursor: pointer;
-  margin: -0.4rem 2rem;
+  margin: -0.4rem 1.6rem;
   background: var(--white);
   padding:0.65rem;
 }
@@ -236,7 +236,7 @@
     max-width: 85%;
   }
   .center-image-text {
-    margin: -0.9rem 1.6rem;
+    margin: -0.9rem 1.9rem;
     font-size: 0.9rem;
 
   }
