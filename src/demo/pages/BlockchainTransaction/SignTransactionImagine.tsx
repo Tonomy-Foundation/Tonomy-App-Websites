@@ -22,7 +22,7 @@ const SignTransactionImagine = (props: SignTransactionImagineProps) => (
         <TH2>Payment</TH2>
       </div>
     </div>
-    <div className="paraSection">
+    <div className="paragraph-section">
       <p className="imagine">Imagine,</p>
       <p className="paragraph-detail">
         you find a perfect art piece. With a simple click, your account promptly

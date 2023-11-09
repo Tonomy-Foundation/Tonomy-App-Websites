@@ -26,7 +26,7 @@ const W3VCImagine = (props: W3VCImagineProps) => (
         <TH2>Signing Documents</TH2>
       </div>
     </div>
-    <div className="paraSection">
+    <div className="paragraph-section">
       <p className="imagine">Imagine,</p>
       <p className="paragraph-detail">
         {`you go to the doctor's office for a checkup. While waiting, your

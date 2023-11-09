@@ -14,10 +14,10 @@ export type SignTransactionIntroProps = {
 const SignTransactionIntro = (props: SignTransactionIntroProps) => (
   <>
     <div className="header-container ">
-      <p className="leftText sign-dcoument mobile-display-none">
+      <p className="float-left sign-dcoument mobile-display-none">
         Feature Name: Sign Transaction
       </p>
-      <p className="userLogoVC mobile-display-none">
+      <p className="vc-user-logo mobile-display-none">
         {<img src={userLogo} alt="userLogo" />}
         <span>{props.username}</span>
       </p>
