@@ -157,7 +157,37 @@ input:focus {
   outline-color: var(--primary) !important;
   border: 2px solid var(--primary);
 }
+
+@media only screen and (max-width: 325px){
+  .vc-user-logo {
+    display: none;
+  }
+  .paragraph-detail {
+    line-height: 1.5;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+  .imagine {
+    font-size: 1rem;
+  }
+  .form-section {
+    padding: 1rem 0rem;
+  }
+  .display-mobile-w3vc p{
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+}
 @media only screen and (min-width: 325px) and (max-width: 767px) {
+  .form-section {
+    padding: 2rem 0rem;
+  }
+  .display-mobile-w3vc p{
+    line-height: 29px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
   .paragraph-section {
     padding: 4rem 2rem;
   }
@@ -169,15 +199,12 @@ input:focus {
   }
   .form-section {
     background: var(--white);
-    padding: 2rem 0rem;
   }
   .display-mobile-w3vc{
     padding: 0rem 1.3rem;
     margin-bottom: 1.7rem;
   }
-  .display-mobile-w3vc p{
-    line-height: 29px;
-  }
+  
   .display-mobile-w3vc .blue-text{
     color: var(--dark-blue);
     margin-top: 0.6rem;

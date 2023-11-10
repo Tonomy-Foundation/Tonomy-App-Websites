@@ -31,7 +31,10 @@
     pointer-events: none;
     font-weight: 500;
   }
+
 @media only screen and (min-width: 325px) and (max-width: 767px) {
+}
+@media only screen and(max-width: 767px) {
   .input-container{
     padding: 0rem 1rem;
     margin-bottom: 1rem;
