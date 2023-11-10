@@ -161,13 +161,13 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
                 {/* <a className="link-color">Learn more</a> */}
               </div>
               <div>
-                <TButton
+                <button
                   className="btn-style"
                   onClick={() => onSubmit()}
                   disabled={loading}
                 >
                   Sign using your tonomy DID
-                </TButton>
+                </button>
               </div>
             </div>
           </div>

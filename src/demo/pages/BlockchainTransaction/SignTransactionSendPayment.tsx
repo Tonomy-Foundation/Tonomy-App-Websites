@@ -223,13 +223,13 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
               onChange={setDescription}
             />
             <div>
-              <TButton
+              <button
                 className="payment-btn btn-style"
                 onClick={() => onBuy()}
                 disabled={transactionState === "loading"}
               >
                 <HttpsOutlinedIcon /> Send Payment
-              </TButton>
+              </button>
             </div>
           </FormContainer>
         </MainContainer>

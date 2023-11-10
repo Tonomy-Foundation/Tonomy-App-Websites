@@ -37,7 +37,7 @@ const styles = {
     padding: 50,
     backgroundColor: "rgba(0,0,0,0.5)",
 
-    "@media only screen and (min-width: 325px) and (max-width: 767px)": {
+    "@media only screen and (max-width: 767px)": {
       "&": {
         padding: "0rem",
       },

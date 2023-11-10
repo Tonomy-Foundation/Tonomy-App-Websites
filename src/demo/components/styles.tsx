@@ -31,7 +31,7 @@ export const MainContainer = styled.div`
   width: 100%;
   flex-shrink: 0;
   background: var(--white-off-white, #f9f9f9);
-  @media only screen and (min-width: 325px) and (max-width: 767px) {
+  @media only screen and (max-width: 767px) {
     background: var(--white);
   }
 `;
@@ -51,7 +51,7 @@ export const FormContainer = styled.div`
   text-align: center;
   padding: 2rem 0rem;
   margin-top: 1.8rem;
-  @media only screen and (min-width: 325px) and (max-width: 767px) {
+  @media only screen and (max-width: 767px) {
     margin: 1rem;
 
   }
