@@ -36,7 +36,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         >
           <Menu>
             <MenuItem icon={<img src={logo} alt="" />} className="heading">
-              <h4 className="white-color">Tonomy ID</h4>{" "}
+              <h4 className="menu-heading">Tonomy ID</h4>{" "}
             </MenuItem>
 
             <MenuItem
