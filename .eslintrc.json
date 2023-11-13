@@ -4,13 +4,15 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:prettier/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:css-modules/recommended"
     ],
     "plugins": [
         "prettier",
         "react",
         "react-hooks",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "css-modules"
     ],
     "rules": {
         "eqeqeq": "error",
@@ -31,7 +33,8 @@
             { "blankLine": "always", "prev": ["export", "import"], "next": "*"},
             { "blankLine": "any", "prev": "import", "next": "import"},
             { "blankLine": "any", "prev": "export", "next": "export"}
-        ]
+        ],
+        "css-modules/no-undef-class": [2, { "compose": "kebab" }]
     },
     "parserOptions": {
         "ecmaVersion": 6,

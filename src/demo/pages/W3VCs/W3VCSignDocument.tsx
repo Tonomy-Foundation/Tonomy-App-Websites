@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { TH2 } from "../../../common/atoms/THeadings";
 import TextboxLayout from "../../components/TextboxLayout";
-import { TButton } from "../../../common/atoms/TButton";
 import { randomString } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../providers/AuthProvider";
 import useErrorStore from "../../../common/stores/errorStore";

@@ -7,7 +7,11 @@ import Button from "@mui/material/Button";
 import CustomizedProgressBars from "./LinearProgressBar";
 import "./VerticalProgressStep.css";
 
-const CustomStepIcon = ({ active }) => {
+interface CustomStepIconProps {
+  active: boolean;
+}
+
+const CustomStepIcon: React.FC<CustomStepIconProps> = ({ active }) => {
   const customStepIconClass = active ? "active" : "";
 
   return (
