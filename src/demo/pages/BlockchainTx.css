@@ -32,26 +32,6 @@
   padding: 2.2rem 3rem;
 }
 
-.MuiLinearProgress-root {
-  height: 23px !important;
-  border-radius: 5px !important;
-}
-
-.MuiSvgIcon-root  > circle {
-  color: #FFF !important;
-}
-
-.MuiSvgIcon-root {
-  margin: 4px -5px 3px 2px;
-}
-/* .Mui-completed {
-  color: #5ecbe0 !important;
-}
-
-.MuiStepLabel-label {
-  margin-left: 5px;
-} */
-
 .successfully-signed {
   text-align: center;
   margin-top: 5px;
@@ -277,9 +257,6 @@
   }
 }
 @media only screen and (max-width: 767px) {
-  .MuiSvgIcon-root {
-    margin: 0.3rem;
-  }
   .mobile-view {
     display: block;
   }

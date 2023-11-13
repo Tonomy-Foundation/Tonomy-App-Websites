@@ -32,7 +32,7 @@ const SuccessSection = (props: SuccessSectionProps) => {
       <CircleContainer className="circle-shipping-logistic-events">
         {props.labels[1]}
       </CircleContainer>
-      <CircleContainer className="Circle-games">
+      <CircleContainer className="circle-games">
         {props.labels[2]}
       </CircleContainer>
       <CircleContainer className="circle-ntfs">
