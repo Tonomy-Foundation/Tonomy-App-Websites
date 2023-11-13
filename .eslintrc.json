@@ -4,13 +4,13 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:prettier/recommended",
-        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "plugins": [
         "prettier",
         "react",
         "react-hooks",
-        "@typescript-eslint",
+        "@typescript-eslint"
     ],
     "rules": {
         "eqeqeq": "error",
