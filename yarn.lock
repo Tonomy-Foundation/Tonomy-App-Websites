@@ -4499,18 +4499,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-css-modules@npm:^2.12.0":
-  version: 2.12.0
-  resolution: "eslint-plugin-css-modules@npm:2.12.0"
-  dependencies:
-    gonzales-pe: ^4.3.0
-    lodash: ^4.17.2
-  peerDependencies:
-    eslint: ">=2.0.0"
-  checksum: c34445512f3f69b436446a3057eb17e661218fd616e14ada428a83ecb08197092e82ba66454949a8b8eb3fe552527bb8e84cef1a2d3dc2be1b43740246a7d4a9
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-es@npm:^4.1.0":
   version: 4.1.0
   resolution: "eslint-plugin-es@npm:4.1.0"
@@ -5256,17 +5244,6 @@ __metadata:
   version: 0.1.4
   resolution: "globjoin@npm:0.1.4"
   checksum: 0a47d88d566122d9e42da946453ee38b398e0021515ac6a95d13f980ba8c1e42954e05ee26cfcbffce1ac1ee094d0524b16ce1dd874ca52408d6db5c6d39985b
-  languageName: node
-  linkType: hard
-
-"gonzales-pe@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "gonzales-pe@npm:4.3.0"
-  dependencies:
-    minimist: ^1.2.5
-  bin:
-    gonzales: bin/gonzales.js
-  checksum: 49d60fc49ad35639e5d55923c1516d3ec2e4de5e6e5913ec3458a479b66623e54a060d568295349b0bb9f96ee970c473ff984d4b82a5cfeaf736c55f0d6dc3b7
   languageName: node
   linkType: hard
 
@@ -6115,13 +6092,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.2":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
-  languageName: node
-  linkType: hard
-
 "loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
@@ -6377,7 +6347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.6":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 75a6d645fb122dad29c06a7597bddea977258957ed88d7a6df59b5cd3fe4a527e253e9bbf2e783e4b73657f9098b96a5fe96ab8a113655d4109108577ecf85b0
@@ -8212,7 +8182,6 @@ __metadata:
     eslint: ^8.0.1
     eslint-config-prettier: ^8.6.0
     eslint-config-standard-with-typescript: ^34.0.0
-    eslint-plugin-css-modules: ^2.12.0
     eslint-plugin-import: ^2.25.2
     eslint-plugin-n: ^15.0.0
     eslint-plugin-prettier: ^4.2.1
