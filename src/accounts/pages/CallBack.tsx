@@ -7,7 +7,6 @@ import {
   SdkErrors,
   objToBase64Url,
   getLoginRequestResponseFromUrl,
-  getLoginRequestFromUrl,
   RequestsManager,
   ResponsesManager,
   LoginRequestResponseMessagePayload,

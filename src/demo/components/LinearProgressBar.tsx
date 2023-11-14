@@ -45,7 +45,8 @@ export default function CustomizedProgressBars(props: ProgressBarProps) {
         <BorderLinearProgress
           variant="determinate"
           value={props.progressValue}
-          sx={{ width: "100%" }} // Ensure the progress bar takes full width
+          sx={{ width: "100%", height:'23px' }} // Ensure the progress bar takes full width
+          className="progress-bar"
         />
       </Box>
     </div>

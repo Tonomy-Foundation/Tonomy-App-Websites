@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { TH1, TH2 } from "../../../common/atoms/THeadings";
 import TextboxLayout from "../../components/TextboxLayout";
-import { TButton } from "../../../common/atoms/TButton";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import {
   MainContainer,
@@ -166,7 +165,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         <MainContainer>
           <div className="web-view " id="demoSection">
             <FormHeaderContainer>
-              <div className="blanceDiv">
+              <div className="display-balance">
                 <p className="balance-container-text-left">Balance: </p>
                 <p className="balance-container-text-right">
                   {props.balance} EUR
@@ -223,13 +222,13 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
               onChange={setDescription}
             />
             <div>
-              <TButton
-                className="btnPayment btnStyle1"
+              <button
+                className="payment-btn btn-style"
                 onClick={() => onBuy()}
                 disabled={transactionState === "loading"}
               >
                 <HttpsOutlinedIcon /> Send Payment
-              </TButton>
+              </button>
             </div>
           </FormContainer>
         </MainContainer>

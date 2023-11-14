@@ -1,5 +1,5 @@
 import SuccessSection from "../../components/SuccessSection";
-import { TH1, TH2 } from "../../../common/atoms/THeadings";
+import { TH2 } from "../../../common/atoms/THeadings";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export type W3VCConfirmationProps = {

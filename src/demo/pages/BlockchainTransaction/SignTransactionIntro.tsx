@@ -14,10 +14,10 @@ export type SignTransactionIntroProps = {
 const SignTransactionIntro = (props: SignTransactionIntroProps) => (
   <>
     <div className="header-container ">
-      <p className="leftText sign-dcoument mobile-display-none">
+      <p className="float-left sign-dcoument mobile-display-none">
         Feature Name: Sign Transaction
       </p>
-      <p className="userLogoVC mobile-display-none">
+      <p className="vc-user-logo mobile-display-none">
         {<img src={userLogo} alt="userLogo" />}
         <span>{props.username}</span>
       </p>
@@ -53,12 +53,12 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <a
         href="https://docs.eosnetwork.com/"
         target="_blank"
-        className="paraLink"
+        className="paragrapgh-link"
         rel="noreferrer"
       >
         Learn about the Antelope blockchain protocol{`->`}
       </a>
-      <button className="demoLink web-view" onClick={props.scrollToDemo}>
+      <button className="demo-link web-view" onClick={props.scrollToDemo}>
         Enter Demo
       </button>
       {props?.setActiveSection && (
