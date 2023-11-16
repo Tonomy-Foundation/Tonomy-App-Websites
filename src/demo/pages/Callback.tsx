@@ -1,25 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  api,
-  JsKeyManager,
-  KeyManagerLevel,
-  SdkError,
-  SdkErrors,
-} from "@tonomy/tonomy-id-sdk";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./Callback.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import { TH2 } from "../../common/atoms/THeadings";
 import TModal from "../../common/molecules/TModal";
-import { useUserStore } from "../../common/stores/user.store";
 import { AuthContext } from "../providers/AuthProvider";
 
 export default function Callback() {
   const [errorTitle, setErrorTitle] = useState("");
   const [errorVisible, setErrorVisible] = useState(false);
   const navigation = useNavigate();
-  const setUser = useUserStore((state) => state.setUser);
   const errorStore = useErrorStore();
   const { signin } = useContext(AuthContext);
 

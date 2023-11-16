@@ -19,7 +19,7 @@ export interface ErrorState {
   unSetError: () => void;
 }
 
-const useErrorStore = create<ErrorState>((set, get) => ({
+const useErrorStore = create<ErrorState>((set) => ({
   error: undefined,
   title: undefined,
   expected: undefined,

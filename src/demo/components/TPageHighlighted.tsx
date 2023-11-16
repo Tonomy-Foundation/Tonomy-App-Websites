@@ -7,7 +7,7 @@ export type TPageHighlightedProps = {
 
 const TPageHighlighted = (props: TPageHighlightedProps) => {
   return (
-    <div className="rightDocs">
+    <div className="highlight-page-docs">
       <div className="highlighter">
         <Highlighter>{props.highlighterText}</Highlighter>
       </div>

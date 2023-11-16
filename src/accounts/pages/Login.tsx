@@ -493,7 +493,7 @@ export default function Login() {
       </div>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
-          Don't have Tonomy ID yet?
+          {`Don't have Tonomy ID yet?`}
         </TContainedButton>
       )}
       {(status === "connecting" || status === "app") && (

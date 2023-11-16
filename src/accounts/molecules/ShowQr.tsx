@@ -4,25 +4,25 @@ import { TP } from "../../common/atoms/THeadings";
 import { isMobile } from "../utils/IsMobile";
 
 export default function QROrLoading({
-    showQr,
+  showQr,
 }: {
-    showQr: string | undefined;
+  showQr: string | undefined;
 }) {
-    return (
+  return (
+    <>
+      {!isMobile() && (
         <>
-            {!isMobile() && (
-                <>
-                    <TP>Scan the QR code with the Tonomy ID app</TP>
-                    {!showQr && <TProgressCircle />}
-                    {showQr && <QRCode value={showQr}></QRCode>}
-                </>
-            )}
-            {isMobile() && (
-                <>
-                    <TP>Redirecting to Tonomy ID</TP>
-                    <TProgressCircle />
-                </>
-            )}
+          <TP>Scan the QR code with the Tonomy ID app</TP>
+          {!showQr && <TProgressCircle />}
+          {showQr && <QRCode value={showQr}></QRCode>}
         </>
-    );
+      )}
+      {isMobile() && (
+        <>
+          <TP>Redirecting to Tonomy ID</TP>
+          <TProgressCircle />
+        </>
+      )}
+    </>
+  );
 }

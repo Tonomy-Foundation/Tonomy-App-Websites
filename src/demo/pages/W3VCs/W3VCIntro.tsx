@@ -14,10 +14,10 @@ export type W3VCIntroProps = {
 const W3VCIntro = (props: W3VCIntroProps) => (
   <>
     <div className="header-container ">
-      <p className="leftText sign-dcoument mobile-display-none">
+      <p className="float-left sign-dcoument mobile-display-none">
         Feature Name: Sign Document
       </p>
-      <p className="userLogoVC mobile-display-none">
+      <p className="vc-user-logo mobile-display-none">
         {<img src={userLogo} alt="userLogo" />}
         <span>{props.username}</span>
       </p>
@@ -52,12 +52,12 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       <a
         href="https://www.youtube.com/watch?v=vuSPy1xMNVg"
         target="_blank"
-        className="paraLink"
+        className="paragrapgh-link"
         rel="noreferrer"
       >
         Learn about the W3C Verifiable Credentials{`->`}
       </a>
-      <button className="demoLink web-view" onClick={props.scrollToDemo}>
+      <button className="demo-link web-view" onClick={props.scrollToDemo}>
         Enter Demo
       </button>
       {props?.setActiveSection && (

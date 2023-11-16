@@ -1,9 +1,8 @@
-
 .heading {
   margin-bottom: 30px;
 }
 
-.whiteColor {
+.menu-heading {
   color:var(--white-color);
   margin-left: 8px;
 }
@@ -15,15 +14,12 @@
 
 .ps-active {
   color: var(--primary);
-
 }
-
 
 .ps-sidebar-root{
   height: 100%;
   background: var(--offWhite);
 }
-
 
 .ps-menu-root ul {
   display: flex;
@@ -31,7 +27,7 @@
   height: 95%;
 }
 
-.logoutMenu {
+.logout-menu {
   margin-top: auto;
 }
 
@@ -51,7 +47,6 @@
 
 .ps-sidebar-container , h3{
   background: var(--offWhite);
-
   color: var(--dark-grey);
 }
 
@@ -147,5 +142,29 @@ a {
   }
   .main-content {
     overflow-y: auto;
+  }
+}
+
+@media only screen and (max-width: 325px) {
+  .mobile-display-none{
+    display: none;
+  }
+  .mobile-display{
+    display: inline;
+  }
+  .main-content{
+    margin-left: 0;
+    padding-bottom: 5rem;
+  }
+  .mobile-text {
+    display: block;
+    font-size: 0.7rem;
+    margin-left: 0.2rem;
+  }
+  .main-content {
+    overflow-y: auto;
+  }
+  .bottom-nav ul{
+    padding: 0.4rem;
   }
 }

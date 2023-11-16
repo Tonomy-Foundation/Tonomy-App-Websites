@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { TH2 } from "../../../common/atoms/THeadings";
 import TextboxLayout from "../../components/TextboxLayout";
-import { TButton } from "../../../common/atoms/TButton";
 import { randomString } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../providers/AuthProvider";
 import useErrorStore from "../../../common/stores/errorStore";
@@ -91,7 +90,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
           </div>
         </div>
         <section id="VCdemoSection">
-          <div className="formSection">
+          <div className="form-section">
             <ul className="web-view horizontal-list">
               <li>Appointment</li>
               <li>Messages</li>
@@ -108,7 +107,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
                 security when sharing sensitive and tamper-proof data
               </p>
             </div>
-            <div className="clientSection">
+            <div className="client-section">
               <h4 className="head web-view">Client details</h4>
 
               <TextboxLayout label="Name:" value={name} onChange={setName} />
@@ -158,16 +157,16 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
                 {" "}
                 This data is fully private never stored on servers.{" "}
                 {/* TODO uncomment link */}
-                {/* <a className="linkColor">Learn more</a> */}
+                {/* <a className="link-color">Learn more</a> */}
               </div>
               <div>
-                <TButton
-                  className="btnStyle1"
+                <button
+                  className="btn-style"
                   onClick={() => onSubmit()}
                   disabled={loading}
                 >
                   Sign using your tonomy DID
-                </TButton>
+                </button>
               </div>
             </div>
           </div>

@@ -1,28 +1,8 @@
-
-.containerVC {
-  height: 950px;
-  padding-left: 3rem;
-
-  background: linear-gradient(115.56deg, #c1eef8 44.33%, #67d7ed 89.31%);
-  clear: both;
-}
-
-.bannerImg {
-  width: 650px;
-  margin-top: 3rem;
-}
-
-.gridView {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-}
-
-
-.leftText {
+.float-left {
   float: left;
 }
 
-.userLogoVC {
+.vc-user-logo {
   float: right;
   margin-left: 0.4rem;
   display: flex;
@@ -32,11 +12,11 @@
   margin-right: 4.8rem;
 }
 
-.userLogoVC img {
+.vc-user-logo img {
   margin-right: 0.4rem;
 }
 
-.userLogoVC span {
+.vc-user-logo span {
   font-size: 1.1rem;
 }
 
@@ -48,13 +28,6 @@
   letter-spacing: 0.5px;
   margin-top: 2rem;
   margin-left: 2rem;
-}
-
-.howText {
-  color: var(--dark-grey);
-  font-size: 3rem;
-  line-height: 53px;
-  margin-left: 9rem;
 }
 
 .tonomy-head {
@@ -71,31 +44,7 @@
   font-weight: normal;
 }
 
-.headSection {
-  margin-top: 6rem;
-  margin-left: 2rem;
-}
-
-.paraDetail {
-  max-width: 660px;
-  margin-top: 7rem;
-  margin-left: 3rem;
-  line-height: 37px;
-  font-size: 1.6rem;
-}
-
-
-
-
-.leftSection {
-  grid-column: 1;
-}
-
-.rightSection {
-  grid-column: 2;
-}
-
-.paraSection {
+.paragraph-section {
   padding: 8rem 6rem;
   background: var(--white);
 }
@@ -107,14 +56,14 @@
   letter-spacing: 0.1rem;
 }
 
-.paralines {
+.paragraph-detail {
   max-width: 1000px;
   line-height: 30px;
   font-size: 1.3rem;
   letter-spacing: 0.1rem;
 }
 
-.formSection {
+.form-section {
   background: var(--offWhite);
   padding: 4rem 6rem 0rem 4rem;
 }
@@ -152,14 +101,14 @@ ul.horizontal-list li:last-child {
   background-color: var(--primary);
 }
 
-.clientSection {
+.client-section {
   text-align: center;
   margin: 2rem;
   background: var(--white);
   padding: 3rem 3rem 1rem 3rem;
 }
 
-.clientSection .head {
+.client-section .head {
   margin-bottom: 1.5rem;
   ;
 }
@@ -181,67 +130,105 @@ ul.horizontal-list li:last-child {
 
 }
 
-.linkColor {
+.link-color {
   color: var(--success-alert) !important;
   text-decoration: underline;
   margin-left: 0.2rem;
 }
 
-.btnStyle1 {
-  background-color: var(--primary) !important;
-  color: var(--white) !important;
-  padding: 0.3rem 3rem !important;
+.btn-style {
+  border: none;
+  background-color: var(--primary) ;
+  color: var(--white) ;
+  padding: 0.3rem 3rem ;
   border-radius: 20px;
-  margin: 1.8rem 0rem !important;
-  font-weight: 600 !important;
+  margin: 1.8rem 0rem ;
+  font-weight: 600 ;
   font-size: 16px;
   text-transform: uppercase;
-  line-height: 2.75 !important;
+  line-height: 2.75 ;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00);
 }
 
-.btnStyle1:disabled {
-  background-color: var(--disabled) !important;
+.btn-style:disabled {
+  background-color: var(--disabled);
 }
 
 input:focus {
-  outline-color: var(--primary) !important;
+  outline-color: var(--primary);
   border: 2px solid var(--primary);
 }
-@media only screen and (min-width: 325px) and (max-width: 767px) {
 
-  .paraSection {
+@media only screen and (max-width: 325px){
+  .vc-user-logo {
+    display: none;
+  }
+  .paragraph-detail {
+    line-height: 1.5;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+  .imagine {
+    font-size: 1rem;
+  }
+  .form-section {
+    padding: 1rem 0rem;
+  }
+  .display-mobile-w3vc p{
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+  .security-message {
+    padding: 1rem 1.3rem;
+  }
+  button {
+    font-size: 0.9rem;
+  }
+  .btn-style {
+    font-size: 0.8rem;
+    padding: 0.3rem
+  }
+}
+@media only screen and (min-width: 325px) and (max-width: 767px) {
+  .form-section {
+    padding: 2rem 0rem;
+  }
+  .display-mobile-w3vc p{
+    line-height: 29px;
+  }
+  .btn-style{
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .paragraph-section {
     padding: 4rem 2rem;
   }
-  .userLogoVC {
+  .vc-user-logo {
     display: none;
   }
   ul.horizontal-list {
     display: none;
   }
-  .formSection {
+  .form-section {
     background: var(--white);
-    padding: 2rem 0rem;
   }
   .display-mobile-w3vc{
     padding: 0rem 1.3rem;
     margin-bottom: 1.7rem;
   }
-  .display-mobile-w3vc p{
-    line-height: 29px;
-  }
+  
   .display-mobile-w3vc .blue-text{
     color: var(--dark-blue);
     margin-top: 0.6rem;
   }
-  .clientSection{
+  .client-section{
     margin: 0rem;
     padding: 0rem;
   }
   .security-message {
     margin: 1rem;
   }
-  .btnStyle1{
-    font-size: 0.9rem;
-  }
+ 
 }
