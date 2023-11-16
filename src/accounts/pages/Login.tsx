@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
-  UserApps,
   Message,
   LoginRequest,
   api,
@@ -9,6 +8,7 @@ import {
   AuthenticationMessage,
   IdentifyMessage,
   LoginRequestsMessage,
+  terminateLoginRequest,
   LoginRequestResponseMessage,
   objToBase64Url,
   SdkError,
@@ -204,7 +204,7 @@ export default function Login() {
             ...error,
             requests: externalRequests,
           };
-          const url = await UserApps.terminateLoginRequest(
+          const url = await terminateLoginRequest(
             managedExternalResponses,
             "mobile",
             externalError,
@@ -392,15 +392,10 @@ export default function Login() {
 
     const managedResponses = new ResponsesManager(managedRequests);
 
-    return (await UserApps.terminateLoginRequest(
-      managedResponses,
-      "mobile",
-      error,
-      {
-        callbackOrigin: externalLoginRequest.getPayload().origin,
-        callbackPath: externalLoginRequest.getPayload().callbackPath,
-      }
-    )) as string;
+    return (await terminateLoginRequest(managedResponses, "mobile", error, {
+      callbackOrigin: externalLoginRequest.getPayload().origin,
+      callbackPath: externalLoginRequest.getPayload().callbackPath,
+    })) as string;
   }
 
   const onLogout = async () => {
