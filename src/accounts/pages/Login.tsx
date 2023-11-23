@@ -383,7 +383,7 @@ export default function Login() {
     }
   }
 
-  async function terminateLoginRequest(error): Promise<string> {
+  async function terminateLogin(error): Promise<string> {
     const { requests } = await getLoginRequestFromUrl();
     const managedRequests = new RequestsManager(requests);
 
@@ -400,7 +400,7 @@ export default function Login() {
 
   const onLogout = async () => {
     try {
-      const callbackUrl = await terminateLoginRequest({
+      const callbackUrl = await terminateLogin({
         code: SdkErrors.UserLogout,
         reason: "User logged out",
       });
@@ -415,7 +415,8 @@ export default function Login() {
 
   const onCancel = async () => {
     try {
-      const callbackUrl = await terminateLoginRequest({
+      console.log("here");
+      const callbackUrl = await terminateLogin({
         code: SdkErrors.UserCancelled,
         reason: "User cancelled login",
       });
@@ -432,7 +433,7 @@ export default function Login() {
 
   const onRefresh = async () => {
     try {
-      const callbackUrl = await terminateLoginRequest({
+      const callbackUrl = await terminateLogin({
         code: SdkErrors.UserRefreshed,
         reason: "User refreshed during login",
       });
