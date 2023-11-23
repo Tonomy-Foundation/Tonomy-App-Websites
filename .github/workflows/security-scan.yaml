@@ -1,7 +1,6 @@
 name: Run Security Scan with Dastardly and ZAP Full Scan
 
-on:
-  pull_request
+on: pull_request
 
 jobs:
   security-scan:
@@ -9,10 +8,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🚀 Build app
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.12.1
       - run: corepack enable
@@ -21,7 +20,7 @@ jobs:
       - run: echo $(id -u) $(id -g) $(whoami)
 
       - name: 🚀 Run accounts website
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.12.1
       - run: corepack enable
@@ -63,9 +62,8 @@ jobs:
           dastardly 
           echo "DASTARDLY_ACCOUNTS_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
-
       - name: 🚀 Run demo website
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.12.1
       - run: corepack enable
@@ -104,26 +102,26 @@ jobs:
           -r demo.zap-scan-report.html \
           -a
           echo "ZAP_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
-          
+
       - name: Upload ZAP Scan Output
         uses: actions/upload-artifact@v3
         with:
           name: zap-scan-output
           path: "*zap-scan-report.html"
-  
+
       - name: Convert Accounts Dastardly JUnit XML report to HTML
         uses: pl-strflt/junit-xml-to-html@v1
         with:
-          mode: 'no-frames'
-          input: 'accounts.dastardly-report.xml'
-          output: 'accounts.dastardly-report.html'
+          mode: "no-frames"
+          input: "accounts.dastardly-report.xml"
+          output: "accounts.dastardly-report.html"
 
       - name: Convert Demo Dastardly JUnit XML report to HTML
         uses: pl-strflt/junit-xml-to-html@v1
         with:
-          mode: 'no-frames'
-          input: 'demo.dastardly-report.xml'
-          output: 'demo.dastardly-report.html'
+          mode: "no-frames"
+          input: "demo.dastardly-report.xml"
+          output: "demo.dastardly-report.html"
 
       - name: Upload Dastardly HTML Scan Output
         uses: actions/upload-artifact@v3
@@ -132,5 +130,4 @@ jobs:
           path: "*dastardly-report.html"
 
       - name: Check scan exit codes
-        run:  exit $((ZAP_DEMO_EXIT_CODE + ZAP_ACCOUNTS_EXIT_CODE + DASTARDLY_DEMO_EXIT_CODE + DASTARDLY_ACCOUNTS_EXIT_CODE))   
-  
+        run: exit $((ZAP_DEMO_EXIT_CODE + ZAP_ACCOUNTS_EXIT_CODE + DASTARDLY_DEMO_EXIT_CODE + DASTARDLY_ACCOUNTS_EXIT_CODE))

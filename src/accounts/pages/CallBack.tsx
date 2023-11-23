@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import {
   api,
-  UserApps,
+  terminateLoginRequest,
   SdkError,
   SdkErrors,
   objToBase64Url,
@@ -64,7 +64,7 @@ export default function CallBackPage() {
         );
 
         if (!error) throw new Error("Error not defined");
-        const callbackUrl = await UserApps.terminateLoginRequest(
+        const callbackUrl = await terminateLoginRequest(
           new ResponsesManager(managedExternalRequests),
           "mobile",
           error,
@@ -90,7 +90,7 @@ export default function CallBackPage() {
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
-          const callbackUrl = await UserApps.terminateLoginRequest(
+          const callbackUrl = await terminateLoginRequest(
             new ResponsesManager(
               new RequestsManager(
                 managedRequests.getRequestsDifferentOriginOrThrow()
