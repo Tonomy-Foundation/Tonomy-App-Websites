@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
-  UserApps,
   Message,
   LoginRequest,
   api,
@@ -9,6 +8,7 @@ import {
   AuthenticationMessage,
   IdentifyMessage,
   LoginRequestsMessage,
+  terminateLoginRequest,
   LoginRequestResponseMessage,
   objToBase64Url,
   SdkError,
@@ -204,7 +204,7 @@ export default function Login() {
             ...error,
             requests: externalRequests,
           };
-          const url = await UserApps.terminateLoginRequest(
+          const url = await terminateLoginRequest(
             managedExternalResponses,
             "mobile",
             externalError,
@@ -383,7 +383,7 @@ export default function Login() {
     }
   }
 
-  async function terminateLoginRequest(error): Promise<string> {
+  async function terminateLogin(error): Promise<string> {
     const { requests } = await getLoginRequestFromUrl();
     const managedRequests = new RequestsManager(requests);
 
@@ -392,20 +392,15 @@ export default function Login() {
 
     const managedResponses = new ResponsesManager(managedRequests);
 
-    return (await UserApps.terminateLoginRequest(
-      managedResponses,
-      "mobile",
-      error,
-      {
-        callbackOrigin: externalLoginRequest.getPayload().origin,
-        callbackPath: externalLoginRequest.getPayload().callbackPath,
-      }
-    )) as string;
+    return (await terminateLoginRequest(managedResponses, "mobile", error, {
+      callbackOrigin: externalLoginRequest.getPayload().origin,
+      callbackPath: externalLoginRequest.getPayload().callbackPath,
+    })) as string;
   }
 
   const onLogout = async () => {
     try {
-      const callbackUrl = await terminateLoginRequest({
+      const callbackUrl = await terminateLogin({
         code: SdkErrors.UserLogout,
         reason: "User logged out",
       });
@@ -420,7 +415,8 @@ export default function Login() {
 
   const onCancel = async () => {
     try {
-      const callbackUrl = await terminateLoginRequest({
+      console.log("here");
+      const callbackUrl = await terminateLogin({
         code: SdkErrors.UserCancelled,
         reason: "User cancelled login",
       });
@@ -437,7 +433,7 @@ export default function Login() {
 
   const onRefresh = async () => {
     try {
-      const callbackUrl = await terminateLoginRequest({
+      const callbackUrl = await terminateLogin({
         code: SdkErrors.UserRefreshed,
         reason: "User refreshed during login",
       });
@@ -498,7 +494,7 @@ export default function Login() {
       </div>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
-          Don't have Tonomy ID yet?
+          {`Don't have Tonomy ID yet?`}
         </TContainedButton>
       )}
       {(status === "connecting" || status === "app") && (

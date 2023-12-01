@@ -24,6 +24,10 @@ export type TErrorModalProps = Omit<
   "children"
 >;
 
+TErrorModal.propTypes = {
+  error: Error,
+};
+
 export default function TErrorModal(props: TErrorModalProps) {
   const [expanded, setExpanded] = useState(false);
 

@@ -1,4 +1,4 @@
-.progressContainer {
+.progressbar-container {
   border-radius: 10px;
   border: 1px solid #E4E4E4;
   background: #FDFEFF; 
@@ -8,25 +8,9 @@
   margin: 0 auto; 
   padding: 2rem 0rem;
 }
-.MuiLinearProgress-root{
+.progress-bar{
   box-shadow: 4px 4px 4px 0px rgba(103, 215, 237, 0.12), -4px 4px 4px 0px rgba(103, 215, 237, 0.12); 
-
-
 }
-.MuiStepConnector-vertical  {
-  margin-left: 8px !important;
-}
-
-.MuiStepConnector-line .MuiStepConnector-lineVertical{
-  min-height : 38px
-}
-
-.MuiStepLabel-label{
-  font-weight: bold !important;
-  padding: 0rem !important;
-}
-
-
 
 .custom-step-icon {
     width: 18px;
@@ -50,7 +34,7 @@
   background-color: #67D7ED;
 }
   
-.continueBtn{
+.continue-btn{
     border-radius: 8px;
     background: var(--primary-primary, #67D7ED) !important;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00);
@@ -59,19 +43,21 @@
     padding: 0.4rem 1.4rem !important;
 }
 
-.MuiStepLabel-vertical {
-  padding: 0rem !important;
-}
-
-.MuiStepConnector-line {
-  min-height: 38px !important;
+@media only screen and (max-width: 325px){
+  .mobile-progress-container{
+    padding: 1.5rem 1rem 3rem 1rem;
+    
+  }
+  .progressbar-container {
+    padding: 1rem 0.6rem;
+  }
 }
 @media only screen and (min-width: 325px) and (max-width: 767px) {
   .mobile-progress-container{
     padding: 1rem 1.7rem 5rem 1.7rem;
     
   }
-  .progressContainer{
+  .progressbar-container{
     padding: 1.2rem;
   }
 }

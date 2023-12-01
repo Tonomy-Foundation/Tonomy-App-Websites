@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { api, SdkError, SdkErrors, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
@@ -68,14 +68,18 @@ export default function Home() {
   return (
     <>
       {loading ? (
-        <TH2 className="loadinghead">Loading...</TH2>
+        <TH2 className="loading-text">Loading...</TH2>
       ) : (
         <div className="container">
           <div className="intro">
             <header>
               <div className="box">
                 <img src={logo} className="display-none" alt="Tonomy-logo" />
-                <img src={mobileLogo} className="mobile-logo" alt="Tonomy-logo" />
+                <img
+                  src={mobileLogo}
+                  className="mobile-logo"
+                  alt="Tonomy-logo"
+                />
 
                 <div className="box-heading display-none">
                   <span>Tonomy ID</span>
@@ -83,7 +87,6 @@ export default function Home() {
                 </div>
               </div>
               <div className="intro-container">
-               
                 <TP className="demo-head">Explore our demo features</TP>
                 <TP className="demo-main">Solution that works for you.</TP>
 

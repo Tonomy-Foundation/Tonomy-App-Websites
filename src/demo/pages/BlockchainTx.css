@@ -1,4 +1,4 @@
-.blockConatiner {
+.block-container {
   background: var(--white-off-white, #f9f9f9);
   padding: 0px;
 }
@@ -21,7 +21,7 @@
   margin-top: 7rem;
 }
 
-.blanceDiv{
+.display-balance{
   width: 700px;
   height: 100px;
   flex-shrink: 0;
@@ -32,77 +32,55 @@
   padding: 2.2rem 3rem;
 }
 
-.MuiLinearProgress-root {
-  height: 23px !important;
-  border-radius: 5px !important;
-}
-
-.MuiSvgIcon-root  > circle {
-  color: #FFF !important;
-}
-
-.MuiSvgIcon-root {
-  margin: 4px -5px 3px 2px;
-}
-/* .Mui-completed {
-  color: #5ecbe0 !important;
-}
-
-.MuiStepLabel-label {
-  margin-left: 5px;
-} */
-
-.Successfully-signed {
+.successfully-signed {
   text-align: center;
   margin-top: 5px;
   font-size: 1.2rem;
 }
 
-.Circle-insurance-claims {
+.circle-insurance-claims {
   width: 130px !important;
   height: 130px !important;
   top: 93rem;
   left: 24rem;
 }
 
-.Circle-accounting-and-defi {
+.circle-accounting-and-defi {
   width: 231px !important; 
   height: 231px !important;
   top: 113rem;
   left: 5rem;
-
 }
 
-.Circle-games {
+.circle-games {
   width: 88px !important; 
   height: 88px !important;
   top: 108rem;
   left: 36rem;
-
 }
 
-.Circle-shipping-logistic-events {
+.circle-shipping-logistic-events {
   width: 231px !important; 
   height: 231px !important; 
   top: 90rem;
   right: 26rem;
 }
 
-.Circle-ntfs {
+.circle-ntfs {
   width: 130px !important; 
   height: 130px !important;
   top: 108rem;
   right: 3rem;
 }
 
-.Circle-votes {
+.circle-votes {
   width: 130px !important; 
   height: 130px !important;
   top: 119rem;
   right: 21rem;
 }
 
-.Mobile-screen {
+.mobile-screen {
   margin: 0 auto !important;
 }
 
@@ -162,14 +140,13 @@
   margin-top: 8.3rem;
 }
 
-.btnPayment{
-  padding: 0.5rem 3rem !important;
+.payment-btn{
   margin-top: 3rem;
 }
 
-.btnPayment svg {
+.payment-btn svg {
   margin-right: 0.3rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: -0.4rem;
 }
 
 .make-payment {
@@ -199,7 +176,7 @@
 .web-view {
   display: block;
 }
-.demoLink {
+.demo-link {
   cursor: pointer;
   background-color: white;
   color: black;
@@ -212,7 +189,7 @@
   border: none;
 }
 
-.paraLink {
+.paragrapgh-link {
   display: block;
   margin-top: 4rem;
   margin-left: 0.7rem;
@@ -220,17 +197,66 @@
 
 }
 
-.btnStyle1{
+.btn-style{
   width : auto;
 }
 .display-mobile-balance h1{
   text-align: center;
 }
-
-@media only screen and (min-width: 325px) and (max-width: 767px) {
-  .MuiSvgIcon-root {
-    margin: 0.3rem;
+@media only screen and (max-width: 325px){
+  .header-image{
+    padding-left: 2rem;
   }
+  .how-to-use-label{
+    font-size: 1.3rem;
+  }
+  .tonomy-header {
+    font-size: 1.7rem;
+  }
+  .header-description {
+    line-height: 1.4;
+    font-size: 0.9rem;
+  }
+  .paragrapgh-link{
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  .mobile-demo-link {
+    margin-bottom: 2rem;
+  }
+  .mobile-success-section p{
+    font-size: 1.17rem;
+  }
+  .payment-btn{
+    padding: 0.5rem;
+    margin-top: 2rem;
+  }
+}
+@media only screen and (min-width: 325px) and (max-width: 767px) {
+  .header-image{
+    padding-left: 4rem;
+  }
+  .how-to-use-label{
+    font-size: 1.5rem;
+  }
+  .tonomy-header {
+    font-size: 2.5rem;
+  }
+  .header-description {
+    font-size: 1.3rem;
+  }
+  .paragrapgh-link{
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .mobile-demo-link {
+    margin-bottom: 4rem;
+  }
+  .mobile-success-section p{
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (max-width: 767px) {
   .mobile-view {
     display: block;
   }
@@ -245,7 +271,6 @@
     margin-top: 0.7rem;
     height: auto;
     position: unset;
-    padding-left: 4rem;
   
   }
   .header-container {
@@ -255,7 +280,6 @@
   
   .how-to-use-label{
     padding-top: 1rem;
-    font-size: 1.5rem;
     padding-left: 0rem;
     text-align: left;
 
@@ -267,22 +291,17 @@
     flex-direction: column;
   }
   .tonomy-header {
-    font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.1;
     margin-top: 0.8rem;
   }
   .header-description {
     margin-left: 0;
-    font-size: 1.3rem;
   }
-  .paraLink{
-    font-size: 1.5rem;
+  .paragrapgh-link{
     font-weight: 500;
     margin-left: 0rem;
-    margin-top: 1.5rem;
     display: block;
-
   }
   .mobile-demo-link {
     margin-top: 2.3rem;
@@ -296,13 +315,12 @@
     font-size: 1.06rem;
     border-radius: 10px;
     border: none;
-    margin-bottom: 4rem;
   }
   .mobile-display-none{
     display: none;
   }
   
-  .paralines {
+  .paragraph-detail {
     margin-top: 2rem;
   }
 
@@ -343,9 +361,8 @@
   }
   .mobile-success-section p{
     line-height: 1.4;
-    font-size: 1.5rem;
   }
-  .btnStyle1{
+  .btn-style{
     width : 88%;
   }
 }

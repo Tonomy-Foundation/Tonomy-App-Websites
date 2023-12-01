@@ -5,11 +5,11 @@
   overflow-wrap: break-word; 
 }
 
-.rightDocs {
+.highlight-page-docs {
   padding: 0rem 2rem;
 }
 
-  .rightDocs, .title {
+  .highlight-page-docs, .title {
     color: var(---bg);
   }
 
@@ -38,7 +38,7 @@
   }
 
   @media only screen and (max-width: 768px) {
-    .rightDocs {
+    .highlight-page-docs {
       padding: 1rem;
     }
     .highlighter {

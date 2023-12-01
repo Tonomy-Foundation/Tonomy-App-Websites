@@ -127,7 +127,7 @@ export default function BlockchainTx() {
           )}
         </div>
       ) : (
-        <div className="blockConatiner">
+        <div className="block-container">
           <SignTransactionIntro
             username={username}
             scrollToDemo={() => scrollToDemo("demoSection")}
