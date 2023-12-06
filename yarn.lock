@@ -8171,7 +8171,7 @@ __metadata:
     "@mui/material": ^5.14.16
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": 0.18.0
+    "@tonomy/tonomy-id-sdk": 0.18.0-development.3
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
