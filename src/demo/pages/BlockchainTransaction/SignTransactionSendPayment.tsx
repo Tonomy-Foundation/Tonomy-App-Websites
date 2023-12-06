@@ -13,12 +13,12 @@ import {
   AccountType,
   TonomyUsername,
   getAccountNameFromUsername,
-  EosioTokenContract,
+  DemoTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../../common/stores/errorStore";
 import settings from "../../../common/settings";
 
-const eosioTokenContract = EosioTokenContract.Instance;
+const demoTokenContract = DemoTokenContract.Instance;
 
 export type SignTransactionSendPaymentProps = {
   username: string;
@@ -47,13 +47,14 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
-        let accountBalance = await eosioTokenContract.getBalance(accountName);
+        let accountBalance = await demoTokenContract.getBalance(accountName);
 
+        console.log("accountBalance", accountBalance);
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
         if (accountBalance > 10) return;
 
-        await user?.signTransaction("eosio.token", "selfissue", {
+        await user?.signTransaction("demo.tmy", "selfissue", {
           to: accountName,
           quantity: "10 SYS",
           memo: "test",
@@ -63,6 +64,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         setAmount(Math.floor(accountBalance / 2));
       }
     } catch (e) {
+      console.log("error", e);
       errorStore.setError({ error: e, expected: false });
     }
   }
@@ -108,7 +110,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         props.setActiveStep(1);
         props.setProgressValue(40);
       }, 200);
-      const trx = await user?.signTransaction("eosio.token", "transfer", {
+      const trx = await user?.signTransaction("demo.tmy", "transfer", {
         from: await user.getAccountName(),
         to,
         quantity: amount + " SYS",
