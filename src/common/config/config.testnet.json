@@ -6,21 +6,21 @@
         "linkColor": "#0057B2"
     },
     "appLogoUrl": "/tonomy-logo48.png",
-    "appName": "Tonomy ID Testnet",
-    "ecosystemName": "Tonomy Testnet",
+    "appName": "Pangea Testnet",
+    "ecosystemName": "Pangea Testnet",
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/tonomy-logo48.png",
         "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
-        "readMoreDownload": "https://tonomy.io",
+        "readMoreDownload": "https://testnet.pangeavision.org",
         "readMoreFoundation": "https://tonomy.foundation",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
-    "accountSuffix": ".testnet.tonomy.id",
-    "tonomyIdSchema": "tonomy-id-testnet://",
+    "accountSuffix": ".testnet.pangea",
+    "tonomyIdSchema": "pangea-testnet://",
     "communicationUrl": "wss://communication.testnet.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.testnet.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-testnet.tonomy.foundation",

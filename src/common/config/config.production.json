@@ -14,13 +14,13 @@
         "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
-        "readMoreDownload": "https://tonomy.io",
+        "readMoreDownload": "https://pangeavision.org",
         "readMoreFoundation": "https://tonomy.foundation",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
-    "accountSuffix": ".testnet.tonomy.id",
-    "tonomyIdSchema": "tonomy-id-production://",
+    "accountSuffix": ".pangea",
+    "tonomyIdSchema": "pangea://",
     "communicationUrl": "wss://communication.tonomy.network",
     "ssoWebsiteOrigin": "https://accounts.tonomy.network",
     "blockchainUrl": "https://blockchain-api-production.tonomy.network",
