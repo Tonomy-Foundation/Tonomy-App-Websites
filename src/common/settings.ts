@@ -1,6 +1,7 @@
 import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
+import productionConfig from "./config/config.production.json";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.VITE_APP_NODE_ENV || "development";
@@ -66,7 +67,10 @@ switch (env) {
     config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
     break;
   case "production":
-    throw new Error("Production environment is not supported yet");
+    config = productionConfig as FixLoggerLevelEnumType<
+      typeof productionConfig
+    >;
+    break;
   default:
     throw new Error("Unknown environment: " + env);
 }

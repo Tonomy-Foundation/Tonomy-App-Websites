@@ -1,0 +1,28 @@
+{
+    "theme": {
+        "primaryColor": "#6200ee",
+        "secondaryColor": "#03dac4",
+        "tertiaryColor": "white",
+        "linkColor": "#0057B2"
+    },
+    "appLogoUrl": "/tonomy-logo48.png",
+    "appName": "Tonomy ID Production",
+    "ecosystemName": "Tonomy Production",
+    "appSlogan": "Building ecosystems of trust",
+    "images": {
+        "logo48": "/tonomy-logo48.png",
+        "logo1024": "/tonomy-logo1024.png"
+    },
+    "links": {
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
+        "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
+    },
+    "accountSuffix": ".testnet.tonomy.id",
+    "tonomyIdSchema": "tonomy-id-production://",
+    "communicationUrl": "wss://communication.tonomy.network",
+    "ssoWebsiteOrigin": "https://accounts.tonomy.network",
+    "blockchainUrl": "https://blockchain-api-production.tonomy.network",
+    "loggerLevel": "error"
+}
