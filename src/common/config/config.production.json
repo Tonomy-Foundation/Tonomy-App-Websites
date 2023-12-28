@@ -15,14 +15,14 @@
     },
     "links": {
         "readMoreDownload": "https://pangeavision.org",
-        "readMoreFoundation": "https://tonomy.foundation",
+        "readMoreFoundation": "https://pangeavision.org",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "accountSuffix": ".pangea",
-    "tonomyIdSchema": "pangea://",
-    "communicationUrl": "wss://communication.tonomy.network",
-    "ssoWebsiteOrigin": "https://accounts.tonomy.network",
-    "blockchainUrl": "https://blockchain-api-production.tonomy.network",
+    "pangeaIdSchema": "pangea://",
+    "communicationUrl": "wss://communication.pangeavision.org",
+    "ssoWebsiteOrigin": "https://accounts.pangeavision.org",
+    "blockchainUrl": "https://blockchain-api-production.pangeavision.org",
     "loggerLevel": "error"
 }

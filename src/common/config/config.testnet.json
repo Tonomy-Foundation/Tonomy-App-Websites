@@ -14,15 +14,15 @@
         "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
-        "readMoreDownload": "https://testnet.pangeavision.org",
-        "readMoreFoundation": "https://tonomy.foundation",
+        "readMoreDownload": "https://testnet-pangeavision.org",
+        "readMoreFoundation": "https://testnet-pangeavision.org",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "accountSuffix": ".testnet.pangea",
-    "tonomyIdSchema": "pangea-testnet://",
-    "communicationUrl": "wss://communication.testnet.tonomy.foundation",
-    "ssoWebsiteOrigin": "https://accounts.testnet.tonomy.foundation",
-    "blockchainUrl": "https://blockchain-api-testnet.tonomy.foundation",
+    "pangeaIdSchema": "pangea-testnet://",
+    "communicationUrl": "wss://communication.testnet.pangeavision.org",
+    "ssoWebsiteOrigin": "https://accounts.testnet.pangeavision.org",
+    "blockchainUrl": "https://blockchain-api-testnet.pangeavision.org",
     "loggerLevel": "error"
 }
