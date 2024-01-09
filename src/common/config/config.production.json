@@ -20,7 +20,7 @@
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "accountSuffix": ".pangea",
-    "pangeaIdSchema": "pangea://",
+    "tonomyIdSchema": "pangea://",
     "communicationUrl": "wss://communication.pangea.web4.world.org",
     "ssoWebsiteOrigin": "https://accounts.pangea.web4.world.org",
     "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
