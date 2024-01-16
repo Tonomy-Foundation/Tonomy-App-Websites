@@ -14,6 +14,7 @@ import {
   TonomyUsername,
   getAccountNameFromUsername,
   DemoTokenContract,
+  getSettings,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../../common/stores/errorStore";
 import settings from "../../../common/settings";
@@ -54,11 +55,19 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         setAmount(Math.floor(accountBalance / 2));
         if (accountBalance > 10) return;
 
-        await user?.signTransaction("demo.tmy", "selfissue", {
-          to: accountName,
-          quantity: "10 SYS",
-          memo: "test",
-        });
+        await user?.signTransaction(
+          TonomyUsername.fromUsername(
+            "demo",
+            AccountType.APP,
+            getSettings().accountSuffix
+          ),
+          "selfissue",
+          {
+            to: accountName,
+            quantity: "10 SYS",
+            memo: "test",
+          }
+        );
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
@@ -110,12 +119,20 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         props.setActiveStep(1);
         props.setProgressValue(40);
       }, 200);
-      const trx = await user?.signTransaction("demo.tmy", "transfer", {
-        from: await user.getAccountName(),
-        to,
-        quantity: amount + " SYS",
-        memo: "test",
-      });
+      const trx = await user?.signTransaction(
+        TonomyUsername.fromUsername(
+          "demo",
+          AccountType.APP,
+          getSettings().accountSuffix
+        ),
+        "transfer",
+        {
+          from: await user.getAccountName(),
+          to,
+          quantity: amount + " SYS",
+          memo: "test",
+        }
+      );
 
       const updateBalance = props.balance - amount;
 
