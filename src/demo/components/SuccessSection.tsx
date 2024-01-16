@@ -48,7 +48,7 @@ const SuccessSection = (props: SuccessSectionProps) => {
       <Box sx={{ display: "grid", mt: 5 }}>
         <img src={MobileScreen} alt="mobile-screen" className="mobile-screen" />
         <TransactionButton onClick={props.submit}>
-          TRY SIGNING A DOCUMENT AGAIN
+          TRY SIGNING AGAIN
         </TransactionButton>
         {props.url && (
           <TH4 className="set-blockchain">
