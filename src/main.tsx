@@ -43,7 +43,16 @@ try {
 
       accounts(root);
     });
-  } else {
+  } else if (
+    parseInt(window.location.port) === 3002 ||
+    subdomain === "developer-console"
+  ) {
+    import("./developerConsole/module-index.js").then((module) => {
+      const developerConsole = module.default;
+
+      developerConsole(root);
+    });
+  }  else {
     throw new Error("Domain not supported");
   }
 
