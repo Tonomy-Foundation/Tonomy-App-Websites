@@ -45,14 +45,14 @@ try {
     });
   } else if (
     parseInt(window.location.port) === 3002 ||
-    subdomain === "developer-console"
+    subdomain === "console.developer"
   ) {
     import("./developerConsole/module-index.js").then((module) => {
       const developerConsole = module.default;
 
       developerConsole(root);
     });
-  }  else {
+  } else {
     throw new Error("Domain not supported");
   }
 
