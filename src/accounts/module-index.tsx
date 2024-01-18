@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Container } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "../common/reportWebVitals";
 import router from "./routes/root";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
 
