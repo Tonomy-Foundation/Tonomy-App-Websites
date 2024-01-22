@@ -41,7 +41,7 @@ try {
     });
   } else if (
     parseInt(window.location.port) === 3002 ||
-    subdomain === "console.developers"
+    subdomain === "console"
   ) {
     import("./developersConsole/module-index.js").then((module) => {
       const developersConsole = module.default;
