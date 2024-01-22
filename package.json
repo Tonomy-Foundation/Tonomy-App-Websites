@@ -13,6 +13,7 @@
     "lint:fix": "yarn lint --fix",
     "start:prod:accounts": "serve -s dist -l 3000 -n",
     "start:prod:demo": "serve -s dist -l 3001 -n",
+    "start:prod:console": "serve -s dist -l 3002 -n",
     "updateSdkVersion": "./update_sdk_version.sh"
   },
   "dependencies": {
@@ -21,7 +22,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.151",
     "@mui/material": "^5.14.16",
-    "@tonomy/tonomy-id-sdk": "0.18.0-development.7",
+    "@tonomy/tonomy-id-sdk": "0.18.0-development.8",
     "@wharfkit/antelope": "^0.7.1",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
