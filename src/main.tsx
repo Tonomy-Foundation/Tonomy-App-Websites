@@ -23,6 +23,8 @@ const subdomain = window.location.host.split(".")[1]
   ? window.location.host.split(".")[0]
   : null;
 
+console.log("subdomain", subdomain);
+
 try {
   if (parseInt(window.location.port) === 3001 || subdomain === "demo") {
     import("./demo/module-index.js").then((module) => {
