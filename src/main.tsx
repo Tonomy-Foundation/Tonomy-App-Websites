@@ -6,11 +6,7 @@ import settings from "./common/settings";
 import { api } from "@tonomy/tonomy-id-sdk";
 
 api.setSettings({
-  ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-  tonomyIdSchema: settings.config.tonomyIdSchema,
-  loggerLevel: settings.config.loggerLevel,
+  ...settings.config,
 });
 
 /**
