@@ -67,7 +67,7 @@ export default function W3CVCs() {
           {activeSection === "intro" && (
             <W3VCIntro
               username={username}
-              scrollToDemo={() => scrollToDemo("demoSection")}
+              scrollToDemo={() => scrollToDemo("VCdemoSection")}
               signout={signout}
               setActiveSection={setActiveSection}
             />
@@ -115,7 +115,7 @@ export default function W3CVCs() {
         <div className="block-container">
           <W3VCIntro
             username={username}
-            scrollToDemo={() => scrollToDemo("demoSection")}
+            scrollToDemo={() => scrollToDemo("VCdemoSection")}
             signout={signout}
             setActiveSection={setActiveSection}
           />
