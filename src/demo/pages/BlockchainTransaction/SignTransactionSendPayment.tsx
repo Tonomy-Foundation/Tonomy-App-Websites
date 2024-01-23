@@ -36,7 +36,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   const [recipient, setRecipient] = useState<string>("cheesecakeophobia");
   const errorStore = useErrorStore();
   const [transactionState, setTransactionState] = useState<
-    "prepurchase" | "loading" | "purchased"
+    "prepurchase" | "loading" | "purchased" | "getAmount"
   >("prepurchase");
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState<string>(
@@ -48,12 +48,17 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
+        setTransactionState("loading");
         let accountBalance = await demoTokenContract.getBalance(accountName);
 
         console.log("accountBalance", accountBalance);
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
-        if (accountBalance > 10) return;
+
+        if (accountBalance > 10) {
+          setTransactionState("getAmount");
+          return;
+        }
 
         await user?.signTransaction(
           TonomyUsername.fromUsername(
@@ -71,6 +76,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
+        setTransactionState("getAmount");
       }
     } catch (e) {
       console.log("error", e);
