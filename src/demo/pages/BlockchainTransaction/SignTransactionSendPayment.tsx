@@ -36,10 +36,9 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   const [recipient, setRecipient] = useState<string>("cheesecakeophobia");
   const errorStore = useErrorStore();
   const [transactionState, setTransactionState] = useState<
-    "prepurchase" | "loading" | "purchased"
+    "prepurchase" | "loading" | "purchased" | "getAmount"
   >("prepurchase");
   const [amount, setAmount] = useState<number>(0);
-  const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState<string>(
     "Art print from MONA gallery"
   );
@@ -49,7 +48,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
-        setLoading(true);
+        setTransactionState("loading");
         let accountBalance = await demoTokenContract.getBalance(accountName);
 
         console.log("accountBalance", accountBalance);
@@ -57,7 +56,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         setAmount(Math.floor(accountBalance / 2));
 
         if (accountBalance > 10) {
-          setLoading(false);
+          setTransactionState("getAmount");
           return;
         }
 
@@ -77,7 +76,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
-        setLoading(false);
+        setTransactionState("getAmount");
       }
     } catch (e) {
       console.log("error", e);
@@ -251,7 +250,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
               <button
                 className="payment-btn btn-style"
                 onClick={() => onBuy()}
-                disabled={transactionState === "loading" || loading === true}
+                disabled={transactionState === "loading"}
               >
                 <HttpsOutlinedIcon /> Send Payment
               </button>
