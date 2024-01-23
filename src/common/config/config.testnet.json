@@ -6,8 +6,8 @@
         "linkColor": "#0057B2"
     },
     "appLogoUrl": "/tonomy-logo48.png",
-    "appName": "Pangea Testnet",
-    "ecosystemName": "Pangea Testnet",
+    "appName": "Pangea passport testnet",
+    "ecosystemName": "Pangea passport testnet",
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/tonomy-logo48.png",
@@ -16,7 +16,7 @@
     "links": {
         "readMoreDownload": "https://testnet-pangea.web4.world",
         "readMoreFoundation": "https://testnet-pangea.web4.world",
-        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.pangeatestnet",
         "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "accountSuffix": ".testnet.pangea",
