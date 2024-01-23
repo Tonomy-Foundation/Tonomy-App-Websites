@@ -39,6 +39,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
     "prepurchase" | "loading" | "purchased"
   >("prepurchase");
   const [amount, setAmount] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState<string>(
     "Art print from MONA gallery"
   );
@@ -48,12 +49,17 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
+        setLoading(true);
         let accountBalance = await demoTokenContract.getBalance(accountName);
 
         console.log("accountBalance", accountBalance);
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
-        if (accountBalance > 10) return;
+
+        if (accountBalance > 10) {
+          setLoading(false);
+          return;
+        }
 
         await user?.signTransaction(
           TonomyUsername.fromUsername(
@@ -71,6 +77,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
+        setLoading(false);
       }
     } catch (e) {
       console.log("error", e);
@@ -244,7 +251,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
               <button
                 className="payment-btn btn-style"
                 onClick={() => onBuy()}
-                disabled={transactionState === "loading"}
+                disabled={transactionState === "loading" || loading === true}
               >
                 <HttpsOutlinedIcon /> Send Payment
               </button>
