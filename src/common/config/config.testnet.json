@@ -24,5 +24,6 @@
     "communicationUrl": "wss://communication.testnet.pangea.web4.world",
     "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
     "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
+    "consoleWebsiteOrigin": "http://console.localhost:5174",
     "loggerLevel": "error"
 }

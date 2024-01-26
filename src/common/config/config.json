@@ -23,6 +23,7 @@
     "tonomyIdSchema": "tonomy-id-development://",
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",
+    "consoleWebsiteOrigin": "http://console.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "loggerLevel": "debug"
 }

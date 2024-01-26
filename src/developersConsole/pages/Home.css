@@ -47,17 +47,17 @@
 
 .bottom-text {
   position: fixed;
-  bottom: 0.3rem;
   left: 0;
+  bottom: 25rem;
   width: 100%;
   text-align: center;
   padding: 1.4rem 1rem;
 }
 
 .bottom-text p {
-  font-size: 0.9rem;
+  font-size: 1.3rem;
   line-height: 0px;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.8rem;
 }
 
 .console-login-button {
@@ -114,11 +114,25 @@
     text-align: center;
     line-height: 1;
   }
+  .bottom-text {
+    bottom: 0.3rem;
+  }
+  .bottom-text p {
+    font-size: 0.9rem;
+    margin-bottom: 1.4rem;
+  }
 }
 
 @media only screen and (max-width: 325px) {
   .demo-main{
     font-size: 1.1rem;
+  }
+  .bottom-text {
+    bottom: 0.3rem;
+  }
+  .bottom-text p {
+    font-size: 0.9rem;
+    margin-bottom: 1.4rem;
   }
 }
 
@@ -126,5 +140,12 @@
   .demo-main{
     font-size: 1.1rem;
     margin-top:1rem
+  }
+  .bottom-text {
+    bottom: 0.3rem;
+  }
+  .bottom-text p {
+    font-size: 0.9rem;
+    margin-bottom: 1.4rem;
   }
 }
