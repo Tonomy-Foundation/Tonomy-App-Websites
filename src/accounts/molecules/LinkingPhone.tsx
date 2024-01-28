@@ -1,7 +1,7 @@
 import connectionImage from "../assets/connecting.png";
-import { TP } from "../atoms/THeadings";
-import TImage from "../atoms/TImage";
-import TProgressCircle from "../atoms/TProgressCircle";
+import { TP } from "../../common/atoms/THeadings";
+import TImage from "../../common/atoms/TImage";
+import TProgressCircle from "../../common/atoms/TProgressCircle";
 
 export default function LinkingPhone() {
   return (
