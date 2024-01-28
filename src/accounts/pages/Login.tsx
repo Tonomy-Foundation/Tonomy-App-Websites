@@ -39,7 +39,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { TButton } from "../../common/atoms/TButton";
 import { TContainedButton } from "../../common/atoms/TContainedButton";
-import LinkingPhone from "..//molecules/LinkingPhone";
+import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";

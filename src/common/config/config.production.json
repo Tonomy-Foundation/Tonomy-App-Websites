@@ -23,7 +23,6 @@
     "tonomyIdSchema": "pangea://",
     "communicationUrl": "wss://communication.pangea.web4.world.org",
     "ssoWebsiteOrigin": "https://accounts.pangea.web4.world.org",
-    "consoleWebsiteOrigin": "http://console.localhost:5174",
     "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
     "loggerLevel": "error"
 }

@@ -34,7 +34,6 @@ export type ConfigType = {
   tonomyIdSchema: string;
   communicationUrl: string;
   ssoWebsiteOrigin: string;
-  consoleWebsiteOrigin: string;
   blockchainUrl: string;
   loggerLevel: "debug" | "error";
 };
