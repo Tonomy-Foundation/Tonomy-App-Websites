@@ -63,7 +63,7 @@
 .console-login-button {
   padding: 0.8rem 1.8rem;
   color: white;
-  background-color: #67D7ED;
+  background-color: var(--main-blue-gradient) ;
   border-radius: 1.1rem;
   border-color: transparent;
   font-size: 1.1rem;
