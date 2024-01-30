@@ -2698,9 +2698,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@portal:/home/sadia/tonomy/Tonomy/Tonomy-ID-Integration/Tonomy-ID-SDK::locator=tonomy-app-websites%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@tonomy/tonomy-id-sdk@portal:/home/sadia/tonomy/Tonomy/Tonomy-ID-Integration/Tonomy-ID-SDK::locator=tonomy-app-websites%40workspace%3A."
+"@tonomy/tonomy-id-sdk@npm:0.18.0-development.11":
+  version: 0.18.0-development.11
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.18.0-development.11"
   dependencies:
     "@consento/sync-randombytes": ^1.0.5
     "@tonomy/antelope-did": ^0.1.5
@@ -2715,8 +2715,9 @@ __metadata:
     elliptic: ^6.5.4
     socket.io-client: ^4.5.4
     universal-base64url: ^1.1.0
+  checksum: 9534ec7d40efaad41846be8bf5d493a5ea8bd7aed6fe3d30089e7418e9e3ac67082ce4bcdf24396a212b79ff8973739871c3a55a6f3e0af5161a463304e86e59
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@tootallnate/once@npm:2":
   version: 2.0.0
@@ -8171,7 +8172,7 @@ __metadata:
     "@mui/material": ^5.14.16
     "@rollup/plugin-alias": ^4.0.3
     "@rollup/plugin-node-resolve": ^15.0.1
-    "@tonomy/tonomy-id-sdk": 0.18.0-development.8
+    "@tonomy/tonomy-id-sdk": 0.18.0-development.11
     "@types/node": ^18.14.2
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
