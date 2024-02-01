@@ -5,6 +5,7 @@ import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
 import Callback from "../pages/Callback";
+import AppManager from "../pages/AppManager";
 
 export default function RootRoutes(): JSX.Element {
   return (
@@ -13,6 +14,7 @@ export default function RootRoutes(): JSX.Element {
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/callback" element={<Callback />} />
+          <Route path="/app-manager" element={<AppManager />} />
 
           {mainRoutes.map((route) => (
             <Route

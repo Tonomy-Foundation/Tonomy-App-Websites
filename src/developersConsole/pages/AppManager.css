@@ -1,0 +1,30 @@
+.heading {
+    margin-top: 4rem;
+    margin-left: 1rem;
+}
+
+.imageContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.bottomLeftButton {
+    position: fixed;
+    bottom: 4rem;
+    right: 2rem;
+    border-radius: 54px;
+    font-size: 3rem;
+    padding: 0.3rem 1.2rem 0.6rem 1.2rem;
+    border: 0px;
+    color: var(--grey-text);
+    background-color: var(--light-blue);
+    border: 2px solid var(--light-blue); /* Added border */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25); /* Added shadow */
+}
+
