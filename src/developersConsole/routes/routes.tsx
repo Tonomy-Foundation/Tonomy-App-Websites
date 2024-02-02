@@ -6,6 +6,8 @@ import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
 import Callback from "../pages/Callback";
 import AppManager from "../pages/AppManager";
+import TopMenuBar from "../layout/TopMenuBar";
+import MainLayout from "../layout/MainLayout";
 
 export default function RootRoutes(): JSX.Element {
   return (
@@ -14,7 +16,14 @@ export default function RootRoutes(): JSX.Element {
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/callback" element={<Callback />} />
-          <Route path="/app-manager" element={<AppManager />} />
+          <Route
+            path="/app-manager"
+            element={
+              <MainLayout>
+                <AppManager />
+              </MainLayout>
+            }
+          />
 
           {mainRoutes.map((route) => (
             <Route
@@ -22,7 +31,7 @@ export default function RootRoutes(): JSX.Element {
               path={route.path}
               element={
                 <PrivateRoute>
-                  <>{route?.element}</>
+                  <TopMenuBar>{route?.element}</TopMenuBar>
                 </PrivateRoute>
               }
             />
