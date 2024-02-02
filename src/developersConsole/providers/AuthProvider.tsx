@@ -26,7 +26,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signin = (user: ExternalUser) => {
     setUser(user);
-    navigation("/user-home");
+    navigation("/app-manager");
   };
 
   const value = { user, signout, signin };

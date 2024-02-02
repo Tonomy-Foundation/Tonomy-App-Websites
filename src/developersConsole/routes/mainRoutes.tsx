@@ -8,7 +8,7 @@ const mainRoutes: RouteObject[] = [
     element: <UserHome />,
   },
   {
-    path: "/app-manage",
+    path: "/app-manager",
     element: <AppManager />,
   },
 ];
