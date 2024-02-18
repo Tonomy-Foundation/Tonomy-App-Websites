@@ -9,10 +9,10 @@ import playStoreBadge from "../assets/google-play-badge.png";
 export default function DownloadApp() {
   return (
     <div className="container">
-      <TH3>Tonomy ID</TH3>
+      <TH3>Pangea</TH3>
       <TH4>The easiest and safest way to access Tonomy apps</TH4>
       <TP className="paragraph">
-        Tonomy ID is a self-sovereign identity digital wallet that protects your
+        Pangea is a self-sovereign identity digital wallet that protects your
         security and privacy. &nbsp;
         <TLink href={settings.config.links.readMoreDownload} target="_blank">
           Learn more

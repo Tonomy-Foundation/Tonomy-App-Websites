@@ -6,7 +6,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../providers/AuthProvider";
-import logo from "../assets/tonomy-logo48.png";
+import logo from "../assets/favicon.png";
 import "./MainLayout.css";
 
 interface MainLayoutProps {

@@ -1,5 +1,5 @@
 :root {
-    --primary: #67D7ED;
+    --primary: #007bff;
     --disabled: #D2F3FA;
     --secondary-default: #FF505F;
     --secondary: #E76773;
@@ -24,5 +24,5 @@
     --light-blue-gradient: #E0F7FC;
     --blue-gradient: #8BE1F1;
     --main-light-gradient: #C1EEF8;
-    --main-blue-gradient: #67D7ED;
+    --main-blue-gradient: #007bff;
 }

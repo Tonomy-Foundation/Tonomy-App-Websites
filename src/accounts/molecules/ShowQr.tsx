@@ -12,14 +12,14 @@ export default function QROrLoading({
     <>
       {!isMobile() && (
         <>
-          <TP>Scan the QR code with the Tonomy ID app</TP>
+          <TP>Scan the QR code with the Pangea app</TP>
           {!showQr && <TProgressCircle />}
           {showQr && <QRCode value={showQr}></QRCode>}
         </>
       )}
       {isMobile() && (
         <>
-          <TP>Redirecting to Tonomy ID</TP>
+          <TP>Redirecting to Pangea</TP>
           <TProgressCircle />
         </>
       )}
