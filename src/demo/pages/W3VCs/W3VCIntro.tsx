@@ -40,12 +40,12 @@ const W3VCIntro = (props: W3VCIntroProps) => (
         </HeaderTonomy>
       </div>
       <div className="mobile-view">
-        <TH1 className="how-to-use-label">How to use Tonomy ID:</TH1>
+        <TH1 className="how-to-use-label">How to use Pangea:</TH1>
         <p className="tonomy-header ">Sign all your documents</p>
       </div>
 
       <TH2 className="header-description">
-        Sign and verify sensitive information with Tonomy ID. The W3C Verifiable
+        Sign and verify sensitive information with Pangea. The W3C Verifiable
         Credential standard can help ensure trust and security when sharing
         sensitive and tamper-proof data.
       </TH2>

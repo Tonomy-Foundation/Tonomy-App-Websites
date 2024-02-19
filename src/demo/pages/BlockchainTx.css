@@ -13,7 +13,7 @@
   width: 901px;
   height: 800px;
   flex-shrink: 0;
-  fill: linear-gradient(1deg, #67d7ed 0%, #67d7ed 100%);
+  fill: linear-gradient(1deg, var(--primary-primary) 0%, var(--primary-primary) 100%);
   position: absolute;
   right: 0;
   background-size: cover;
@@ -26,7 +26,7 @@
   height: 100px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: linear-gradient(180deg, #e8f8fc 0%, #67d7ed 100%);
+  background: linear-gradient(180deg, #e8f8fc 0%, var(--primary-primary) 100%);
   display: block ruby;
   margin-top: 6rem;
   padding: 2.2rem 3rem;

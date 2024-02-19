@@ -30,7 +30,7 @@ const W3VCImagine = (props: W3VCImagineProps) => (
       <p className="imagine">Imagine,</p>
       <p className="paragraph-detail">
         {`you go to the doctor's office for a checkup. While waiting, your
-          Tonomy ID notifies you that Dr. Smith wants access to your medical
+          Pangea notifies you that Dr. Smith wants access to your medical
           files. With just one click, you can grant access to the files while
           waiting for the doctor to arrive.`}
       </p>

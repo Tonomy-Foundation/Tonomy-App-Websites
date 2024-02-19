@@ -13,7 +13,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
   <>
     <div className="web-view">
       <SuccessSection
-        message="you have successfully signed a document using Tonomy ID."
+        message="you have successfully signed a document using Pangea."
         labels={[
           "Education Diplomas",
           "Shipping and logistic events",
@@ -51,7 +51,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
 
       <div className="mobile-success-section">
         <p>Congratulations,</p>
-        <p>you have successfully signed a document using Tonomy ID </p>
+        <p>you have successfully signed a document using Pangea </p>
         {props?.setActiveSection && (
           <button
             className="mobile-demo-link mobile-view"

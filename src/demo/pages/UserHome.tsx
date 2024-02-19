@@ -47,14 +47,14 @@ const USerHome: React.FC = () => {
         </div>
       </div>
       <div>
-        <p className="page-heading">Test the possibilities of Tonomy ID</p>
+        <p className="page-heading">Test the possibilities of Pangea</p>
       </div>
       <div className="image-slider">
         <ImageSlider images={images} linkTexts={linkTexts} />
       </div>
       <p className="description">
-        Our demo site showcases the benefits of Tonomy ID for both users and
-        administrators. As a user, Tonomy ID enables you access to a variety of
+        Our demo site showcases the benefits of Pangea for both users and
+        administrators. As a user, Pangea enables you access to a variety of
         features. Some you can test on our demo website:
       </p>
       <CodeSnippetPreview

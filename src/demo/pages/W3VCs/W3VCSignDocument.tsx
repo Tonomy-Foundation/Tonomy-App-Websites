@@ -100,7 +100,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
             </ul>
 
             <div className="mobile-view display-mobile-w3vc">
-              <p>Sign and verify sensitive information with Tonomy ID </p>
+              <p>Sign and verify sensitive information with Pangea </p>
 
               <p className="blue-text">
                 The W3C Verifiable Credential standard help ensure trust and

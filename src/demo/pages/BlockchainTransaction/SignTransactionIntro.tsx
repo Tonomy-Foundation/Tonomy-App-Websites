@@ -41,12 +41,12 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
         </HeaderTonomy>
       </div>
       <div className="mobile-view">
-        <TH1 className="how-to-use-label">How to use Tonomy ID:</TH1>
+        <TH1 className="how-to-use-label">How to use Pangea:</TH1>
         <p className="tonomy-header ">Sign all your transactions</p>
       </div>
 
       <TH2 className="header-description">
-        Tonomy ID utilizes a digital signature and a distributed transaction
+        Pangea utilizes a digital signature and a distributed transaction
         protocol to safeguard your transactions and digital assets from
         unauthorized access or tampering.
       </TH2>

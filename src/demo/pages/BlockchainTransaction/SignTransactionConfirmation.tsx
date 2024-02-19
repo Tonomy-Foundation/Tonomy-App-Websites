@@ -17,7 +17,7 @@ const SignTransactionConfirmation = (
   <>
     <div className="web-view">
       <SuccessSection
-        message="you have successfully signed a blockchain transaction using Tonomy ID."
+        message="you have successfully signed a blockchain transaction using Pangea."
         labels={[
           "Insurance claims",
           "Shipping and logistic events",
@@ -56,7 +56,7 @@ const SignTransactionConfirmation = (
       <div className="mobile-success-section">
         <p>Congratulations,</p>
         <p>
-          you have successfully signed a blockchain transaction using Tonomy ID
+          you have successfully signed a blockchain transaction using Pangea
         </p>
         {props?.setActiveSection && (
           <button

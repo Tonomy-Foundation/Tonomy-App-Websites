@@ -79,7 +79,7 @@ export default function Home() {
                     alt="Tonomy-logo"
                     className="btnImage"
                   />
-                  <span>Login with Tonomy ID</span>
+                  <span>Login with Pangea</span>
                 </div>
               </button>
               <div className="bottom-text">
