@@ -69,7 +69,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           "selfissue",
           {
             to: accountName,
-            quantity: "10 SYS",
+            quantity: "10 LEOS",
             memo: "test",
           }
         );
@@ -135,7 +135,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         {
           from: await user.getAccountName(),
           to,
-          quantity: amount + " SYS",
+          quantity: amount + " LEOS",
           memo: "test",
         }
       );
