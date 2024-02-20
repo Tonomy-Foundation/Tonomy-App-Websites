@@ -146,7 +146,9 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       props.setActiveStep(2);
       props.setProgressValue(60);
       const url =
-        settings.config.blockExplorerURL + "transaction" + trx?.transaction_id;
+        settings.config.blockExplorerURL +
+        "/transaction/" +
+        trx?.transaction_id;
 
       await setTimeout(() => {
         props.setActiveStep(3);
