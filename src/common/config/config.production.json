@@ -24,5 +24,6 @@
     "communicationUrl": "wss://communication.pangea.web4.world.org",
     "ssoWebsiteOrigin": "https://accounts.pangea.web4.world.org",
     "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
-    "loggerLevel": "error"
+    "loggerLevel": "error",
+    "blockExplorerURL": "https://explorer.pangea.web4.world"
 }

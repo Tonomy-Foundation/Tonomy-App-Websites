@@ -24,5 +24,6 @@
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-    "loggerLevel": "debug"
+    "loggerLevel": "debug",
+    "blockExplorerURL": "#"
 }
