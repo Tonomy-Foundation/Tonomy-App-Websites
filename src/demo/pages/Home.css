@@ -21,6 +21,7 @@
   letter-spacing: 0em;
   text-align: center;
   margin-left: 0.4rem;
+  color: var(--dark-black);
 }
 .box-subheading {
   font-weight: initial;
@@ -33,6 +34,7 @@
   letter-spacing: 0em;
   text-align: left;
   text-transform: uppercase;
+  color: var(--pangea-green);
 }
 .demo-main{
   font-size: 7rem;
@@ -41,6 +43,7 @@
   letter-spacing: 0em;
   text-align: left;
   margin-top: 1rem;
+  color: var(--dark-black);
 }
 .intro{
   width: 65%;
@@ -96,7 +99,7 @@ h1 {
 }
 
 .intro-container{
-padding: 6rem 0.5rem 0rem 6.5rem;
+  padding: 6rem 0.5rem 0rem 6.5rem;
 }
 .mobile-img{
   position: relative;
@@ -153,7 +156,7 @@ padding: 6rem 0.5rem 0rem 6.5rem;
     width: 100%;
     padding: 0rem 0.3rem;
     font-size: 1rem;
-
+    color: var(--dark-black);
   }
   .tonomy-login-button {
     padding: 0.5rem 1rem;
@@ -167,7 +170,7 @@ padding: 6rem 0.5rem 0rem 6.5rem;
     align-items: center; 
     margin-top: 0rem;
     overflow-x: hidden;
-    background: linear-gradient(164deg, var(--light-blue-gradient) 51.39%, var(--blue-gradient) 86.19%);
+    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
   }
   .text-body {
     max-width: 100%;

@@ -163,7 +163,7 @@ export default function BlockchainTx() {
           )}
           <CodeSnippetPreview
             snippetCode={snippetCode}
-            documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"
+            documentationLink="https://docs.pangea.web4.world/start/usage/#sign-a-blockchain-transaction"
           />
         </div>
       )}

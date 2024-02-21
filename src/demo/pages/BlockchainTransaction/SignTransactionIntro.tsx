@@ -36,7 +36,7 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
         <HeaderTonomy>
-          Tonomy{" "}
+          Pangea{" "}
           <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
         </HeaderTonomy>
       </div>

@@ -165,7 +165,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
                   onClick={() => onSubmit()}
                   disabled={loading}
                 >
-                  Sign using your tonomy DID
+                  Sign using your pangea DID
                 </button>
               </div>
             </div>

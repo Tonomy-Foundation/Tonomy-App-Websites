@@ -82,8 +82,7 @@ export default function Home() {
                 />
 
                 <div className="box-heading display-none">
-                  <span>Pangea</span>
-                  <div className="box-subheading">demo</div>
+                  <span>Pangea demo</span>
                 </div>
               </div>
               <div className="intro-container">
@@ -108,7 +107,7 @@ export default function Home() {
               <div className="snippet display-none">
                 <CodeSnippetPreview
                   snippetCode={snippetCode}
-                  documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#2-login-page"
+                  documentationLink="https://docs.pangea.web4.world/start/single-sign-on/#2-login-page"
                 />
               </div>
             </header>

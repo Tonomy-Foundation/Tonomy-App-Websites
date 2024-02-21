@@ -105,7 +105,7 @@
     }
     .description{
         text-align: center;
-        color: var(--grey-dark-grey);
+        color: var(--dark-black);
     }
     .user-section{
         justify-content: flex-start;

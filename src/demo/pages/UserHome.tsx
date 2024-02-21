@@ -59,7 +59,7 @@ const USerHome: React.FC = () => {
       </p>
       <CodeSnippetPreview
         snippetCode={snippetCode}
-        documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#3-callback-page"
+        documentationLink="https://docs.pangea.web4.world/start/single-sign-on#id-3.-callback-page"
       />
     </div>
   );

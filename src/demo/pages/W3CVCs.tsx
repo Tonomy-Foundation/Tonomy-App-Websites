@@ -148,7 +148,7 @@ export default function W3CVCs() {
           )}
           <CodeSnippetPreview
             snippetCode={snippetCode}
-            documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+            documentationLink="https://docs.pangea.web4.world/start/usage/#sign-a-w3c-verifiable-credential"
           />
         </div>
       )}

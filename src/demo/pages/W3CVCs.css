@@ -21,7 +21,7 @@
 }
 
 .sign-dcoument {
-  color: var(--dark-grey);
+  color: var(--dark-black);
   font-size: 2rem;
   font-weight: 500;
   line-height: 14px;
@@ -31,7 +31,7 @@
 }
 
 .tonomy-head {
-  color: var(--dark-grey);
+  color: var(--dark-black);
   font-size: 13rem;
   font-style: normal;
   font-weight: 600;
@@ -80,7 +80,7 @@ ul.horizontal-list li {
   margin-right: 10rem;
   font-weight: 600;
   font-size: 1.2rem;
-  color: var(--dark-grey);
+  color: var(--dark-black);
 }
 
 ul.horizontal-list li:last-child {
@@ -98,7 +98,7 @@ ul.horizontal-list li:last-child {
   left: 11px;
   right: -11px;
   height: 3px;
-  background-color: var(--primary);
+  background-color: var(--dark-black);
 }
 
 .client-section {
@@ -138,7 +138,7 @@ ul.horizontal-list li:last-child {
 
 .btn-style {
   border: none;
-  background-color: var(--primary) ;
+  background-color: var(--dark-black) ;
   color: var(--white) ;
   padding: 0.3rem 3rem ;
   border-radius: 20px;
@@ -155,8 +155,8 @@ ul.horizontal-list li:last-child {
 }
 
 input:focus {
-  outline-color: var(--primary);
-  border: 2px solid var(--primary);
+  outline-color: var(--dark-black);
+  border: 2px solid var(--dark-black);
 }
 
 @media only screen and (max-width: 325px){

@@ -105,7 +105,7 @@ export default function Login() {
     // wait 1 second
     // if this code runs then the redirect didn't work
     setTimeout(() => {
-      throw new Error("Redirect to Tonomy ID failed");
+      throw new Error("Redirect to Pangea failed");
     }, 1000);
   }
 
@@ -125,7 +125,7 @@ export default function Login() {
 
       const tonomyIDDid = await user.getWalletDid();
 
-      if (!tonomyIDDid) throw new Error("No Tonomy ID DID found");
+      if (!tonomyIDDid) throw new Error("No Pangea DID found");
 
       const issuer = await user.getIssuer();
 
@@ -447,7 +447,7 @@ export default function Login() {
   return (
     <div style={styles.container}>
       <TImage height={62} src={logo} alt="Tonomy Logo" />
-      <TH3>Login with Tonomy</TH3>
+      <TH3>Login with Pangea</TH3>
       {(status === "connecting" || status === "app") && (
         <>{username && <TH4>{username}</TH4>}</>
       )}
@@ -479,7 +479,7 @@ export default function Login() {
                 <TH3>{app.appName}</TH3>
                 <TH4>wants you to log in to their application</TH4>
                 <TP style={{ margin: "10px" }}>
-                  Please proceed to login to Tonomy ID app on your phone.
+                  Please proceed to login to Pangea app on your phone.
                 </TP>
               </>
             )}
@@ -494,7 +494,7 @@ export default function Login() {
       </div>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
-          {`Don't have Tonomy ID yet?`}
+          {`Don't have Pangea yet?`}
         </TContainedButton>
       )}
       {(status === "connecting" || status === "app") && (

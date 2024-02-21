@@ -55,7 +55,7 @@
 }
 
 .center-image-text {
-  color: var(--dark-grey);
+  color: var(--dark-black);
   text-align: center;
   font-size: 1.1rem;
   font-style: normal;
@@ -68,7 +68,7 @@
 }
 
 .side-image-text {
-  color: var(--dark-grey);
+  color: var(--dark-black);
   text-align: center;
   font-size: 1.1rem;
   font-style: normal;
@@ -112,7 +112,7 @@
 }
 
 .description {
-  color: var(--dark-grey);
+  color: var(--dark-black);
   text-align: center;
   font-size: 1.6rem;
   font-style: normal;
@@ -122,7 +122,7 @@
 }
 
 .documentation p {
-  color: var(--dark-grey);
+  color: var(--dark-black);
   font-size: 1.1rem;
   font-style: normal;
   font-weight: 700;
