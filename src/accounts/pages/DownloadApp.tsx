@@ -20,7 +20,7 @@ export default function DownloadApp() {
       </TP>
 
       <TP className="margin-bottom paragraph">
-        It is open-source and maintained by the Pangea Foundation.{" "}
+        It is open-source and maintained by the Pangea.{" "}
         <TLink href={settings.config.links.readMoreFoundation} target="_blank">
           Learn more
         </TLink>
