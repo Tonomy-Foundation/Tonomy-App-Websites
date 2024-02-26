@@ -19,7 +19,7 @@ async function onButtonPress() {
   await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
 }
 
-<button className="tonomy-login-button" onClick={onButtonPress}>Login with Pangea</button>
+<button className="tonomy-login-button" onClick={onButtonPress}>Login with ${settings.config.ecosystemName}</button>
 `;
 
 export default function Home() {
@@ -82,7 +82,7 @@ export default function Home() {
                 />
 
                 <div className="box-heading display-none">
-                  <span>Pangea demo</span>
+                  <span>{settings.config.ecosystemName} demo</span>
                 </div>
               </div>
               <div className="intro-container">

@@ -3,6 +3,7 @@ import VCBanner from "../../assets/VC-banner.png";
 import { TH1, TH2 } from "../../../common/atoms/THeadings";
 import { HeaderTonomy } from "../../components/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
+import settings from "../../../common/settings";
 
 export type W3VCIntroProps = {
   username: string;
@@ -35,19 +36,22 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
         <HeaderTonomy>
-          Pangea{" "}
+          {settings.config.ecosystemName}{" "}
           <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
         </HeaderTonomy>
       </div>
       <div className="mobile-view">
-        <TH1 className="how-to-use-label">How to use Pangea:</TH1>
+        <TH1 className="how-to-use-label">
+          How to use {settings.config.ecosystemName}:
+        </TH1>
         <p className="tonomy-header ">Sign all your documents</p>
       </div>
 
       <TH2 className="header-description">
-        Sign and verify sensitive information with Pangea. The W3C Verifiable
-        Credential standard can help ensure trust and security when sharing
-        sensitive and tamper-proof data.
+        Sign and verify sensitive information with{" "}
+        {settings.config.ecosystemName}. The W3C Verifiable Credential standard
+        can help ensure trust and security when sharing sensitive and
+        tamper-proof data.
       </TH2>
       <a
         href="https://www.youtube.com/watch?v=vuSPy1xMNVg"

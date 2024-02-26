@@ -5,13 +5,13 @@
         "tertiaryColor": "white",
         "linkColor": "#0057B2"
     },
-    "appLogoUrl": "/favicon.png",
+    "appLogoUrl": "/tonomy-logo48.png",
     "appName": "Tonomy ID Staging",
     "ecosystemName": "Tonomy Staging",
     "appSlogan": "Building ecosystems of trust",
     "images": {
-        "logo48": "/favicon.png",
-        "logo1024": "/pangea-large-logo.png"
+        "logo48": "/tonomy-logo48.png",
+        "logo1024": "/tonomy-logo1024.png"
     },
     "links": {
         "readMoreDownload": "https://tonomy.io",

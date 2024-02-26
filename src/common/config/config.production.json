@@ -1,9 +1,9 @@
 {
     "theme": {
-        "primaryColor": "#6200ee",
+        "primaryColor": "#000000",
         "secondaryColor": "#03dac4",
         "tertiaryColor": "white",
-        "linkColor": "#0057B2"
+        "linkColor": "#4CAF50"
     },
     "appLogoUrl": "/favicon.png",
     "appName": "Pangea",

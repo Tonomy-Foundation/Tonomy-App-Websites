@@ -8,6 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../providers/AuthProvider";
 import logo from "../assets/favicon.png";
 import "./MainLayout.css";
+import settings from "../../common/settings";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -35,7 +36,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         >
           <Menu>
             <MenuItem icon={<img src={logo} alt="" />} className="heading">
-              <h4 className="menu-heading">Pangea</h4>{" "}
+              <h4 className="menu-heading">{settings.config.ecosystemName}</h4>{" "}
             </MenuItem>
 
             <MenuItem

@@ -5,6 +5,7 @@ import TextboxLayout from "../../components/TextboxLayout";
 import { randomString } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../providers/AuthProvider";
 import useErrorStore from "../../../common/stores/errorStore";
+import settings from "../../../common/settings";
 
 export type W3VCSignDocumentProps = {
   username: string;
@@ -100,7 +101,10 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
             </ul>
 
             <div className="mobile-view display-mobile-w3vc">
-              <p>Sign and verify sensitive information with Pangea </p>
+              <p>
+                Sign and verify sensitive information with{" "}
+                {settings.config.ecosystemName}{" "}
+              </p>
 
               <p className="blue-text">
                 The W3C Verifiable Credential standard help ensure trust and
@@ -165,7 +169,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
                   onClick={() => onSubmit()}
                   disabled={loading}
                 >
-                  Sign using your pangea DID
+                  Sign using your {settings.config.ecosystemName} DID
                 </button>
               </div>
             </div>

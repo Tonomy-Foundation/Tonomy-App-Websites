@@ -79,7 +79,7 @@ export default function Home() {
                     alt="Tonomy-logo"
                     className="btnImage"
                   />
-                  <span>Login with Pangea</span>
+                  <span>Login with {settings.config.ecosystemName}</span>
                 </div>
               </button>
               <div className="bottom-text">

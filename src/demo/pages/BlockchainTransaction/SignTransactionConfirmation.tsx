@@ -1,6 +1,7 @@
 import SuccessSection from "../../components/SuccessSection";
 import { TH1, TH2 } from "../../../common/atoms/THeadings";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import settings from "../../../common/settings";
 
 export type SignTransactionConfirmationProps = {
   trxUrl: string | undefined;
@@ -17,7 +18,7 @@ const SignTransactionConfirmation = (
   <>
     <div className="web-view">
       <SuccessSection
-        message="you have successfully signed a blockchain transaction using Pangea."
+        message={`you have successfully signed a blockchain transaction using ${settings.config.ecosystemName}.`}
         labels={[
           "Insurance claims",
           "Shipping and logistic events",
@@ -56,7 +57,8 @@ const SignTransactionConfirmation = (
       <div className="mobile-success-section">
         <p>Congratulations,</p>
         <p>
-          you have successfully signed a blockchain transaction using Pangea
+          you have successfully signed a blockchain transaction using{" "}
+          {settings.config.ecosystemName}
         </p>
         {props?.setActiveSection && (
           <button

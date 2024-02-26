@@ -45,7 +45,10 @@ const W3VCProgress = (props: W3VCProgressProps) => (
       className="mobile-view display-mobile-w3vc"
       style={{ marginTop: "1rem" }}
     >
-      <p>Sign and verify sensitive information with Pangea </p>
+      <p>
+        Sign and verify sensitive information with{" "}
+        {settings.config.ecosystemName}{" "}
+      </p>
 
       <p className="blue-text">
         The W3C Verifiable Credential standard help ensure trust and security

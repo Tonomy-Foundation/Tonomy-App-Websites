@@ -3,6 +3,7 @@ import SignBanner from "../../assets/sign-transaction.png";
 import { TH1, TH2 } from "../../../common/atoms/THeadings";
 import { HeaderTonomy } from "../../components/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
+import settings from "../../../common/settings";
 
 export type SignTransactionIntroProps = {
   username: string;
@@ -36,19 +37,21 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
         <HeaderTonomy>
-          Pangea{" "}
+          {settings.config.ecosystemName}
           <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
         </HeaderTonomy>
       </div>
       <div className="mobile-view">
-        <TH1 className="how-to-use-label">How to use Pangea:</TH1>
+        <TH1 className="how-to-use-label">
+          How to use {settings.config.ecosystemName}:
+        </TH1>
         <p className="tonomy-header ">Sign all your transactions</p>
       </div>
 
       <TH2 className="header-description">
-        Pangea utilizes a digital signature and a distributed transaction
-        protocol to safeguard your transactions and digital assets from
-        unauthorized access or tampering.
+        {settings.config.ecosystemName} utilizes a digital signature and a
+        distributed transaction protocol to safeguard your transactions and
+        digital assets from unauthorized access or tampering.
       </TH2>
       <a
         href="https://docs.eosnetwork.com/"

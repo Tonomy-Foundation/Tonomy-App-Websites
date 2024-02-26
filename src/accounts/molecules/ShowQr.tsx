@@ -2,6 +2,7 @@ import QRCode from "react-qr-code";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import { TP } from "../../common/atoms/THeadings";
 import { isMobile } from "../utils/IsMobile";
+import settings from "../../common/settings";
 
 export default function QROrLoading({
   showQr,
@@ -12,14 +13,14 @@ export default function QROrLoading({
     <>
       {!isMobile() && (
         <>
-          <TP>Scan the QR code with the Pangea app</TP>
+          <TP>Scan the QR code with the {settings.config.ecosystemName} app</TP>
           {!showQr && <TProgressCircle />}
           {showQr && <QRCode value={showQr}></QRCode>}
         </>
       )}
       {isMobile() && (
         <>
-          <TP>Redirecting to Pangea</TP>
+          <TP>Redirecting to {settings.config.ecosystemName}</TP>
           <TProgressCircle />
         </>
       )}

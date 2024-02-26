@@ -1,6 +1,7 @@
 import SuccessSection from "../../components/SuccessSection";
 import { TH2 } from "../../../common/atoms/THeadings";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import settings from "../../../common/settings";
 
 export type W3VCConfirmationProps = {
   setSuccess: (success: boolean) => void;
@@ -13,7 +14,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
   <>
     <div className="web-view">
       <SuccessSection
-        message="you have successfully signed a document using Pangea."
+        message={`you have successfully signed a document using ${settings.config.ecosystemName}.`}
         labels={[
           "Education Diplomas",
           "Shipping and logistic events",
@@ -51,7 +52,10 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
 
       <div className="mobile-success-section">
         <p>Congratulations,</p>
-        <p>you have successfully signed a document using Pangea </p>
+        <p>
+          you have successfully signed a document using{" "}
+          {settings.config.ecosystemName}{" "}
+        </p>
         {props?.setActiveSection && (
           <button
             className="mobile-demo-link mobile-view"

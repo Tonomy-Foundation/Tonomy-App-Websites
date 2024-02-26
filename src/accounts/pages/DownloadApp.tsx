@@ -9,18 +9,21 @@ import playStoreBadge from "../assets/google-play-badge.png";
 export default function DownloadApp() {
   return (
     <div className="container">
-      <TH3>Pangea</TH3>
-      <TH4>The easiest and safest way to access Pangea apps</TH4>
+      <TH3>{settings.config.ecosystemName}</TH3>
+      <TH4>
+        The easiest and safest way to access {settings.config.ecosystemName}{" "}
+        apps
+      </TH4>
       <TP className="paragraph">
-        Pangea is a self-sovereign identity digital wallet that protects your
-        security and privacy. &nbsp;
+        {settings.config.ecosystemName} is a self-sovereign identity digital
+        wallet that protects your security and privacy. &nbsp;
         <TLink href={settings.config.links.readMoreDownload} target="_blank">
           Learn more
         </TLink>
       </TP>
 
       <TP className="margin-bottom paragraph">
-        It is open-source and maintained by the Pangea.{" "}
+        It is open-source and maintained by the {settings.config.ecosystemName}.{" "}
         <TLink href={settings.config.links.readMoreFoundation} target="_blank">
           Learn more
         </TLink>
@@ -37,7 +40,8 @@ export default function DownloadApp() {
         </a>
       </div>
       <TP>
-        Already have Pangea? <TLink href="/login">Log in here</TLink>
+        Already have {settings.config.ecosystemName}?{" "}
+        <TLink href="/login">Log in here</TLink>
       </TP>
     </div>
   );

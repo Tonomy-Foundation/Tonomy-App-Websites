@@ -1,5 +1,6 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { TH2 } from "../../../common/atoms/THeadings";
+import settings from "../../../common/settings";
 
 export type W3VCImagineProps = {
   setActiveSection?: (section: string) => void;
@@ -30,7 +31,7 @@ const W3VCImagine = (props: W3VCImagineProps) => (
       <p className="imagine">Imagine,</p>
       <p className="paragraph-detail">
         {`you go to the doctor's office for a checkup. While waiting, your
-          Pangea notifies you that Dr. Smith wants access to your medical
+          ${settings.config.ecosystemName} notifies you that Dr. Smith wants access to your medical
           files. With just one click, you can grant access to the files while
           waiting for the doctor to arrive.`}
       </p>
