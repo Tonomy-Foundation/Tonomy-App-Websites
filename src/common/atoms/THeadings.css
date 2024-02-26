@@ -1,5 +1,5 @@
 :root {
-    --text-color: #000000
+    --text-color: var(--text-color)
 }
 
 h1,

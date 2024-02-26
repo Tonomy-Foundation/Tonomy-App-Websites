@@ -15,6 +15,7 @@ export type ConfigType = {
     secondaryColor: string;
     tertiaryColor: string;
     linkColor: string;
+    textColor: string;
   };
   appLogoUrl: string;
   appName: string;
@@ -23,6 +24,7 @@ export type ConfigType = {
   images: {
     logo48: string;
     logo1024: string;
+    mobileLogo: string;
   };
   links: {
     readMoreDownload: string;

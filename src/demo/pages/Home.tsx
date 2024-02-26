@@ -74,9 +74,13 @@ export default function Home() {
           <div className="intro">
             <header>
               <div className="box">
-                <img src={logo} className="display-none" alt="Tonomy-logo" />
                 <img
-                  src={mobileLogo}
+                  src={settings.config.images.logo48}
+                  className="display-none"
+                  alt="Tonomy-logo"
+                />
+                <img
+                  src={settings.config.images.mobileLogo}
                   className="mobile-logo"
                   alt="Tonomy-logo"
                 />

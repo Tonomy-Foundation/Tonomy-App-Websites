@@ -447,7 +447,11 @@ export default function Login() {
 
   return (
     <div style={styles.container}>
-      <TImage height={62} src={logo} alt="Tonomy Logo" />
+      <TImage
+        height={58}
+        src={settings.config.images.logo48}
+        alt="Tonomy Logo"
+      />
       <TH3>Login with {settings.config.ecosystemName}</TH3>
       {(status === "connecting" || status === "app") && (
         <>{username && <TH4>{username}</TH4>}</>
