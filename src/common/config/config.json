@@ -3,7 +3,8 @@
         "primaryColor": "#000000",
         "secondaryColor": "#03dac4",
         "tertiaryColor": "white",
-        "linkColor": "#4CAF50"
+        "linkColor": "#4CAF50",
+        "textColor": "#474D4C"
     },
     "appLogoUrl": "/favicon.png",
     "appName": "Pangea Development",

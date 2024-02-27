@@ -3,7 +3,6 @@ import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
-import logo from "../assets/favicon.png";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
@@ -11,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
-import mobileLogo from "../assets/tonomy-mobile-logo.png";
 
 const snippetCode = `
 // LoginPage.jsx

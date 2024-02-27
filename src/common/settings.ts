@@ -2,6 +2,7 @@ import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
 import productionConfig from "./config/config.production.json";
+import "../theme.css";
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
 const env = import.meta.env.VITE_APP_NODE_ENV || "development";
@@ -61,6 +62,7 @@ switch (env) {
   case "local":
   case "development":
     config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
+
     break;
   case "staging":
     config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
