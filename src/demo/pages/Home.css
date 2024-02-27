@@ -122,6 +122,8 @@ h1 {
 
 .tonomy-login-button {
   padding: .5rem 2.5rem;
+  background-color: var(--primary) !important;
+
 }
 
 @media only screen and (max-width: 768px) {

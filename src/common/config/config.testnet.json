@@ -5,6 +5,7 @@
         "tertiaryColor": "white",
         "linkColor": "#4CAF50"
     },
+    "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
     "appName": "Pangea testnet",
     "ecosystemName": "Pangea testnet",

@@ -13,7 +13,7 @@
   width: 901px;
   height: 800px;
   flex-shrink: 0;
-  fill: linear-gradient(1deg, var(--primary-primary) 0%, var(--primary-primary) 100%);
+  fill: linear-gradient(1deg, var(var(--primaryColor)-primary) 0%, var(var(--primaryColor)-primary) 100%);
   position: absolute;
   right: 0;
   background-size: cover;
