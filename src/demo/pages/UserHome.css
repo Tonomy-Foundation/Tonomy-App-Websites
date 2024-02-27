@@ -105,7 +105,7 @@
     }
     .description{
         text-align: center;
-        color: var(--dark-black);
+        color: var(--accent);
     }
     .user-section{
         justify-content: flex-start;

@@ -9,7 +9,7 @@
   }
   
   .transparent-textbox {
-    background-color: var(--light-green);
+    background-color: var(--transparent);
     border: 0px;
     padding: 2.2rem 1.4rem;
     width: 100%;
@@ -19,7 +19,7 @@
   .transparent-textbox:focus {
     background-color: transparent;
     outline: none;
-    border: 2px solid var(--success-alert) !important;
+    border: 2px solid var(--link-color) !important;
   }
   
   

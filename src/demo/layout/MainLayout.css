@@ -13,7 +13,7 @@
 }
 
 .ps-active {
-  color: var(--success-alert);
+  color: var(--link-color);
 }
 
 .ps-sidebar-root{
@@ -47,13 +47,13 @@
 
 .ps-sidebar-container , h3{
   background: var(--offWhite);
-  color: var(--dark-black);
+  color: var(--accent);
 }
 
 a {
   color: var(--grey4);
   &:hover{
-    color: var(--success-alert);
+    color: var(--link-color);
   }
 }
 
@@ -64,11 +64,11 @@ a {
 
 .ps-menuitem-root .ps-menu-button:hover {
   background: none !important;
-  color: var(--dark-black);
+  color: var(--accent);
 }
 
 a {
-  color: var(--success-alert);
+  color: var(--link-color);
 }
 
 .bottom-nav {
@@ -114,7 +114,7 @@ a {
 }
 
 .active-item a{
-  color: var(--success-alert);
+  color: var(--link-color);
 
 }
 .menu-icon{

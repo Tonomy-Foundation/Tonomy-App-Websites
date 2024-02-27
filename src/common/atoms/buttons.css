@@ -1,10 +1,10 @@
 .button-link{
   text-decoration: underline;
-  color: var(--success-alert);
+  color: var(--link-color);
 }
 .contained-button{
   color: var(--white);
-  background-color: var(--dark-black);
+  background-color: var(--primary);
   border-radius: 1.5rem;
   padding: .5rem 2.5rem;
   border-color: transparent;
@@ -17,7 +17,7 @@
 
 .contained-button:hover{
   background-color: var(--white);
-  color: var(--dark-black);
+  color: var(--primary);
 }
 
 

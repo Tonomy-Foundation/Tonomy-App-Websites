@@ -20,7 +20,7 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border: 2px solid var(--success-alert);
+    border: 2px solid var(--link-color);
   }
   
 .inner-dot {
@@ -31,12 +31,12 @@
 }
 
 .inner-dot.active {
-  background-color: var(--success-alert);
+  background-color: var(--link-color);
 }
   
 .continue-btn{
     border-radius: 8px;
-    background: var(--dark-black) !important;
+    background: var(--accent) !important;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.10), 1px 1px 4px 0px rgba(0, 0, 0, 0.10), 3px 6px 7px 0px rgba(0, 0, 0, 0.09), 6px 13px 9px 0px rgba(0, 0, 0, 0.05), 12px 23px 10px 0px rgba(0, 0, 0, 0.01), 18px 37px 11px 0px rgba(0, 0, 0, 0.00);
     color: white !important;
     margin-left: 26rem !important;

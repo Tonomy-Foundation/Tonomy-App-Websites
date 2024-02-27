@@ -21,7 +21,7 @@
   letter-spacing: 0em;
   text-align: center;
   margin-left: 0.4rem;
-  color: var(--dark-black);
+  color: var(--accent);
 }
 .box-subheading {
   font-weight: initial;
@@ -34,7 +34,6 @@
   letter-spacing: 0em;
   text-align: left;
   text-transform: uppercase;
-  color: var(--pangea-green);
 }
 .demo-main{
   font-size: 7rem;
@@ -43,7 +42,7 @@
   letter-spacing: 0em;
   text-align: left;
   margin-top: 1rem;
-  color: var(--dark-black);
+  color: var(--accent);
 }
 .intro{
   width: 65%;
@@ -158,7 +157,7 @@ h1 {
     width: 100%;
     padding: 0rem 0.3rem;
     font-size: 1rem;
-    color: var(--dark-black);
+    color: var(--accent);
   }
   .tonomy-login-button {
     padding: 0.5rem 1rem;

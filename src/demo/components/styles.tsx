@@ -61,7 +61,7 @@ export const TransactionButton = styled.button`
   max-width: 100%;
   height: 65px;
   border-radius: 10px;
-  background-color: var(--dark-black);
+  background-color: var(--accent);
   color: white;
   font-size: 1.1rem;
   font-weight: 700;

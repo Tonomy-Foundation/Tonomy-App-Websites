@@ -13,7 +13,7 @@
   width: 901px;
   height: 800px;
   flex-shrink: 0;
-  fill: linear-gradient(1deg, var(var(--primaryColor)-primary) 0%, var(var(--primaryColor)-primary) 100%);
+  fill: linear-gradient(1deg, var(--primary) 0%, var(--primary) 100%);
   position: absolute;
   right: 0;
   background-size: cover;
@@ -26,7 +26,7 @@
   height: 100px;
   flex-shrink: 0;
   border-radius: 10px;
-  background:  var(--dark-black);
+  background:  var(--accent);
   display: block ruby;
   margin-top: 6rem;
   color: var(--white);
@@ -95,7 +95,7 @@
 }
 
 .how-to-use-label {
-  color: var(--dark-black);
+  color: var(--accent);
   font-size: 4rem;
   line-height: 30px;
   padding-top: 15rem;
@@ -132,7 +132,7 @@
 }
 
 .form-header-container-text {
-  color: var(--dark-black);
+  color: var(--accent);
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;
@@ -169,7 +169,7 @@
   left: 28px;
   right: -11px;
   height: 5px;
-  background-color: var(--dark-black);
+  background-color: var(--accent);
 }
 
 .mobile-view {
@@ -180,7 +180,7 @@
 }
 .demo-link {
   cursor: pointer;
-  background-color: var(--dark-black);
+  background-color: var(--accent);
   color: var(--white);
   padding: 0.7rem 3.8rem;
   display: inline-block;

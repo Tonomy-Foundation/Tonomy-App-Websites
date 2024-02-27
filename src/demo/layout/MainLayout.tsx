@@ -6,7 +6,6 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../providers/AuthProvider";
-import logo from "../assets/favicon.png";
 import "./MainLayout.css";
 import settings from "../../common/settings";
 
@@ -35,7 +34,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           onMouseLeave={handleMouseLeave}
         >
           <Menu>
-            <MenuItem icon={<img src={logo} alt="" />} className="heading">
+            <MenuItem
+              icon={<img src={settings.config.images.logo48} alt="" />}
+              className="heading"
+            >
               <h4 className="menu-heading">{settings.config.ecosystemName}</h4>{" "}
             </MenuItem>
 
