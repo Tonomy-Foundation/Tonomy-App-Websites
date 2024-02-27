@@ -1,15 +1,8 @@
 {
-    "theme": {
-        "primaryColor": "#6200ee",
-        "secondaryColor": "#03dac4",
-        "tertiaryColor": "white",
-        "linkColor": "#0057B2",
-        "textColor": "#474D4C"
-    },
     "themeFile": "theme.tonomy.css",
     "appLogoUrl": "/tonomy-logo48.png",
     "appName": "Tonomy ID Staging",
-    "ecosystemName": "Tonomy Staging",
+    "ecosystemName": "Tonomy ID",
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/tonomy-logo48.png",
@@ -27,5 +20,6 @@
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-    "loggerLevel": "debug"
+    "loggerLevel": "debug",
+    "documentationLink": "https://docs.tonomy.foundation"
 }

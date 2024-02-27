@@ -36,10 +36,7 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <img src={SignBanner} alt="banner-image" className="header-image" />
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>
-          {settings.config.ecosystemName}
-          <span style={{ fontWeight: 300, display: "contents" }}>ID</span>
-        </HeaderTonomy>
+        <HeaderTonomy>{settings.config.ecosystemName}</HeaderTonomy>
       </div>
       <div className="mobile-view">
         <TH1 className="how-to-use-label">

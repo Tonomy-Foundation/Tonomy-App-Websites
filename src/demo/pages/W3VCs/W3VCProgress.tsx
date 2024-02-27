@@ -1,6 +1,7 @@
 import VerticalLinearStepper from "../../components/VerticalProgressStep";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { TH2 } from "../../../common/atoms/THeadings";
+import settings from "../../../common/settings";
 
 const steps = [
   {

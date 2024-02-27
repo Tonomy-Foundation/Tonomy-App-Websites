@@ -63,7 +63,7 @@ const USerHome: React.FC = () => {
       </p>
       <CodeSnippetPreview
         snippetCode={snippetCode}
-        documentationLink="https://docs.pangea.web4.world/start/single-sign-on#id-3.-callback-page"
+        documentationLink={`${settings.config.documentationLink}/start/single-sign-on#id-3.-callback-page`}
       />
     </div>
   );

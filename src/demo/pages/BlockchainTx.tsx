@@ -8,6 +8,7 @@ import SignTransactionProgress from "./BlockchainTransaction/SignTransactionProg
 import SignTransactionIntro from "./BlockchainTransaction/SignTransactionIntro";
 import SignTransactionImagine from "./BlockchainTransaction/SignTransactionImagine";
 import SignTransactionConfirmation from "./BlockchainTransaction/SignTransactionConfirmation";
+import settings from "../../common/settings";
 
 const snippetCode = `
 // SignBlockchain.jsx
@@ -163,7 +164,7 @@ export default function BlockchainTx() {
           )}
           <CodeSnippetPreview
             snippetCode={snippetCode}
-            documentationLink="https://docs.pangea.web4.world/start/usage/#sign-a-blockchain-transaction"
+            documentationLink={`${settings.config.documentationLink}/start/usage/#sign-a-blockchain-transaction`}
           />
         </div>
       )}

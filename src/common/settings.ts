@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom/client";
 import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
@@ -10,13 +11,6 @@ console.log(import.meta.env);
 console.log(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
-  theme: {
-    primaryColor: string;
-    secondaryColor: string;
-    tertiaryColor: string;
-    linkColor: string;
-    textColor: string;
-  };
   appLogoUrl: string;
   appName: string;
   ecosystemName: string;
@@ -39,6 +33,7 @@ export type ConfigType = {
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
   loggerLevel: "debug" | "error";
+  documentationLink: string;
 };
 
 type SettingsType = {
@@ -47,7 +42,6 @@ type SettingsType = {
   isProduction: () => boolean;
 };
 let config: ConfigType;
-let theme: any;
 const settings: SettingsType = {
   env,
   isProduction: () =>
@@ -73,11 +67,15 @@ switch (env) {
     break;
   case "testnet":
     config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
+    import(`./theme/${config.themeFile}`);
+
     break;
   case "production":
     config = productionConfig as FixLoggerLevelEnumType<
       typeof productionConfig
     >;
+    import(`./theme/${config.themeFile}`);
+
     break;
   default:
     throw new Error("Unknown environment: " + env);
@@ -114,5 +112,14 @@ if (import.meta.env.VITE_LOG === "true") {
 }
 
 settings.config = config;
+document.title = settings.config.appName;
+const faviconLink = document.createElement("link");
+
+faviconLink.type = "image/svg+xml";
+faviconLink.rel = "icon";
+faviconLink.href = settings.config.images.logo48;
+document.head.appendChild(faviconLink);
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 export default settings;

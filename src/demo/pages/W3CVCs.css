@@ -138,7 +138,7 @@ ul.horizontal-list li:last-child {
 
 .btn-style {
   border: none;
-  background-color: var(--accent) ;
+  background-color: var(--primary) ;
   color: var(--white) ;
   padding: 0.3rem 3rem ;
   border-radius: 20px;

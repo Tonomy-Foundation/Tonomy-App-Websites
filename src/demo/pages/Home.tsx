@@ -109,7 +109,7 @@ export default function Home() {
               <div className="snippet display-none">
                 <CodeSnippetPreview
                   snippetCode={snippetCode}
-                  documentationLink="https://docs.pangea.web4.world/start/single-sign-on/#2-login-page"
+                  documentationLink={`${settings.config.documentationLink}/start/single-sign-on/#2-login-page`}
                 />
               </div>
             </header>

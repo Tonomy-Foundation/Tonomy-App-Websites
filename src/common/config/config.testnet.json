@@ -1,10 +1,4 @@
 {
-    "theme": {
-        "primaryColor": "#000000",
-        "secondaryColor": "#03dac4",
-        "tertiaryColor": "white",
-        "linkColor": "#4CAF50"
-    },
     "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
     "appName": "Pangea testnet",
@@ -25,5 +19,6 @@
     "communicationUrl": "wss://communication.testnet.pangea.web4.world",
     "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
     "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
-    "loggerLevel": "error"
+    "loggerLevel": "error",
+    "documentationLink": "https://docs.pangea.web4.world"
 }
