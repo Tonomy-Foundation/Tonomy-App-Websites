@@ -303,7 +303,7 @@
   }
   .mobile-demo-link {
     margin-top: 2.3rem;
-    background-color: var(--main-blue-gradient);
+    background-color: var(--primary);
     width: 100%;
     margin-left: 0rem;
     cursor: pointer;

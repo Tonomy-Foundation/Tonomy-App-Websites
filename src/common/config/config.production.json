@@ -6,7 +6,8 @@
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/favicon.png",
-        "logo1024": "/pangea-large-logo.png"
+        "logo1024": "/pangea-large-logo.png",
+        "mobileLogo": "/pangea-mobile-logo.png"
     },
     "links": {
         "readMoreDownload": "https://pangea.web4.world.org",
