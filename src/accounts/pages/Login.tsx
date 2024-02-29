@@ -104,7 +104,7 @@ export default function Login() {
     // wait 1 second
     // if this code runs then the redirect didn't work
     setTimeout(() => {
-      throw new Error(`Redirect to ${settings.config.ecosystemName} failed`);
+      throw new Error(`Redirect to ${settings.config.appName} failed`);
     }, 1000);
   }
 
@@ -125,7 +125,7 @@ export default function Login() {
       const tonomyIDDid = await user.getWalletDid();
 
       if (!tonomyIDDid)
-        throw new Error(`No ${settings.config.ecosystemName} DID found`);
+        throw new Error(`No ${settings.config.appName} DID found`);
 
       const issuer = await user.getIssuer();
 
@@ -449,9 +449,9 @@ export default function Login() {
       <TImage
         height={58}
         src={settings.config.images.logo48}
-        alt="Tonomy Logo"
+        alt={`${settings.config.appName} Logo`}
       />
-      <TH3>Login with {settings.config.ecosystemName}</TH3>
+      <TH3>Login with {settings.config.appName}</TH3>
       {(status === "connecting" || status === "app") && (
         <>{username && <TH4>{username}</TH4>}</>
       )}
@@ -498,7 +498,7 @@ export default function Login() {
       </div>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
-          {`Don't have ${settings.config.ecosystemName} yet?`}
+          {`Don't have ${settings.config.appName} yet?`}
         </TContainedButton>
       )}
       {(status === "connecting" || status === "app") && (

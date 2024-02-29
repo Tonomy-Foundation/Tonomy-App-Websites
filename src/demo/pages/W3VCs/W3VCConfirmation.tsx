@@ -14,7 +14,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
   <>
     <div className="web-view">
       <SuccessSection
-        message={`you have successfully signed a document using ${settings.config.ecosystemName}.`}
+        message={`you have successfully signed a document using ${settings.config.appName}.`}
         labels={[
           "Education Diplomas",
           "Shipping and logistic events",
@@ -54,7 +54,7 @@ const W3VCConfirmation = (props: W3VCConfirmationProps) => (
         <p>Congratulations,</p>
         <p>
           you have successfully signed a document using{" "}
-          {settings.config.ecosystemName}{" "}
+          {settings.config.appName}{" "}
         </p>
         {props?.setActiveSection && (
           <button

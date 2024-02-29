@@ -1,8 +1,8 @@
 {
     "themeFile": "theme.tonomy.css",
     "appLogoUrl": "/tonomy-logo48.png",
-    "appName": "Tonomy ID Staging",
-    "ecosystemName": "Tonomy ID",
+    "appName": "Tonomy ID",
+    "ecosystemName": " Tonomy Staging",
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/tonomy-logo48.png",

@@ -9,13 +9,13 @@ import playStoreBadge from "../assets/google-play-badge.png";
 export default function DownloadApp() {
   return (
     <div className="container">
-      <TH3>{settings.config.ecosystemName}</TH3>
+      <TH3>{settings.config.appName}</TH3>
       <TH4>
-        The easiest and safest way to access {settings.config.ecosystemName}{" "}
+        The easiest and safest way to access {settings.config.appName}{" "}
         apps
       </TH4>
       <TP className="paragraph">
-        {settings.config.ecosystemName} is a self-sovereign identity digital
+        {settings.config.appName} is a self-sovereign identity digital
         wallet that protects your security and privacy. &nbsp;
         <TLink href={settings.config.links.readMoreDownload} target="_blank">
           Learn more
@@ -23,7 +23,7 @@ export default function DownloadApp() {
       </TP>
 
       <TP className="margin-bottom paragraph">
-        It is open-source and maintained by the {settings.config.ecosystemName}.{" "}
+        It is open-source and maintained by the {settings.config.appName}.{" "}
         <TLink href={settings.config.links.readMoreFoundation} target="_blank">
           Learn more
         </TLink>
@@ -40,7 +40,7 @@ export default function DownloadApp() {
         </a>
       </div>
       <TP>
-        Already have {settings.config.ecosystemName}?{" "}
+        Already have {settings.config.appName}?{" "}
         <TLink href="/login">Log in here</TLink>
       </TP>
     </div>

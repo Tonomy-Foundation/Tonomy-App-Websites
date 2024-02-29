@@ -13,14 +13,14 @@ export default function QROrLoading({
     <>
       {!isMobile() && (
         <>
-          <TP>Scan the QR code with the {settings.config.ecosystemName} app</TP>
+          <TP>Scan the QR code with the {settings.config.appName} app</TP>
           {!showQr && <TProgressCircle />}
           {showQr && <QRCode value={showQr}></QRCode>}
         </>
       )}
       {isMobile() && (
         <>
-          <TP>Redirecting to {settings.config.ecosystemName}</TP>
+          <TP>Redirecting to {settings.config.appName}</TP>
           <TProgressCircle />
         </>
       )}

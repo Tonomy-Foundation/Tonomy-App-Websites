@@ -35,10 +35,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         >
           <Menu>
             <MenuItem
-              icon={<img src={settings.config.images.logo48} alt="" />}
+              icon={
+                <img
+                  src={settings.config.images.logo48}
+                  alt={`${settings.config.appName} Logo`}
+                />
+              }
               className="heading"
             >
-              <h4 className="menu-heading">{settings.config.ecosystemName}</h4>{" "}
+              <h4 className="menu-heading">{settings.config.appName}</h4>{" "}
             </MenuItem>
 
             <MenuItem

@@ -1,8 +1,8 @@
 {
     "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
-    "appName": "Pangea testnet",
-    "ecosystemName": "Pangea",
+    "appName": "Pangea Testnet",
+    "ecosystemName": "Pangea Testnet",
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/favicon.png",

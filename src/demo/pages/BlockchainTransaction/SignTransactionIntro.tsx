@@ -36,17 +36,17 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <img src={SignBanner} alt="banner-image" className="header-image" />
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>{settings.config.ecosystemName}</HeaderTonomy>
+        <HeaderTonomy>{settings.config.appName}</HeaderTonomy>
       </div>
       <div className="mobile-view">
         <TH1 className="how-to-use-label">
-          How to use {settings.config.ecosystemName}:
+          How to use {settings.config.appName}:
         </TH1>
         <p className="tonomy-header ">Sign all your transactions</p>
       </div>
 
       <TH2 className="header-description">
-        {settings.config.ecosystemName} utilizes a digital signature and a
+        {settings.config.appName} utilizes a digital signature and a
         distributed transaction protocol to safeguard your transactions and
         digital assets from unauthorized access or tampering.
       </TH2>

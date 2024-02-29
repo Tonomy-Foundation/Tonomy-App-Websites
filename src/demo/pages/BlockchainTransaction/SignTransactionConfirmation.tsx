@@ -18,7 +18,7 @@ const SignTransactionConfirmation = (
   <>
     <div className="web-view">
       <SuccessSection
-        message={`you have successfully signed a blockchain transaction using ${settings.config.ecosystemName}.`}
+        message={`you have successfully signed a blockchain transaction using ${settings.config.appName}.`}
         labels={[
           "Insurance claims",
           "Shipping and logistic events",
@@ -58,7 +58,7 @@ const SignTransactionConfirmation = (
         <p>Congratulations,</p>
         <p>
           you have successfully signed a blockchain transaction using{" "}
-          {settings.config.ecosystemName}
+          {settings.config.appName}
         </p>
         {props?.setActiveSection && (
           <button

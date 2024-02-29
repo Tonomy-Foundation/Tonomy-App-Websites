@@ -103,7 +103,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
             <div className="mobile-view display-mobile-w3vc">
               <p>
                 Sign and verify sensitive information with{" "}
-                {settings.config.ecosystemName}{" "}
+                {settings.config.appName}{" "}
               </p>
 
               <p className="blue-text">
@@ -169,7 +169,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
                   onClick={() => onSubmit()}
                   disabled={loading}
                 >
-                  Sign using your {settings.config.ecosystemName} DID
+                  Sign using your {settings.config.appName} DID
                 </button>
               </div>
             </div>

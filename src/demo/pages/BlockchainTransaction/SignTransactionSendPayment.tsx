@@ -19,7 +19,7 @@ import {
 import useErrorStore from "../../../common/stores/errorStore";
 import settings from "../../../common/settings";
 
-const env = import.meta.env.VITE_APP_NODE_ENV || "development";
+const env = settings.env || "development";
 
 const demoTokenContract = DemoTokenContract.Instance;
 

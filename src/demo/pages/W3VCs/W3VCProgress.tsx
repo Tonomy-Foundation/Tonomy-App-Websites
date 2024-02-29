@@ -48,7 +48,7 @@ const W3VCProgress = (props: W3VCProgressProps) => (
     >
       <p>
         Sign and verify sensitive information with{" "}
-        {settings.config.ecosystemName}{" "}
+        {settings.config.appName}{" "}
       </p>
 
       <p className="blue-text">

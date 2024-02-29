@@ -39,7 +39,11 @@ const USerHome: React.FC = () => {
     <div className="home-container">
       <div className="mobile-container user-section-spacing">
         <div className="user-section">
-          <img src={userLogo} alt="userLogo" className="user-logo" />
+          <img
+            src={userLogo}
+            alt={`${settings.config.appName} Logo`}
+            className="user-logo"
+          />
           <span>{username}</span>
         </div>
         <div className="mobile-logout-section">
@@ -49,17 +53,17 @@ const USerHome: React.FC = () => {
       </div>
       <div>
         <p className="page-heading">
-          Test the possibilities of {settings.config.ecosystemName}
+          Test the possibilities of {settings.config.appName}
         </p>
       </div>
       <div className="image-slider">
         <ImageSlider images={images} linkTexts={linkTexts} />
       </div>
       <p className="description">
-        Our demo site showcases the benefits of {settings.config.ecosystemName}{" "}
-        for both users and administrators. As a user,{" "}
-        {settings.config.ecosystemName} enables you access to a variety of
-        features. Some you can test on our demo website:
+        Our demo site showcases the benefits of {settings.config.appName} for
+        both users and administrators. As a user, {settings.config.appName}{" "}
+        enables you access to a variety of features. Some you can test on our
+        demo website:
       </p>
       <CodeSnippetPreview
         snippetCode={snippetCode}

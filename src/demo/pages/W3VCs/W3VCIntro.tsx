@@ -35,18 +35,18 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       <img src={VCBanner} alt="banner-image" className="header-image" />
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>{settings.config.ecosystemName} </HeaderTonomy>
+        <HeaderTonomy>{settings.config.appName} </HeaderTonomy>
       </div>
       <div className="mobile-view">
         <TH1 className="how-to-use-label">
-          How to use {settings.config.ecosystemName}:
+          How to use {settings.config.appName}:
         </TH1>
         <p className="tonomy-header ">Sign all your documents</p>
       </div>
 
       <TH2 className="header-description">
         Sign and verify sensitive information with{" "}
-        {settings.config.ecosystemName}. The W3C Verifiable Credential standard
+        {settings.config.appName}. The W3C Verifiable Credential standard
         can help ensure trust and security when sharing sensitive and
         tamper-proof data.
       </TH2>
