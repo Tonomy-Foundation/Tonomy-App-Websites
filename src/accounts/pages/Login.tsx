@@ -483,7 +483,8 @@ export default function Login() {
                 <TH3>{app.appName}</TH3>
                 <TH4>wants you to log in to their application</TH4>
                 <TP style={{ margin: "10px" }}>
-                  Please proceed to login to Pangea app on your phone.
+                  Please proceed to login to {settings.config.appName} app on
+                  your phone.
                 </TP>
               </>
             )}

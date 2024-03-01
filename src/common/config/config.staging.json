@@ -2,12 +2,12 @@
     "themeFile": "theme.tonomy.css",
     "appLogoUrl": "/tonomy-logo48.png",
     "appName": "Tonomy ID",
-    "ecosystemName": " Tonomy Staging",
+    "ecosystemName": "Tonomy Staging",
     "appSlogan": "Building ecosystems of trust",
     "images": {
-        "logo48": "/tonomy-logo48.png",
-        "logo1024": "/tonomy-logo1024.png",
-        "mobileLogo": "/tonomy-mobile-logo.png"
+        "logo48": "/tonomy/tonomy-logo48.png",
+        "logo1024": "/tonomy/tonomy-logo1024.png",
+        "mobileLogo": "/tonomy/tonomy-mobile-logo.png"
     },
     "links": {
         "readMoreDownload": "https://tonomy.io",

@@ -5,9 +5,9 @@
     "ecosystemName": "Tonomy Development",
     "appSlogan": "Building ecosystems of trust",
     "images": {
-        "logo48": "/favicon.png",
-        "logo1024": "/pangea-large-logo.png",
-        "mobileLogo": "/pangea-mobile-logo.png"
+        "logo48": "/development/favicon.png",
+        "logo1024": "/development/pangea-large-logo.png",
+        "mobileLogo": "/development/pangea-mobile-logo.png"
     },
     "links": {
         "readMoreDownload": "https://tonomy.io",

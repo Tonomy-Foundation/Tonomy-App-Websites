@@ -5,9 +5,9 @@
     "ecosystemName": "Pangea Testnet",
     "appSlogan": "Building ecosystems of trust",
     "images": {
-        "logo48": "/favicon.png",
-        "logo1024": "/pangea-large-logo.png",
-        "mobileLogo": "/pangea-mobile-logo.png"
+        "logo48": "/pangea/favicon.png",
+        "logo1024": "/pangea/pangea-large-logo.png",
+        "mobileLogo": "/pangea/pangea-mobile-logo.png"
     },
     "links": {
         "readMoreDownload": "https://testnet-pangea.web4.world",
