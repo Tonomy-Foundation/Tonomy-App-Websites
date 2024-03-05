@@ -8,13 +8,14 @@ import SignTransactionProgress from "./BlockchainTransaction/SignTransactionProg
 import SignTransactionIntro from "./BlockchainTransaction/SignTransactionIntro";
 import SignTransactionImagine from "./BlockchainTransaction/SignTransactionImagine";
 import SignTransactionConfirmation from "./BlockchainTransaction/SignTransactionConfirmation";
+import settings from "../../common/settings";
 
 const snippetCode = `
 // SignBlockchain.jsx
 const trx = await user.signTransaction('eosio.token', 'transfer', {
   from: "me",
   to: "you",
-  quantity: '1 SYS',
+  quantity: '1 LEOS',
   memo: 'test memo',
 })
 `;
@@ -163,7 +164,7 @@ export default function BlockchainTx() {
           )}
           <CodeSnippetPreview
             snippetCode={snippetCode}
-            documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-blockchain-transaction"
+            documentationLink={`${settings.config.documentationLink}/start/usage/#sign-a-blockchain-transaction`}
           />
         </div>
       )}

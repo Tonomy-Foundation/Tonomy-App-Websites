@@ -19,6 +19,8 @@ import {
 import useErrorStore from "../../../common/stores/errorStore";
 import settings from "../../../common/settings";
 
+const env = settings.env || "development";
+
 const demoTokenContract = DemoTokenContract.Instance;
 
 export type SignTransactionSendPaymentProps = {
@@ -69,7 +71,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           "selfissue",
           {
             to: accountName,
-            quantity: "10 SYS",
+            quantity: "10 LEOS",
             memo: "test",
           }
         );
@@ -135,7 +137,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         {
           from: await user.getAccountName(),
           to,
-          quantity: amount + " SYS",
+          quantity: amount + " LEOS",
           memo: "test",
         }
       );
@@ -190,9 +192,45 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         <MainContainer>
           <div className="web-view " id="demoSection">
             <FormHeaderContainer>
-              <div className="display-balance">
-                <p className="balance-container-text-left">Balance: </p>
-                <p className="balance-container-text-right">
+              <div
+                className="display-balance"
+                style={
+                  env === "staging"
+                    ? {
+                        backgroundColor:
+                          "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
+                      }
+                    : {
+                        backgroundColor: "var(--primary)",
+                      }
+                }
+              >
+                <p
+                  className="balance-container-text-left"
+                  style={
+                    env === "staging"
+                      ? {
+                          color: "var(--accent)",
+                        }
+                      : {
+                          color: "var(--white)",
+                        }
+                  }
+                >
+                  Balance:{" "}
+                </p>
+                <p
+                  className="balance-container-text-right"
+                  style={
+                    env === "staging"
+                      ? {
+                          color: "var(--accent)",
+                        }
+                      : {
+                          color: "var(--white)",
+                        }
+                  }
+                >
                   {props.balance} EUR
                 </p>
               </div>

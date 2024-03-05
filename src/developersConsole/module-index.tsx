@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Container } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import reportWebVitals from "../common/reportWebVitals";
-import router from "./routes/root";
+import Router from "./routes/routes";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
 
 const styles = {
@@ -20,7 +20,7 @@ export default function initiate(root: ReactDOM.Root) {
     <React.StrictMode>
       <Container maxWidth="sm" style={styles.container}>
         <ErrorHandlerProvider />
-        <RouterProvider router={router}></RouterProvider>
+        <Router />
       </Container>
     </React.StrictMode>
   );
