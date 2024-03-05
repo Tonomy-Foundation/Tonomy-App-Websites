@@ -1,7 +1,7 @@
 import userLogo from "../../assets/user.png";
 import SignBanner from "../../assets/sign-transaction.png";
 import { TH1, TH2 } from "../../../common/atoms/THeadings";
-import { HeaderTonomy } from "../../components/styles";
+import { HeaderTonomy, HeaderTonomySmall } from "../../components/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
 import settings from "../../../common/settings";
 
@@ -36,7 +36,11 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       <img src={SignBanner} alt="banner-image" className="header-image" />
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>{settings.config.appName}</HeaderTonomy>
+        {settings.config.appName.length > 12 ? (
+          <HeaderTonomySmall>{settings.config.appName}</HeaderTonomySmall>
+        ) : (
+          <HeaderTonomy>{settings.config.appName} </HeaderTonomy>
+        )}
       </div>
       <div className="mobile-view">
         <TH1 className="how-to-use-label">
@@ -46,9 +50,9 @@ const SignTransactionIntro = (props: SignTransactionIntroProps) => (
       </div>
 
       <TH2 className="header-description">
-        {settings.config.appName} utilizes a digital signature and a
-        distributed transaction protocol to safeguard your transactions and
-        digital assets from unauthorized access or tampering.
+        {settings.config.appName} utilizes a digital signature and a distributed
+        transaction protocol to safeguard your transactions and digital assets
+        from unauthorized access or tampering.
       </TH2>
       <a
         href="https://docs.eosnetwork.com/"

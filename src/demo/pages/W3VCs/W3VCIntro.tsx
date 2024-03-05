@@ -1,7 +1,7 @@
 import userLogo from "../../assets/user.png";
 import VCBanner from "../../assets/VC-banner.png";
 import { TH1, TH2 } from "../../../common/atoms/THeadings";
-import { HeaderTonomy } from "../../components/styles";
+import { HeaderTonomy, HeaderTonomySmall } from "../../components/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
 import settings from "../../../common/settings";
 
@@ -35,7 +35,11 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       <img src={VCBanner} alt="banner-image" className="header-image" />
       <div className="web-view">
         <TH1 className="how-to-use-label">How to use :</TH1>
-        <HeaderTonomy>{settings.config.appName} </HeaderTonomy>
+        {settings.config.appName.length > 12 ? (
+          <HeaderTonomySmall>{settings.config.appName}</HeaderTonomySmall>
+        ) : (
+          <HeaderTonomy>{settings.config.appName} </HeaderTonomy>
+        )}
       </div>
       <div className="mobile-view">
         <TH1 className="how-to-use-label">
@@ -45,10 +49,9 @@ const W3VCIntro = (props: W3VCIntroProps) => (
       </div>
 
       <TH2 className="header-description">
-        Sign and verify sensitive information with{" "}
-        {settings.config.appName}. The W3C Verifiable Credential standard
-        can help ensure trust and security when sharing sensitive and
-        tamper-proof data.
+        Sign and verify sensitive information with {settings.config.appName}.
+        The W3C Verifiable Credential standard can help ensure trust and
+        security when sharing sensitive and tamper-proof data.
       </TH2>
       <a
         href="https://www.youtube.com/watch?v=vuSPy1xMNVg"
