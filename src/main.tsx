@@ -1,9 +1,9 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import "./theme.css";
 import { runTests } from "./common/utils/runtime-tests";
 import settings from "./common/settings";
 import { api } from "@tonomy/tonomy-id-sdk";
+import "./theme.css";
 
 api.setSettings({
   ...settings.config,

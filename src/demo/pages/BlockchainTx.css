@@ -13,7 +13,7 @@
   width: 901px;
   height: 800px;
   flex-shrink: 0;
-  fill: linear-gradient(1deg, #67d7ed 0%, #67d7ed 100%);
+  fill: linear-gradient(1deg, var(--primary) 0%, var(--primary) 100%);
   position: absolute;
   right: 0;
   background-size: cover;
@@ -26,7 +26,6 @@
   height: 100px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: linear-gradient(180deg, #e8f8fc 0%, #67d7ed 100%);
   display: block ruby;
   margin-top: 6rem;
   padding: 2.2rem 3rem;
@@ -94,7 +93,7 @@
 }
 
 .how-to-use-label {
-  color: var(--grey-dark-grey, #313938);
+  color: var(--accent);
   font-size: 4rem;
   line-height: 30px;
   padding-top: 15rem;
@@ -112,25 +111,24 @@
 }
 
 .balance-container-text-left {
-  color: var(--grey-dark-grey, #313938);
-  font-size: 34px;
+  font-size: 32px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 40px;
   float: left;
 }
 
 .balance-container-text-right {
-  color: var(--grey-dark-grey, #313938);
-  font-size: 34px;
+  font-size: 32px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 40px;
   float: right;
+  margin-left: 0.4rem;
 }
 
 .form-header-container-text {
-  color: var(--grey-dark-grey, #313938);
+  color: var(--accent);
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;
@@ -167,7 +165,7 @@
   left: 28px;
   right: -11px;
   height: 5px;
-  background-color: var(--primary);
+  background-color: var(--accent);
 }
 
 .mobile-view {
@@ -178,14 +176,14 @@
 }
 .demo-link {
   cursor: pointer;
-  background-color: white;
-  color: black;
-  padding: 1rem 2rem;
+  background-color: var(--white);
+  color: var(--accent);
+  padding: 0.7rem 3.8rem;
   display: inline-block;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   border-radius: 10px;
   margin-top: 4rem;
-  margin-left: 2rem;
+  margin-left: 0.5rem;
   border: none;
 }
 
@@ -305,7 +303,7 @@
   }
   .mobile-demo-link {
     margin-top: 2.3rem;
-    background-color: var(--main-blue-gradient);
+    background-color: var(--primary);
     width: 100%;
     margin-left: 0rem;
     cursor: pointer;

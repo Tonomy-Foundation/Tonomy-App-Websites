@@ -18,7 +18,7 @@ export const HeaderTonomy = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--grey-dark-grey, #313938);
+  color: var(--dark-grey, #313938);
   font-size: 220px;
   font-style: normal;
   font-weight: 500;
@@ -61,7 +61,7 @@ export const TransactionButton = styled.button`
   max-width: 100%;
   height: 65px;
   border-radius: 10px;
-  background-color: #67d7ed;
+  background-color: var(--primary);
   color: white;
   font-size: 1.1rem;
   font-weight: 700;

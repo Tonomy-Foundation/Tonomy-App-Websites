@@ -6,8 +6,8 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../providers/AuthProvider";
-import logo from "../assets/tonomy-logo48.png";
 import "./MainLayout.css";
+import settings from "../../common/settings";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -34,8 +34,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           onMouseLeave={handleMouseLeave}
         >
           <Menu>
-            <MenuItem icon={<img src={logo} alt="" />} className="heading">
-              <h4 className="menu-heading">Tonomy ID</h4>{" "}
+            <MenuItem
+              icon={
+                <img
+                  src={settings.config.images.logo48}
+                  alt={`${settings.config.appName} Logo`}
+                />
+              }
+              className="heading"
+            >
+              <h4 className="menu-heading">{settings.config.appName}</h4>{" "}
             </MenuItem>
 
             <MenuItem

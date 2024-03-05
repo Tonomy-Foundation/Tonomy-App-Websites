@@ -1,17 +1,13 @@
 {
-    "theme": {
-        "primaryColor": "#6200ee",
-        "secondaryColor": "#03dac4",
-        "tertiaryColor": "white",
-        "linkColor": "#0057B2"
-    },
-    "appLogoUrl": "/tonomy-logo48.png",
-    "appName": "Pangea testnet",
-    "ecosystemName": "Pangea testnet",
+    "themeFile": "theme.pangea.css",
+    "appLogoUrl": "/favicon.png",
+    "appName": "Pangea Testnet",
+    "ecosystemName": "Pangea Testnet",
     "appSlogan": "Building ecosystems of trust",
     "images": {
-        "logo48": "/tonomy-logo48.png",
-        "logo1024": "/tonomy-logo1024.png"
+        "logo48": "/pangea/favicon.png",
+        "logo1024": "/pangea/pangea-large-logo.png",
+        "mobileLogo": "/pangea/pangea-mobile-logo.png"
     },
     "links": {
         "readMoreDownload": "https://testnet-pangea.web4.world",
@@ -24,5 +20,6 @@
     "communicationUrl": "wss://communication.testnet.pangea.web4.world",
     "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
     "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
-    "loggerLevel": "error"
+    "loggerLevel": "error",
+    "documentationLink": "https://docs.pangea.web4.world"
 }
