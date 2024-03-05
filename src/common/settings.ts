@@ -57,24 +57,20 @@ switch (env) {
   case "local":
   case "development":
     config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
-    import(`./theme/${config.themeFile}`);
 
     break;
   case "staging":
     config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
-    import(`./theme/${config.themeFile}`);
 
     break;
   case "testnet":
     config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
-    import(`./theme/${config.themeFile}`);
 
     break;
   case "production":
     config = productionConfig as FixLoggerLevelEnumType<
       typeof productionConfig
     >;
-    import(`./theme/${config.themeFile}`);
 
     break;
   default:
@@ -111,14 +107,24 @@ if (import.meta.env.VITE_LOG === "true") {
   config.loggerLevel = "debug";
 }
 
+// Add title
 settings.config = config;
 document.title = settings.config.appName;
+
+// Add favicon
 const faviconLink = document.createElement("link");
 
 faviconLink.type = "image/svg+xml";
 faviconLink.rel = "icon";
 faviconLink.href = settings.config.images.logo48;
 document.head.appendChild(faviconLink);
+
+// Add stylesheet
+const stylesheetLink = document.createElement("link");
+
+stylesheetLink.rel = "stylesheet";
+stylesheetLink.href = "/theme/" + settings.config.themeFile;
+document.head.appendChild(stylesheetLink);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
