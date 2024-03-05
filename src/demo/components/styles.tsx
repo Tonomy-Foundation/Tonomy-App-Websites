@@ -27,6 +27,22 @@ export const HeaderTonomy = styled.div`
   padding-bottom: 60px;
 `;
 
+export const HeaderTonomySmall = styled.div`
+  display: flex;
+  width: 1500px;
+  height: 180px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--dark-grey, #313938);
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 95px;
+  position: relative;
+  padding-bottom: 60px;
+`;
+
 export const MainContainer = styled.div`
   width: 100%;
   flex-shrink: 0;
