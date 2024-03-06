@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom/client";
 import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
@@ -10,19 +11,15 @@ console.log(import.meta.env);
 console.log(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
-  theme: {
-    primaryColor: string;
-    secondaryColor: string;
-    tertiaryColor: string;
-    linkColor: string;
-  };
   appLogoUrl: string;
   appName: string;
   ecosystemName: string;
   appSlogan: string;
+  themeFile: string;
   images: {
     logo48: string;
     logo1024: string;
+    mobileLogo: string;
   };
   links: {
     readMoreDownload: string;
@@ -36,6 +33,7 @@ export type ConfigType = {
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
   loggerLevel: "debug" | "error";
+  documentationLink: string;
 };
 
 type SettingsType = {
@@ -59,17 +57,21 @@ switch (env) {
   case "local":
   case "development":
     config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
+
     break;
   case "staging":
     config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
+
     break;
   case "testnet":
     config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
+
     break;
   case "production":
     config = productionConfig as FixLoggerLevelEnumType<
       typeof productionConfig
     >;
+
     break;
   default:
     throw new Error("Unknown environment: " + env);
@@ -105,6 +107,25 @@ if (import.meta.env.VITE_LOG === "true") {
   config.loggerLevel = "debug";
 }
 
+// Add title
 settings.config = config;
+document.title = settings.config.appName;
+
+// Add favicon
+const faviconLink = document.createElement("link");
+
+faviconLink.type = "image/svg+xml";
+faviconLink.rel = "icon";
+faviconLink.href = settings.config.images.logo48;
+document.head.appendChild(faviconLink);
+
+// Add stylesheet
+const stylesheetLink = document.createElement("link");
+
+stylesheetLink.rel = "stylesheet";
+stylesheetLink.href = "/theme/" + settings.config.themeFile;
+document.head.appendChild(stylesheetLink);
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 export default settings;

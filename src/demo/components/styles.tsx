@@ -18,8 +18,24 @@ export const HeaderTonomy = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--grey-dark-grey, #313938);
+  color: var(--dark-grey, #313938);
   font-size: 220px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 95px;
+  position: relative;
+  padding-bottom: 60px;
+`;
+
+export const HeaderTonomySmall = styled.div`
+  display: flex;
+  width: 1500px;
+  height: 180px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--dark-grey, #313938);
+  font-size: 120px;
   font-style: normal;
   font-weight: 500;
   line-height: 95px;
@@ -61,7 +77,7 @@ export const TransactionButton = styled.button`
   max-width: 100%;
   height: 65px;
   border-radius: 10px;
-  background-color: #67d7ed;
+  background-color: var(--primary);
   color: white;
   font-size: 1.1rem;
   font-weight: 700;
