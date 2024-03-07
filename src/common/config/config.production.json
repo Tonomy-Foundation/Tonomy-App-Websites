@@ -16,8 +16,8 @@
     "links": {
         "readMoreDownload": "https://pangea.web4.world.org",
         "readMoreFoundation": "https://pangea.web4.world.org",
-        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
-        "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
+        "playStoreDownload": "#",
+        "appleStoreDownload": "#"
     },
     "accountSuffix": ".pangea",
     "tonomyIdSchema": "pangea://",
