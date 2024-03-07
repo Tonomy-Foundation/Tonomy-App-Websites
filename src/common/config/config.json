@@ -25,5 +25,5 @@
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "loggerLevel": "debug",
-    "blockExplorerURL": "http://localhost:8888"
+    "blockExplorerUrl": "https://local.bloks.io"
 }

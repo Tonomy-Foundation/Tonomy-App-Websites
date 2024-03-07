@@ -145,10 +145,24 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       props.setBalance(updateBalance);
       props.setActiveStep(2);
       props.setProgressValue(60);
-      const url =
-        settings.config.blockExplorerURL +
-        "/transaction/" +
-        trx?.transaction_id;
+      let url;
+
+      if (settings.env === "development " || settings.env === "staging") {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id +
+          "?nodeUrl=";
+
+        url += settings.isProduction()
+          ? settings.config.blockchainUrl
+          : "http://localhost:8888";
+      } else {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id;
+      }
 
       await setTimeout(() => {
         props.setActiveStep(3);

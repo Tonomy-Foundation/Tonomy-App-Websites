@@ -36,7 +36,7 @@ export type ConfigType = {
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
   loggerLevel: "debug" | "error";
-  blockExplorerURL: string;
+  blockExplorerUrl: string;
 };
 
 type SettingsType = {
