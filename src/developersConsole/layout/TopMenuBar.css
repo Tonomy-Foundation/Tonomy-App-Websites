@@ -4,7 +4,7 @@
 
 .top-menu-bar{
     height: 70px;
-    background-color: var(--main-blue-gradient);
+    background-color: var(--accent);
     color: var(--white);
     display: flex;
     align-items: center;

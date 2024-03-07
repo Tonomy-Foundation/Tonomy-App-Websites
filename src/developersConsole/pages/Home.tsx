@@ -4,7 +4,6 @@ import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import appLogo from "../assets/tonomy-logo.png";
-import btnAppLogo from "../assets/btn-logo.png";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
@@ -66,7 +65,11 @@ export default function Home() {
               </div>
             </div>
             <div className="app-logo">
-              <img src={appLogo} alt={`${settings.config.appName} Logo`} />
+              <img
+                src={settings.config.images.logo1024}
+                alt={`${settings.config.appName} Logo`}
+                width="120px"
+              />
             </div>
             <div className="text-center">
               <TP className="demo-head">Tonomy Developer Console</TP>
@@ -75,7 +78,7 @@ export default function Home() {
               <button className="console-login-button" onClick={onButtonPress}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
-                    src={btnAppLogo}
+                    src={settings.config.images.logo48}
                     alt={`${settings.config.appName} Logo`}
                     className="btnImage"
                   />

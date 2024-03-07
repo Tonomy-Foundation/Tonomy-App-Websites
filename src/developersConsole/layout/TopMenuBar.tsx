@@ -1,11 +1,11 @@
 import React from "react";
+import settings from "../../common/settings";
 import "./TopMenuBar.css";
-import TopMenuLogo from "../assets/top-logo.png";
 
 const TopMenuBar = () => {
   return (
     <div className="top-menu-bar">
-      <img src={TopMenuLogo} alt="top-menu-logo" width="40" />
+      <img src={settings.config.images.logo48} alt="top-menu-logo" width="40" />
     </div>
   );
 };

@@ -20,7 +20,7 @@
   letter-spacing: 0em;
   text-align: right;
   margin-left: auto; 
-  color: var(--blue-gradient)
+  color: var(--link-color)
 }
 
 .app-logo {
@@ -63,7 +63,7 @@
 .console-login-button {
   padding: 0.8rem 1.8rem;
   color: white;
-  background-color: var(--main-blue-gradient) ;
+  background-color: var(--primary) ;
   border-radius: 1.1rem;
   border-color: transparent;
   font-size: 1.1rem;
@@ -83,7 +83,7 @@
 }
 
 .blue-color{
-  color: var(--blue-gradient);
+  color: var(--link-color);
   text-decoration: underline; 
 }
 

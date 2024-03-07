@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import useErrorStore from "../../common/stores/errorStore";
+import { AuthContext } from "../providers/AuthProvider";
 import "./AppManager.css";
 import AppNotFound from "../assets/no-app-found.png";
 import DefaultAppLogo from "../assets/deuces-wild.png";
@@ -10,6 +12,25 @@ const apps = [
 ];
 
 export default function AppManager() {
+  const errorStore = useErrorStore();
+  const [username, setUsername] = useState<string>("");
+  const { user } = useContext(AuthContext);
+
+  async function onRender() {
+    try {
+      const username = await user?.getUsername();
+
+      if (!username) throw new Error("No username found");
+      setUsername(username.getBaseUsername());
+    } catch (e) {
+      errorStore.setError({ error: e, expected: false });
+    }
+  }
+
+  useEffect(() => {
+    onRender();
+  }, []);
+
   const appCards = apps.map((app, index) => (
     <CardView
       key={index}
@@ -21,7 +42,7 @@ export default function AppManager() {
 
   return (
     <div>
-      <h2 className="heading">Welcome, Michael Brown</h2>
+      <h2 className="heading">Welcome, {username}</h2>
       {apps?.length > 0 ? (
         <>{appCards}</>
       ) : (
