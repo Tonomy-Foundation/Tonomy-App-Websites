@@ -9,11 +9,13 @@ import playStoreBadge from "../assets/google-play-badge.png";
 export default function DownloadApp() {
   return (
     <div className="container">
-      <TH3>Tonomy ID</TH3>
-      <TH4>The easiest and safest way to access Tonomy apps</TH4>
+      <TH3>{settings.config.appName}</TH3>
+      <TH4>
+        The easiest and safest way to access {settings.config.appName} apps
+      </TH4>
       <TP className="paragraph">
-        Tonomy ID is a self-sovereign identity digital wallet that protects your
-        security and privacy. &nbsp;
+        {settings.config.appName} is a self-sovereign identity digital wallet
+        that protects your security and privacy. &nbsp;
         <TLink href={settings.config.links.readMoreDownload} target="_blank">
           Learn more
         </TLink>
@@ -37,7 +39,8 @@ export default function DownloadApp() {
         </a>
       </div>
       <TP>
-        Already have Tonomy? <TLink href="/login">Log in here</TLink>
+        Already have {settings.config.appName}?{" "}
+        <TLink href="/login">Log in here</TLink>
       </TP>
     </div>
   );

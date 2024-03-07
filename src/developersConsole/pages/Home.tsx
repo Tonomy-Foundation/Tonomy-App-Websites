@@ -66,7 +66,7 @@ export default function Home() {
               </div>
             </div>
             <div className="app-logo">
-              <img src={appLogo} alt="Tonomy-logo" />
+              <img src={appLogo} alt={`${settings.config.appName} Logo`} />
             </div>
             <div className="text-center">
               <TP className="demo-head">Tonomy Developer Console</TP>
@@ -76,10 +76,10 @@ export default function Home() {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={btnAppLogo}
-                    alt="Tonomy-logo"
+                    alt={`${settings.config.appName} Logo`}
                     className="btnImage"
                   />
-                  <span>Login with Tonomy ID</span>
+                  <span>Login with {settings.config.appName}</span>
                 </div>
               </button>
               <div className="bottom-text">
