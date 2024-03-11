@@ -10,7 +10,7 @@ const styles = {
   container: {
     display: "flex",
     height: "100vh",
-    justifyContent: "center",
+    padding: "0px",
   },
 };
 
@@ -18,7 +18,11 @@ export default function initiate(root: ReactDOM.Root) {
   root.render(
     // this will make components render twice in development to catch errors
     <React.StrictMode>
-      <Container maxWidth="sm" style={styles.container}>
+      <Container
+        maxWidth="sm"
+        style={styles.container}
+        className="developer-container"
+      >
         <ErrorHandlerProvider />
         <Router />
       </Container>
