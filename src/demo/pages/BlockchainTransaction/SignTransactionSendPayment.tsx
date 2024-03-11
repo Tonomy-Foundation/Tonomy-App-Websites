@@ -147,14 +147,24 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       props.setBalance(updateBalance);
       props.setActiveStep(2);
       props.setProgressValue(60);
-      let url =
-        "https://local.bloks.io/transaction/" +
-        trx?.transaction_id +
-        "?nodeUrl=";
+      let url;
 
-      url += settings.isProduction()
-        ? settings.config.blockchainUrl
-        : "http://localhost:8888";
+      if (settings.env === "development " || settings.env === "staging") {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id +
+          "?nodeUrl=";
+
+        url += settings.isProduction()
+          ? settings.config.blockchainUrl
+          : "http://localhost:8888";
+      } else {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id;
+      }
 
       await setTimeout(() => {
         props.setActiveStep(3);

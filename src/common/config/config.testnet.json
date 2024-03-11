@@ -21,5 +21,6 @@
     "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
     "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
     "loggerLevel": "error",
+    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world/",
     "documentationLink": "https://docs.pangea.web4.world"
 }

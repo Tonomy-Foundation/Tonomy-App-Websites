@@ -12,8 +12,8 @@
     "links": {
         "readMoreDownload": "https://pangea.web4.world.org",
         "readMoreFoundation": "https://pangea.web4.world.org",
-        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyiddemo",
-        "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
+        "playStoreDownload": "#",
+        "appleStoreDownload": "#"
     },
     "accountSuffix": ".pangea",
     "tonomyIdSchema": "pangea://",
@@ -21,5 +21,6 @@
     "ssoWebsiteOrigin": "https://accounts.pangea.web4.world.org",
     "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
     "loggerLevel": "error",
+    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world",
     "documentationLink": "https://docs.pangea.web4.world"
 }
