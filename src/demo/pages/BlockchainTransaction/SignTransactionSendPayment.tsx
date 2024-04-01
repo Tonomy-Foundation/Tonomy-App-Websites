@@ -71,7 +71,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           "selfissue",
           {
             to: accountName,
-            quantity: "10 LEOS",
+            quantity: "10 DEMO",
             memo: "test",
           }
         );
@@ -137,7 +137,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         {
           from: await user.getAccountName(),
           to,
-          quantity: amount + " LEOS",
+          quantity: amount + " DEMO",
           memo: "test",
         }
       );
@@ -159,6 +159,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         url += settings.isProduction()
           ? settings.config.blockchainUrl
           : "http://localhost:8888";
+        url += "&coreSymbol=LEOS&corePrecision=6";
       } else {
         url =
           settings.config.blockExplorerUrl +
@@ -207,12 +208,12 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                 style={
                   env === "staging"
                     ? {
-                        backgroundColor:
-                          "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
-                      }
+                      backgroundColor:
+                        "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
+                    }
                     : {
-                        backgroundColor: "var(--primary)",
-                      }
+                      backgroundColor: "var(--primary)",
+                    }
                 }
               >
                 <p
@@ -220,11 +221,11 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                   style={
                     env === "staging"
                       ? {
-                          color: "var(--accent)",
-                        }
+                        color: "var(--accent)",
+                      }
                       : {
-                          color: "var(--white)",
-                        }
+                        color: "var(--white)",
+                      }
                   }
                 >
                   Balance:{" "}
@@ -234,11 +235,11 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                   style={
                     env === "staging"
                       ? {
-                          color: "var(--accent)",
-                        }
+                        color: "var(--accent)",
+                      }
                       : {
-                          color: "var(--white)",
-                        }
+                        color: "var(--white)",
+                      }
                   }
                 >
                   {props.balance} EUR
