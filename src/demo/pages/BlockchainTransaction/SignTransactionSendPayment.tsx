@@ -159,6 +159,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         url += settings.isProduction()
           ? settings.config.blockchainUrl
           : "http://localhost:8888";
+        url += "&coreSymbol=LEOS&corePrecision=6";
       } else {
         url =
           settings.config.blockExplorerUrl +
