@@ -1,7 +1,7 @@
 {
     "themeFile": "theme.tonomy.css",
     "appLogoUrl": "/tonomy-logo48.png",
-    "appName": "Tonomy ID",
+    "appName": "Tonomy ID Staging",
     "ecosystemName": "Tonomy Staging",
     "appSlogan": "Building ecosystems of trust",
     "images": {
@@ -21,5 +21,7 @@
     "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "loggerLevel": "debug",
-    "documentationLink": "https://docs.tonomy.foundation"
+    "blockExplorerUrl": "https://local.bloks.io",
+    "documentationLink": "https://docs.tonomy.foundation",
+    "currencySymbol": "LEOS"
 }

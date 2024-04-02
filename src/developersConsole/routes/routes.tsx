@@ -5,6 +5,7 @@ import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
 import Callback from "../pages/Callback";
+import MainLayout from "../layout/MainLayout";
 
 export default function RootRoutes(): JSX.Element {
   return (
@@ -20,7 +21,7 @@ export default function RootRoutes(): JSX.Element {
               path={route.path}
               element={
                 <PrivateRoute>
-                  <>{route?.element}</>
+                  <MainLayout>{route?.element}</MainLayout>
                 </PrivateRoute>
               }
             />

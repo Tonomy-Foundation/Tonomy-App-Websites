@@ -33,7 +33,9 @@ export type ConfigType = {
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
   loggerLevel: "debug" | "error";
+  blockExplorerUrl: string;
   documentationLink: string;
+  currencySymbol: string;
 };
 
 type SettingsType = {
@@ -86,8 +88,7 @@ if (import.meta.env.VITE_BLOCKCHAIN_URL) {
 
 if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
   console.log(
-    `Using SSO_WEBSITE_ORIGIN from env:  ${
-      import.meta.env.VITE_SSO_WEBSITE_ORIGIN
+    `Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN
     }`
   );
   config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
@@ -95,8 +96,7 @@ if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
 
 if (import.meta.env.VITE_COMMUNICATION_URL) {
   console.log(
-    `Using VITE_COMMUNICATION_URL from env:  ${
-      import.meta.env.VITE_COMMUNICATION_URL
+    `Using VITE_COMMUNICATION_URL from env:  ${import.meta.env.VITE_COMMUNICATION_URL
     }`
   );
   config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;

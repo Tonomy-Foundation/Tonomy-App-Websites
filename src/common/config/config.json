@@ -21,5 +21,7 @@
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "loggerLevel": "debug",
-    "documentationLink": "https://docs.pangea.web4.world"
+    "blockExplorerUrl": "https://local.bloks.io",
+    "documentationLink": "https://docs.pangea.web4.world",
+    "currencySymbol": "LEOS"
 }

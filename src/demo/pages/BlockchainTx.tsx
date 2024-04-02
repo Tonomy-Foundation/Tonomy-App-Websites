@@ -15,7 +15,7 @@ const snippetCode = `
 const trx = await user.signTransaction('eosio.token', 'transfer', {
   from: "me",
   to: "you",
-  quantity: '1 LEOS',
+  quantity: '1 DEMO',
   memo: 'test memo',
 })
 `;

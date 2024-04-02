@@ -71,7 +71,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           "selfissue",
           {
             to: accountName,
-            quantity: "10 LEOS",
+            quantity: "10 DEMO",
             memo: "test",
           }
         );
@@ -137,7 +137,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         {
           from: await user.getAccountName(),
           to,
-          quantity: amount + " LEOS",
+          quantity: amount + " DEMO",
           memo: "test",
         }
       );
@@ -147,14 +147,25 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       props.setBalance(updateBalance);
       props.setActiveStep(2);
       props.setProgressValue(60);
-      let url =
-        "https://local.bloks.io/transaction/" +
-        trx?.transaction_id +
-        "?nodeUrl=";
+      let url;
 
-      url += settings.isProduction()
-        ? settings.config.blockchainUrl
-        : "http://localhost:8888";
+      if (settings.env === "development " || settings.env === "staging") {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id +
+          "?nodeUrl=";
+
+        url += settings.isProduction()
+          ? settings.config.blockchainUrl
+          : "http://localhost:8888";
+        url += "&coreSymbol=LEOS&corePrecision=6";
+      } else {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id;
+      }
 
       await setTimeout(() => {
         props.setActiveStep(3);
@@ -197,12 +208,12 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                 style={
                   env === "staging"
                     ? {
-                        backgroundColor:
-                          "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
-                      }
+                      backgroundColor:
+                        "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
+                    }
                     : {
-                        backgroundColor: "var(--primary)",
-                      }
+                      backgroundColor: "var(--primary)",
+                    }
                 }
               >
                 <p
@@ -210,25 +221,25 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                   style={
                     env === "staging"
                       ? {
-                          color: "var(--accent)",
-                        }
+                        color: "var(--accent)",
+                      }
                       : {
-                          color: "var(--white)",
-                        }
+                        color: "var(--white)",
+                      }
                   }
                 >
-                  Balance:{" "}
+                  Amount:{" "}
                 </p>
                 <p
                   className="balance-container-text-right"
                   style={
                     env === "staging"
                       ? {
-                          color: "var(--accent)",
-                        }
+                        color: "var(--accent)",
+                      }
                       : {
-                          color: "var(--white)",
-                        }
+                        color: "var(--white)",
+                      }
                   }
                 >
                   {props.balance} EUR

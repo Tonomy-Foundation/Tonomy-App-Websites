@@ -3,7 +3,7 @@
     "appLogoUrl": "/favicon.png",
     "appName": "Pangea Testnet",
     "ecosystemName": "Pangea Testnet",
-    "appSlogan": "Building ecosystems of trust",
+    "appSlogan": "For a Better Tomorrow",
     "images": {
         "logo48": "/pangea/favicon.png",
         "logo1024": "/pangea/pangea-large-logo.png",
@@ -21,5 +21,7 @@
     "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
     "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
     "loggerLevel": "error",
-    "documentationLink": "https://docs.pangea.web4.world"
+    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world/",
+    "documentationLink": "https://docs.pangea.web4.world",
+    "currencySymbol": "LEOS"
 }
