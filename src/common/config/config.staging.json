@@ -22,5 +22,6 @@
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "loggerLevel": "debug",
     "blockExplorerUrl": "https://local.bloks.io",
-    "documentationLink": "https://docs.tonomy.foundation"
+    "documentationLink": "https://docs.tonomy.foundation",
+    "currencySymbol": "SYS"
 }

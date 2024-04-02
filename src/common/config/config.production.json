@@ -2,8 +2,8 @@
     "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
     "appName": "UNITED Wallet",
-    "ecosystemName": "Pangea",
-    "appSlogan": "Building ecosystems of trust",
+    "ecosystemName": "Pangea Virtual Nation",
+    "appSlogan": "For a Better Tomorrow",
     "images": {
         "logo48": "/pangea/favicon.png",
         "logo1024": "/pangea/pangea-large-logo.png",
@@ -22,5 +22,6 @@
     "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
     "loggerLevel": "error",
     "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world",
-    "documentationLink": "https://docs.pangea.web4.world"
+    "documentationLink": "https://docs.pangea.web4.world",
+    "currencySymbol": "LEOS"
 }
