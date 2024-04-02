@@ -228,7 +228,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                       }
                   }
                 >
-                  Balance:{" "}
+                  Amount:{" "}
                 </p>
                 <p
                   className="balance-container-text-right"
