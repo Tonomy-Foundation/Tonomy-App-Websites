@@ -2,7 +2,7 @@
     "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
     "appName": "UNITED Wallet",
-    "ecosystemName": "Pangea Virtual Nation",
+    "ecosystemName": "Pangea",
     "appSlogan": "For a Better Tomorrow",
     "images": {
         "logo48": "/pangea/favicon.png",
@@ -15,11 +15,11 @@
         "playStoreDownload": "#",
         "appleStoreDownload": "#"
     },
-    "accountSuffix": ".pangea",
+    "accountSuffix": ".pangea.id",
     "tonomyIdSchema": "pangea://",
     "communicationUrl": "wss://communication.pangea.web4.world.org",
     "ssoWebsiteOrigin": "https://accounts.pangea.web4.world.org",
-    "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
+    "blockchainUrl": "https://blockchain-api.pangea.web4.world.org",
     "loggerLevel": "error",
     "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world",
     "documentationLink": "https://docs.pangea.web4.world",
