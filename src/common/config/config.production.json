@@ -12,7 +12,7 @@
     "links": {
         "readMoreDownload": "https://tonomy.io",
         "readMoreFoundation": "https://tonomy.foundation",
-        "playStoreDownload": "#",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.unitedwallet",
         "appleStoreDownload": "#"
     },
     "accountSuffix": ".pangea.id",
