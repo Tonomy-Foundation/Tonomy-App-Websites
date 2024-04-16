@@ -13,7 +13,7 @@
         "readMoreDownload": "https://tonomy.io",
         "readMoreFoundation": "https://tonomy.foundation",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.unitedwallet",
-        "appleStoreDownload": "#"
+        "appleStoreDownload": "https://testflight.apple.com/join/RTawvJcZ"
     },
     "accountSuffix": ".pangea.id",
     "tonomyIdSchema": "pangea://",
