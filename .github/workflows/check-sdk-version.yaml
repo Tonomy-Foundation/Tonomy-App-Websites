@@ -17,3 +17,5 @@ jobs:
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn run updateSdkVersion $GITHUB_BASE_REF check
+      - run: yarn run installSdkVersion
+
