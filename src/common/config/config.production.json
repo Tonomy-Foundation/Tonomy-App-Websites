@@ -21,7 +21,7 @@
     "ssoWebsiteOrigin": "https://accounts.pangea.web4.world",
     "blockchainUrl": "https://blockchain-api.pangea.web4.world",
     "loggerLevel": "error",
-    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world",
+    "blockExplorerUrl": "https://explorer.pangea.web4.world",
     "documentationLink": "https://docs.pangea.web4.world",
     "currencySymbol": "LEOS"
 }
