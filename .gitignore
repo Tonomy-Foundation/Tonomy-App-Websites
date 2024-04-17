@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# dist
 dist-ssr
 *.local
 
@@ -29,3 +29,4 @@ dist-ssr
 #yarn
 .yarn
 public/sitemap.xml
+node_modules
