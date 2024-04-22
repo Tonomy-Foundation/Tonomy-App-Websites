@@ -1,8 +1,8 @@
 {
     "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
-    "appName": "UNITED Wallet",
-    "ecosystemName": "Pangea Virtual Nation",
+    "appName": "United Citizens Wallet",
+    "ecosystemName": "Pangea",
     "appSlogan": "For a Better Tomorrow",
     "images": {
         "logo48": "/pangea/favicon.png",
@@ -10,18 +10,18 @@
         "mobileLogo": "/pangea/pangea-mobile-logo.png"
     },
     "links": {
-        "readMoreDownload": "https://pangea.web4.world.org",
-        "readMoreFoundation": "https://pangea.web4.world.org",
-        "playStoreDownload": "#",
-        "appleStoreDownload": "#"
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.unitedwallet",
+        "appleStoreDownload": "https://testflight.apple.com/join/RTawvJcZ"
     },
-    "accountSuffix": ".pangea",
+    "accountSuffix": ".pangea.id",
     "tonomyIdSchema": "pangea://",
-    "communicationUrl": "wss://communication.pangea.web4.world.org",
-    "ssoWebsiteOrigin": "https://accounts.pangea.web4.world.org",
-    "blockchainUrl": "https://blockchain-api-production.pangea.web4.world.org",
+    "communicationUrl": "wss://communication.pangea.web4.world",
+    "ssoWebsiteOrigin": "https://accounts.pangea.web4.world",
+    "blockchainUrl": "https://blockchain-api.pangea.web4.world",
     "loggerLevel": "error",
-    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world",
+    "blockExplorerUrl": "https://explorer.pangea.web4.world",
     "documentationLink": "https://docs.pangea.web4.world",
     "currencySymbol": "LEOS"
 }
