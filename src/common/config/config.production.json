@@ -1,0 +1,27 @@
+{
+    "themeFile": "theme.pangea.css",
+    "appLogoUrl": "/favicon.png",
+    "appName": "United Citizens Wallet",
+    "ecosystemName": "Pangea",
+    "appSlogan": "For a Better Tomorrow",
+    "images": {
+        "logo48": "/pangea/favicon.png",
+        "logo1024": "/pangea/pangea-large-logo.png",
+        "mobileLogo": "/pangea/pangea-mobile-logo.png"
+    },
+    "links": {
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.unitedwallet",
+        "appleStoreDownload": "https://testflight.apple.com/join/RTawvJcZ"
+    },
+    "accountSuffix": ".pangea.id",
+    "tonomyIdSchema": "pangea://",
+    "communicationUrl": "wss://communication.pangea.web4.world",
+    "ssoWebsiteOrigin": "https://accounts.pangea.web4.world",
+    "blockchainUrl": "https://blockchain-api.pangea.web4.world",
+    "loggerLevel": "error",
+    "blockExplorerUrl": "https://explorer.pangea.web4.world",
+    "documentationLink": "https://docs.pangea.web4.world",
+    "currencySymbol": "LEOS"
+}

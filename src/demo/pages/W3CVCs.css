@@ -21,7 +21,7 @@
 }
 
 .sign-dcoument {
-  color: var(--dark-grey);
+  color: var(--accent);
   font-size: 2rem;
   font-weight: 500;
   line-height: 14px;
@@ -31,7 +31,7 @@
 }
 
 .tonomy-head {
-  color: var(--dark-grey);
+  color: var(--accent);
   font-size: 13rem;
   font-style: normal;
   font-weight: 600;
@@ -80,7 +80,7 @@ ul.horizontal-list li {
   margin-right: 10rem;
   font-weight: 600;
   font-size: 1.2rem;
-  color: var(--dark-grey);
+  color: var(--accent);
 }
 
 ul.horizontal-list li:last-child {

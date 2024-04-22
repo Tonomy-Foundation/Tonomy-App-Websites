@@ -1,0 +1,27 @@
+{
+    "themeFile": "theme.pangea.css",
+    "appLogoUrl": "/favicon.png",
+    "appName": "Pangea Testnet",
+    "ecosystemName": "Pangea Testnet",
+    "appSlogan": "For a Better Tomorrow",
+    "images": {
+        "logo48": "/pangea/favicon.png",
+        "logo1024": "/pangea/pangea-large-logo.png",
+        "mobileLogo": "/pangea/pangea-mobile-logo.png"
+    },
+    "links": {
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.pangeatestnet",
+        "appleStoreDownload": "https://testflight.apple.com/join/ou7KmYiE"
+    },
+    "accountSuffix": ".testnet.pangea",
+    "tonomyIdSchema": "pangea-testnet://",
+    "communicationUrl": "wss://communication.testnet.pangea.web4.world",
+    "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
+    "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
+    "loggerLevel": "error",
+    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world/",
+    "documentationLink": "https://docs.pangea.web4.world",
+    "currencySymbol": "LEOS"
+}

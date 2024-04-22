@@ -1,17 +1,13 @@
 {
-    "theme": {
-        "primaryColor": "#67D7ED",
-        "secondaryColor": "#03dac4",
-        "tertiaryColor": "white",
-        "linkColor": "#0057B2"
-    },
-    "appLogoUrl": "/tonomy-logo48.png",
+    "themeFile": "theme.pangea.css",
+    "appLogoUrl": "/favicon.png",
     "appName": "Tonomy ID Development",
     "ecosystemName": "Tonomy Development",
     "appSlogan": "Building ecosystems of trust",
     "images": {
-        "logo48": "/tonomy-logo48.png",
-        "logo1024": "/tonomy-logo1024.png"
+        "logo48": "/development/favicon.png",
+        "logo1024": "/development/pangea-large-logo.png",
+        "mobileLogo": "/development/pangea-mobile-logo.png"
     },
     "links": {
         "readMoreDownload": "https://tonomy.io",
@@ -24,5 +20,8 @@
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-    "loggerLevel": "debug"
+    "loggerLevel": "debug",
+    "blockExplorerUrl": "https://local.bloks.io",
+    "documentationLink": "https://docs.pangea.web4.world",
+    "currencySymbol": "LEOS"
 }

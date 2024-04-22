@@ -3,7 +3,6 @@ import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
-import logo from "/tonomy-logo48.png";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
 import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
@@ -11,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
-import mobileLogo from "../assets/tonomy-mobile-logo.png";
 
 const snippetCode = `
 // LoginPage.jsx
@@ -19,7 +17,7 @@ async function onButtonPress() {
   await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
 }
 
-<button className="tonomy-login-button" onClick={onButtonPress}>Login with Tonomy ID</button>
+<button className="tonomy-login-button" onClick={onButtonPress}>Login with ${settings.config.appName}</button>
 `;
 
 export default function Home() {
@@ -74,16 +72,19 @@ export default function Home() {
           <div className="intro">
             <header>
               <div className="box">
-                <img src={logo} className="display-none" alt="Tonomy-logo" />
                 <img
-                  src={mobileLogo}
+                  src={settings.config.images.logo48}
+                  className="display-none"
+                  alt={`${settings.config.appName} Logo`}
+                />
+                <img
+                  src={settings.config.images.mobileLogo}
                   className="mobile-logo"
-                  alt="Tonomy-logo"
+                  alt={`${settings.config.appName} Logo`}
                 />
 
                 <div className="box-heading display-none">
-                  <span>Tonomy ID</span>
-                  <div className="box-subheading">demo</div>
+                  <span>{settings.config.appName} demo</span>
                 </div>
               </div>
               <div className="intro-container">
@@ -108,7 +109,7 @@ export default function Home() {
               <div className="snippet display-none">
                 <CodeSnippetPreview
                   snippetCode={snippetCode}
-                  documentationLink="https://docs.tonomy.foundation/start/single-sign-on/#2-login-page"
+                  documentationLink={`${settings.config.documentationLink}/start/single-sign-on/#2-login-page`}
                 />
               </div>
             </header>

@@ -1,16 +1,12 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import "./theme.css";
 import { runTests } from "./common/utils/runtime-tests";
 import settings from "./common/settings";
 import { api } from "@tonomy/tonomy-id-sdk";
+import "./theme.css";
 
 api.setSettings({
-  ssoWebsiteOrigin: settings.config.ssoWebsiteOrigin,
-  blockchainUrl: settings.config.blockchainUrl,
-  communicationUrl: settings.config.communicationUrl,
-  tonomyIdSchema: settings.config.tonomyIdSchema,
-  loggerLevel: settings.config.loggerLevel,
+  ...settings.config,
 });
 
 /**
@@ -42,6 +38,15 @@ try {
       const accounts = module.default;
 
       accounts(root);
+    });
+  } else if (
+    parseInt(window.location.port) === 3002 ||
+    subdomain === "console"
+  ) {
+    import("./developersConsole/module-index.js").then((module) => {
+      const developersConsole = module.default;
+
+      developersConsole(root);
     });
   } else {
     throw new Error("Domain not supported");

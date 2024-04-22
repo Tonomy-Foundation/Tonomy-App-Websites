@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -20,23 +20,22 @@ const theme = createTheme({
         root: {
           padding: "0px",
         },
-        label:{
+        label: {
           fontWeight: "bold",
           padding: "0px",
-        }
+        },
       },
     },
-    MuiStepConnector:{
+    MuiStepConnector: {
       styleOverrides: {
         line: {
           minHeight: "38px",
         },
         root: {
           marginLeft: "8px",
-        }
-      }
+        },
+      },
     },
-    
   },
 });
 const CustomStepIcon: React.FC<CustomStepIconProps> = ({ active }) => {
@@ -64,12 +63,11 @@ export default function VerticalLinearStepper(props: VerticalStepperProps) {
         sx={{ display: "flex", justifyContent: "center", marginTop: "1.7rem" }}
       >
         <ThemeProvider theme={theme}>
-          <Stepper activeStep={props.activeStep} orientation="vertical"  >
+          <Stepper activeStep={props.activeStep} orientation="vertical">
             {props.steps.map((step, index) => (
-              <Step key={step.label} >
+              <Step key={step.label}>
                 <StepLabel
                   icon={<CustomStepIcon active={props.activeStep >= index} />}
-                 
                 >
                   {step.label}
                 </StepLabel>

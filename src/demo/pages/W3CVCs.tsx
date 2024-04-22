@@ -8,6 +8,7 @@ import W3VCSignDocument from "./W3VCs/W3VCSignDocument";
 import W3VCImagine from "./W3VCs/W3VCImagine";
 import W3VCProgress from "./W3VCs/W3VCProgress";
 import W3VCConfirmation from "./W3VCs/W3VCConfirmation";
+import settings from "../../common/settings";
 
 const snippetCode = `
 // SignVcPage.jsx
@@ -67,7 +68,7 @@ export default function W3CVCs() {
           {activeSection === "intro" && (
             <W3VCIntro
               username={username}
-              scrollToDemo={() => scrollToDemo("demoSection")}
+              scrollToDemo={() => scrollToDemo("VCdemoSection")}
               signout={signout}
               setActiveSection={setActiveSection}
             />
@@ -115,7 +116,7 @@ export default function W3CVCs() {
         <div className="block-container">
           <W3VCIntro
             username={username}
-            scrollToDemo={() => scrollToDemo("demoSection")}
+            scrollToDemo={() => scrollToDemo("VCdemoSection")}
             signout={signout}
             setActiveSection={setActiveSection}
           />
@@ -148,7 +149,7 @@ export default function W3CVCs() {
           )}
           <CodeSnippetPreview
             snippetCode={snippetCode}
-            documentationLink="https://docs.tonomy.foundation/start/usage/#sign-a-w3c-verifiable-credential"
+            documentationLink={`${settings.config.documentationLink}/start/usage/#sign-a-w3c-verifiable-credential`}
           />
         </div>
       )}

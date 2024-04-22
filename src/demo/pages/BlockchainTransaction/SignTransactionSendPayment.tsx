@@ -13,12 +13,15 @@ import {
   AccountType,
   TonomyUsername,
   getAccountNameFromUsername,
-  EosioTokenContract,
+  DemoTokenContract,
+  getSettings,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../../common/stores/errorStore";
 import settings from "../../../common/settings";
 
-const eosioTokenContract = EosioTokenContract.Instance;
+const env = settings.env || "development";
+
+const demoTokenContract = DemoTokenContract.Instance;
 
 export type SignTransactionSendPaymentProps = {
   username: string;
@@ -35,7 +38,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   const [recipient, setRecipient] = useState<string>("cheesecakeophobia");
   const errorStore = useErrorStore();
   const [transactionState, setTransactionState] = useState<
-    "prepurchase" | "loading" | "purchased"
+    "prepurchase" | "loading" | "purchased" | "getAmount"
   >("prepurchase");
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState<string>(
@@ -47,22 +50,38 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const accountName = await user?.getAccountName();
 
       if (accountName) {
-        let accountBalance = await eosioTokenContract.getBalance(accountName);
+        setTransactionState("loading");
+        let accountBalance = await demoTokenContract.getBalance(accountName);
 
+        console.log("accountBalance", accountBalance);
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
-        if (accountBalance > 10) return;
 
-        await user?.signTransaction("eosio.token", "selfissue", {
-          to: accountName,
-          quantity: "10 SYS",
-          memo: "test",
-        });
+        if (accountBalance > 10) {
+          setTransactionState("getAmount");
+          return;
+        }
+
+        await user?.signTransaction(
+          TonomyUsername.fromUsername(
+            "demo",
+            AccountType.APP,
+            getSettings().accountSuffix
+          ),
+          "selfissue",
+          {
+            to: accountName,
+            quantity: "10 DEMO",
+            memo: "test",
+          }
+        );
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
+        setTransactionState("getAmount");
       }
     } catch (e) {
+      console.log("error", e);
       errorStore.setError({ error: e, expected: false });
     }
   }
@@ -108,26 +127,45 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         props.setActiveStep(1);
         props.setProgressValue(40);
       }, 200);
-      const trx = await user?.signTransaction("eosio.token", "transfer", {
-        from: await user.getAccountName(),
-        to,
-        quantity: amount + " SYS",
-        memo: "test",
-      });
+      const trx = await user?.signTransaction(
+        TonomyUsername.fromUsername(
+          "demo",
+          AccountType.APP,
+          getSettings().accountSuffix
+        ),
+        "transfer",
+        {
+          from: await user.getAccountName(),
+          to,
+          quantity: amount + " DEMO",
+          memo: "test",
+        }
+      );
 
       const updateBalance = props.balance - amount;
 
       props.setBalance(updateBalance);
       props.setActiveStep(2);
       props.setProgressValue(60);
-      let url =
-        "https://local.bloks.io/transaction/" +
-        trx?.transaction_id +
-        "?nodeUrl=";
+      let url;
 
-      url += settings.isProduction()
-        ? settings.config.blockchainUrl
-        : "http://localhost:8888";
+      if (settings.env === "development " || settings.env === "staging") {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id +
+          "?nodeUrl=";
+
+        url += settings.isProduction()
+          ? settings.config.blockchainUrl
+          : "http://localhost:8888";
+        url += "&coreSymbol=LEOS&corePrecision=6";
+      } else {
+        url =
+          settings.config.blockExplorerUrl +
+          "/transaction/" +
+          trx?.transaction_id;
+      }
 
       await setTimeout(() => {
         props.setActiveStep(3);
@@ -165,9 +203,45 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         <MainContainer>
           <div className="web-view " id="demoSection">
             <FormHeaderContainer>
-              <div className="display-balance">
-                <p className="balance-container-text-left">Balance: </p>
-                <p className="balance-container-text-right">
+              <div
+                className="display-balance"
+                style={
+                  env === "staging"
+                    ? {
+                      backgroundColor:
+                        "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
+                    }
+                    : {
+                      backgroundColor: "var(--primary)",
+                    }
+                }
+              >
+                <p
+                  className="balance-container-text-left"
+                  style={
+                    env === "staging"
+                      ? {
+                        color: "var(--accent)",
+                      }
+                      : {
+                        color: "var(--white)",
+                      }
+                  }
+                >
+                  Amount:{" "}
+                </p>
+                <p
+                  className="balance-container-text-right"
+                  style={
+                    env === "staging"
+                      ? {
+                        color: "var(--accent)",
+                      }
+                      : {
+                        color: "var(--white)",
+                      }
+                  }
+                >
                   {props.balance} EUR
                 </p>
               </div>

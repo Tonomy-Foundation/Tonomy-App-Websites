@@ -20,7 +20,7 @@ const CodeSnippetPreview = (props: CodeSnippetPreviewProps) => {
       <div>
         {" "}
         <a href={props.documentationLink} target="_blank" rel="noreferrer">
-          <p>Documentation {`->`} </p>
+          <p className="text-color">Documentation {`->`} </p>
         </a>
       </div>
       <div>
