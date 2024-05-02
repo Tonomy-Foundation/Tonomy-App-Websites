@@ -13,7 +13,7 @@
         "readMoreDownload": "https://tonomy.io",
         "readMoreFoundation": "https://tonomy.foundation",
         "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
-        "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
+        "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
     },
     "accountSuffix": ".stag.tonomy.id",
     "tonomyIdSchema": "tonomy-id-staging://",
