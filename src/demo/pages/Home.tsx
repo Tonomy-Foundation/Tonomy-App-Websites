@@ -5,7 +5,6 @@ import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";

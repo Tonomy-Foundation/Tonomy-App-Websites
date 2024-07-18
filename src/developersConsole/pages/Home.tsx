@@ -3,8 +3,6 @@ import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
-import appLogo from "../assets/tonomy-logo.png";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";

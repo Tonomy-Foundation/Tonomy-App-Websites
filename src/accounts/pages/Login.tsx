@@ -22,7 +22,7 @@ import {
   JsKeyManager,
   CommunicationError,
   WalletRequest,
-  getJwkIssuerFromStorage,
+  getDidKeyIssuerFromStorage,
   getLoginRequestFromUrl,
   onRedirectLogin,
   RequestsManager,
@@ -148,7 +148,7 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await getJwkIssuerFromStorage();
+          const jwkIssuer = await getDidKeyIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
