@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./Callback.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
@@ -21,7 +21,7 @@ export default function Callback() {
 
   async function verifyLogin() {
     try {
-      const user = await api.ExternalUser.verifyLoginRequest();
+      const user = await ExternalUser.verifyLoginRequest();
 
       if (user) {
         signin(user);

@@ -3,7 +3,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Message,
   LoginRequest,
-  api,
   LoginWithTonomyMessages,
   AuthenticationMessage,
   IdentifyMessage,
@@ -271,7 +270,7 @@ export default function Login() {
           loginRequest,
           dataSharingRequest,
           loginToCommunication: loginToCommunicationVal,
-        } = (await api.ExternalUser.loginWithTonomy({
+        } = (await ExternalUser.loginWithTonomy({
           callbackPath: "/callback",
           redirect: false,
           dataRequest: {
@@ -353,7 +352,7 @@ export default function Login() {
   async function checkLoggedIn() {
     if (getSettings().loggerLevel === "debug") console.log("checkLoggedIn()");
 
-    const user = await api.ExternalUser.getUser();
+    const user = await ExternalUser.getUser();
 
     setStatus("connecting");
     setUser(user);
