@@ -1,0 +1,33 @@
+name: Test - build, test and lint
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🚀 Build app
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.3.0
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn run build
+      - run: yarn run lint
+
+  check-outdated-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for outdated packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.3.0
+          cache: yarn
+      - run: yarn outdated || echo "WARNING:Packages outdate. Update packages with 'yarn upgrade-interactive --latest'" && exit 1
+  
