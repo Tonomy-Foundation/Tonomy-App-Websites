@@ -25,9 +25,10 @@ export default defineConfig((env) => {
   // fix for https://github.com/decentralized-identity/ethr-did-resolver/issues/186
   if (env.mode === "development") {
     config.resolve.alias["ethr-did-resolver"] = path.resolve(
-      "./node_modules/@tonomy/tonomy-id-sdk/node_modules/ethr-did/node_modules/ethr-did-resolver/src/index.ts",
-    );
+      "./node_modules/ethr-did-resolver/src/index.ts",
+    ),
   }
+}
 
   return config;
 });
