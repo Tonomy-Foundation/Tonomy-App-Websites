@@ -26,9 +26,8 @@ export default defineConfig((env) => {
   if (env.mode === "development") {
     config.resolve.alias["ethr-did-resolver"] = path.resolve(
       "./node_modules/ethr-did-resolver/src/index.ts",
-    ),
+    );
   }
-}
 
   return config;
 });

@@ -5460,6 +5460,11 @@ sprintf-js@^1.1.3:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.3.tgz#4914b903a2f8b685d17fdf78a70e917e872e444a"
   integrity sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==
 
+sql.js@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/sql.js/-/sql.js-1.10.3.tgz#cd05043a9e2667010cd0520180577c90df8dd990"
+  integrity sha512-H46aWtQkdyjZwFQgraUruy5h/DyJBbAK3EA/WEMqiqF6PGPfKBSKBj/er3dVyYqVIoYfRf5TFM/loEjtQIrqJg==
+
 sqlite3@^5.1.7:
   version "5.1.7"
   resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-5.1.7.tgz#59ca1053c1ab38647396586edad019b1551041b7"
