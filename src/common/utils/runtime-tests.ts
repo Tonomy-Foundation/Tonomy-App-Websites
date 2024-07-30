@@ -24,9 +24,6 @@ async function initDataSource() {
     driver: SQL,
     location: "sql.js.database.file",
     autoSave: true,
-    autoSaveCallback: () => {
-      console.log("autoSaveCallback");
-    },
     synchronize: true,
     // migrations: migrations,
     // migrationsRun: true,
