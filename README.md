@@ -61,6 +61,10 @@ Other environment variables override the values in the config file:
 
 ## Errors
 
+### Debugging
+
+Uses [debug](https://www.npmjs.com/package/debug) package. Use `export VITE_DEBUG="tonomy*"` to see all debug logs.
+
 ### Common errors and how to fix
 
 `Origin not found`
