@@ -12,7 +12,7 @@ import Debug from "debug";
 import initSqlJs from "sql.js";
 import wasm from "sql.js/dist/sql-wasm.wasm?url";
 
-const debug = Debug("tonomy-app-webites:common:util:ssi:veramo");
+const debug = Debug("tonomy-app-webites:common:util:runtime-tests");
 
 async function initDataSource() {
   const SQL = await initSqlJs({
@@ -38,7 +38,7 @@ async function initDataSource() {
 }
 
 async function testVeramo() {
-  debug("testVeramo");
+  debug("testVeramo() called");
   await setupDatabase(await initDataSource());
   debug("Database setup");
   await veramo();
@@ -52,6 +52,7 @@ async function testVeramo() {
 
     await repository.clear(); // This clears all entries from the entity's table.
   }
+
   debug("Database cleared");
 }
 

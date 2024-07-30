@@ -1610,14 +1610,6 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tonomy/antelope-did-resolver@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@tonomy/antelope-did-resolver/-/antelope-did-resolver-0.1.9.tgz#51f10746bbe90ba15eab0d6986a946020a92dcc2"
-  integrity sha512-oli1hMVweBkPEtbkK58i4oH7a25+tLtuOapXF0bV7qhvL7SWIQ0PjBEJpFtBUYs1oZ39fCRsu8ioVgwoOt+HQQ==
-  dependencies:
-    base64url "^3.0.1"
-    eosjs "^21.0.4"
-
 "@tonomy/antelope-did-resolver@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@tonomy/antelope-did-resolver/-/antelope-did-resolver-0.10.0.tgz#13c32856d3d7ed692f783a1a423267a7755b7652"
@@ -1629,28 +1621,12 @@
     did-jwt "^8.0.4"
     did-resolver "^4.1.0"
 
-"@tonomy/antelope-did@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@tonomy/antelope-did/-/antelope-did-0.1.5.tgz#dcfd14b79ea4e236d28278603889fd3b1ef10884"
-  integrity sha512-CzWCx0sdXenIZthywHMydZVnmuRK2V5rwPo9YheLBxD7hm0OA85sDflW4ADmiFu8HaWjk0JgjS6jwS7Xsr56rg==
-  dependencies:
-    "@tonomy/antelope-did-resolver" "^0.1.9"
-    "@tonomy/did-resolver" "^4.0.4"
-    eosjs "^22.0.0"
-    node-fetch "^2.6.1"
-
-"@tonomy/did-resolver@^4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@tonomy/did-resolver/-/did-resolver-4.0.4.tgz#4a0c5bc68e4498e992bca62914ec5d763eaacf82"
-  integrity sha512-7sgPKUENMsGfq2TaAo4/hwthy45pvVnZep79o6BpmPK5xSwzPctglITkgfM7OY6hyS4le4wQC0LYI7mrGShD2A==
-
-"@tonomy/tonomy-id-sdk@0.21.0-test.3":
-  version "0.21.0-test.3"
-  resolved "https://registry.yarnpkg.com/@tonomy/tonomy-id-sdk/-/tonomy-id-sdk-0.21.0-test.3.tgz#0deda2159ba33feb2201a2d3e24aa68053a875dc"
-  integrity sha512-355bhdD/bA2KugEMi7fYgYTE1aq1BiJ35pSTewKv9qadM69n+fzAu9ZHmiQh0ug+vb0bMFkoMcCEXXINTb3Y/Q==
+"@tonomy/tonomy-id-sdk@0.21.0-test.5":
+  version "0.21.0-test.5"
+  resolved "https://registry.yarnpkg.com/@tonomy/tonomy-id-sdk/-/tonomy-id-sdk-0.21.0-test.5.tgz#d8e2b18fe84be8438d9071bf983ea753855969fc"
+  integrity sha512-RpaJ/Hy2//hALvvAeE0BOVGNumyfnYysxHQblF2C1PBUpm+7cJxnSAYinIRnxVtlnFk9Ti4Y5wz7gobD/Vv8gA==
   dependencies:
     "@consento/sync-randombytes" "^1.0.5"
-    "@tonomy/antelope-did" "^0.1.5"
     "@tonomy/antelope-did-resolver" "^0.10.0"
     "@veramo/core" "^6.0.0"
     "@veramo/credential-w3c" "^6.0.0"
@@ -1663,11 +1639,8 @@
     "@veramo/kms-local" "^6.0.0"
     "@wharfkit/antelope" "^1.0.7"
     argon2 "^0.40.3"
-    base64url "^3.0.1"
     cross-fetch "^4.0.0"
-    did-jwt "^8.0.4"
-    did-jwt-vc "^4.0.4"
-    did-resolver "^4.1.0"
+    debug "^4.3.6"
     ethers "^6.13.1"
     ethr-did-resolver "^10.1.9"
     reflect-metadata "^0.2.2"
@@ -2500,11 +2473,6 @@ bl@^4.0.3:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-bn.js@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
-  integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
-
 bn.js@^4.0.0, bn.js@^4.11.9:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
@@ -2983,6 +2951,13 @@ debug@4, debug@^4.1.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4, d
   dependencies:
     ms "2.1.2"
 
+debug@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.6.tgz#2ab2c38fbaffebf8aa95fdfe6d88438c7a13c52b"
+  integrity sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==
+  dependencies:
+    ms "2.1.2"
+
 decompress-response@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/decompress-response/-/decompress-response-6.0.0.tgz#ca387612ddb7e104bd16d85aab00d5ecf09c66fc"
@@ -3020,7 +2995,7 @@ detect-libc@^2.0.0:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.3.tgz#f0cd503b40f9939b894697d19ad50895e30cf700"
   integrity sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==
 
-did-jwt-vc@^4.0.0, did-jwt-vc@^4.0.4:
+did-jwt-vc@^4.0.0:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/did-jwt-vc/-/did-jwt-vc-4.0.4.tgz#05f6e29778dd5655cb11cb94a3d1ee8e3cd2f255"
   integrity sha512-O/VSW+pux25+bERGQ1Z+LNv8z8gIy++yL8yjspxNZHCLjdmCelZz3hjuIpHlixhBCFP2YyTOQqGg8QeIMRwN9Q==
@@ -3171,26 +3146,6 @@ env-paths@^2.2.0, env-paths@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-2.2.1.tgz#420399d416ce1fbe9bc0a07c62fa68d67fd0f8f2"
   integrity sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==
-
-eosjs@^21.0.4:
-  version "21.0.4"
-  resolved "https://registry.yarnpkg.com/eosjs/-/eosjs-21.0.4.tgz#67794a9fbc3c7659de19a7926c2c13cce4515571"
-  integrity sha512-XbuIoidplA1hHIejy7VQ+hmBfC6T28kYFaQMsn6G1DMTg1CFwUzxwzUvZg/dGNPuf7hgPxOpaQvAUsdidTgGhQ==
-  dependencies:
-    bn.js "5.2.0"
-    elliptic "6.5.4"
-    hash.js "1.1.7"
-    pako "2.0.3"
-
-eosjs@^22.0.0:
-  version "22.1.0"
-  resolved "https://registry.yarnpkg.com/eosjs/-/eosjs-22.1.0.tgz#7ac40e2f1f959fab70539c30ac8ae46c9038aa3c"
-  integrity sha512-Ka8KO7akC3RxNdSg/3dkGWuUWUQESTzSUzQljBdVP16UG548vmQoBqSGnZdnjlZyfcab8VOu2iEt+JjyfYc5+A==
-  dependencies:
-    bn.js "5.2.0"
-    elliptic "6.5.4"
-    hash.js "1.1.7"
-    pako "2.0.3"
 
 err-code@^2.0.2:
   version "2.0.3"
@@ -4585,7 +4540,7 @@ node-fetch@3.0.0-beta.9:
     data-uri-to-buffer "^3.0.1"
     fetch-blob "^2.1.1"
 
-node-fetch@^2.6.1, node-fetch@^2.6.12:
+node-fetch@^2.6.12:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
@@ -4708,11 +4663,6 @@ package-json-from-dist@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz#e501cd3094b278495eb4258d4c9f6d5ac3019f00"
   integrity sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==
-
-pako@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.3.tgz#cdf475e31b678565251406de9e759196a0ea7a43"
-  integrity sha512-WjR1hOeg+kki3ZIOjaf4b5WVcay1jaliKSYiEaB1XzwhMQZJxRdQRv0V31EKBYlxb4T7SK3hjfc/jxyU64BoSw==
 
 pako@^2.1.0:
   version "2.1.0"
