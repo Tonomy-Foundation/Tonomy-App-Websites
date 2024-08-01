@@ -22,7 +22,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/lab": "^5.0.0-alpha.151",
     "@mui/material": "^5.16.4",
-    "@tonomy/tonomy-id-sdk": "0.21.0-test.5",
+    "@tonomy/tonomy-id-sdk": "0.21.0-test.7",
     "@wharfkit/antelope": "^1.0.8",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
@@ -58,5 +58,8 @@
     "typescript-eslint": "^7.16.1",
     "vite": "^5.3.4"
   },
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+  "resolutions": {
+    "jsonld": "link:./node_modules/@digitalcredentials/jsonld"
+  },
+  "packageManager": "yarn@4.3.1"
 }
