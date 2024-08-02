@@ -1,6 +1,6 @@
 name: Run Security Scan with Dastardly and ZAP Full Scan
 
-on: pull_request
+on: push
 
 jobs:
   security-scan:

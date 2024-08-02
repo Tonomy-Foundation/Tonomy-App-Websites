@@ -1,6 +1,6 @@
 name: Test - build, test and lint
 
-on: pull_request
+on: push
 
 jobs:
   build:
