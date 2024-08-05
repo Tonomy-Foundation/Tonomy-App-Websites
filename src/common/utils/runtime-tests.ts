@@ -14,7 +14,7 @@ import wasm from "sql.js/dist/sql-wasm.wasm?url";
 
 const debug = Debug("tonomy-app-webites:common:util:runtime-tests");
 
-async function initDataSource() {
+async function initDataSource(): Promise<DataSource> {
   const SQL = await initSqlJs({
     locateFile: () => wasm,
   });
@@ -36,6 +36,7 @@ async function initDataSource() {
 
 async function testVeramo() {
   debug("testVeramo() called");
+  // @ts-ignore (DataSource type error)
   await setupDatabase(await initDataSource());
   debug("Database setup");
   await veramo();
