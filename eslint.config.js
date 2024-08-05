@@ -16,6 +16,7 @@ export default [
             eqeqeq: "error",
             "no-console": "warn",
             "prettier/prettier": "error",
+            "@typescript-eslint/ban-ts-comment": "warn",
             "react/display-name": "off",
             "react/no-children-prop": "off",
             "react/react-in-jsx-scope": "off",
