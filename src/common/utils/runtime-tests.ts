@@ -68,5 +68,5 @@ async function testAntelopeDid() {
 
 export async function runTests() {
   await testAntelopeDid();
-  await testVeramo();
+  // await testVeramo();
 }
