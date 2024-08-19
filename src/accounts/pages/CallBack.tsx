@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import {
-  api,
+  ExternalUser,
   terminateLoginRequest,
   SdkError,
   SdkErrors,
@@ -19,7 +19,7 @@ export default function CallBackPage() {
 
   async function verifyLoginCallback() {
     try {
-      await api.ExternalUser.verifyLoginRequest();
+      await ExternalUser.verifyLoginRequest();
 
       const { success, error, response } = getLoginRequestResponseFromUrl();
 

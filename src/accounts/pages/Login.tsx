@@ -3,7 +3,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Message,
   LoginRequest,
-  api,
   LoginWithTonomyMessages,
   AuthenticationMessage,
   IdentifyMessage,
@@ -22,12 +21,11 @@ import {
   JsKeyManager,
   CommunicationError,
   WalletRequest,
-  getJwkIssuerFromStorage,
+  getDidKeyIssuerFromStorage,
   getLoginRequestFromUrl,
   onRedirectLogin,
   RequestsManager,
   ResponsesManager,
-  getSettings,
 } from "@tonomy/tonomy-id-sdk";
 import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -44,6 +42,9 @@ import QROrLoading from "../molecules/ShowQr";
 import useErrorStore from "../../common/stores/errorStore";
 import { useWalletRequestsStore } from "../stores/loginStore";
 import ConnectionError from "../molecules/ConnectionError";
+import Debug from "debug";
+
+const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 const styles = {
   container: {
@@ -88,8 +89,7 @@ export default function Login() {
 
   // sends the login request to Tonomy ID via URL
   async function redirectToMobileAppUrl(requests: WalletRequest[]) {
-    if (getSettings().loggerLevel === "debug")
-      console.log("redirectToMobileAppUrl()", requests.length);
+    debug("redirectToMobileAppUrl()", requests.length);
 
     const payload = {
       requests,
@@ -98,7 +98,7 @@ export default function Login() {
     const base64UrlPayload = objToBase64Url(payload);
 
     window.location.replace(
-      `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`
+      `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`,
     );
 
     // wait 1 second
@@ -112,10 +112,9 @@ export default function Login() {
   async function connectToTonomyId(
     requests: LoginRequest[],
     loginToCommunication: AuthenticationMessage,
-    user?: ExternalUser
+    user?: ExternalUser,
   ) {
-    if (getSettings().loggerLevel === "debug")
-      console.log("connectToTonomyId()", requests.length, typeof user);
+    debug("connectToTonomyId()", requests.length, typeof user);
     // Login to the communication server
     await communication.login(loginToCommunication);
 
@@ -134,7 +133,7 @@ export default function Login() {
           requests,
         },
         issuer,
-        tonomyIDDid
+        tonomyIDDid,
       );
 
       await communication.sendMessage(requestMessage);
@@ -148,13 +147,13 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await getJwkIssuerFromStorage();
+          const jwkIssuer = await getDidKeyIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
             {
               requests,
             },
             jwkIssuer,
-            identifyMessage.getSender()
+            identifyMessage.getSender(),
           );
 
           await communication.sendMessage(requestMessage);
@@ -179,11 +178,10 @@ export default function Login() {
   async function subscribeToLoginRequestResponse() {
     communication.subscribeMessage(async (message: Message) => {
       try {
-        if (getSettings().loggerLevel === "debug")
-          console.log("subscribeToLoginRequestResponse()");
+        debug("subscribeToLoginRequestResponse()");
 
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
-          message
+          message,
         ).getPayload();
 
         if (loginRequestResponsePayload.success !== true) {
@@ -195,7 +193,7 @@ export default function Login() {
             managedRequests.getRequestsDifferentOriginOrThrow();
 
           const managedExternalResponses = new ResponsesManager(
-            new RequestsManager(externalRequests)
+            new RequestsManager(externalRequests),
           );
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
@@ -211,7 +209,7 @@ export default function Login() {
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
               callbackPath: externalLoginRequest.getPayload().callbackPath,
-            }
+            },
           );
 
           window.location.href = url as string;
@@ -230,8 +228,7 @@ export default function Login() {
   }
 
   async function getAppDetails(loginRequest: LoginRequest) {
-    if (getSettings().loggerLevel === "debug")
-      console.log("getAppDetails()", loginRequest.getPayload().origin);
+    debug("getAppDetails()", loginRequest.getPayload().origin);
 
     const app = await App.getApp(loginRequest.getPayload().origin);
 
@@ -241,12 +238,7 @@ export default function Login() {
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
-      if (getSettings().loggerLevel === "debug")
-        console.log(
-          "loginToTonomyAndSendRequests()",
-          typeof user,
-          typeof requests
-        );
+      debug("loginToTonomyAndSendRequests()", typeof user, typeof requests);
 
       let managedRequests = requests;
 
@@ -271,7 +263,7 @@ export default function Login() {
           loginRequest,
           dataSharingRequest,
           loginToCommunication: loginToCommunicationVal,
-        } = (await api.ExternalUser.loginWithTonomy({
+        } = (await ExternalUser.loginWithTonomy({
           callbackPath: "/callback",
           redirect: false,
           dataRequest: {
@@ -301,7 +293,7 @@ export default function Login() {
 
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          issuer
+          issuer,
         );
 
         requestsToSend.push(loginRequest);
@@ -331,7 +323,7 @@ export default function Login() {
       ) {
         errorStore.setError({
           error: new Error(
-            "Please try again and do not refresh this website during login"
+            "Please try again and do not refresh this website during login",
           ),
           expected: true,
           title: "Login unsuccessful",
@@ -351,9 +343,9 @@ export default function Login() {
 
   // check if user is already logged in
   async function checkLoggedIn() {
-    if (getSettings().loggerLevel === "debug") console.log("checkLoggedIn()");
+    debug("checkLoggedIn()");
 
-    const user = await api.ExternalUser.getUser();
+    const user = await ExternalUser.getUser();
 
     setStatus("connecting");
     setUser(user);
@@ -415,7 +407,6 @@ export default function Login() {
 
   const onCancel = async () => {
     try {
-      console.log("here");
       const callbackUrl = await terminateLogin({
         code: SdkErrors.UserCancelled,
         reason: "User cancelled login",

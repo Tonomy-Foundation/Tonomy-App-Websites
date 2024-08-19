@@ -4,11 +4,16 @@ import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
 import productionConfig from "./config/config.production.json";
 
-// cannot use NODE_ENV as it is always "production" on `npm run build`
-const env = import.meta.env.VITE_APP_NODE_ENV || "development";
+import Debug from "debug";
 
-console.log(import.meta.env);
-console.log(`VITE_APP_NODE_ENV=${env}`);
+const debug = Debug("tonomy-app-websites:common:settings");
+
+const environmentVariables = import.meta.env;
+// cannot use NODE_ENV as it is always "production" on `npm run build`
+const env = environmentVariables.VITE_APP_NODE_ENV || "development";
+
+debug(environmentVariables);
+debug(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
   appLogoUrl: string;
@@ -59,52 +64,41 @@ switch (env) {
   case "local":
   case "development":
     config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
-
     break;
   case "staging":
     config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
-
     break;
   case "testnet":
     config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
-
     break;
   case "production":
     config = productionConfig as FixLoggerLevelEnumType<
       typeof productionConfig
     >;
-
     break;
   default:
     throw new Error("Unknown environment: " + env);
 }
 
-if (import.meta.env.VITE_BLOCKCHAIN_URL) {
-  console.log(
-    `Using BLOCKCHAIN_URL from env:  ${import.meta.env.VITE_BLOCKCHAIN_URL}`
+if (environmentVariables.VITE_BLOCKCHAIN_URL) {
+  debug(
+    `Using BLOCKCHAIN_URL from env:  ${environmentVariables.VITE_BLOCKCHAIN_URL}`,
   );
-  config.blockchainUrl = import.meta.env.VITE_BLOCKCHAIN_URL;
+  config.blockchainUrl = environmentVariables.VITE_BLOCKCHAIN_URL;
 }
 
-if (import.meta.env.VITE_SSO_WEBSITE_ORIGIN) {
-  console.log(
-    `Using SSO_WEBSITE_ORIGIN from env:  ${import.meta.env.VITE_SSO_WEBSITE_ORIGIN
-    }`
+if (environmentVariables.VITE_SSO_WEBSITE_ORIGIN) {
+  debug(
+    `Using SSO_WEBSITE_ORIGIN from env:  ${environmentVariables.VITE_SSO_WEBSITE_ORIGIN}`,
   );
-  config.ssoWebsiteOrigin = import.meta.env.VITE_SSO_WEBSITE_ORIGIN;
+  config.ssoWebsiteOrigin = environmentVariables.VITE_SSO_WEBSITE_ORIGIN;
 }
 
-if (import.meta.env.VITE_COMMUNICATION_URL) {
-  console.log(
-    `Using VITE_COMMUNICATION_URL from env:  ${import.meta.env.VITE_COMMUNICATION_URL
-    }`
+if (environmentVariables.VITE_COMMUNICATION_URL) {
+  debug(
+    `Using VITE_COMMUNICATION_URL from env: ${environmentVariables.VITE_COMMUNICATION_URL}`,
   );
-  config.communicationUrl = import.meta.env.VITE_COMMUNICATION_URL;
-}
-
-if (import.meta.env.VITE_LOG === "true") {
-  console.log(`Using VITE_LOG from env:  ${import.meta.env.VITE_LOG}`);
-  config.loggerLevel = "debug";
+  config.communicationUrl = environmentVariables.VITE_COMMUNICATION_URL;
 }
 
 // Add title

@@ -44,7 +44,6 @@ export default function W3CVCs() {
   useEffect(() => {
     onRender();
   }, []);
-  console.log("success", success);
 
   const scrollToDemo = (sectionId: string) => {
     const section = document.getElementById(sectionId);
