@@ -61,9 +61,5 @@
   "resolutions": {
     "jsonld": "link:./node_modules/@digitalcredentials/jsonld"
   },
-  "packageManager": "yarn@4.3.1",
-  "engines": {
-    "node": ">=20.0.0",
-    "yarn": "^4.3.1"
-  }
+  "packageManager": "yarn@4.3.1"
 }
