@@ -18,6 +18,11 @@ import {
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../../common/stores/errorStore";
 import settings from "../../../common/settings";
+import Debug from "debug";
+
+const debug = Debug(
+  "tonomy-app-websites:demo:pages:BlockchainTransaction:SignTransactionSendPayment",
+);
 
 const env = settings.env || "development";
 
@@ -42,7 +47,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   >("prepurchase");
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState<string>(
-    "Art print from MONA gallery"
+    "Art print from MONA gallery",
   );
 
   async function onRender() {
@@ -53,7 +58,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         setTransactionState("loading");
         let accountBalance = await demoTokenContract.getBalance(accountName);
 
-        console.log("accountBalance", accountBalance);
+        debug("accountBalance", accountBalance);
         props.setBalance(accountBalance);
         setAmount(Math.floor(accountBalance / 2));
 
@@ -66,14 +71,14 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           TonomyUsername.fromUsername(
             "demo",
             AccountType.APP,
-            getSettings().accountSuffix
+            getSettings().accountSuffix,
           ),
           "selfissue",
           {
             to: accountName,
             quantity: "10 DEMO",
             memo: "test",
-          }
+          },
         );
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
@@ -81,7 +86,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         setTransactionState("getAmount");
       }
     } catch (e) {
-      console.log("error", e);
+      console.error("error", e);
       errorStore.setError({ error: e, expected: false });
     }
   }
@@ -119,7 +124,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const toUsername = TonomyUsername.fromUsername(
         recipient,
         AccountType.PERSON,
-        settings.config.accountSuffix
+        settings.config.accountSuffix,
       );
       const to = await getAccountNameFromUsername(toUsername);
 
@@ -131,7 +136,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         TonomyUsername.fromUsername(
           "demo",
           AccountType.APP,
-          getSettings().accountSuffix
+          getSettings().accountSuffix,
         ),
         "transfer",
         {
@@ -139,7 +144,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           to,
           quantity: amount + " DEMO",
           memo: "test",
-        }
+        },
       );
 
       const updateBalance = props.balance - amount;

@@ -1,6 +1,6 @@
 name: Run Security Scan with Dastardly and ZAP Full Scan
 
-on: pull_request
+on: push
 
 jobs:
   security-scan:
@@ -9,12 +9,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Enable Corepack before setting up Node
+        run: corepack enable
 
       - name: 🚀 Build app
         uses: actions/setup-node@v4
         with:
-          node-version: 18.12.1
-      - run: corepack enable
+          node-version: 22.3.0
       - run: yarn install --immutable
       - run: yarn run build
       - run: echo $(id -u) $(id -g) $(whoami)
@@ -22,8 +24,7 @@ jobs:
       - name: 🚀 Run accounts website
         uses: actions/setup-node@v4
         with:
-          node-version: 18.12.1
-      - run: corepack enable
+          node-version: 22.3.0
       - run: node generate-sitemap.js accounts
       - run: yarn run start:prod:accounts &
       - run: sleep 8
@@ -65,8 +66,7 @@ jobs:
       - name: 🚀 Run demo website
         uses: actions/setup-node@v4
         with:
-          node-version: 18.12.1
-      - run: corepack enable
+          node-version: 22.3.0
       - run: node generate-sitemap.js demo
       - run: yarn run start:prod:demo &
       - run: sleep 8
