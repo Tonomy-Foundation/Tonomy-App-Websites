@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { api, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import Rectangle from "../assets/Rectangle.png";
 import HandImage from "../assets/handImg.png";
-import "@tonomy/tonomy-id-sdk/build/api/tonomy.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
@@ -28,7 +27,7 @@ export default function Home() {
 
   async function onRender() {
     try {
-      const user = await api.ExternalUser.getUser({ autoLogout: false });
+      const user = await ExternalUser.getUser({ autoLogout: false });
 
       if (user) {
         signin(user);
@@ -57,7 +56,7 @@ export default function Home() {
   }, []);
 
   async function onButtonPress() {
-    api.ExternalUser.loginWithTonomy({
+    ExternalUser.loginWithTonomy({
       callbackPath: "/callback",
       dataRequest: { username: true },
     });

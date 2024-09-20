@@ -1,0 +1,24 @@
+name: Test - build, test and lint
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Enable Corepack before setting up Node
+        run: corepack enable
+
+      - name: 🚀 Build app
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.3.0
+      - run: yarn install --immutable
+      - run: yarn run build
+      # TODO: fix linting
+      # - run: yarn run lint
+

@@ -9,5 +9,11 @@
     "cSpell.words": [
         "Tonomy",
         "tonomy"
-    ]
+    ],
+    "git.branchPrefix": "feature/",
+    "git.branchProtection": [
+        "master",
+        "main",
+        "development"
+    ],
 }
