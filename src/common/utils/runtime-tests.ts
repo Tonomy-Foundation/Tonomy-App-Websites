@@ -1,10 +1,9 @@
 import { Resolver } from "did-resolver";
 import { getResolver } from "@tonomy/antelope-did-resolver";
-import crossFetch from "cross-fetch";
 
 async function testAntelopeDid() {
   const resolver = new Resolver({
-    ...getResolver({ fetch: crossFetch as any }),
+    ...getResolver(),
   });
 
   const res = await resolver.resolve("did:antelope:eos:eoscanadacom");
