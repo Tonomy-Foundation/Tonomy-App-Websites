@@ -360,6 +360,12 @@ export default function Login() {
   // check if user logged in and if not starts login process from URL parameters
   async function onLoad() {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const payload = urlParams.get("payload");
+
+      if (payload) {
+        localStorage.setItem("loginPayload", payload);
+      }
       await checkLoggedIn();
     } catch (e) {
       if (

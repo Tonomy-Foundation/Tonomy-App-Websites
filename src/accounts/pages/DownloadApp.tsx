@@ -7,6 +7,14 @@ import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
 
 export default function DownloadApp() {
+  const payload = localStorage.getItem("loginPayload");
+  let redirectToLogin: string;
+  if (payload) {
+    redirectToLogin = "/login?payload=" + payload;
+  } else {
+    //redirect to demo
+    redirectToLogin = "/login";
+  }
   return (
     <div className="container">
       <TH3>{settings.config.appName}</TH3>
@@ -40,7 +48,7 @@ export default function DownloadApp() {
       </div>
       <TP>
         Already have {settings.config.appName}?{" "}
-        <TLink href="/login">Log in here</TLink>
+        <TLink href={redirectToLogin}>Log in here</TLink>
       </TP>
     </div>
   );
