@@ -76,7 +76,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           "selfissue",
           {
             to: accountName,
-            quantity: "10 DEMO",
+            quantity: `10.000000 ${getSettings().currencySymbol}`,
             memo: "test",
           },
         );
@@ -213,12 +213,12 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                 style={
                   env === "staging"
                     ? {
-                      backgroundColor:
-                        "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
-                    }
+                        backgroundColor:
+                          "linear-gradient(180deg,#e8f8fc 0%,var(--primary) 100%)",
+                      }
                     : {
-                      backgroundColor: "var(--primary)",
-                    }
+                        backgroundColor: "var(--primary)",
+                      }
                 }
               >
                 <p
@@ -226,11 +226,11 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                   style={
                     env === "staging"
                       ? {
-                        color: "var(--accent)",
-                      }
+                          color: "var(--accent)",
+                        }
                       : {
-                        color: "var(--white)",
-                      }
+                          color: "var(--white)",
+                        }
                   }
                 >
                   Amount:{" "}
@@ -240,14 +240,14 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
                   style={
                     env === "staging"
                       ? {
-                        color: "var(--accent)",
-                      }
+                          color: "var(--accent)",
+                        }
                       : {
-                        color: "var(--white)",
-                      }
+                          color: "var(--white)",
+                        }
                   }
                 >
-                  {props.balance} EUR
+                  {props.balance} $DEMO coins
                 </p>
               </div>
               <p className="form-header-container-text">Dashboard</p>
