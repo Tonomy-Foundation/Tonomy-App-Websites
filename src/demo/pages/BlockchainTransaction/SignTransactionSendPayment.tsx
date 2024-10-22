@@ -76,7 +76,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           "selfissue",
           {
             to: accountName,
-            quantity: `10.000000 ${getSettings().currencySymbol}`,
+            quantity: `10 DEMO`,
             memo: "test",
           },
         );
