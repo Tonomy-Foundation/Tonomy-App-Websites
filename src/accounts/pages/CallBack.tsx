@@ -22,7 +22,7 @@ export default function CallBackPage() {
       await ExternalUser.verifyLoginRequest();
 
       const { success, error, response } = getLoginRequestResponseFromUrl();
-      console.log("callback:  ", success, error, response);
+
       if (success) {
         if (!response) {
           throw new Error("Invalid response");
@@ -39,9 +39,7 @@ export default function CallBackPage() {
         const loginRequestPayload = managedRequests
           .getLoginRequestWithDifferentOriginOrThrow()
           .getPayload();
-        console.log("loginRequestPayload: ", loginRequestPayload);
         let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
-        console.log("url: ", url);
 
         const externalResponse = managedResponses
           .getResponsesWithDifferentOriginOrThrow()
