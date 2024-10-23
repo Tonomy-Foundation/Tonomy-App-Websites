@@ -22,7 +22,7 @@ export default function CallBackPage() {
       await ExternalUser.verifyLoginRequest();
 
       const { success, error, response } = getLoginRequestResponseFromUrl();
-
+      console.log("callback:  ", success, error, response);
       if (success) {
         if (!response) {
           throw new Error("Invalid response");
@@ -30,7 +30,7 @@ export default function CallBackPage() {
 
         const managedResponses = new ResponsesManager(response);
         const managedRequests = new RequestsManager(
-          managedResponses.getRequests()
+          managedResponses.getRequests(),
         );
 
         await managedResponses.verify();
@@ -39,7 +39,9 @@ export default function CallBackPage() {
         const loginRequestPayload = managedRequests
           .getLoginRequestWithDifferentOriginOrThrow()
           .getPayload();
+        console.log("loginRequestPayload: ", loginRequestPayload);
         let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
+        console.log("url: ", url);
 
         const externalResponse = managedResponses
           .getResponsesWithDifferentOriginOrThrow()
@@ -60,7 +62,7 @@ export default function CallBackPage() {
           managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
         const managedExternalRequests = new RequestsManager(
-          managedRequests.getRequestsDifferentOriginOrThrow()
+          managedRequests.getRequestsDifferentOriginOrThrow(),
         );
 
         if (!error) throw new Error("Error not defined");
@@ -71,7 +73,7 @@ export default function CallBackPage() {
           {
             callbackOrigin: externalLoginRequest.getPayload().origin,
             callbackPath: externalLoginRequest.getPayload().callbackPath,
-          }
+          },
         );
 
         window.location.href = callbackUrl as string;
@@ -93,8 +95,8 @@ export default function CallBackPage() {
           const callbackUrl = await terminateLoginRequest(
             new ResponsesManager(
               new RequestsManager(
-                managedRequests.getRequestsDifferentOriginOrThrow()
-              )
+                managedRequests.getRequestsDifferentOriginOrThrow(),
+              ),
             ),
             "mobile",
             {
@@ -107,7 +109,7 @@ export default function CallBackPage() {
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
               callbackPath: externalLoginRequest.getPayload().callbackPath,
-            }
+            },
           );
 
           window.location.href = callbackUrl as string;
