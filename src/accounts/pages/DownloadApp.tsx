@@ -8,8 +8,9 @@ import playStoreBadge from "../assets/google-play-badge.png";
 
 export default function DownloadApp() {
   const payload = localStorage.getItem("loginPayload");
-  if (payload) localStorage.setItem("reloadFlag", "true");
-
+  if (payload) {
+    localStorage.removeItem("reloadFlag");
+  }
   return (
     <div className="container">
       <TH3>{settings.config.appName}</TH3>
