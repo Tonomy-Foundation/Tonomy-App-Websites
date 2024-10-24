@@ -7,8 +7,7 @@ import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
 
 export default function DownloadApp() {
-  const payload = localStorage.getItem("loginPayload");
-  if (payload) localStorage.setItem("reloadFlag", "true");
+  // const payload = localStorage.getItem("loginPayload");
 
   return (
     <div className="container">
