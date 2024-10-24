@@ -87,14 +87,6 @@ export default function Login() {
     onLoad();
   }, []);
 
-  useEffect(() => {
-    const reloadFlag = localStorage.getItem("reloadFlag");
-    //needs when redirecting from download page to login page
-    if (window.location.pathname === "/login" && reloadFlag) {
-      window.location.reload();
-      localStorage.removeItem("reloadFlag");
-    }
-  }, []);
   // sends the login request to Tonomy ID via URL
   async function redirectToMobileAppUrl(requests: WalletRequest[]) {
     debug("redirectToMobileAppUrl()", requests.length);

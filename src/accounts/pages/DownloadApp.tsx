@@ -7,8 +7,7 @@ import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
 
 export default function DownloadApp() {
-  const payload = localStorage.getItem("loginPayload");
-  if (payload) localStorage.setItem("reloadFlag", "true");
+  // const payload = localStorage.getItem("loginPayload");
 
   return (
     <div className="container">
@@ -41,12 +40,12 @@ export default function DownloadApp() {
           <img alt="Get it on Google Play" width="230px" src={playStoreBadge} />
         </a>
       </div>
-      {payload && (
+      {/* {payload && (
         <TP>
           Already have {settings.config.appName}?{" "}
           <TLink href={"/login?payload=" + payload}>Log in here</TLink>
         </TP>
-      )}
+      )} */}
     </div>
   );
 }
