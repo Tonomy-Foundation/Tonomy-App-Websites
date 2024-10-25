@@ -79,8 +79,10 @@ export default function Login() {
     // async handleRequests() between which publicKey is sent in the request and this
     // conflicts in the publicKey that is saved in localStorage
     if (!rendered) {
+      console.log("iff");
       rendered = true;
     } else {
+      console.log("else");
       return;
     }
 
