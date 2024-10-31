@@ -6,7 +6,7 @@ export function TLink(
   props: React.DetailedHTMLProps<
     React.AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
-  >
+  >,
 ) {
   const navigation = useNavigate();
 
