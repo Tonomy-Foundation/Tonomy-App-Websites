@@ -14,6 +14,7 @@
     "git.branchProtection": [
         "master",
         "main",
+        "testnet",
         "development"
     ],
 }

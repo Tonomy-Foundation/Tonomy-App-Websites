@@ -14,7 +14,8 @@ export default function DownloadApp() {
     <div className="container">
       <TH3>{settings.config.appName}</TH3>
       <TH4>
-        The easiest and safest way to access {settings.config.appName} apps
+        The easiest and safest way to access {settings.config.ecosystemName}{" "}
+        apps
       </TH4>
       <TP className="paragraph">
         {settings.config.appName} is a self-sovereign identity digital wallet
