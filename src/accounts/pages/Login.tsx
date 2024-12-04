@@ -27,7 +27,7 @@ import {
   RequestsManager,
   ResponsesManager,
 } from "@tonomy/tonomy-id-sdk";
-import { TH3, TH4, TP } from "../../common/atoms/THeadings";
+import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
@@ -448,7 +448,7 @@ export default function Login() {
         src={settings.config.images.logo48}
         alt={`${settings.config.appName} Logo`}
       />
-      <TH3>Login with {settings.config.appName}</TH3>
+      <TH2>Login with {settings.config.appName}</TH2>
       {(status === "connecting" || status === "app") && (
         <>{username && <TH4>{username}</TH4>}</>
       )}
@@ -458,7 +458,7 @@ export default function Login() {
           ...styles.detailContainer,
         }}
       >
-        {status === "qr" && <QROrLoading showQr={showQR} />}
+        {status === "qr" && <QROrLoading showQr={showQR} app={app} />}
 
         {status === "connecting" && (
           <>
@@ -496,7 +496,7 @@ export default function Login() {
       </div>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
-          {`Don't have ${settings.config.appName} yet?`}
+          {`Don't have ${settings.config.ecosystemName} yet?`}
         </TContainedButton>
       )}
       {(status === "connecting" || status === "app") && (

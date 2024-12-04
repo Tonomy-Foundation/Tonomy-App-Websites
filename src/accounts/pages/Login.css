@@ -24,3 +24,31 @@
 .margin-top {
     margin-top: 2rem;
 }
+
+.app-text{
+    line-height: 1.3;
+    font-size: 20px;
+    padding: 0rem 3.7rem;
+    letter-spacing: 0.03rem; 
+}
+
+.learn-more {
+    color:  #4CAF50;
+    line-height: 1.3;
+    font-size: 19px;
+    margin-bottom: 2rem;
+
+}
+
+.bottom-scan-text {
+    margin-top: 1rem;
+    line-height: 1.3;
+    font-size: 20px;
+    padding: 0rem 6.5rem;
+    letter-spacing: 0.03rem; 
+}
+
+.app-link-color{
+    color:  #4CAF50;
+
+}
