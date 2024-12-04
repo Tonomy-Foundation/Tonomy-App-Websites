@@ -23,6 +23,6 @@ jobs:
         with:
           node-version: 22.3.0
       - run: corepack enable
-      - run: node -v && npm -v && yarn -v && eas -v
+      - run: node -v && npm -v && yarn -v
       - run: yarn --immutable
       - run: yarn release
