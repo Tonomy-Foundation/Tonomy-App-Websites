@@ -104,7 +104,7 @@ jobs:
           echo "ZAP_DEMO_EXIT_CODE=$?" >> $GITHUB_OUTPUT
 
       - name: Upload ZAP Scan Output
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: zap-scan-output
           path: "*zap-scan-report.html"
@@ -124,7 +124,7 @@ jobs:
           output: "demo.dastardly-report.html"
 
       - name: Upload Dastardly HTML Scan Output
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dastardly-scan-output
           path: "*dastardly-report.html"
