@@ -2,9 +2,10 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   /* gap: 1rem; */
-  text-align: center;
+  text-align: left;
+  margin-top: 1rem;
 
 }
 .paragraph {
@@ -18,4 +19,10 @@
 
 .icon {
   display: block;
+}
+
+.text-paragraph{
+  line-height: 22px;
+  font-size: 18px;
+  margin-top: 1.2rem;
 }

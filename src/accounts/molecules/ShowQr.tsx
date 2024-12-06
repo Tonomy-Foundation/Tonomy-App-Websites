@@ -12,6 +12,7 @@ export default function QROrLoading({
   showQr: string | undefined;
   app: App | undefined;
 }) {
+  
   return (
     <>
       {!isMobile() && (

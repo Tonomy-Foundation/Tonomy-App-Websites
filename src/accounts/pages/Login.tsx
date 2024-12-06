@@ -495,9 +495,17 @@ export default function Login() {
         )}
       </div>
       {status === "qr" && (
+        <div>
         <TContainedButton onClick={() => navigation("/download")}>
           {`Don't have ${settings.config.ecosystemName} yet?`}
         </TContainedButton>
+          <TContainedButton
+            className="get-assistance-btn"
+            onClick={() => navigation("/download")}
+          >
+            {`Get assistance`}
+       </TContainedButton>
+       </div>
       )}
       {(status === "connecting" || status === "app") && (
         <>
