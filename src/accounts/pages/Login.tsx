@@ -104,7 +104,7 @@ export default function Login() {
     // wait 1 second
     // if this code runs then the redirect didn't work
     setTimeout(() => {
-      throw new Error(`Redirect to ${settings.config.appName} failed`);
+      navigation("/download");
     }, 1000);
   }
 
