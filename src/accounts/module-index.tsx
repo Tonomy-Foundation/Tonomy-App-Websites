@@ -11,6 +11,7 @@ const styles = {
     display: "flex",
     height: "100vh",
     justifyContent: "center",
+    maxWidth: "800px"
   },
 };
 
