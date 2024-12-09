@@ -5,9 +5,10 @@ import appStoreImage from "../assets/app-store.svg";
 import "./DownloadApp.css";
 import settings from "../../common/settings";
 import playStoreBadge from "../assets/google-play-badge.png";
+import { useWalletRequestsStore } from "../stores/loginStore";
 
 export default function DownloadApp() {
-  const payload = localStorage.getItem("loginPayload");
+  const { payload } = useWalletRequestsStore();
 
   return (
     <div className="container">
