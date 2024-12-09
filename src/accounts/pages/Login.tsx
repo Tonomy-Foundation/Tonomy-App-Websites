@@ -123,16 +123,22 @@ export default function Login() {
     };
 
     const base64UrlPayload = objToBase64Url(payload);
+    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
 
-    window.location.replace(
-      `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`,
-    );
+    // Create an invisible iframe to attempt to open the app
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = appUrl;
+    document.body.appendChild(iframe);
 
-    // wait 1 second
-    // if this code runs then the redirect didn't work
+    // Set a timeout to redirect to the fallback URL if the app is not opened
     setTimeout(() => {
-      throw new Error(`Redirect to ${settings.config.appName} failed`);
+      document.body.removeChild(iframe);
+      navigation("/download");
     }, 1000);
+
+    // Attempt to open the app using window.location.replace
+    window.location.replace(appUrl);
   }
 
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
