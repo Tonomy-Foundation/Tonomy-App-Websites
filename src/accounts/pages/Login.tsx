@@ -287,8 +287,15 @@ export default function Login() {
 
       if (!user) {
         let loginWithTonomyMessage: LoginWithTonomyMessages;
-        if (accountsLogin) loginWithTonomyMessage = accountsLogin;
-        else {
+        if (accountsLogin) {
+          debug(
+            "loginToTonomyAndSendRequests() using accountsLogin from store",
+          );
+          loginWithTonomyMessage = accountsLogin;
+        } else {
+          debug(
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
+          );
           loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
             redirect: false,
@@ -378,7 +385,9 @@ export default function Login() {
   async function checkLoggedIn() {
     debug("checkLoggedIn()");
 
-    const user = await ExternalUser.getUser();
+    const user = await ExternalUser.getUser({
+      autoLogout: accountsLogin ? false : true,
+    });
 
     setStatus("connecting");
     setUser(user);
