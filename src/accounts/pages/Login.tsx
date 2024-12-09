@@ -69,10 +69,37 @@ export default function Login() {
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
-  const { requests, setRequests } = useWalletRequestsStore();
+  const { requests, accountsLogin, setPayload, setRequests, setAccountsLogin } =
+    useWalletRequestsStore();
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
+
+  /*
+  useEffect()
+  --> onLoad()
+      ----> checkLoggedIn() 
+          if logged in:
+          ----> loginToTonomyAndSendRequests(user)
+          if not logged in:
+          ----> loginToTonomyAndSendRequests()
+              ----> getAppDetails()
+              if mobile:
+              ----> redirectToMobileAppUrl()
+              else:
+              ----> setShowQR()
+              ----> subscribeToLoginRequestResponse()
+                  if success:
+                  ----> window.location.replace()
+                  if failed:
+                  ----> terminateLoginRequest()
+              ----> connectToTonomyId()
+                  if logged in already:
+                  ----> communication.sendMessage(requests)
+                  else:
+                  ----> communication.subscribeMessage()
+                      ----> communication.sendMessage(requests)
+   */
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -259,17 +286,23 @@ export default function Login() {
       let loginToCommunication: AuthenticationMessage;
 
       if (!user) {
+        let loginWithTonomyMessage: LoginWithTonomyMessages;
+        if (accountsLogin) loginWithTonomyMessage = accountsLogin;
+        else {
+          loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
+            callbackPath: "/callback",
+            redirect: false,
+            dataRequest: {
+              username: true,
+            },
+          })) as LoginWithTonomyMessages;
+          setAccountsLogin(loginWithTonomyMessage);
+        }
         const {
           loginRequest,
           dataSharingRequest,
           loginToCommunication: loginToCommunicationVal,
-        } = (await ExternalUser.loginWithTonomy({
-          callbackPath: "/callback",
-          redirect: false,
-          dataRequest: {
-            username: true,
-          },
-        })) as LoginWithTonomyMessages;
+        } = loginWithTonomyMessage;
 
         requestsToSend.push(loginRequest);
         if (dataSharingRequest) requestsToSend.push(dataSharingRequest);
@@ -364,7 +397,7 @@ export default function Login() {
       const payload = urlParams.get("payload");
 
       if (payload) {
-        localStorage.setItem("loginPayload", payload);
+        setPayload(payload);
       }
       await checkLoggedIn();
     } catch (e) {
