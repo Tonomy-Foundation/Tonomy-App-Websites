@@ -385,6 +385,7 @@ export default function Login() {
   async function checkLoggedIn() {
     debug("checkLoggedIn()");
 
+    // only clear state if the accountsLogin is not set (i.e. they are not navigating from other part of the website)
     const user = await ExternalUser.getUser({
       autoLogout: accountsLogin ? false : true,
     });
