@@ -1,0 +1,28 @@
+name: Release version
+
+on:
+  push:
+    branches:
+      - master
+      - testnet
+      - development
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    env:
+      GITHUB_TOKEN: ${{secrets.MY_GITHUB_PERSONAL_ACCESS_TOKEN}}
+      # https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic
+
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v4
+      
+      - name: 🚀 Build and publish staging app
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.3.0
+      - run: corepack enable
+      - run: node -v && npm -v && yarn -v
+      - run: yarn --immutable
+      - run: yarn release
