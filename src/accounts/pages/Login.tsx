@@ -69,10 +69,37 @@ export default function Login() {
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
-  const { requests, setRequests } = useWalletRequestsStore();
+  const { requests, accountsLogin, setPayload, setRequests, setAccountsLogin } =
+    useWalletRequestsStore();
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
+
+  /*
+  useEffect()
+  --> onLoad()
+      ----> checkLoggedIn() 
+          if logged in:
+          ----> loginToTonomyAndSendRequests(user)
+          if not logged in:
+          ----> loginToTonomyAndSendRequests()
+              ----> getAppDetails()
+              if mobile:
+              ----> redirectToMobileAppUrl()
+              else:
+              ----> setShowQR()
+              ----> subscribeToLoginRequestResponse()
+                  if success:
+                  ----> window.location.replace()
+                  if failed:
+                  ----> terminateLoginRequest()
+              ----> connectToTonomyId()
+                  if logged in already:
+                  ----> communication.sendMessage(requests)
+                  else:
+                  ----> communication.subscribeMessage()
+                      ----> communication.sendMessage(requests)
+   */
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -96,16 +123,22 @@ export default function Login() {
     };
 
     const base64UrlPayload = objToBase64Url(payload);
+    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
 
-    window.location.replace(
-      `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`,
-    );
+    // Create an invisible iframe to attempt to open the app
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = appUrl;
+    document.body.appendChild(iframe);
 
-    // wait 1 second
-    // if this code runs then the redirect didn't work
+    // Set a timeout to redirect to the fallback URL if the app is not opened
     setTimeout(() => {
-      throw new Error(`Redirect to ${settings.config.appName} failed`);
+      document.body.removeChild(iframe);
+      navigation("/download");
     }, 1000);
+
+    // Attempt to open the app using window.location.replace
+    window.location.replace(appUrl);
   }
 
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
@@ -259,17 +292,30 @@ export default function Login() {
       let loginToCommunication: AuthenticationMessage;
 
       if (!user) {
+        let loginWithTonomyMessage: LoginWithTonomyMessages;
+        if (accountsLogin) {
+          debug(
+            "loginToTonomyAndSendRequests() using accountsLogin from store",
+          );
+          loginWithTonomyMessage = accountsLogin;
+        } else {
+          debug(
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
+          );
+          loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
+            callbackPath: "/callback",
+            redirect: false,
+            dataRequest: {
+              username: true,
+            },
+          })) as LoginWithTonomyMessages;
+          setAccountsLogin(loginWithTonomyMessage);
+        }
         const {
           loginRequest,
           dataSharingRequest,
           loginToCommunication: loginToCommunicationVal,
-        } = (await ExternalUser.loginWithTonomy({
-          callbackPath: "/callback",
-          redirect: false,
-          dataRequest: {
-            username: true,
-          },
-        })) as LoginWithTonomyMessages;
+        } = loginWithTonomyMessage;
 
         requestsToSend.push(loginRequest);
         if (dataSharingRequest) requestsToSend.push(dataSharingRequest);
@@ -345,7 +391,10 @@ export default function Login() {
   async function checkLoggedIn() {
     debug("checkLoggedIn()");
 
-    const user = await ExternalUser.getUser();
+    // only clear state if the accountsLogin is not set (i.e. they are not navigating from other part of the website)
+    const user = await ExternalUser.getUser({
+      autoLogout: accountsLogin ? false : true,
+    });
 
     setStatus("connecting");
     setUser(user);
@@ -364,7 +413,7 @@ export default function Login() {
       const payload = urlParams.get("payload");
 
       if (payload) {
-        localStorage.setItem("loginPayload", payload);
+        setPayload(payload);
       }
       await checkLoggedIn();
     } catch (e) {
