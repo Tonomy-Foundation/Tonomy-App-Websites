@@ -2,20 +2,9 @@
   "applinks": {
     "details": [
       {
-        "appIDs": [
-          "6BLD42QR78.foundation.tonomy.projects.tonomy-id-development", 
-          "6BLD42QR78.foundation.tonomy.projects.tonomy-id-staging",
-          "6BLD42QR78.foundation.tonomy.projects.pangea-testnet", 
-          "6BLD42QR78.foundation.tonomy.projects.united-wallet"
-      ],
-        "components": [
-          {
-            "/": "/login/*",
-            "comment": "Matches any URL whose path starts with /login/"
-          }
-        ]
+        "appIDs": [],
+        "paths": ["/login/*"]
       }
-     
     ]
   }
 }
