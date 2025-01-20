@@ -58,28 +58,22 @@ type FixLoggerLevelEnumType<T> = Omit<T, "loggerLevel"> & {
   loggerLevel: "debug" | "error";
 };
 
-let appId: string;
-
 switch (env) {
   case "test":
   case "local":
   case "development":
     config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
-    appId = "tonomy-id-development";
     break;
   case "staging":
     config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
-    appId = "tonomy-id-staging";
     break;
   case "testnet":
     config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
-    appId = "pangea-testnet";
     break;
   case "production":
     config = productionConfig as FixLoggerLevelEnumType<
       typeof productionConfig
     >;
-    appId = "united-wallet";
     break;
   default:
     throw new Error("Unknown environment: " + env);
@@ -129,13 +123,18 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 //Update the appIDs in apple-app-site-association.json
 const templatePath = "/.well-known/apple-app-site-association";
+const tonomyIDSlug = settings.config.tonomyIdSchema.replace("://", "");
+const appID = "6BLD42QR78.foundation.tonomy.projects." + tonomyIDSlug;
 
 fetch(templatePath)
   .then((response) => response.json())
   .then((template) => {
-    template.applinks.details[0].appIDs = `6BLD42QR78.foundation.tonomy.projects.${appId}`;
+    template.applinks.details[0].appIDs = `6BLD42QR78.foundation.tonomy.projects.${appID}`;
 
-    console.log(`Generated apple-app-site-association for ${env} environment.`);
+    console.log(
+      `Generated apple-app-site-association for ${env} environment.`,
+      appID,
+    );
   })
   .catch((error) => {
     console.error("Error updating apple-app-site-association:", error);
