@@ -29,3 +29,4 @@ dist-ssr
 #yarn
 .yarn
 public/sitemap.xml
+public/.well-known
