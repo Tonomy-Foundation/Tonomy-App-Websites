@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "apple-app-site-association": "node appleAppSiteAssociation.js",
+    "prepare": "yarn run apple-app-site-association",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
@@ -15,9 +17,7 @@
     "start:prod:demo": "serve -s dist -l 3001 -n",
     "start:prod:console": "serve -s dist -l 3002 -n",
     "updateSdkVersion": "./update_sdk_version.sh",
-    "release": "semantic-release --debug",
-    "apple-app-site-association": "node appleAppSiteAssociation.js",
-    "prepare": "yarn run apple-app-site-association"
+    "release": "semantic-release --debug"
   },
   "dependencies": {
     "@emotion/react": "^11.12.0",
@@ -25,7 +25,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/lab": "^5.0.0-alpha.151",
     "@mui/material": "^5.16.4",
-    "@tonomy/tonomy-id-sdk": "0.27.0-development.3",
+    "@tonomy/tonomy-id-sdk": "0.27.0-development.4",
     "@wharfkit/antelope": "^1.0.8",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
