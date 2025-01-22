@@ -3,7 +3,7 @@ import * as path from "path";
 
 const environmentVariables = import.meta.env;
 // cannot use NODE_ENV as it is always "production" on `npm run build`
-const env = environmentVariables.VITE_APP_NODE_ENV || "development";
+const env = environmentVariables?.VITE_APP_NODE_ENV || "development";
 
 // Define the object
 const appleAppSiteAssociation = {
