@@ -8,7 +8,7 @@ let appId;
 try {
   const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
 
-  console.log(`Current branch: ${branch}`);
+  console.log(`Current branch: ${branch}`, typeof branch);
 
   if (branch === "master") {
     appId = "united-wallet";
@@ -41,7 +41,7 @@ const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
 
 // Update appIDs dynamically
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
-console.log("Updated appleAppSiteAssociation", appleAppSiteAssociation);
+console.log("Updated appleAppSiteAssociation", tonomyAppId);
 
 // Define the file path
 const directoryPath = path.join("public", ".well-known");
