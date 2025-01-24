@@ -4,6 +4,8 @@ import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
 import productionConfig from "./config/config.production.json";
 import Debug from "debug";
+import * as fs from "fs";
+import * as path from "path";
 
 const debug = Debug("tonomy-app-websites:common:settings");
 
@@ -120,5 +122,51 @@ stylesheetLink.href = "/theme/" + settings.config.themeFile;
 document.head.appendChild(stylesheetLink);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+
+const appleAppSiteAssociation: {
+  applinks: {
+    details: {
+      appIDs: string[];
+      paths: string[];
+    }[];
+  };
+} = {
+  applinks: {
+    details: [
+      {
+        appIDs: [],
+        paths: ["/login/*"],
+      },
+    ],
+  },
+};
+
+// Dynamically set appID
+const slug = settings.config.tonomyIdSchema.replace("://", "");
+
+const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + slug;
+
+// Update appIDs dynamically
+appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
+console.log("Updated appleAppSiteAssociation", tonomyAppId);
+
+// Define the file path
+const directoryPath = path.join("public", ".well-known");
+const filePath = path.join(directoryPath, "apple-app-site-association");
+
+try {
+  // Check if the directory exists
+  if (!fs.existsSync(directoryPath)) {
+    // If not, create it
+    fs.mkdirSync(directoryPath, { recursive: true });
+    console.log(`Directory created: ${directoryPath}`);
+  }
+
+  // Write to the file
+  fs.writeFileSync(filePath, JSON.stringify(appleAppSiteAssociation, null, 2));
+  console.log(`File written successfully to ${filePath}`);
+} catch (error) {
+  console.error("Error handling file or directory:", error);
+}
 
 export default settings;
