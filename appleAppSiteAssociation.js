@@ -10,6 +10,10 @@ try {
 
   console.log(`Current branch: ${branch}`, typeof branch);
 
+  if (branch === "bug/1301-safari-invalid-address") {
+    appId = "tonomy-id-development";
+  }
+
   if (branch === "master") {
     appId = "united-wallet";
   } else if (branch === "testnet") {
