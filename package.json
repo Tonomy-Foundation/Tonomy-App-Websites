@@ -1,10 +1,9 @@
 {
   "name": "tonomy-app-websites",
   "private": true,
-  "version": "1.0.0-development.8",
+  "version": "1.0.0-development.9",
   "type": "module",
   "scripts": {
-    
     "dev": "vite",
     "build": "node appleAppSiteAssociation.js && tsc && vite build",
     "preview": "vite preview",
