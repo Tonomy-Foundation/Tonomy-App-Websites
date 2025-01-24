@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "apple-app-site-association": "node appleAppSiteAssociation.js",
+    "apple-app-site-association": "./appleAppSiteAssociation.sh",
     "prepare": "yarn run apple-app-site-association",
     "build": "yarn run prepare && tsc && vite build",
     "preview": "vite preview",
