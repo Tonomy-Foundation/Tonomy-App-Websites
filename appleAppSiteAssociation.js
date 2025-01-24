@@ -4,15 +4,12 @@ import * as path from "path";
 import { execSync } from "child_process";
 
 let appId;
+const environmentVariables = import.meta.env;
 
 try {
   const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
 
-  console.log(`Current branch: ${branch}`, typeof branch);
-
-  if (branch === "bug/1301-safari-invalid-address") {
-    appId = "tonomy-id-development";
-  }
+  console.log(`Current branch: ${branch}`, typeof branch, environmentVariables);
 
   if (branch === "master") {
     appId = "united-wallet";
