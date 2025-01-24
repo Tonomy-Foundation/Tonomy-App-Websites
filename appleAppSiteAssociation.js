@@ -3,7 +3,7 @@ import * as path from "path";
 
 let appId;
 const environmentVariables = import.meta.env;
-const branch = environmentVariables.VERCEL_GIT_COMMIT_REF;
+const branch = environmentVariables.VERCEL_ENV;
 
 console.log(`Current branch: ${branch}`);
 
