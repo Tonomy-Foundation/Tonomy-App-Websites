@@ -121,22 +121,4 @@ document.head.appendChild(stylesheetLink);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
-// Dynamically set appID
-const templatePath = "/.well-known/apple-app-site-association";
-const tonomyIDSlug = settings.config.tonomyIdSchema.replace("://", "");
-const appID = "6BLD42QR78.foundation.tonomy.projects." + tonomyIDSlug;
-
-fetch(templatePath)
-  .then((response) => response.json())
-  .then((template) => {
-    template.applinks.details[0].appIDs = `6BLD42QR78.foundation.tonomy.projects.${appID}`;
-
-    console.log(
-      `Generated apple-app-site-association for ${env} environment.`,
-      appID,
-    );
-  })
-  .catch((error) => {
-    console.error("Error updating apple-app-site-association:", error);
-  });
 export default settings;
