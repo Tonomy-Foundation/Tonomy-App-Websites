@@ -1,27 +1,20 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { execSync } from "child_process";
-
 let appId;
 const environmentVariables = import.meta.env;
+const branch = environmentVariables.VERCEL_GIT_BRANCH;
 
-try {
-  const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+console.log(`Current branch: ${branch}`);
 
-  console.log(`Current branch: ${branch}`, typeof branch, environmentVariables);
-
-  if (branch === "master") {
-    appId = "united-wallet";
-  } else if (branch === "testnet") {
-    appId = "pangea-testnet";
-  } else if (branch === "development") {
-    appId = "tonomy-id-staging";
-  } else {
-    appId = "tonomy-id-development";
-  }
-} catch (error) {
-  console.error("Failed to get branch:", error.message);
+if (branch === "master") {
+  appId = "united-wallet";
+} else if (branch === "testnet") {
+  appId = "pangea-testnet";
+} else if (branch === "development") {
+  appId = "tonomy-id-staging";
+} else {
+  appId = "tonomy-id-development";
 }
 
 // Define the object
@@ -37,7 +30,6 @@ const appleAppSiteAssociation = {
 };
 
 // Dynamically set appID
-
 const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
 
 // Update appIDs dynamically

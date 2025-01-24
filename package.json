@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "apple-app-site-association": "node appleAppSiteAssociation.js",
+    "prepare": "yarn run apple-app-site-association",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
