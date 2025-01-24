@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: 22.3.0
       - run: yarn install --immutable
+      - run: yarn run apple-app-site-association
       - run: yarn run build
       # TODO: fix linting
       # - run: yarn run lint
