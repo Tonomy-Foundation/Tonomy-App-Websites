@@ -13,9 +13,8 @@ jobs:
       - name: Enable Corepack before setting up Node
         run: corepack enable
 
-     - name: Set Environment Variable Based on Branch
+      - name: Set Environment Variable Based on Branch
         run: echo "VITE_APP_NODE_ENV=$(if [[ ${{ github.ref_name }} == 'master' ]]; then echo 'production'; elif [[ ${{ github.ref_name }} == 'development' ]]; then echo 'staging'; elif [[ ${{ github.ref_name }} == 'testnet' ]]; then echo 'testnet'; else echo 'development'; fi)" >> $GITHUB_ENV
-
 
       - name: 🚀 Build app
         env:
