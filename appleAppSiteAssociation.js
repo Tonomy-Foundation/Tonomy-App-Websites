@@ -31,16 +31,7 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        components: [
-          {
-            "/": "/login",
-            "?": {
-              payload: "*",
-            },
-            comment:
-              "Matches any URL whose path starts with /login and has a query parameter named 'payload' with any value",
-          },
-        ],
+        paths: ["/login", "/login/*"],
       },
     ],
   },
@@ -67,7 +58,7 @@ console.log("Updated appleAppSiteAssociation", tonomyAppId);
 
 // Define the file path
 const directoryPath = path.join("public", ".well-known");
-const filePath = path.join(directoryPath, "apple-app-site-association.json");
+const filePath = path.join(directoryPath, "apple-app-site-association");
 
 try {
   // Check if the directory exists
