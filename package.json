@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "apple-app-site-association": "./appleAppSiteAssociation.sh",
-    "prepare": "yarn run apple-app-site-association",
-    "build": "yarn run prepare && tsc && vite build",
+    "apple-site-association": "node appleAppSiteAssociation.js",
+    "build": "yarn run apple-site-association && tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
     "lint:styles": "stylelint \"src/**/*.css\"",
