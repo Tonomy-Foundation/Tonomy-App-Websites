@@ -67,7 +67,7 @@ console.log("Updated appleAppSiteAssociation", tonomyAppId);
 
 // Define the file path
 const directoryPath = path.join("public", ".well-known");
-const filePath = path.join(directoryPath, "apple-app-site-association");
+const filePath = path.join(directoryPath, "apple-app-site-association.json");
 
 try {
   // Check if the directory exists
