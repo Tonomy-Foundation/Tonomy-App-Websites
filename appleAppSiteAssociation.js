@@ -31,7 +31,16 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        paths: ["/login/*"],
+        components: [
+          {
+            "/": "/login",
+            "?": {
+              payload: "*",
+            },
+            comment:
+              "Matches any URL whose path starts with /login and has a query parameter named 'payload' with any value",
+          },
+        ],
       },
     ],
   },
