@@ -7,19 +7,19 @@ try {
   const env =
     // eslint-disable-next-line no-undef
     process?.env.VITE_APP_NODE_ENV ||
-    import.meta.env.VITE_APP_NODE_ENV ||
+    import.meta.env?.VITE_APP_NODE_ENV ||
     "development";
 
   console.log("environment variable", env);
 
   if (env === "production") {
-    appId = "united-wallet";
+    appId = "unitedwallet";
   } else if (env === "testnet") {
-    appId = "pangea-testnet";
+    appId = "pangeatestnet";
   } else if (env === "staging") {
-    appId = "tonomy-id-staging";
+    appId = "tonomyidstaging";
   } else {
-    appId = "tonomy-id-development";
+    appId = "tonomyiddevelopment";
   }
 } catch (error) {
   console.error("Failed to get branch:", error.message);
@@ -35,6 +35,14 @@ const appleAppSiteAssociation = {
       },
     ],
   },
+  // This section enables Apple Handoff
+  activitycontinuation: {
+    apps: [],
+  },
+  // This section enable Shared Web Credentials
+  webcredentials: {
+    apps: [],
+  },
 };
 
 // Dynamically set appID
@@ -43,6 +51,9 @@ const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
 
 // Update appIDs dynamically
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
+appleAppSiteAssociation.activitycontinuation.apps.push(tonomyAppId);
+appleAppSiteAssociation.webcredentials.apps.push(tonomyAppId);
+
 console.log("Updated appleAppSiteAssociation", tonomyAppId);
 
 // Define the file path
