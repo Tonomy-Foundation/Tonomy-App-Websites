@@ -356,7 +356,6 @@ export default function Login() {
       }
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
-      await redirectToMobileAppUrl(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);
