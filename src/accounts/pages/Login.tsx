@@ -140,7 +140,7 @@ export default function Login() {
       iframe.src = appUrl;
       document.body.appendChild(iframe);
       window.location.replace(appUrl);
-    } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    } else {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set("screen", "SSO");
       currentUrl.searchParams.set("payload", base64UrlPayload);
@@ -356,6 +356,7 @@ export default function Login() {
       }
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
+      await redirectToMobileAppUrl(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);
