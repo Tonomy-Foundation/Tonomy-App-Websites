@@ -39,13 +39,13 @@ const appleAppSiteAssociation = {
               "Matches any URL whose fragment equals no_universal_links and instructs the system not to open it as a universal link",
           },
           {
-            "/": "/login",
+            "/": "/login/*",
             "?": { parsedPayload: "*", screen: "SSO" },
             comment:
               "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
           },
           {
-            "/": "/login",
+            "/": "/login/*",
             query: {
               parsedPayload: "*",
               screen: "SSO",
