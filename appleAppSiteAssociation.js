@@ -69,7 +69,7 @@ const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
 
 // Update appIDs dynamically
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
-appleAppSiteAssociation.activitycontinuation.apps.push(tonomyAppId);
+appleAppSiteAssociation.appclips.apps.push(tonomyAppId);
 appleAppSiteAssociation.webcredentials.apps.push(tonomyAppId);
 
 console.log("Updated appleAppSiteAssociation", tonomyAppId);
