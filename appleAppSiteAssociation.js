@@ -40,14 +40,20 @@ const appleAppSiteAssociation = {
           },
           {
             "/": "/login/*",
-            "?": { parsedPayload: "*", screen: "SSO" },
+            "?": { payload: "*", screen: "SSO" },
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+          },
+          {
+            "/": "/login",
+            "?": { payload: "*", screen: "SSO" },
             comment:
               "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
           },
           {
             "/": "/login/*",
             query: {
-              parsedPayload: "*",
+              payload: "*",
               screen: "SSO",
             },
             comment:

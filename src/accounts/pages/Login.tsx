@@ -118,16 +118,11 @@ export default function Login() {
   async function redirectToMobileAppUrl(requests: WalletRequest[]) {
     debug("redirectToMobileAppUrl()", requests.length);
     // Update the current URL to add query param mobile=true
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set("screen", "SSO");
 
     const payload = {
       requests,
     };
-
     const base64UrlPayload = objToBase64Url(payload);
-    currentUrl.searchParams.set("parsedPayload", base64UrlPayload);
-    window.history.replaceState({}, "", currentUrl.toString());
 
     // Set a timeout to redirect to the fallback URL if the app is not opened
     // TODO uncomment when move to testnet
@@ -145,6 +140,11 @@ export default function Login() {
       iframe.src = appUrl;
       document.body.appendChild(iframe);
       window.location.replace(appUrl);
+    } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("screen", "SSO");
+      currentUrl.searchParams.set("payload", base64UrlPayload);
+      window.history.replaceState({}, "", currentUrl.toString());
     }
   }
 
