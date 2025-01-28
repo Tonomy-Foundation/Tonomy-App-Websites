@@ -129,7 +129,7 @@ export default function Login() {
     currentUrl.searchParams.set("parsedPayload", base64UrlPayload);
     window.history.replaceState({}, "", currentUrl.toString());
 
-    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
+    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}&screen=SSO&parsedPayload=${base64UrlPayload}`;
 
     // Create an invisible iframe to attempt to open the app
     const iframe = document.createElement("iframe");
