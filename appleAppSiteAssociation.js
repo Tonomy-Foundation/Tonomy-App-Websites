@@ -31,12 +31,30 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        paths: ["/login", "/login/*"],
+        components: [
+          {
+            "/": "/login/*",
+            "?": { payload: "*" },
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with `name 'payload' and a value of any.",
+          },
+          {
+            "/": "/login",
+            "?": { payload: "*" },
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+          },
+          {
+            "/": "/login?payload=*",
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+          },
+        ],
       },
     ],
   },
   // This section enables Apple Handoff
-  activitycontinuation: {
+  appclips: {
     apps: [],
   },
   // This section enable Shared Web Credentials
