@@ -31,12 +31,30 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        paths: ["/login", "/login/*"],
+        components: [
+          {
+            "/": "/login/*",
+            "?": { payload: "*" },
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with `name 'payload' and a value of any.",
+          },
+          {
+            "/": "/login",
+            "?": { payload: "*" },
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+          },
+          {
+            "/": "/login?payload=*",
+            comment:
+              "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+          },
+        ],
       },
     ],
   },
   // This section enables Apple Handoff
-  activitycontinuation: {
+  appclips: {
     apps: [],
   },
   // This section enable Shared Web Credentials
@@ -51,7 +69,7 @@ const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
 
 // Update appIDs dynamically
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
-appleAppSiteAssociation.activitycontinuation.apps.push(tonomyAppId);
+appleAppSiteAssociation.appclips.apps.push(tonomyAppId);
 appleAppSiteAssociation.webcredentials.apps.push(tonomyAppId);
 
 console.log("Updated appleAppSiteAssociation", tonomyAppId);
