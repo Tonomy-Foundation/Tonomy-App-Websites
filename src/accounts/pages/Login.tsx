@@ -117,6 +117,10 @@ export default function Login() {
   // sends the login request to Tonomy ID via URL
   async function redirectToMobileAppUrl(requests: WalletRequest[]) {
     debug("redirectToMobileAppUrl()", requests.length);
+    // Update the current URL to add query param mobile=true
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set("ismobile", "true");
+    window.history.replaceState({}, "", currentUrl.toString());
 
     const payload = {
       requests,
@@ -132,10 +136,10 @@ export default function Login() {
     document.body.appendChild(iframe);
 
     // Set a timeout to redirect to the fallback URL if the app is not opened
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-      navigation("/download");
-    }, 1000);
+    // setTimeout(() => {
+    //   document.body.removeChild(iframe);
+    //   navigation("/download");
+    // }, 1000);
 
     // Attempt to open the app using window.location.replace
     window.location.replace(appUrl);
