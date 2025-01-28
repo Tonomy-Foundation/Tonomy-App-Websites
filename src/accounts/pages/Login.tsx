@@ -129,22 +129,21 @@ export default function Login() {
     currentUrl.searchParams.set("parsedPayload", base64UrlPayload);
     window.history.replaceState({}, "", currentUrl.toString());
 
-    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}&screen=SSO&parsedPayload=${base64UrlPayload}`;
-
-    // Create an invisible iframe to attempt to open the app
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src = appUrl;
-    document.body.appendChild(iframe);
-
     // Set a timeout to redirect to the fallback URL if the app is not opened
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-      navigation("/download");
-    }, 1000);
+    // TODO uncomment when move to testnet
+    // setTimeout(() => {
+    //   document.body.removeChild(iframe);
+    //   navigation("/download");
+    // }, 1000);
 
     // Attempt to open the app using window.location.replace
     if (/android/i.test(navigator.userAgent)) {
+      const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
+      // Create an invisible iframe to attempt to open the app
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = appUrl;
+      document.body.appendChild(iframe);
       window.location.replace(appUrl);
     }
   }
