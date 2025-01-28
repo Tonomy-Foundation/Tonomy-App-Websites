@@ -33,24 +33,25 @@ const appleAppSiteAssociation = {
         appIDs: [],
         components: [
           {
-            "/": "/login/*",
-            "?": { payload: "*" },
+            "#": "no_universal_links",
             exclude: true,
             comment:
-              "Matches any URL with a path that starts with /login/ and that has a query item with `name 'payload' and a value of any.",
+              "Matches any URL whose fragment equals no_universal_links and instructs the system not to open it as a universal link",
           },
           {
             "/": "/login",
-            "?": { payload: "*" },
-            exclude: true,
+            "?": { parsedPayload: "*", screen: "SSO" },
             comment:
               "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
           },
           {
             "/": "/login",
-            "?": { payload: "*", isMobile: "true" },
+            query: {
+              parsedPayload: "*",
+              screen: "SSO",
+            },
             comment:
-              "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+              "Matches any URL with a path that starts with /login/ and has 'payload' and 'ismobile' as query parameters",
           },
         ],
       },
