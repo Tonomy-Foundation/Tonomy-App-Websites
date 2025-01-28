@@ -119,14 +119,16 @@ export default function Login() {
     debug("redirectToMobileAppUrl()", requests.length);
     // Update the current URL to add query param mobile=true
     const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set("ismobile", "true");
-    window.history.replaceState({}, "", currentUrl.toString());
+    currentUrl.searchParams.set("screen", "SSO");
 
     const payload = {
       requests,
     };
 
     const base64UrlPayload = objToBase64Url(payload);
+    currentUrl.searchParams.set("parsedPayload", base64UrlPayload);
+    window.history.replaceState({}, "", currentUrl.toString());
+
     const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
 
     // Create an invisible iframe to attempt to open the app
@@ -136,13 +138,15 @@ export default function Login() {
     document.body.appendChild(iframe);
 
     // Set a timeout to redirect to the fallback URL if the app is not opened
-    // setTimeout(() => {
-    //   document.body.removeChild(iframe);
-    //   navigation("/download");
-    // }, 1000);
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+      navigation("/download");
+    }, 1000);
 
     // Attempt to open the app using window.location.replace
-    window.location.replace(appUrl);
+    if (/android/i.test(navigator.userAgent)) {
+      window.location.replace(appUrl);
+    }
   }
 
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
