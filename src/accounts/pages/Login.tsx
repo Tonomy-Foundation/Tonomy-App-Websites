@@ -144,7 +144,7 @@ export default function Login() {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set("screen", "SSO");
       currentUrl.searchParams.set("payload", base64UrlPayload);
-      window.history.replaceState({}, "", currentUrl.toString());
+      window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
