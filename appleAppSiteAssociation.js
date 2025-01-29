@@ -31,44 +31,46 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        components: [
-          // {
-          //   "#": "no_universal_links",
-          //   exclude: true,
-          //   comment:
-          //     "Matches any URL whose fragment equals no_universal_links and instructs the system not to open it as a universal link",
-          // },
-          // {
-          //   "/": "/login/*",
-          //   "?": { payload: "*", screen: "SSO" },
-          //   comment:
-          //     "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
-          // },
-          // {
-          //   "/": "/login",
-          //   "?": { payload: "*", screen: "SSO" },
-          //   comment:
-          //     "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
-          // },
-          // {
-          //   "/": "/login/*",
-          //   query: {
-          //     payload: "*",
-          //     screen: "SSO",
-          //   },
-          //   comment:
-          //     "Matches any URL with a path that starts with /login/ and has 'payload' and 'ismobile' as query parameters",
-          // },
-          {
-            "/": "/help/*",
-            "?": {
-              screen: "???",
-              payload: "*",
-            },
-            comment:
-              "Matches any URL whose path starts with /help/ and which has a query item with name 'screenName' and a value of exactly 4 characters",
-          },
-        ],
+        paths: ["/help?payload=*&screen=???"],
+
+        // components: [
+        //   // {
+        //   //   "#": "no_universal_links",
+        //   //   exclude: true,
+        //   //   comment:
+        //   //     "Matches any URL whose fragment equals no_universal_links and instructs the system not to open it as a universal link",
+        //   // },
+        //   // {
+        //   //   "/": "/login/*",
+        //   //   "?": { payload: "*", screen: "SSO" },
+        //   //   comment:
+        //   //     "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+        //   // },
+        //   // {
+        //   //   "/": "/login",
+        //   //   "?": { payload: "*", screen: "SSO" },
+        //   //   comment:
+        //   //     "Matches any URL with a path that starts with /login/ and that has a query item with name 'payload' and a value of any.",
+        //   // },
+        //   // {
+        //   //   "/": "/login/*",
+        //   //   query: {
+        //   //     payload: "*",
+        //   //     screen: "SSO",
+        //   //   },
+        //   //   comment:
+        //   //     "Matches any URL with a path that starts with /login/ and has 'payload' and 'ismobile' as query parameters",
+        //   // },
+        //   {
+        //     "/": "/help/*",
+        //     "?": {
+        //       screen: "???",
+        //       payload: "*",
+        //     },
+        //     comment:
+        //       "Matches any URL whose path starts with /help/ and which has a query item with name 'screenName' and a value of exactly 4 characters",
+        //   },
+        // ],
       },
     ],
   },
