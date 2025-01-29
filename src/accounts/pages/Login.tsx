@@ -144,7 +144,8 @@ export default function Login() {
       // const currentUrl = new URL(window.location.href);
       // currentUrl.searchParams.set("screen", "SSO");
       // currentUrl.searchParams.set("payload", JSON.stringify(payload));
-      navigation(`/help?payload=${JSON.stringify(payload)}&screen=SSO`);
+      navigation(`/help?payload=${base64UrlPayload}&screen=SSO`);
+
       // window.history.pushState({}, "", currentUrl.toString());
     }
   }
@@ -357,6 +358,7 @@ export default function Login() {
       }
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
+      await redirectToMobileAppUrl(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);
