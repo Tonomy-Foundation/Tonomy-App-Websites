@@ -36,8 +36,8 @@ const appleAppSiteAssociation = {
             "/": "/help",
 
             "?": {
-              screen: "SSO",
               payload: "*",
+              screen: "SSO",
             },
             comment: "Matches /help/ with screen=SSO and any payload",
           },
