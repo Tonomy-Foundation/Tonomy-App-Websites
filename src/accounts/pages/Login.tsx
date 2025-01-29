@@ -130,6 +130,11 @@ export default function Login() {
     //   document.body.removeChild(iframe);
     //   navigation("/download");
     // }, 1000);
+    //check logs in android to see value looks correct
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set("screen", "SSO");
+    currentUrl.searchParams.set("payload", JSON.stringify(payload));
+    window.history.pushState({}, "", currentUrl.toString());
 
     // Attempt to open the app using window.location.replace
     if (/android/i.test(navigator.userAgent)) {
@@ -141,10 +146,11 @@ export default function Login() {
       document.body.appendChild(iframe);
       window.location.replace(appUrl);
     } else {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set("screen", "SSO");
-      currentUrl.searchParams.set("payload", base64UrlPayload);
-      window.history.pushState({}, "", currentUrl.toString());
+      //UNcomment after android testing remove line 133 to 137
+      // const currentUrl = new URL(window.location.href);
+      // currentUrl.searchParams.set("screen", "SSO");
+      // currentUrl.searchParams.set("payload", JSON.stringify(payload));
+      // window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
