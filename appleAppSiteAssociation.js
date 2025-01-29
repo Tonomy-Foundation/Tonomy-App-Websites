@@ -31,7 +31,17 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        paths: ["/help?payload=*&screen=???"],
+        components: [
+          {
+            "/": "/help",
+
+            "?": {
+              payload: "*",
+              screen: "SSO",
+            },
+            comment: "Matches /help/ with screen=SSO and any payload",
+          },
+        ],
 
         // components: [
         //   // {
