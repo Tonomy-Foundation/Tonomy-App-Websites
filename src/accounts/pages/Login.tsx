@@ -141,10 +141,11 @@ export default function Login() {
       document.body.appendChild(iframe);
       window.location.replace(appUrl);
     } else {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set("screen", "SSO");
-      currentUrl.searchParams.set("payload", JSON.stringify(payload));
-      window.history.pushState({}, "", currentUrl.toString());
+      // const currentUrl = new URL(window.location.href);
+      // currentUrl.searchParams.set("screen", "SSO");
+      // currentUrl.searchParams.set("payload", JSON.stringify(payload));
+      navigation(`/help?payload=${JSON.stringify(payload)}&screen=SSO`);
+      // window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
@@ -550,6 +551,9 @@ export default function Login() {
           </>
         )}
       </div>
+      <TContainedButton onClick={() => navigation("/help")}>
+        Help
+      </TContainedButton>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
           {`Don't have ${settings.config.appName} yet?`}
