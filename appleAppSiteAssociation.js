@@ -35,25 +35,23 @@ const appleAppSiteAssociation = {
           {
             "/": "/login/*",
             exclude: true,
-            "?": {
-              payload: "*",
-            },
-            comment: "Matches /login/ with screen=SSO and any payload",
+            comment: "Exclude all /login/* paths",
           },
           {
             "/": "/login",
             "?": {
-              payload: "ey*",
-              redirect: "true*",
-            },
-            comment: "Matches /login/ with screen=SSO and any payload",
-          },
-          {
-            "/": "/SSO",
-            "?": {
               payload: "*",
             },
-            comment: "Matches /SSO/ with screen=SSO and any payload",
+            exclude: true,
+            comment: "Exclude /login when only 'payload' is present",
+          },
+          {
+            "/": "/login",
+            "?": {
+              payload: "*",
+              redirect: "true",
+            },
+            comment: "Allow /login when 'redirect=true' is present",
           },
         ],
       },

@@ -133,8 +133,6 @@ export default function Login() {
 
     // Attempt to open the app using window.location.replace
     const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`; //same for ios redirect
-    alert(appUrl);
-    // alert(`appUrl, ${appUrl}`);
     // Create an invisible iframe to attempt to open the app
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
@@ -145,6 +143,7 @@ export default function Login() {
     } else {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set("redirect", "true");
+      currentUrl.searchParams.set("payload", base64UrlPayload);
       window.history.pushState({}, "", currentUrl.toString());
     }
   }
