@@ -34,8 +34,16 @@ const appleAppSiteAssociation = {
         components: [
           {
             "/": "/login/*",
+            exclude: true,
             "?": {
               payload: "*",
+            },
+            comment: "Matches /login/ with screen=SSO and any payload",
+          },
+          {
+            "/": "/login",
+            "?": {
+              payload: "ey*",
             },
             comment: "Matches /login/ with screen=SSO and any payload",
           },
