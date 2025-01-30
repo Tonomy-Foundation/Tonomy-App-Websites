@@ -547,9 +547,6 @@ export default function Login() {
           </>
         )}
       </div>
-      <TContainedButton onClick={() => navigation("/help")}>
-        Help
-      </TContainedButton>
       {status === "qr" && (
         <TContainedButton onClick={() => navigation("/download")}>
           {`Don't have ${settings.config.appName} yet?`}
