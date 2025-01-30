@@ -133,8 +133,6 @@ export default function Login() {
 
     // Attempt to open the app using window.location.replace
     const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`; //same for ios redirect
-    alert(appUrl);
-    // alert(`appUrl, ${appUrl}`);
     // Create an invisible iframe to attempt to open the app
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
@@ -357,6 +355,7 @@ export default function Login() {
       }
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
+      await redirectToMobileAppUrl(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);
