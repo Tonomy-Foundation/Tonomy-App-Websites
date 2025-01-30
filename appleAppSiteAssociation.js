@@ -31,24 +31,25 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        components: [
-          {
-            "/": "/login/*",
-            "?": {
-              payload: "*",
-            },
-            exclude: true,
-            comment: "Exclude /login when only 'payload' is present",
-          },
-          {
-            "/": "/login",
-            "?": {
-              payload: "*",
-              redirect: "????",
-            },
-            comment: "Allow /login when 'redirect=true' is present",
-          },
-        ],
+        // components: [
+        //   {
+        //     "/": "/login/*",
+        //     "?": {
+        //       payload: "*",
+        //     },
+        //     exclude: true,
+        //     comment: "Exclude /login when only 'payload' is present",
+        //   },
+        //   {
+        //     "/": "/login",
+        //     "?": {
+        //       payload: "*",
+        //       redirect: "????",
+        //     },
+        //     comment: "Allow /login when 'redirect=true' is present",
+        //   },
+        // ],
+        paths: ["/login?*redirect=true"],
       },
     ],
   },
