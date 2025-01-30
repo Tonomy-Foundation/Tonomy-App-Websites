@@ -132,21 +132,16 @@ export default function Login() {
     // }, 1000);
 
     // Attempt to open the app using window.location.replace
+    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`; //same for ios redirect
+    alert(appUrl);
+    // alert(`appUrl, ${appUrl}`);
+    // Create an invisible iframe to attempt to open the app
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = appUrl;
+    document.body.appendChild(iframe);
     if (/android/i.test(navigator.userAgent)) {
-      const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
-      // Create an invisible iframe to attempt to open the app
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = appUrl;
-      document.body.appendChild(iframe);
       window.location.replace(appUrl);
-    } else {
-      // const currentUrl = new URL(window.location.href);
-      // currentUrl.searchParams.set("screen", "SSO");
-      // currentUrl.searchParams.set("payload", JSON.stringify(payload));
-      navigation(`/help?payload=${base64UrlPayload}&screen=SSO`);
-
-      // window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
@@ -358,7 +353,6 @@ export default function Login() {
       }
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
-      await redirectToMobileAppUrl(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);

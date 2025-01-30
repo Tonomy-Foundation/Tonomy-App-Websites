@@ -2,5 +2,16 @@
     "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
     "buildCommand": "yarn run build",
     "installCommand": "corepack use yarn@4.3.1 && echo \"yarnPath: ${HOME}/.cache/node/corepack/v1/yarn/4.3.1/yarn.js\" >> .yarnrc.yml && yarn install --immutable",
-    "devCommand": "yarn dev"
+    "devCommand": "yarn dev",
+    "headers": [
+        {
+            "source": "/.well-known/apple-app-site-association",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+        }
+    ]
 }
