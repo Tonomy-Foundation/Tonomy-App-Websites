@@ -34,11 +34,6 @@ const appleAppSiteAssociation = {
         components: [
           {
             "/": "/login/*",
-            exclude: true,
-            comment: "Exclude all /login/* paths",
-          },
-          {
-            "/": "/login",
             "?": {
               payload: "*",
             },
@@ -49,7 +44,7 @@ const appleAppSiteAssociation = {
             "/": "/login",
             "?": {
               payload: "*",
-              redirect: "true",
+              redirect: "????",
             },
             comment: "Allow /login when 'redirect=true' is present",
           },
