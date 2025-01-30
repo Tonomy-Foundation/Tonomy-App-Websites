@@ -44,6 +44,7 @@ const appleAppSiteAssociation = {
             "/": "/login",
             "?": {
               payload: "ey*",
+              redirect: "true*",
             },
             comment: "Matches /login/ with screen=SSO and any payload",
           },
