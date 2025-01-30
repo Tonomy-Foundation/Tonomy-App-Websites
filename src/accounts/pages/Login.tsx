@@ -142,6 +142,10 @@ export default function Login() {
     document.body.appendChild(iframe);
     if (/android/i.test(navigator.userAgent)) {
       window.location.replace(appUrl);
+    } else {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("redirect", "true");
+      window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
