@@ -143,6 +143,7 @@ export default function Login() {
     } else {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set("redirect", "true");
+      currentUrl.searchParams.set("payload", base64UrlPayload);
       window.history.pushState({}, "", currentUrl.toString());
     }
   }
@@ -355,7 +356,6 @@ export default function Login() {
       }
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
-      await redirectToMobileAppUrl(requestsToSend);
 
       if (isMobile()) {
         await redirectToMobileAppUrl(requestsToSend);
