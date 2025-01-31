@@ -125,11 +125,6 @@ export default function Login() {
     const base64UrlPayload = objToBase64Url(payload);
 
     // Set a timeout to redirect to the fallback URL if the app is not opened
-    // TODO uncomment when move to testnet
-    // setTimeout(() => {
-    //   document.body.removeChild(iframe);
-    //   navigation("/download");
-    // }, 1000);
 
     // Attempt to open the app using window.location.replace
     const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`; //same for ios redirect
@@ -139,12 +134,17 @@ export default function Login() {
     iframe.src = appUrl;
     document.body.appendChild(iframe);
     if (/android/i.test(navigator.userAgent)) {
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+        navigation("/download");
+      }, 1000);
       window.location.replace(appUrl);
     } else {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set("redirect", "true");
-      currentUrl.searchParams.set("payload", base64UrlPayload);
-      window.history.pushState({}, "", currentUrl.toString());
+      navigation(`/help?payload=${base64UrlPayload}`);
+      // const currentUrl = new URL(window.location.href);
+      // currentUrl.searchParams.set("redirect", "true");
+      // currentUrl.searchParams.set("payload", base64UrlPayload);
+      // window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
