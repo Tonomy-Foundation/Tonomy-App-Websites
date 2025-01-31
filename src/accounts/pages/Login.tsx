@@ -140,7 +140,7 @@ export default function Login() {
       }, 1000);
       window.location.replace(appUrl);
     } else {
-      navigation(`/help?payload=${base64UrlPayload}`);
+      // navigation(`/help?payload=${base64UrlPayload}`);
       // const currentUrl = new URL(window.location.href);
       // currentUrl.searchParams.set("redirect", "true");
       // currentUrl.searchParams.set("payload", base64UrlPayload);
