@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import CallBackPage from "../pages/CallBack";
 import DownloadApp from "../pages/DownloadApp";
 import Login from "../pages/Login";
+import Help from "../pages/Help";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/callback",
     element: <CallBackPage />,
+  },
+  {
+    path: "/help",
+    element: <Help />,
   },
 ]);
 
