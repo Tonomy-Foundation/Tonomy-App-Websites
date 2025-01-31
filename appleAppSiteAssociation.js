@@ -32,13 +32,13 @@ const appleAppSiteAssociation = {
       {
         appIDs: [],
         components: [
-          {
-            "/": "/help/*",
-            "?": {
-              payload: "*",
-            },
-            comment: "Exclude /login when only 'payload' is present",
-          },
+          // {
+          //   "/": "/help/*",
+          //   "?": {
+          //     payload: "*",
+          //   },
+          //   comment: "Exclude /login when only 'payload' is present",
+          // },
         ],
       },
     ],
