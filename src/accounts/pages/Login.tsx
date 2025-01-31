@@ -133,18 +133,16 @@ export default function Login() {
     iframe.style.display = "none";
     iframe.src = appUrl;
     document.body.appendChild(iframe);
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+      navigation("/download");
+    }, 1000);
     if (/android/i.test(navigator.userAgent)) {
-      setTimeout(() => {
-        document.body.removeChild(iframe);
-        navigation("/download");
-      }, 1000);
       window.location.replace(appUrl);
     } else {
-      // navigation(`/help?payload=${base64UrlPayload}`);
-      // const currentUrl = new URL(window.location.href);
-      // currentUrl.searchParams.set("redirect", "true");
-      // currentUrl.searchParams.set("payload", base64UrlPayload);
-      // window.history.pushState({}, "", currentUrl.toString());
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("payload", base64UrlPayload);
+      window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
