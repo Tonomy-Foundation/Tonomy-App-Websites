@@ -1,7 +1,7 @@
 {
   "name": "tonomy-app-websites",
   "private": true,
-  "version": "1.0.0-development.44",
+  "version": "1.0.0-development.45",
   "type": "module",
   "scripts": {
     "dev": "vite",
