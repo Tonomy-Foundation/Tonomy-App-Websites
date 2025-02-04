@@ -142,6 +142,7 @@ export default function Login() {
     } else {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set("payload", base64UrlPayload);
+      currentUrl.searchParams.set("redirect", "true");
       window.history.pushState({}, "", currentUrl.toString());
     }
   }
