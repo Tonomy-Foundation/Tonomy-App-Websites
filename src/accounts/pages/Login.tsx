@@ -139,11 +139,6 @@ export default function Login() {
     }, 1000);
     if (/android/i.test(navigator.userAgent)) {
       window.location.replace(appUrl);
-    } else {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set("payload", base64UrlPayload);
-      currentUrl.searchParams.set("redirect", "true");
-      window.history.pushState({}, "", currentUrl.toString());
     }
   }
 
