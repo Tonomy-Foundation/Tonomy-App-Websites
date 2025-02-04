@@ -33,7 +33,7 @@ const appleAppSiteAssociation = {
         appIDs: [],
         components: [
           {
-            "/": "/login",
+            "/": "/login/*",
             "?": {
               payload: "*",
             },
