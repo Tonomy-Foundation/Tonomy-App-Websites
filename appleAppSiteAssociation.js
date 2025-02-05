@@ -31,15 +31,7 @@ const appleAppSiteAssociation = {
     details: [
       {
         appIDs: [],
-        components: [
-          {
-            "/": "/login/*",
-            "?": {
-              payload: "*",
-            },
-            comment: "Exclude /login when only 'payload' is present",
-          },
-        ],
+        paths: ["/login/*"],
       },
     ],
   },
