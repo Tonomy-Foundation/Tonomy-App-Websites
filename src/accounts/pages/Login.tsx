@@ -124,10 +124,8 @@ export default function Login() {
     };
     const base64UrlPayload = objToBase64Url(payload);
 
-    // Set a timeout to redirect to the fallback URL if the app is not opened
-
     // Attempt to open the app using window.location.replace
-    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`; //same for ios redirect
+    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
     // Create an invisible iframe to attempt to open the app
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";

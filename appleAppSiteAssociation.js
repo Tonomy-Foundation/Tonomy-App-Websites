@@ -3,26 +3,24 @@ import * as path from "path";
 
 let appId;
 
-try {
-  const env =
-    // eslint-disable-next-line no-undef
-    process?.env.VITE_APP_NODE_ENV ||
-    import.meta.env?.VITE_APP_NODE_ENV ||
-    "development";
+const env =
+  // eslint-disable-next-line no-undef
+  process?.env.VITE_APP_NODE_ENV ||
+  import.meta.env?.VITE_APP_NODE_ENV ||
+  "development";
 
-  console.log("environment variable", env);
+console.log("environment variable", env);
 
-  if (env === "production") {
-    appId = "unitedwallet";
-  } else if (env === "testnet") {
-    appId = "pangeatestnet";
-  } else if (env === "staging") {
-    appId = "tonomyidstaging";
-  } else {
-    appId = "tonomyiddevelopment";
-  }
-} catch (error) {
-  console.error("Failed to get branch:", error.message);
+if (env === "production") {
+  appId = "unitedwallet";
+} else if (env === "testnet") {
+  appId = "pangeatestnet";
+} else if (env === "staging") {
+  appId = "tonomyidstaging";
+} else if (env === "development") {
+  appId = "tonomyiddevelopment";
+} else {
+  throw new Error("Unsupported environment");
 }
 
 // Define the object
@@ -60,17 +58,13 @@ console.log("Updated appleAppSiteAssociation", tonomyAppId);
 const directoryPath = path.join("public", ".well-known");
 const filePath = path.join(directoryPath, "apple-app-site-association");
 
-try {
-  // Check if the directory exists
-  if (!fs.existsSync(directoryPath)) {
-    // If not, create it
-    fs.mkdirSync(directoryPath, { recursive: true });
-    console.log(`Directory created: ${directoryPath}`);
-  }
-
-  // Write to the file
-  fs.writeFileSync(filePath, JSON.stringify(appleAppSiteAssociation, null, 2));
-  console.log(`File written successfully to ${filePath}`);
-} catch (error) {
-  console.error("Error handling file or directory:", error);
+// Check if the directory exists
+if (!fs.existsSync(directoryPath)) {
+  // If not, create it
+  fs.mkdirSync(directoryPath, { recursive: true });
+  console.log(`Directory created: ${directoryPath}`);
 }
+
+// Write to the file
+fs.writeFileSync(filePath, JSON.stringify(appleAppSiteAssociation, null, 2));
+console.log(`File written successfully to ${filePath}`);
