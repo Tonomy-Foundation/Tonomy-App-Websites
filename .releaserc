@@ -1,4 +1,5 @@
 {
+  "repositoryUrl": "https://github.com/Tonomy-Foundation/Tonomy-App-Websites.git",
   "tagFormat": "${version}",
   "branches": [
     {

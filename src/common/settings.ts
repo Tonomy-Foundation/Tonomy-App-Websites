@@ -3,7 +3,6 @@ import defaultConfig from "./config/config.json";
 import stagingConfig from "./config/config.staging.json";
 import testnetConfig from "./config/config.testnet.json";
 import productionConfig from "./config/config.production.json";
-
 import Debug from "debug";
 
 const debug = Debug("tonomy-app-websites:common:settings");

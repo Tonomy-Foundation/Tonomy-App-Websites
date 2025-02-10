@@ -1,11 +1,12 @@
 {
   "name": "tonomy-app-websites",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0-development.48",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "apple-site-association": "node appleAppSiteAssociation.js",
+    "build": "yarn run apple-site-association && tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
     "lint:styles": "stylelint \"src/**/*.css\"",
