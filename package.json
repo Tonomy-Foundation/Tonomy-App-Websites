@@ -1,11 +1,12 @@
 {
   "name": "tonomy-app-websites",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0-rc.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "apple-site-association": "node appleAppSiteAssociation.js",
+    "build": "yarn run apple-site-association && tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
     "lint:styles": "stylelint \"src/**/*.css\"",
@@ -23,7 +24,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/lab": "^5.0.0-alpha.151",
     "@mui/material": "^5.16.4",
-    "@tonomy/tonomy-id-sdk": "0.25.0",
+    "@tonomy/tonomy-id-sdk": "0.28.1",
     "@wharfkit/antelope": "^1.0.8",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
