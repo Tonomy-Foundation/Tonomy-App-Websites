@@ -27,7 +27,7 @@ import {
   RequestsManager,
   ResponsesManager,
 } from "@tonomy/tonomy-id-sdk";
-import { TH3, TH4, TP } from "../../common/atoms/THeadings";
+import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
@@ -53,10 +53,11 @@ const styles = {
     alignSelf: "center",
   },
   detailContainer: {
-    marginTop: "20px",
-    padding: "40px 10px",
-    border: "2px solid var(--grey-border)",
+    marginTop: "30px",
+    padding: "35px",
+    border: "1px solid var(--grey-border)",
     borderRadius: "20px",
+    backgroundColor: "#FFF",
   },
 };
 
@@ -74,6 +75,12 @@ export default function Login() {
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
+
+  // Update CSS variable dynamically
+  useEffect(() => {
+    document.documentElement.style.setProperty("--offWhite", "#F3F6F3");
+    document.body.style.backgroundColor = "var(--offWhite)";
+  }, []);
 
   /*
   useEffect()
@@ -144,7 +151,7 @@ export default function Login() {
   async function connectToTonomyId(
     requests: LoginRequest[],
     loginToCommunication: AuthenticationMessage,
-    user?: ExternalUser,
+    user?: ExternalUser
   ) {
     debug("connectToTonomyId()", requests.length, typeof user);
     // Login to the communication server
@@ -165,7 +172,7 @@ export default function Login() {
           requests,
         },
         issuer,
-        tonomyIDDid,
+        tonomyIDDid
       );
 
       await communication.sendMessage(requestMessage);
@@ -185,7 +192,7 @@ export default function Login() {
               requests,
             },
             jwkIssuer,
-            identifyMessage.getSender(),
+            identifyMessage.getSender()
           );
 
           await communication.sendMessage(requestMessage);
@@ -213,7 +220,7 @@ export default function Login() {
         debug("subscribeToLoginRequestResponse()");
 
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
-          message,
+          message
         ).getPayload();
 
         if (loginRequestResponsePayload.success !== true) {
@@ -225,7 +232,7 @@ export default function Login() {
             managedRequests.getRequestsDifferentOriginOrThrow();
 
           const managedExternalResponses = new ResponsesManager(
-            new RequestsManager(externalRequests),
+            new RequestsManager(externalRequests)
           );
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
@@ -241,7 +248,7 @@ export default function Login() {
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
               callbackPath: externalLoginRequest.getPayload().callbackPath,
-            },
+            }
           );
 
           window.location.href = url as string;
@@ -294,12 +301,12 @@ export default function Login() {
         let loginWithTonomyMessage: LoginWithTonomyMessages;
         if (accountsLogin) {
           debug(
-            "loginToTonomyAndSendRequests() using accountsLogin from store",
+            "loginToTonomyAndSendRequests() using accountsLogin from store"
           );
           loginWithTonomyMessage = accountsLogin;
         } else {
           debug(
-            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy"
           );
           loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
@@ -338,7 +345,7 @@ export default function Login() {
 
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          issuer,
+          issuer
         );
 
         requestsToSend.push(loginRequest);
@@ -368,7 +375,7 @@ export default function Login() {
       ) {
         errorStore.setError({
           error: new Error(
-            "Please try again and do not refresh this website during login",
+            "Please try again and do not refresh this website during login"
           ),
           expected: true,
           title: "Login unsuccessful",
@@ -491,12 +498,35 @@ export default function Login() {
 
   return (
     <div style={styles.container}>
-      <TImage
-        height={58}
-        src={settings.config.images.logo48}
-        alt={`${settings.config.appName} Logo`}
-      />
-      <TH3>Login with {settings.config.appName}</TH3>
+      <div style={{ padding: "0 2rem" }}>
+        {status === "qr" ? (
+          <TImage
+            height={58}
+            src={"/coin/coin-mobile-logo.png"}
+            alt={`${settings.config.appName} Logo`}
+          />
+        ) : (
+          <TImage
+            height={58}
+            src={settings.config.images.mobileLogo}
+            alt={`${settings.config.appName} Logo`}
+          />
+        )}
+        {status === "qr" && (
+          <>
+            <TH2 style={{ fontSize: 28, fontWeight: 700 }}>
+              LEOS Sales Platform
+            </TH2>
+            <TP style={{ lineHeight: "22.55px", fontSize: 22 }}>
+              LEOS Sales Platform uses {settings.config.appName} to give you
+              control of your identity and data
+            </TP>
+          </>
+        )}
+      </div>
+
+      {status !== "qr" && <TH3>Login with {settings.config.appName}</TH3>}
+
       {(status === "connecting" || status === "app") && (
         <>{username && <TH4>{username}</TH4>}</>
       )}
@@ -520,6 +550,7 @@ export default function Login() {
             )}
           </>
         )}
+
         {status === "app" && (
           <>
             {app && (
