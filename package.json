@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "apple-site-association": "node appleAppSiteAssociation.js",
+    "apple-site-association": "node universalLinkAssociation.js",
     "build": "yarn run apple-site-association && tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
