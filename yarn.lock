@@ -10640,7 +10640,7 @@ __metadata:
     "@rollup/plugin-alias": "npm:^5.1.0"
     "@rollup/plugin-node-resolve": "npm:^15.0.1"
     "@semantic-release/git": "npm:^10.0.1"
-    "@tonomy/tonomy-id-sdk": "npm:0.28.0-rc.1"
+    "@tonomy/tonomy-id-sdk": "npm:0.29.0-development.3"
     "@types/node": "npm:^20.14.11"
     "@types/react": "npm:^18.0.27"
     "@types/react-dom": "npm:^18.0.10"
