@@ -37,7 +37,7 @@ if (env === "production") {
   throw new Error("Unsupported environment");
 }
 
-// Define the object
+// IOS universal link setup
 const appleAppSiteAssociation = {
   applinks: {
     details: [
@@ -47,43 +47,32 @@ const appleAppSiteAssociation = {
       },
     ],
   },
-  // This section enables Apple Handoff
   appclips: {
     apps: [],
   },
-  // This section enable Shared Web Credentials
   webcredentials: {
     apps: [],
   },
 };
 
-// Dynamically set appID
-
 const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
 
-// Update appIDs dynamically
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
 appleAppSiteAssociation.appclips.apps.push(tonomyAppId);
 appleAppSiteAssociation.webcredentials.apps.push(tonomyAppId);
 
-console.log("Updated appleAppSiteAssociation", tonomyAppId);
-
-// Define the file path
 const directoryPath = path.join("public", ".well-known");
 const filePath = path.join(directoryPath, "apple-app-site-association");
 
-// Check if the directory exists
 if (!fs.existsSync(directoryPath)) {
-  // If not, create it
   fs.mkdirSync(directoryPath, { recursive: true });
   console.log(`Directory created: ${directoryPath}`);
 }
 
-// Write to the file
 fs.writeFileSync(filePath, JSON.stringify(appleAppSiteAssociation, null, 2));
 console.log(`File written successfully to ${filePath}`);
 
-//Android App Links
+//Android Universal Link Setup
 const androidSiteAssociation = {
   relation: ["delegate_permission/common.handle_all_urls"],
   target: {
@@ -93,18 +82,14 @@ const androidSiteAssociation = {
   },
 };
 
-// Define the file path
 const androidDirectoryPath = path.join("public", ".well-known");
 const androidFilePath = path.join(directoryPath, "assetlinks.json");
 
-// Check if the directory exists
 if (!fs.existsSync(androidDirectoryPath)) {
-  // If not, create it
   fs.mkdirSync(androidDirectoryPath, { recursive: true });
   console.log(`Directory created: ${androidDirectoryPath}`);
 }
 
-// Write to the file
 fs.writeFileSync(
   androidFilePath,
   JSON.stringify(androidSiteAssociation, null, 2),
