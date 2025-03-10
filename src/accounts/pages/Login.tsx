@@ -29,13 +29,10 @@ import {
 } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
-import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
 import { isMobile } from "../utils/IsMobile";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { TButton } from "../../common/atoms/TButton";
-import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
@@ -43,6 +40,15 @@ import useErrorStore from "../../common/stores/errorStore";
 import { useWalletRequestsStore } from "../stores/loginStore";
 import ConnectionError from "../molecules/ConnectionError";
 import Debug from "debug";
+import { Box, Button, ButtonBase } from "@mui/material";
+import { ArrowCircleLeftOutlined } from "@mui/icons-material";
+import TSpinner from "../atoms/TSpinner";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import LightBulbIcon from "../assets/icon-light-bulb.png";
 
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
@@ -54,12 +60,61 @@ const styles = {
   },
   detailContainer: {
     marginTop: "30px",
-    padding: "35px",
+    padding: "55px 35px 35px",
     border: "1px solid var(--grey-border)",
     borderRadius: "20px",
     backgroundColor: "#FFF",
   },
+  titleContainer: {
+    padding: "0 2rem",
+    gap: '15px',
+    display: "flex",
+    justifyContent: 'center',
+    flexDirection: "column" as const,
+    alignItems: 'center'
+  },
+  titleContent: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: 8,
+    width: "60%"
+  },
+  title: {
+    fontSize: 28,
+    lineHeight: "28.7px",
+    fontWeight: 700,
+  },
+  description: {
+    letterSpacing: 0.5,
+    fontSize: 22,
+    lineHeight: "22.55px",
+    fontWeight: 400,
+  },
+  titleDescription: {
+    letterSpacing: 0.5,
+    fontSize: 24,
+    lineHeight: "28.7px",
+    fontWeight: 600,
+    marginTop: 10
+  },
+  secureInfoButton: {
+    fontSize: 16,
+    lineHeight: "16.4px",
+    gap: 8,
+    textAlign: "left" as "left",
+    marginTop: 24,
+    fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
+  },
+  secondaryButton: {
+    letterSpacing: 0.16,
+    color: 'var(--secondary-text)',
+    textTransform: 'none' as const,
+    fontSize: 20,
+    fontWeight: '400',
+    fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
+  }
 };
+
 
 export default function Login() {
   const [status, setStatus] = useState<"qr" | "connecting" | "app">("qr");
@@ -78,9 +133,16 @@ export default function Login() {
 
   // Update CSS variable dynamically
   useEffect(() => {
-    document.documentElement.style.setProperty("--offWhite", "#F3F6F3");
-    document.body.style.backgroundColor = "var(--offWhite)";
-  }, []);
+    if (status === "qr") {
+      document.documentElement.style.setProperty("--offWhite", "#F3F6F3");
+      document.body.style.backgroundColor = "var(--offWhite)";
+    } else {
+      document.documentElement.style.setProperty("--white", "#FFFFFF");
+      document.body.style.backgroundColor = "var(--white)";
+    }
+  }, [status, app]);
+
+  const sliders = ["With Pangea ID you own your data! Your phone stores all your credentials in secure storage", "Your data isn't in a database like Google's, so it's safe from server breaches", "With portable data, you'll never have to re-fill the same information again"];
 
   /*
   useEffect()
@@ -138,9 +200,13 @@ export default function Login() {
     iframe.style.display = "none";
     iframe.src = appUrl;
     document.body.appendChild(iframe);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlPayload = urlParams.get("payload");
+
     setTimeout(() => {
       document.body.removeChild(iframe);
-      navigation("/download");
+      navigation(`/download?payload=${urlPayload}`);
     }, 1000);
     if (/android/i.test(navigator.userAgent)) {
       window.location.replace(appUrl);
@@ -496,110 +562,165 @@ export default function Login() {
     }
   };
 
+  const renderQRSection = () => (
+    <>
+      {app && (
+        <div style={styles.titleContainer}>
+          <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
+          <div style={styles.titleContent}>
+            <TH2 style={styles.title}>{app.appName}</TH2>
+            <TP style={styles.description}>
+              {app.appName} uses {settings.config.appName} to give you control of your identity and data
+            </TP>
+          </div>
+        </div>
+      )}
+      <QROrLoading showQr={showQR} />
+      <ButtonBase style={styles.secureInfoButton}>
+        <TImage
+          height={22}
+          width={22}
+          src={"/src/accounts/assets/icon-secure.svg"}
+          alt={`Secure icon`}
+        />
+        Pangea uses end-to-end cryptography. We cannot see your personal data
+      </ButtonBase>
+    </>
+  );
+
+  const renderConnectingSection = () => (
+    <Box justifyContent="center" alignItems="center" display="flex">
+      <Box maxWidth="sm">
+        <HeaderSection />
+        <div style={styles.detailContainer}>
+          {connectionError
+            ? <ConnectionError username={username} tryAgainLink={window.document.referrer} />
+            : <LinkingPhone />}
+        </div>
+        <SliderSection />
+      </Box>
+    </Box>
+  );
+
+  const renderAppSection = () => (
+    <Box justifyContent="center" alignItems="center" display="flex">
+      <Box maxWidth="sm">
+        <HeaderSection />
+        <div style={styles.detailContainer}>
+          {app ? (
+            <>
+              <TImage width={80} src={app.logoUrl} />
+              <TH3 style={styles.titleDescription}>
+                <span style={{ color: '#4CAF50' }}>{app.appName}</span> wants<br /> you to login to the website
+              </TH3>
+              <TP style={{ color: "#6E84A3" }}>
+                Use {settings.config.appName} app to complete your login
+              </TP>
+              <TSpinner />
+            </>
+          ) : (
+            <div className="detail-container">
+              <TH4>Loading app details</TH4>
+              <TSpinner />
+            </div>
+          )}
+        </div>
+        <SliderSection />
+      </Box>
+    </Box>
+  );
+
+  const HeaderSection = () => (
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      textAlign="left"
+      sx={{ marginBottom: 10 }}
+    >
+      <Button
+        onClick={async () => {
+          await onCancel();
+        }}
+        variant="text"
+        style={styles.secondaryButton}
+        startIcon={<ArrowCircleLeftOutlined />}
+      >
+        Back
+      </Button>
+      {username && (
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          fontSize: 20
+        }}>
+          <TImage
+            height={20}
+            src={settings.config.images.logo48}
+            alt={`${settings.config.appName} Logo`}
+          />
+          @{username}
+        </div>
+      )}
+      {user && (
+        <Button
+          onClick={onLogout}
+          variant="text"
+          style={styles.secondaryButton}
+          startIcon={<LogoutIcon />}
+        >
+          Logout
+        </Button>
+      )}
+    </Box>
+  );
+
+  const SliderSection = () => (
+    <>
+      <Swiper
+        modules={[Pagination]}
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={10}
+        slidesPerView={1}
+        style={{
+          width: "100%",
+          textAlign: "center",
+          marginTop: 60,
+          marginBottom: 20
+        }}
+        className="custom-swiper"
+      >
+        {sliders.map((text, index) => (
+          <SwiperSlide
+            key={index}
+            style={{
+              fontSize: 20,
+              fontWeight: "400",
+              padding: 20,
+              backgroundColor: "#F6F9FB",
+              backgroundImage: `url(${LightBulbIcon})`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "left",
+              borderRadius: 12,
+            }}
+          >
+            {text}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className="swiper-pagination"></div>
+    </>
+  );
+
   return (
     <div style={styles.container}>
-      <div style={{ padding: "0 2rem" }}>
-        {status === "qr" ? (
-          <TImage
-            height={58}
-            src={"/coin/coin-mobile-logo.png"}
-            alt={`${settings.config.appName} Logo`}
-          />
-        ) : (
-          <TImage
-            height={58}
-            src={settings.config.images.mobileLogo}
-            alt={`${settings.config.appName} Logo`}
-          />
-        )}
-        {status === "qr" && (
-          <>
-            <TH2 style={{ fontSize: 28, fontWeight: 700 }}>
-              LEOS Sales Platform
-            </TH2>
-            <TP style={{ lineHeight: "22.55px", fontSize: 22 }}>
-              LEOS Sales Platform uses {settings.config.appName} to give you
-              control of your identity and data
-            </TP>
-          </>
-        )}
-      </div>
 
-      {status !== "qr" && <TH3>Login with {settings.config.appName}</TH3>}
+      {status === "qr" && renderQRSection()}
+      {status === "connecting" && renderConnectingSection()}
+      {status === "app" && renderAppSection()}
 
-      {(status === "connecting" || status === "app") && (
-        <>{username && <TH4>{username}</TH4>}</>
-      )}
-
-      <div
-        style={{
-          ...styles.detailContainer,
-        }}
-      >
-        {status === "qr" && <QROrLoading showQr={showQR} />}
-
-        {status === "connecting" && (
-          <>
-            {connectionError ? (
-              <ConnectionError
-                username={username}
-                tryAgainLink={window.document.referrer}
-              />
-            ) : (
-              <LinkingPhone />
-            )}
-          </>
-        )}
-
-        {status === "app" && (
-          <>
-            {app && (
-              <>
-                <TImage src={app.logoUrl}></TImage>
-                <TH3>{app.appName}</TH3>
-                <TH4>wants you to log in to their application</TH4>
-                <TP style={{ margin: "10px" }}>
-                  Please proceed to login to {settings.config.appName} app on
-                  your phone.
-                </TP>
-              </>
-            )}
-            {!app && (
-              <div className="detail-container">
-                <TH4>Loading app details</TH4>
-                <TProgressCircle />
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      {status === "qr" && (
-        <TContainedButton onClick={() => navigation("/download")}>
-          {`Don't have ${settings.config.appName} yet?`}
-        </TContainedButton>
-      )}
-      {(status === "connecting" || status === "app") && (
-        <>
-          <div>
-            <TContainedButton
-              onClick={async () => {
-                await onCancel();
-              }}
-            >
-              Cancel
-            </TContainedButton>
-          </div>
-          {user && (
-            <TButton
-              className="logout margin-top"
-              onClick={onLogout}
-              startIcon={<LogoutIcon></LogoutIcon>}
-            >
-              Logout
-            </TButton>
-          )}
-        </>
-      )}
     </div>
   );
 }

@@ -24,3 +24,21 @@
 .margin-top {
     margin-top: 2rem;
 }
+
+.custom-swiper .swiper-pagination-bullet {
+    background-color: #D2DDEC;
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+}
+
+.swiper-pagination {
+    position: static !important;
+}
+
+.custom-swiper .swiper-pagination-bullet-active {
+    background-color: #607EAA;
+    width: 8px;
+    height: 8px;
+
+}
