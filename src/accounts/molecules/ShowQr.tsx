@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import TImage from "../../common/atoms/TImage";
 import { useState } from "react";
 import QRCodeHelpModal from "../atoms/QRCodeHelpModal";
-
+import MuiLink from '@mui/material/Link';
 export default function QROrLoading({
   showQr,
 }: {
@@ -90,7 +90,7 @@ export default function QROrLoading({
   return (
     <>
       {!isMobile() && (
-        <Box sx={styles.container}>
+        <Box sx={styles.detailContainer}>
           <Grid container spacing={2}>
             {/* Left side */}
             <Grid item xs={12} md={8}>
@@ -145,7 +145,7 @@ export default function QROrLoading({
                       {settings.config.appName} for{" "}
                       <Link
                         to={settings.config.links.appleStoreDownload}
-                        style={styles.link}
+                        style={styles.commonLink}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         onMouseDown={handleMouseDown}
@@ -155,7 +155,7 @@ export default function QROrLoading({
                       or{" "}
                       <Link
                         to={settings.config.links.playStoreDownload}
-                        style={styles.link}
+                        style={styles.commonLink}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         onMouseDown={handleMouseDown}
