@@ -7,11 +7,12 @@ import Debug from "debug";
 
 const debug = Debug("tonomy-app-websites:common:settings");
 
-const environmentVariables = import.meta.env;
 // cannot use NODE_ENV as it is always "production" on `npm run build`
-const env = environmentVariables.VITE_APP_NODE_ENV || "development";
+const env =
+  process?.env.VITE_APP_NODE_ENV ||
+  import.meta.env?.VITE_APP_NODE_ENV ||
+  "development";
 
-debug(environmentVariables);
 debug(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
@@ -40,6 +41,8 @@ export type ConfigType = {
   blockExplorerUrl: string;
   documentationLink: string;
   currencySymbol: string;
+  appId: string;
+  sha256CertFingerprints: string;
 };
 
 type SettingsType = {
