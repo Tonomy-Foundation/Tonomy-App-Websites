@@ -2851,9 +2851,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:0.27.0-development.4":
-  version: 0.27.0-development.4
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.27.0-development.4"
+"@tonomy/tonomy-id-sdk@npm:0.28.1":
+  version: 0.28.1
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.28.1"
   dependencies:
     "@consento/sync-randombytes": "npm:^1.0.5"
     "@tonomy/antelope-did-resolver": "npm:^0.10.0"
@@ -2880,7 +2880,7 @@ __metadata:
     typeorm: "npm:^0.3.20"
     universal-base64url: "npm:^1.1.0"
     web-did-resolver: "npm:^2.0.27"
-  checksum: 10c0/47e87eef2cf41fe97773b6378bf33baac6046bf3bd40ec453966843223e0fa26e0e77072e174c3a1a4df91f315a847199a5cde071700089725df04b57387fd25
+  checksum: 10c0/763ab88eaae90aa301c0ced6fbc7ef6256414fabcc613ddb6f683923ad407e5e2ef79a00658b62eaad55649f508d9edc4086730e01a0b9852c1e42ffccb9bc36
   languageName: node
   linkType: hard
 
@@ -4946,9 +4946,9 @@ __metadata:
   linkType: hard
 
 "decimal.js@npm:^10.4.3":
-  version: 10.4.3
-  resolution: "decimal.js@npm:10.4.3"
-  checksum: 10c0/6d60206689ff0911f0ce968d40f163304a6c1bc739927758e6efc7921cfa630130388966f16bf6ef6b838cb33679fbe8e7a78a2f3c478afce841fd55ac8fb8ee
+  version: 10.5.0
+  resolution: "decimal.js@npm:10.5.0"
+  checksum: 10c0/785c35279df32762143914668df35948920b6c1c259b933e0519a69b7003fc0a5ed2a766b1e1dda02574450c566b21738a45f15e274b47c2ac02072c0d1f3ac3
   languageName: node
   linkType: hard
 
@@ -10570,7 +10570,7 @@ __metadata:
     "@rollup/plugin-alias": "npm:^5.1.0"
     "@rollup/plugin-node-resolve": "npm:^15.0.1"
     "@semantic-release/git": "npm:^10.0.1"
-    "@tonomy/tonomy-id-sdk": "npm:0.27.0-development.4"
+    "@tonomy/tonomy-id-sdk": "npm:0.28.1"
     "@types/node": "npm:^20.14.11"
     "@types/react": "npm:^18.0.27"
     "@types/react-dom": "npm:^18.0.10"
