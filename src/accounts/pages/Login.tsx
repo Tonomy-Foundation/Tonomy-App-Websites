@@ -467,7 +467,7 @@ export default function Login() {
       });
 
       if (isLoggedIn()) {
-        // TODO send a message to Tonomy ID telling it the request is cancelled
+        // TODO: send a message to Tonomy ID telling it the request is cancelled
       }
 
       window.location.href = callbackUrl;
