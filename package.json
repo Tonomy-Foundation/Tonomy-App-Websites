@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "universal-link-association": "node universalLinkAssociation.js",
+    "universal-link-association": "yarn tsx universalLinkAssociation.ts",
     "build": "yarn run universal-link-association && tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
@@ -58,6 +58,7 @@
     "semantic-release": "^24.2.0",
     "serve": "^14.2.0",
     "stylelint": "^16.7.0",
+    "tsx": "^4.19.3",
     "typescript": "*",
     "typescript-eslint": "^7.16.1",
     "vite": "^5.3.4"
