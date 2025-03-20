@@ -160,7 +160,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
               <div className="security-message">
                 {" "}
                 This data is fully private never stored on servers.{" "}
-                {/* TODO uncomment link */}
+                {/* TODO: uncomment link */}
                 {/* <a className="link-color">Learn more</a> */}
               </div>
               <div>
