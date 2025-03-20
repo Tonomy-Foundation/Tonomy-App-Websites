@@ -1,21 +1,13 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 import settings from "./src/common/settings";
 
 // let appId;
 // let sha256_cert_fingerprints;
 
-const env =
-  // eslint-disable-next-line no-undef
-  process?.env.VITE_APP_NODE_ENV ||
-  import.meta.env?.VITE_APP_NODE_ENV ||
-  "development";
-
-console.log("environment variable", env);
-
 // if (env === "production") {
 //   appId = "unitedwallet";
-//   sha256_cert_fingerprints = [
+//   sha256_cert_fingerprints = [yar
 //     "02:AE:D4:C2:77:0E:63:08:9E:C1:B9:AB:BF:52:69:44:FA:F7:C5:B6:C6:33:C3:93:1F:49:DC:E0:24:99:38:35",
 //   ];
 // } else if (env === "testnet") {
@@ -39,13 +31,19 @@ console.log("environment variable", env);
 // }
 
 const appId = settings.config.appId;
-const sha256_cert_fingerprints = settings.config.sha256_cert_fingerprints;
+const sha256_cert_fingerprints = settings.config.sha256CertFingerprints;
 // IOS universal link setup
-const appleAppSiteAssociation = {
+const appleAppSiteAssociation: {
+  applinks: {
+    details: { appIDs: string[]; paths: string[] }[];
+  };
+  appclips: { apps: string[] };
+  webcredentials: { apps: string[] };
+} = {
   applinks: {
     details: [
       {
-        appIDs: [],
+        appIDs: [], // ✅ Now properly typed
         paths: ["/login/*"],
       },
     ],
@@ -58,7 +56,9 @@ const appleAppSiteAssociation = {
   },
 };
 
-const tonomyAppId = "6BLD42QR78.foundation.tonomy.projects." + appId;
+const tonomyAppId: string = "6BLD42QR78.foundation.tonomy.projects." + appId;
+
+// const tonomyAppId: string = "your.app.id"; // Example value
 
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
 appleAppSiteAssociation.appclips.apps.push(tonomyAppId);
