@@ -9,6 +9,7 @@ import TImage from "../../common/atoms/TImage";
 import { useState } from "react";
 import QRCodeHelpModal from "../atoms/QRCodeHelpModal";
 import MuiLink from '@mui/material/Link';
+import "./ShowQr.css";
 export default function QROrLoading({
   showQr,
 }: {
@@ -18,85 +19,16 @@ export default function QROrLoading({
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleMouseEnter = (e) => {
-    e.currentTarget.style.borderBottom = "2px solid #66BB6A";
-  };
-  const handleMouseLeave = (e) => {
-    e.currentTarget.style.borderBottom = "none";
-  };
-  const handleMouseDown = (e) => {
-    e.currentTarget.style.color = "#388E3C";
-  };
-  const styles = {
-    detailContainer: {
-      marginTop: "30px",
-      padding: "35px",
-      border: "1px solid var(--grey-border)",
-      borderRadius: "20px",
-      backgroundColor: "#FFF",
-    },
-    qrContainer: {
-      display: "flex",
-      flexDirection: "column" as const,
-      gap: 25,
-    },
-    qrSubContainer: {
-      display: "flex",
-      flexDirection: "column" as const,
-      gap: 12
-    },
-    qrTitle: {
-      fontWeight: 600,
-      lineHeight: "24.6px",
-      letterSpacing: 0.5,
-    },
-    qrDescription: {
-      lineHeight: "20.5px",
-      fontSize: 20,
-      letterSpacing: 0.5
-    },
-    qrList: {
-      fontSize: 20,
-      letterSpacing: 0.5,
-      paddingLeft: 23,
-      paddingTop: 12,
-    },
-    qrAssistanceButton: {
-      color: "#4CAF50",
-      fontSize: 20,
-      lineHeight: '20.5px',
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
-    },
-    commonLink: {
-      color: "#4CAF50",
-      textDecoration: "none",
-    },
-    highlightedLink: {
-      color: "#000000",
-      borderBottom: "2px solid #4CAF50",
-      textDecoration: "none",
-    },
-    linksWrapper: {
-      display: "flex",
-      alignItems: "center",
-      gap: 5,
-      flexWrap: "wrap" as "wrap",
-      lineHeight: "20.5px"
-    },
-  };
   return (
     <>
       {!isMobile() && (
-        <Box sx={styles.detailContainer}>
+        <Box className="detailContainer">
           <Grid container spacing={2}>
             {/* Left side */}
             <Grid item xs={12} md={8}>
-              <Box sx={styles.qrContainer}>
-                <Box sx={styles.qrSubContainer}>
-                  <TH3 style={styles.qrTitle}>
+              <Box className="qrContainer">
+                <Box className="qrSubContainer">
+                  <TH3 className="qrTitle">
                     Log in with{" "}
                     <Tooltip
                       title="Learn more about Pangea ID"
@@ -115,26 +47,23 @@ export default function QROrLoading({
                     >
                       <Link
                         to="https://pangea.web4.world/technology/pangea-passport"
-                        style={styles.highlightedLink}
+                        className="highlightedLink"
                         title="Learn more about Pangea ID"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
                       >
                         {settings.config.appName}
                       </Link>
                     </Tooltip>
                   </TH3>
-                  <TP style={styles.qrDescription}>
+                  <TP className="qrDescription">
                     You'll need the {settings.config.appName} app for a secure, one-tap login that streamlines your access.
                   </TP>
                 </Box>
 
                 <Divider sx={{ borderColor: "#E4EBF6" }} />
 
-                <ol style={styles.qrList}>
+                <ol className="qrList" >
                   <li>
-                    <Box sx={styles.linksWrapper}>
+                    <Box className="linksWrapper">
                       Download
                       <TImage
                         width={24}
@@ -145,20 +74,14 @@ export default function QROrLoading({
                       {settings.config.appName} for{" "}
                       <Link
                         to={settings.config.links.appleStoreDownload}
-                        style={styles.commonLink}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
+                        className="commonLink"
                       >
                         iOS
                       </Link>{" "}
                       or{" "}
                       <Link
                         to={settings.config.links.playStoreDownload}
-                        style={styles.commonLink}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
+                        className="commonLink"
                       >
                         Android
                       </Link>
@@ -168,7 +91,7 @@ export default function QROrLoading({
                   <li>Create an account in {settings.config.appName}</li>
 
                   <li>
-                    <Box sx={styles.linksWrapper}>
+                    <Box className="linksWrapper">
                       Press the scan QR button
                       <MuiLink component={Link} to="">
                         <TImage height={18} width={18} src="/src/accounts/assets/icon-qr.svg" alt="QR icon" />
@@ -179,16 +102,15 @@ export default function QROrLoading({
                   <li>Point your phone at the QR code</li>
                 </ol>
 
-                <ButtonBase
-                  onClick={handleOpen}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  onMouseDown={handleMouseDown}
-                  sx={styles.qrAssistanceButton}
-                >
-                  Get assistance{" "}
-                  <TImage height={12} width={12} src="/src/accounts/assets/icon-arrow.svg" alt="Arrow icon" />
-                </ButtonBase>
+                <div>
+                  <ButtonBase
+                    onClick={handleOpen}
+                    className="qrAssistanceButton"
+                  >
+                    Get assistance{" "}
+                    <TImage height={12} width={12} src="/src/accounts/assets/icon-arrow.svg" alt="Arrow icon" />
+                  </ButtonBase>
+                </div>
               </Box>
             </Grid>
 
@@ -206,14 +128,6 @@ export default function QROrLoading({
           </Grid>
         </Box>
       )}
-
-      {/* Mobile version — add logic/content as needed */}
-      {isMobile() && (
-        <Box>
-          {/* Add your mobile logic here */}
-        </Box>
-      )}
-
       <QRCodeHelpModal open={open} onClose={handleClose} />
     </>
   );

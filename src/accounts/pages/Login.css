@@ -1,9 +1,6 @@
 .fieldset-view {
     position: relative;
     border: none;
-    /* box-sizing: border-box;
-    border: 0px solid #EFF1F7;
-    border-radius: 12px; */
     margin: 1rem 4rem;
     padding: 20px 0px;
 }
@@ -14,7 +11,7 @@
     left: 50%;
     transform: translate(-50%, 50%);
     padding: 0 5px;
-    background: white;
+    background: var(---white-bg);
 }
 
 .logout {
@@ -26,7 +23,7 @@
 }
 
 .custom-swiper .swiper-pagination-bullet {
-    background-color: #D2DDEC;
+    background-color: var(--gray7);
     width: 8px;
     height: 8px;
     opacity: 1;
@@ -37,8 +34,80 @@
 }
 
 .custom-swiper .swiper-pagination-bullet-active {
-    background-color: #607EAA;
+    background-color: var(--accent3);
     width: 8px;
     height: 8px;
 
+}
+
+.container {
+    flex: 1;
+    align-Self: center;
+}
+
+.detailContainer {
+    margin-top: 30px;
+    padding: 55px 35px 35px;
+    border: 1px solid var(--grey-border);
+    border-radius: 20px;
+    background-color: var(---white-bg);
+}
+
+.titleContainer {
+    padding: 0 2rem;
+    gap: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.title {
+    font-size: 28px;
+    line-height: 28.7px;
+    font-weight: 700;
+}
+
+.description {
+    letter-spacing: 0.5px;
+    font-size: 22px;
+    line-height: 22.55px;
+    font-weight: 400;
+}
+
+.titleDescription {
+    letter-spacing: 0.5px;
+    font-size: 24px;
+    line-height: 28.7px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.secureInfoButtonContainer {
+    text-align: center;
+}
+
+.secureInfoButton {
+    font-size: 16px;
+    line-height: 16.4px;
+    gap: 8px;
+    text-align: left;
+    margin-top: 24px !important;
+    font-family: "Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.secondaryButton {
+    letter-spacing: 0.16px;
+    color: var(--secondary-text);
+    text-transform: none;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }

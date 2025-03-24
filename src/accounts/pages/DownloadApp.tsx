@@ -36,10 +36,10 @@ export default function DownloadApp() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr") {
-      document.documentElement.style.setProperty("--offWhite", "#F3F6F3");
+      document.documentElement.style.setProperty("--offWhite", "--soft-white");
       document.body.style.backgroundColor = "var(--offWhite)";
     } else {
-      document.documentElement.style.setProperty("--white", "#FFFFFF");
+      document.documentElement.style.setProperty("--white", "--white-bg");
       document.body.style.backgroundColor = "var(--white)";
     }
   }, [status, app]);
@@ -245,7 +245,7 @@ export default function DownloadApp() {
   } = settings.config.links;
 
   return (
-    <div style={styles.container}>
+    <div className="container">
 
       {/* App Logo, Title and Description */}
       {
@@ -257,9 +257,9 @@ export default function DownloadApp() {
               src={app.logoUrl}
               alt={`${app.appName} Logo`}
             />
-            <div style={styles.titleContainer}>
-              <TH2 style={styles.title}>{app.appName}</TH2>
-              <TP style={styles.description}>
+            <div className="titleContainer">
+              <TH2 className="title">{app.appName}</TH2>
+              <TP className="description">
                 {app.appName} uses {appName} to give you control of your identity and data.
               </TP>
             </div>
@@ -269,11 +269,11 @@ export default function DownloadApp() {
 
 
       {/* QR Section */}
-      <div style={styles.qrWrapper}>
-        <div style={styles.qrContent}>
+      <div className="qrWrapper">
+        <div className="qrContent">
           {/* QR Title */}
-          <div style={styles.qrTitleWrapper}>
-            <TH3 style={styles.qrTitle}>
+          <div className="qrTitleWrapper">
+            <TH3 className="qrTitle">
               Log in with{" "}
               <Tooltip
                 title="Learn more about Pangea ID"
@@ -294,41 +294,41 @@ export default function DownloadApp() {
               >
                 <Link
                   to="https://pangea.web4.world/technology/pangea-passport"
-                  style={styles.highlightedLink}
-                  onMouseUp={(e) =>
-                    (e.currentTarget.style.borderBottom = "2px solid #388E3C")
-                  }
+                  className="highlightedLink"
+                  onMouseUp={(e) => {
+                    e.currentTarget.style.borderBottom = "2px solid var(--success-alert-active)";
+                  }}
                 >
                   {appName}
                 </Link>
               </Tooltip>
             </TH3>
 
-            <TP style={styles.qrDescription}>
+            <TP className="qrDescription">
               You'll need the {appName} app for a secure, one-tap login that streamlines your access.
             </TP>
           </div>
 
           {/* Store Badges */}
-          <div style={styles.storeBadges}>
+          <div className="storeBadges">
             <Link to={appleStoreDownload}>
               <img
                 alt="Get it on Apple store"
                 src={appStoreImage}
-                style={styles.storeBadgeImage}
+                className="storeBadgeImage"
               />
             </Link>
             <Link to={playStoreDownload}>
               <img
                 alt="Get it on Google Play"
                 src={playStoreBadge}
-                style={styles.storeBadgeImage}
+                className="storeBadgeImage"
               />
             </Link>
           </div>
 
           {/* Assistance Button */}
-          <ButtonBase onClick={handleOpenHelpModal} style={styles.assistanceButton}>
+          <ButtonBase onClick={handleOpenHelpModal} className="assistanceButton">
             Get assistance
             <TImage
               height={12}
@@ -341,7 +341,7 @@ export default function DownloadApp() {
       </div>
 
       {/* Secure Info */}
-      <ButtonBase style={styles.secureInfoButton}>
+      <ButtonBase className="secureInfoButton">
         <TImage
           height={22}
           width={22}
@@ -356,97 +356,3 @@ export default function DownloadApp() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column" as const,
-    alignItems: "center" as const,
-    justifyContent: "flex-start" as const,
-    marginTop: "2rem"
-  },
-  titleContainer: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: 8,
-    textAlign: "center" as const,
-    marginTop: 16,
-  },
-  title: {
-    fontSize: 22,
-    lineHeight: "22.55px",
-    fontWeight: 700,
-  },
-  description: {
-    fontSize: 16,
-    lineHeight: "18.45px",
-    fontWeight: 400,
-    letterSpacing: 0.5,
-  },
-  qrWrapper: {
-    marginTop: "4rem",
-    padding: "25px 16px",
-    width: "100%",
-    border: "1px solid var(--grey-border)",
-    borderRadius: 20,
-    backgroundColor: "#FFF",
-  },
-  qrContent: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: 25,
-  },
-  qrTitleWrapper: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: 12,
-  },
-  qrTitle: {
-    fontSize: 20,
-    lineHeight: "24.6px",
-    fontWeight: 600,
-    letterSpacing: 0.5,
-    textAlign: "left" as const,
-  },
-  qrDescription: {
-    fontSize: 16,
-    lineHeight: "16.4px",
-    letterSpacing: 0.5,
-    textAlign: "left" as const,
-  },
-  highlightedLink: {
-    color: "#000000",
-    borderBottom: "2px solid #4CAF50",
-    textDecoration: "none",
-  },
-  storeBadges: {
-    display: "flex",
-    alignItems: "center",
-    gap: 3,
-  },
-  storeBadgeImage: {
-    width: 120,
-    height: 40,
-  },
-  assistanceButton: {
-    color: "#4CAF50",
-    fontSize: 16,
-    lineHeight: "16.4px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
-    gap: 8,
-  },
-  secureInfoButton: {
-    display: "flex",
-    fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
-    alignItems: "center" as const,
-    gap: 8,
-    fontSize: 16,
-    lineHeight: "16.4px",
-    textAlign: "left" as const,
-    marginTop: 24,
-    margin: "24px 10px"
-  },
-};

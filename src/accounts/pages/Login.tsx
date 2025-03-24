@@ -52,68 +52,6 @@ import LightBulbIcon from "../assets/icon-light-bulb.png";
 
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
-const styles = {
-  container: {
-    flex: 1,
-    textAlign: "center" as const,
-    alignSelf: "center",
-  },
-  detailContainer: {
-    marginTop: "30px",
-    padding: "55px 35px 35px",
-    border: "1px solid var(--grey-border)",
-    borderRadius: "20px",
-    backgroundColor: "#FFF",
-  },
-  titleContainer: {
-    padding: "0 2rem",
-    gap: '15px',
-    display: "flex",
-    justifyContent: 'center',
-    flexDirection: "column" as const,
-    alignItems: 'center'
-  },
-  titleContent: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: 8,
-    width: "60%"
-  },
-  title: {
-    fontSize: 28,
-    lineHeight: "28.7px",
-    fontWeight: 700,
-  },
-  description: {
-    letterSpacing: 0.5,
-    fontSize: 22,
-    lineHeight: "22.55px",
-    fontWeight: 400,
-  },
-  titleDescription: {
-    letterSpacing: 0.5,
-    fontSize: 24,
-    lineHeight: "28.7px",
-    fontWeight: 600,
-    marginTop: 10
-  },
-  secureInfoButton: {
-    fontSize: 16,
-    lineHeight: "16.4px",
-    gap: 8,
-    textAlign: "left" as "left",
-    marginTop: 24,
-    fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
-  },
-  secondaryButton: {
-    letterSpacing: 0.16,
-    color: 'var(--secondary-text)',
-    textTransform: 'none' as const,
-    fontSize: 20,
-    fontWeight: '400',
-    fontFamily: '"Epilogue", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
-  }
-};
 
 
 export default function Login() {
@@ -565,26 +503,28 @@ export default function Login() {
   const renderQRSection = () => (
     <>
       {app && (
-        <div style={styles.titleContainer}>
+        <div className="titleContainer">
           <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
-          <div style={styles.titleContent}>
-            <TH2 style={styles.title}>{app.appName}</TH2>
-            <TP style={styles.description}>
+          <div className="titleContent">
+            <TH2 className="title">{app.appName}</TH2>
+            <TP className="description">
               {app.appName} uses {settings.config.appName} to give you control of your identity and data
             </TP>
           </div>
         </div>
       )}
       <QROrLoading showQr={showQR} />
-      <ButtonBase style={styles.secureInfoButton}>
-        <TImage
-          height={22}
-          width={22}
-          src={"/src/accounts/assets/icon-secure.svg"}
-          alt={`Secure icon`}
-        />
-        Pangea uses end-to-end cryptography. We cannot see your personal data
-      </ButtonBase>
+      <div className="secureInfoButtonContainer">
+        <ButtonBase className="secureInfoButton">
+          <TImage
+            height={22}
+            width={22}
+            src={"/src/accounts/assets/icon-secure.svg"}
+            alt={`Secure icon`}
+          />
+          Pangea uses end-to-end cryptography. We cannot see your personal data
+        </ButtonBase>
+      </div>
     </>
   );
 
@@ -592,7 +532,7 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="sm">
         <HeaderSection />
-        <div style={styles.detailContainer}>
+        <div className="detailContainer">
           {connectionError
             ? <ConnectionError username={username} tryAgainLink={window.document.referrer} />
             : <LinkingPhone />}
@@ -606,11 +546,11 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="sm">
         <HeaderSection />
-        <div style={styles.detailContainer}>
+        <div className="detailContainer">
           {app ? (
             <>
               <TImage width={80} src={app.logoUrl} />
-              <TH3 style={styles.titleDescription}>
+              <TH3 className="titleDescription">
                 <span style={{ color: '#4CAF50' }}>{app.appName}</span> wants<br /> you to login to the website
               </TH3>
               <TP style={{ color: "#6E84A3" }}>
@@ -642,8 +582,8 @@ export default function Login() {
         onClick={async () => {
           await onCancel();
         }}
+        className="secondaryButton"
         variant="text"
-        style={styles.secondaryButton}
         startIcon={<ArrowCircleLeftOutlined />}
       >
         Back
@@ -667,7 +607,7 @@ export default function Login() {
         <Button
           onClick={onLogout}
           variant="text"
-          style={styles.secondaryButton}
+          className="secondaryButton"
           startIcon={<LogoutIcon />}
         >
           Logout
@@ -715,7 +655,7 @@ export default function Login() {
   );
 
   return (
-    <div style={styles.container}>
+    <div className="container" >
 
       {status === "qr" && renderQRSection()}
       {status === "connecting" && renderConnectingSection()}
