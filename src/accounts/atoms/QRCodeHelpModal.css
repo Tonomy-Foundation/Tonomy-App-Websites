@@ -28,7 +28,7 @@
 }
 
 .qrModalHelp {
-    color: var(--success-alert) !important;
+    color: var(--app-accent) !important;
     margin-top: 24px;
     display: flex;
     gap: 12px;
@@ -40,25 +40,25 @@
 }
 
 .qrModalHelp:hover {
-    border-bottom: 2px solid var(--success-alert-hover);
+    border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .qrModalHelp:active {
-    color: var(--success-alert-active);
+    color: var(--app-accent-active);
 }
 
 .commonLink {
-    color: var(--success-alert);
+    color: var(--app-accent);
     text-decoration: none;
     cursor: pointer;
 }
 
 .commonLink:hover {
-    border-bottom: 2px solid var(--success-alert-hover);
+    border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .commonLink:active {
-    color: var(--success-alert-active);
+    color: var(--app-accent-active);
 }
 
 @media (max-width: 768px) {

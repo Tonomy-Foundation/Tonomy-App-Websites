@@ -48,6 +48,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import LightBulbIcon from "../assets/icon-light-bulb.png";
+import { colorUtils } from "../utils/ColorUtils";
 
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
@@ -70,12 +71,12 @@ export default function Login() {
 
   // Update CSS variable dynamically
   useEffect(() => {
-    if (status === "qr") {
-      document.documentElement.style.setProperty("--offWhite", "#F3F6F3");
-      document.body.style.backgroundColor = "var(--offWhite)";
+    if (status === "qr" && app) {
+      document.documentElement.style.setProperty("--app-background", app.backgroundColor);
+      document.documentElement.style.setProperty("--app-accent", app.brandingColor);
+      colorUtils.applyDynamicColors();
     } else {
-      document.documentElement.style.setProperty("--white", "#FFFFFF");
-      document.body.style.backgroundColor = "var(--white)";
+      document.body.style.backgroundColor = "var(--white-background)";
     }
   }, [status, app]);
 

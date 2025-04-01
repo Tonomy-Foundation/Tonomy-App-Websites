@@ -25,8 +25,11 @@
     --main-light-gradient: #C1EEF8;
     --main-blue-gradient: #67D7ED;
     --secondary-text: #6E84A3;
-    --success-alert-hover: #66BB6A;
-    --success-alert-active: #388E3C;
-    --white-bg: #ffffff;
+    --white-background: #ffffff;
     --soft-white: #F3F6F3;
+
+    --app-background: #F3F6F3;
+    --app-accent: #4CAF50;
+    --app-accent-hover: #6EC071;
+    --app-accent-active: #3D8B40;
 }

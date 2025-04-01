@@ -11,7 +11,7 @@
     left: 50%;
     transform: translate(-50%, 50%);
     padding: 0 5px;
-    background: var(---white-bg);
+    background: var(--white-background);
 }
 
 .logout {
@@ -50,7 +50,7 @@
     padding: 55px 35px 35px;
     border: 1px solid var(--grey-border);
     border-radius: 20px;
-    background-color: var(---white-bg);
+    background-color: var(--white-background);
 }
 
 .titleContainer {

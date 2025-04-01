@@ -3,7 +3,7 @@
     padding: 35px;
     border: 1px solid var(--grey-border);
     border-radius: 20px;
-    background-color: var(--white-bg);
+    background-color: var(--white-background);
 }
 
 .qrContainer {
@@ -45,15 +45,15 @@
 }
 
 .highlightedLink:hover {
-    border-bottom: 2px solid var(--success-alert-hover);
+    border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .qrAssistanceButton:active {
-    border-bottom: var(--success-alert-active) !important;
+    border-bottom: var(--app-accent-active) !important;
 }
 
 .qrAssistanceButton {
-    color: var(--success-alert) !important;
+    color: var(--app-accent) !important;
     font-size: 20px;
     line-height: 20.5px;
     display: flex;
@@ -62,24 +62,24 @@
 }
 
 .qrAssistanceButton:hover {
-    border-bottom: 2px solid var(--success-alert-hover);
+    border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .qrAssistanceButton:active {
-    color: var(--success-alert-active);
+    color: var(--app-accent-active);
 }
 
 .commonLink {
-    color: var(--success-alert);
+    color: var(--app-accent);
     text-decoration: none;
 }
 
 .commonLink :hover {
-    border-bottom: 2px solid var(--success-alert-hover);
+    border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .commonLink:active {
-    color: var(--success-alert-active);
+    color: var(--app-accent-active);
 }
 
 .linksWrapper {

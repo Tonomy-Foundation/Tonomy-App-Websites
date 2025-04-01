@@ -16,6 +16,7 @@ import Debug from "debug";
 import { App, AuthenticationMessage, CommunicationError, ExternalUser, getLoginRequestFromUrl, JsKeyManager, KeyManagerLevel, LoginRequest, LoginRequestPayload, LoginWithTonomyMessages, onRedirectLogin, randomString, RequestsManager, ResponsesManager, SdkError, SdkErrors, terminateLoginRequest, WalletRequest } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import { useUserStore } from "../../common/stores/user.store";
+import { colorUtils } from "../utils/ColorUtils";
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 export default function DownloadApp() {
@@ -35,12 +36,12 @@ export default function DownloadApp() {
 
   // Update CSS variable dynamically
   useEffect(() => {
-    if (status === "qr") {
-      document.documentElement.style.setProperty("--offWhite", "--soft-white");
-      document.body.style.backgroundColor = "var(--offWhite)";
+    if (status === "qr" && app) {
+      document.documentElement.style.setProperty("--app-background", app.backgroundColor);
+      document.documentElement.style.setProperty("--app-accent", app.brandingColor);
+      colorUtils.applyDynamicColors();
     } else {
-      document.documentElement.style.setProperty("--white", "--white-bg");
-      document.body.style.backgroundColor = "var(--white)";
+      document.body.style.backgroundColor = "var(--white-background)";
     }
   }, [status, app]);
 
@@ -296,7 +297,7 @@ export default function DownloadApp() {
                   to="https://pangea.web4.world/technology/pangea-passport"
                   className="highlightedLink"
                   onMouseUp={(e) => {
-                    e.currentTarget.style.borderBottom = "2px solid var(--success-alert-active)";
+                    e.currentTarget.style.borderBottom = "2px solid var(--app-accent-active)";
                   }}
                 >
                   {appName}
