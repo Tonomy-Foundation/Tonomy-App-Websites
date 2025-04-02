@@ -45,14 +45,6 @@
     align-Self: center;
 }
 
-.detailContainer {
-    margin-top: 30px;
-    padding: 55px 35px 35px;
-    border: 1px solid var(--grey-border);
-    border-radius: 20px;
-    background-color: var(--white-background);
-}
-
 .titleContainer {
     padding: 0 2rem;
     gap: 15px;

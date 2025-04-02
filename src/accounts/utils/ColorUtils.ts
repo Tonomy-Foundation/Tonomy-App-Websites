@@ -48,6 +48,14 @@ export const colorUtils = {
         return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase()}`;
     },
 
+    // Convert Hex to RGB
+    hexToRGB(hex) {
+        let r = parseInt(hex.substring(1, 3), 16);
+        let g = parseInt(hex.substring(3, 5), 16);
+        let b = parseInt(hex.substring(5, 7), 16);
+        return `${r}, ${g}, ${b}`;
+    },
+
     // Adjust color brightness (lighter/darker)
     adjustColor(hex, lightnessChange) {
         let hsl = this.hexToHSL(hex);
@@ -63,21 +71,25 @@ export const colorUtils = {
 
     isDark(bgHex) {
         let { l } = this.hexToHSL(bgHex);
-        return l < 50 ? false : true;
+        return l < 50 ? true : false;
     },
 
     // Apply dynamic colors to CSS variables
     applyDynamicColors() {
         const root = document.documentElement;
-
         // Get colors from CSS variables
         const appAccent = getComputedStyle(root).getPropertyValue('--app-accent').trim();
-        
-        // Generate accent hover and active colors
-        root.style.setProperty("--app-accent", appAccent);
-        root.style.setProperty("--app-accent-hover", this.adjustColor(appAccent, 10));
-        root.style.setProperty("--app-accent-active", this.adjustColor(appAccent, -10));
-        document.body.style.backgroundColor = "var(--app-background)";
-        document.body.style.color = "var(--accent)";
+        const appBackground = getComputedStyle(root).getPropertyValue('--app-background').trim();
+        if(appAccent && appBackground){
+            // Generate accent hover and active colors
+            root.style.setProperty("--app-accent", appAccent);
+            root.style.setProperty("--app-accent-hover", this.adjustColor(appAccent, 10));
+            root.style.setProperty("--app-accent-active", this.adjustColor(appAccent, -10));
+            root.style.setProperty("--accent", this.getContrastTextColor(appBackground));
+            root.style.setProperty("--accent-rgb", this.hexToRGB(this.getContrastTextColor(appBackground)));
+            root.style.setProperty("--app-background-active", this.adjustColor(appBackground, 10));
+            document.body.style.backgroundColor = "var(--app-background)";
+            document.body.style.color = "var(--accent)";
+        }
     }
 };

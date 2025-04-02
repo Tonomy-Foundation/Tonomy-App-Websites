@@ -59,7 +59,9 @@ export default function QRCodeHelpModal({ open, onClose }: { open: boolean; onCl
                     <ButtonBase className="qrModalHelp"
                         onClick={() => window.open("https://discord.com/invite/8zDf8AF3ja")}>
                         Get help on Discord
-                        <TImage height={12} width={12} src={"/src/accounts/assets/icon-arrow.svg"} alt={`Get help on Discord`} />
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.00005 14L14 1M14 1V13.48M14 1H1.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                     </ButtonBase>
                 </div>
             </Box>
