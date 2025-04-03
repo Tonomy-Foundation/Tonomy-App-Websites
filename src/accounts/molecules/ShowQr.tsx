@@ -125,7 +125,7 @@ export default function QROrLoading({
               justifyContent="flex-end"
               sx={{ paddingLeft: "0 !important" }}
             >
-              {!showQr ? <TSpinner /> : <QRCode value={showQr} />}
+              {!showQr ? <TSpinner /> : <QRCode fgColor="var(--accent)" bgColor="var(--app-background-active)" value={showQr} />}
             </Grid>
           </Grid>
         </Box>
