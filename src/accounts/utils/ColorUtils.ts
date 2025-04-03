@@ -59,7 +59,15 @@ export const colorUtils = {
     // Adjust color brightness (lighter/darker)
     adjustColor(hex, lightnessChange) {
         let hsl = this.hexToHSL(hex);
-        hsl.l = Math.min(100, Math.max(0, hsl.l + lightnessChange)); // Keep within valid range
+        
+        if (hsl.l === 100 && lightnessChange > 0) {
+            hsl.l = Math.max(95, hsl.l - lightnessChange); // Reduce slightly instead of increasing
+        } else if (hsl.l === 0 && lightnessChange < 0) {
+            hsl.l = Math.min(5, hsl.l - lightnessChange); // Increase slightly instead of decreasing
+        } else {
+            hsl.l = Math.min(100, Math.max(0, hsl.l + lightnessChange)); // Regular case
+        }
+    
         return this.hslToHex(hsl.h, hsl.s, hsl.l);
     },
 
@@ -82,6 +90,7 @@ export const colorUtils = {
         const appBackground = getComputedStyle(root).getPropertyValue('--app-background').trim();
         if(appAccent && appBackground){
             // Generate accent hover and active colors
+            console.log("this.adjustColor(appBackground, 10)",this.adjustColor(appBackground, -10))
             root.style.setProperty("--app-accent", appAccent);
             root.style.setProperty("--app-accent-hover", this.adjustColor(appAccent, 10));
             root.style.setProperty("--app-accent-active", this.adjustColor(appAccent, -10));
