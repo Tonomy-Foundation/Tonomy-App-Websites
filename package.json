@@ -1,12 +1,12 @@
 {
   "name": "tonomy-app-websites",
   "private": true,
-  "version": "1.0.0-rc.2",
+  "version": "1.1.0-development.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "apple-site-association": "node appleAppSiteAssociation.js",
-    "build": "yarn run apple-site-association && tsc && vite build",
+    "universal-link-association": "yarn tsx universalLinkAssociation.ts",
+    "build": "yarn run universal-link-association && tsc && vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
     "lint:styles": "stylelint \"src/**/*.css\"",
@@ -24,7 +24,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/lab": "^5.0.0-alpha.151",
     "@mui/material": "^5.16.4",
-    "@tonomy/tonomy-id-sdk": "0.28.1",
+    "@tonomy/tonomy-id-sdk": "0.29.0-rc.1",
     "@wharfkit/antelope": "^1.0.8",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
@@ -58,6 +58,7 @@
     "semantic-release": "^24.2.0",
     "serve": "^14.2.0",
     "stylelint": "^16.7.0",
+    "tsx": "^4.19.3",
     "typescript": "*",
     "typescript-eslint": "^7.16.1",
     "vite": "^5.3.4"
@@ -67,7 +68,7 @@
   },
   "packageManager": "yarn@4.3.1",
   "engines": {
-    "node": ">=20.0.0",
+    "node": "^20.0.0",
     "yarn": "^4.3.1"
   }
 }

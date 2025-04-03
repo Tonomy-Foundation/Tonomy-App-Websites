@@ -7,12 +7,11 @@ import Debug from "debug";
 
 const debug = Debug("tonomy-app-websites:common:settings");
 
-const environmentVariables = import.meta.env;
 // cannot use NODE_ENV as it is always "production" on `npm run build`
+const environmentVariables = import.meta.env ||  process?.env;
 const env = environmentVariables.VITE_APP_NODE_ENV || "development";
 
-debug(environmentVariables);
-debug(`VITE_APP_NODE_ENV=${env}`);
+console.log(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
   appLogoUrl: string;
@@ -40,6 +39,8 @@ export type ConfigType = {
   blockExplorerUrl: string;
   documentationLink: string;
   currencySymbol: string;
+  appId: string;
+  sha256CertFingerprints: string;
 };
 
 type SettingsType = {
@@ -102,23 +103,26 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
 
 // Add title
 settings.config = config;
-document.title = settings.config.appName;
+if (typeof document !== "undefined") {
 
-// Add favicon
-const faviconLink = document.createElement("link");
+  document.title = settings.config.appName;
 
-faviconLink.type = "image/svg+xml";
-faviconLink.rel = "icon";
-faviconLink.href = settings.config.images.logo48;
-document.head.appendChild(faviconLink);
-
-// Add stylesheet
-const stylesheetLink = document.createElement("link");
-
-stylesheetLink.rel = "stylesheet";
-stylesheetLink.href = "/theme/" + settings.config.themeFile;
-document.head.appendChild(stylesheetLink);
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+  // Add favicon
+  const faviconLink = document.createElement("link");
+  
+  faviconLink.type = "image/svg+xml";
+  faviconLink.rel = "icon";
+  faviconLink.href = settings.config.images.logo48;
+  document.head.appendChild(faviconLink);
+  
+  // Add stylesheet
+  const stylesheetLink = document.createElement("link");
+  
+  stylesheetLink.rel = "stylesheet";
+  stylesheetLink.href = "/theme/" + settings.config.themeFile;
+  document.head.appendChild(stylesheetLink);
+  
+  ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+}
 
 export default settings;
