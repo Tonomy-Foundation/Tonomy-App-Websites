@@ -46,7 +46,7 @@
 
 .paragraph-section {
   padding: 8rem 6rem;
-  background: var(--white);
+  background: var(--gray-50);
 }
 
 .imagine {
@@ -64,7 +64,7 @@
 }
 
 .form-section {
-  background: var(--offWhite);
+  background: var(--gray-100);
   padding: 4rem 6rem 0rem 4rem;
 }
 
@@ -104,7 +104,7 @@ ul.horizontal-list li:last-child {
 .client-section {
   text-align: center;
   margin: 2rem;
-  background: var(--white);
+  background: var(--gray-50);
   padding: 3rem 3rem 1rem 3rem;
 }
 
@@ -131,7 +131,7 @@ ul.horizontal-list li:last-child {
 }
 
 .link-color {
-  color: var(--success-alert) !important;
+  color: var(--success) !important;
   text-decoration: underline;
   margin-left: 0.2rem;
 }
@@ -139,7 +139,7 @@ ul.horizontal-list li:last-child {
 .btn-style {
   border: none;
   background-color: var(--primary) ;
-  color: var(--white) ;
+  color: var(--gray-50) ;
   padding: 0.3rem 3rem ;
   border-radius: 20px;
   margin: 1.8rem 0rem ;
@@ -212,7 +212,7 @@ input:focus {
     display: none;
   }
   .form-section {
-    background: var(--white);
+    background: var(--gray-50);
   }
   .display-mobile-w3vc{
     padding: 0rem 1.3rem;
@@ -220,7 +220,7 @@ input:focus {
   }
   
   .display-mobile-w3vc .blue-text{
-    color: var(--dark-blue);
+    color: var(--blue-800);
     margin-top: 0.6rem;
   }
   .client-section{

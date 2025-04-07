@@ -35,7 +35,7 @@ import {
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import { useUserStore } from "../../common/stores/user.store";
-import { applyDynamicColors } from "../utils/color";
+import { useThemeContext } from "../../theme/ThemeContext";
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 export default function DownloadApp() {
@@ -53,20 +53,13 @@ export default function DownloadApp() {
 
   let rendered = false;
 
+  const { setAppAccent, setAppBackground } = useThemeContext();
+
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr" && app) {
-      document.documentElement.style.setProperty(
-        "--app-background",
-        app.backgroundColor
-      );
-      document.documentElement.style.setProperty(
-        "--app-accent",
-        app.brandingColor
-      );
-      applyDynamicColors();
-    } else {
-      document.body.style.backgroundColor = "var(--white-background)";
+      setAppAccent(app.brandingColor);
+      setAppBackground(app.backgroundColor);
     }
   }, [status, app]);
 

@@ -70,7 +70,7 @@ function hslToHex(h: number, s: number, l: number) {
   return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase()}`;
 }
 
-function hexToRGB(hex: string) {
+export function hexToRGB(hex: string) {
   const r = parseInt(hex.substring(1, 3), 16);
   const g = parseInt(hex.substring(3, 5), 16);
   const b = parseInt(hex.substring(5, 7), 16);
@@ -85,7 +85,7 @@ function hexToRGBObject(hex: string) {
   };
 }
 
-function adjustColor(hex: string, lightnessChange: number) {
+export function adjustColor(hex: string, lightnessChange: number) {
   const hsl = hexToHSL(hex);
 
   if (hsl.l === 100 && lightnessChange > 0) {
@@ -111,30 +111,4 @@ export function getContrastTextColor(bgHex: string) {
 
   const luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B;
   return luminance > 0.179 ? "#000000" : "#FFFFFF";
-}
-
-// Exported: Useful for creating dynamic themes
-export function applyDynamicColors() {
-  const root = document.documentElement;
-  const appAccent = getComputedStyle(root)
-    .getPropertyValue("--app-accent")
-    .trim();
-  const appBackground = getComputedStyle(root)
-    .getPropertyValue("--app-background")
-    .trim();
-
-  if (appAccent && appBackground) {
-    root.style.setProperty("--app-accent", appAccent);
-    root.style.setProperty("--app-accent-hover", adjustColor(appAccent, 10));
-    root.style.setProperty("--app-accent-active", adjustColor(appAccent, -10));
-    const textColor = getContrastTextColor(appBackground);
-    root.style.setProperty("--accent", textColor);
-    root.style.setProperty("--accent-rgb", hexToRGB(textColor));
-    root.style.setProperty(
-      "--app-background-active",
-      adjustColor(appBackground, 10)
-    );
-    document.body.style.backgroundColor = "var(--app-background)";
-    document.body.style.color = "var(--accent)";
-  }
 }

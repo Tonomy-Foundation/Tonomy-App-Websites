@@ -40,7 +40,12 @@ export default function QRCodeHelpModal({
               />
             </ButtonBase>
           </div>
-          <div style={{ backgroundColor: "#F6F9FB", borderRadius: 15 }}>
+          <div
+            style={{
+              backgroundColor: "var(--swiper-background)",
+              borderRadius: 15,
+            }}
+          >
             <TScanner height={267} width={267} />
           </div>
 

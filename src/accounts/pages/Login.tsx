@@ -48,7 +48,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import LightBulbIcon from "../assets/icon-light-bulb.png";
-import { applyDynamicColors } from "../utils/color";
+import { useThemeContext } from "../../theme/ThemeContext";
 
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
@@ -67,20 +67,13 @@ export default function Login() {
 
   let rendered = false;
 
+  const { setAppAccent, setAppBackground } = useThemeContext();
+
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr" && app) {
-      document.documentElement.style.setProperty(
-        "--app-background",
-        app.backgroundColor
-      );
-      document.documentElement.style.setProperty(
-        "--app-accent",
-        app.brandingColor
-      );
-      applyDynamicColors();
-    } else {
-      document.body.style.backgroundColor = "var(--white-background)";
+      setAppAccent(app.brandingColor);
+      setAppBackground(app.backgroundColor);
     }
   }, [status, app]);
 
@@ -535,15 +528,18 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="sm">
         <HeaderSection />
-        <div className="detailContainer">
+        <div className="detailContainer app-details">
           {app ? (
             <>
-              <TImage width={80} src={app.logoUrl} />
+              <TImage style={{ marginTop: 15 }} width={80} src={app.logoUrl} />
               <TH3 className="titleDescription">
-                <span style={{ color: "#4CAF50" }}>{app.appName}</span> wants
+                <span style={{ color: "var(--app-accent)" }}>
+                  {app.appName}
+                </span>{" "}
+                wants
                 <br /> you to login to the website
               </TH3>
-              <TP style={{ color: "#6E84A3" }}>
+              <TP style={{ color: "var(--text-secondary)" }}>
                 Use {settings.config.appName} app to complete your login
               </TP>
               <TSpinner />
@@ -625,20 +621,21 @@ export default function Login() {
         className="custom-swiper"
       >
         {sliders.map((text, index) => (
-          <SwiperSlide
-            key={index}
-            style={{
-              fontSize: 20,
-              fontWeight: "400",
-              padding: 20,
-              backgroundColor: "#F6F9FB",
-              backgroundImage: `url(${LightBulbIcon})`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "left",
-              borderRadius: 12,
-            }}
-          >
-            {text}
+          <SwiperSlide key={index}>
+            <div
+              style={{
+                fontSize: 18,
+                fontWeight: "400",
+                padding: 20,
+                backgroundColor: "var(--swiper-background)",
+                backgroundImage: `url(${LightBulbIcon})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "left",
+                borderRadius: 12,
+              }}
+            >
+              {text}
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
