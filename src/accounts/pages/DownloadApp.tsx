@@ -13,10 +13,29 @@ import settings from "../../common/settings";
 import "./DownloadApp.css"; // Assuming this has common styles
 import { useWalletRequestsStore } from "../stores/loginStore";
 import Debug from "debug";
-import { App, AuthenticationMessage, CommunicationError, ExternalUser, getLoginRequestFromUrl, JsKeyManager, KeyManagerLevel, LoginRequest, LoginRequestPayload, LoginWithTonomyMessages, onRedirectLogin, randomString, RequestsManager, ResponsesManager, SdkError, SdkErrors, terminateLoginRequest, WalletRequest } from "@tonomy/tonomy-id-sdk";
+import {
+  App,
+  AuthenticationMessage,
+  CommunicationError,
+  ExternalUser,
+  getLoginRequestFromUrl,
+  JsKeyManager,
+  KeyManagerLevel,
+  LoginRequest,
+  LoginRequestPayload,
+  LoginWithTonomyMessages,
+  onRedirectLogin,
+  randomString,
+  RequestsManager,
+  ResponsesManager,
+  SdkError,
+  SdkErrors,
+  terminateLoginRequest,
+  WalletRequest,
+} from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import { useUserStore } from "../../common/stores/user.store";
-import { colorUtils } from "../utils/ColorUtils";
+import { applyDynamicColors } from "../utils/color";
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 export default function DownloadApp() {
@@ -37,9 +56,15 @@ export default function DownloadApp() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr" && app) {
-      document.documentElement.style.setProperty("--app-background", app.backgroundColor);
-      document.documentElement.style.setProperty("--app-accent", app.brandingColor);
-      colorUtils.applyDynamicColors();
+      document.documentElement.style.setProperty(
+        "--app-background",
+        app.backgroundColor
+      );
+      document.documentElement.style.setProperty(
+        "--app-accent",
+        app.brandingColor
+      );
+      applyDynamicColors();
     } else {
       document.body.style.backgroundColor = "var(--white-background)";
     }
@@ -210,8 +235,6 @@ export default function DownloadApp() {
         loginToCommunication =
           await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       }
-
-
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -240,34 +263,28 @@ export default function DownloadApp() {
 
   const appName = settings.config.appName;
 
-  const {
-    appleStoreDownload,
-    playStoreDownload
-  } = settings.config.links;
+  const { appleStoreDownload, playStoreDownload } = settings.config.links;
 
   return (
     <div className="container">
-
       {/* App Logo, Title and Description */}
-      {
-        app && (
-          <>
-            <TImage
-              height={64}
-              width={64}
-              src={app.logoUrl}
-              alt={`${app.appName} Logo`}
-            />
-            <div className="titleContainer">
-              <TH2 className="title">{app.appName}</TH2>
-              <TP className="description">
-                {app.appName} uses {appName} to give you control of your identity and data.
-              </TP>
-            </div>
-          </>
-        )
-      }
-
+      {app && (
+        <>
+          <TImage
+            height={64}
+            width={64}
+            src={app.logoUrl}
+            alt={`${app.appName} Logo`}
+          />
+          <div className="titleContainer">
+            <TH2 className="title">{app.appName}</TH2>
+            <TP className="description">
+              {app.appName} uses {appName} to give you control of your identity
+              and data.
+            </TP>
+          </div>
+        </>
+      )}
 
       {/* QR Section */}
       <div className="qrWrapper">
@@ -284,7 +301,7 @@ export default function DownloadApp() {
                   popper: {
                     modifiers: [
                       {
-                        name: 'offset',
+                        name: "offset",
                         options: {
                           offset: [0, 10],
                         },
@@ -297,7 +314,8 @@ export default function DownloadApp() {
                   to="https://pangea.web4.world/technology/pangea-passport"
                   className="highlightedLink"
                   onMouseUp={(e) => {
-                    e.currentTarget.style.borderBottom = "2px solid var(--app-accent-active)";
+                    e.currentTarget.style.borderBottom =
+                      "2px solid var(--app-accent-active)";
                   }}
                 >
                   {appName}
@@ -306,7 +324,8 @@ export default function DownloadApp() {
             </TH3>
 
             <TP className="qrDescription">
-              You'll need the {appName} app for a secure, one-tap login that streamlines your access.
+              You'll need the {appName} app for a secure, one-tap login that
+              streamlines your access.
             </TP>
           </div>
 
@@ -329,10 +348,25 @@ export default function DownloadApp() {
           </div>
 
           {/* Assistance Button */}
-          <ButtonBase onClick={handleOpenHelpModal} className="assistanceButton">
+          <ButtonBase
+            onClick={handleOpenHelpModal}
+            className="assistanceButton"
+          >
             Get assistance
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.00005 14L14 1M14 1V13.48M14 1H1.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.00005 14L14 1M14 1V13.48M14 1H1.52005"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </ButtonBase>
         </div>

@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 import TImage from "../../common/atoms/TImage";
 import { useState } from "react";
 import QRCodeHelpModal from "../atoms/QRCodeHelpModal";
-import MuiLink from '@mui/material/Link';
+import MuiLink from "@mui/material/Link";
 import "./ShowQr.css";
 export default function QROrLoading({
   showQr,
 }: {
   showQr: string | undefined;
 }) {
-  console.log("showQr", showQr)
+  console.log("showQr", showQr);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -55,13 +55,14 @@ export default function QROrLoading({
                     </Tooltip>
                   </TH3>
                   <TP className="qrDescription">
-                    You'll need the {settings.config.appName} app for a secure, one-tap login that streamlines your access.
+                    You'll need the {settings.config.appName} app for a secure,
+                    one-tap login that streamlines your access.
                   </TP>
                 </Box>
 
                 <Divider sx={{ borderColor: "rgba(var(--accent-rgb),0.2)" }} />
 
-                <ol className="qrList" >
+                <ol className="qrList">
                   <li>
                     <Box className="linksWrapper">
                       Download
@@ -94,7 +95,12 @@ export default function QROrLoading({
                     <Box className="linksWrapper">
                       Press the scan QR button
                       <MuiLink component={Link} to="">
-                        <TImage height={18} width={18} src="/src/accounts/assets/icon-qr.svg" alt="QR icon" />
+                        <TImage
+                          height={18}
+                          width={18}
+                          src="/src/accounts/assets/icon-qr.svg"
+                          alt="QR icon"
+                        />
                       </MuiLink>
                     </Box>
                   </li>
@@ -108,8 +114,20 @@ export default function QROrLoading({
                     className="qrAssistanceButton"
                   >
                     Get assistance{" "}
-                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.00005 14L14 1M14 1V13.48M14 1H1.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.00005 14L14 1M14 1V13.48M14 1H1.52005"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
                     </svg>
                   </ButtonBase>
                 </div>
@@ -125,7 +143,15 @@ export default function QROrLoading({
               justifyContent="flex-end"
               sx={{ paddingLeft: "0 !important" }}
             >
-              {!showQr ? <TSpinner /> : <QRCode fgColor="var(--accent)" bgColor="var(--app-background-active)" value={showQr} />}
+              {!showQr ? (
+                <TSpinner />
+              ) : (
+                <QRCode
+                  fgColor="var(--accent)"
+                  bgColor="var(--app-background-active)"
+                  value={showQr}
+                />
+              )}
             </Grid>
           </Grid>
         </Box>

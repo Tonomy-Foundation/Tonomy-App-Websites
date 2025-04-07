@@ -48,11 +48,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import LightBulbIcon from "../assets/icon-light-bulb.png";
-import { colorUtils } from "../utils/ColorUtils";
+import { applyDynamicColors } from "../utils/color";
 
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
-
-
 
 export default function Login() {
   const [status, setStatus] = useState<"qr" | "connecting" | "app">("qr");
@@ -72,15 +70,25 @@ export default function Login() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr" && app) {
-      document.documentElement.style.setProperty("--app-background", app.backgroundColor);
-      document.documentElement.style.setProperty("--app-accent", app.brandingColor);
-      colorUtils.applyDynamicColors();
+      document.documentElement.style.setProperty(
+        "--app-background",
+        app.backgroundColor
+      );
+      document.documentElement.style.setProperty(
+        "--app-accent",
+        app.brandingColor
+      );
+      applyDynamicColors();
     } else {
       document.body.style.backgroundColor = "var(--white-background)";
     }
   }, [status, app]);
 
-  const sliders = ["With Pangea ID you own your data! Your phone stores all your credentials in secure storage", "Your data isn't in a database like Google's, so it's safe from server breaches", "With portable data, you'll never have to re-fill the same information again"];
+  const sliders = [
+    "With Pangea ID you own your data! Your phone stores all your credentials in secure storage",
+    "Your data isn't in a database like Google's, so it's safe from server breaches",
+    "With portable data, you'll never have to re-fill the same information again",
+  ];
 
   /*
   useEffect()
@@ -474,7 +482,8 @@ export default function Login() {
           <div className="titleContent">
             <TH2 className="title">{app.appName}</TH2>
             <TP className="description">
-              {app.appName} uses {settings.config.appName} to give you control of your identity and data
+              {app.appName} uses {settings.config.appName} to give you control
+              of your identity and data
             </TP>
           </div>
         </div>
@@ -482,9 +491,21 @@ export default function Login() {
       <QROrLoading showQr={showQR} />
       <div className="secureInfoButtonContainer">
         <ButtonBase className="secureInfoButton">
-        <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11 9H12.4C12.7314 9 13 9.2686 13 9.6V16.4C13 16.7314 12.7314 17 12.4 17H1.6C1.26863 17 1 16.7314 1 16.4V9.6C1 9.2686 1.26863 9 1.6 9H3M11 9V5C11 3.66667 10.2 1 7 1C3.8 1 3 3.66667 3 5V9M11 9H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+          <svg
+            width="14"
+            height="18"
+            viewBox="0 0 14 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 9H12.4C12.7314 9 13 9.2686 13 9.6V16.4C13 16.7314 12.7314 17 12.4 17H1.6C1.26863 17 1 16.7314 1 16.4V9.6C1 9.2686 1.26863 9 1.6 9H3M11 9V5C11 3.66667 10.2 1 7 1C3.8 1 3 3.66667 3 5V9M11 9H3"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
           Pangea uses end-to-end cryptography. We cannot see your personal data
         </ButtonBase>
       </div>
@@ -496,9 +517,14 @@ export default function Login() {
       <Box maxWidth="sm">
         <HeaderSection />
         <div className="detailContainer">
-          {connectionError
-            ? <ConnectionError username={username} tryAgainLink={window.document.referrer} />
-            : <LinkingPhone />}
+          {connectionError ? (
+            <ConnectionError
+              username={username}
+              tryAgainLink={window.document.referrer}
+            />
+          ) : (
+            <LinkingPhone />
+          )}
         </div>
         <SliderSection />
       </Box>
@@ -514,7 +540,8 @@ export default function Login() {
             <>
               <TImage width={80} src={app.logoUrl} />
               <TH3 className="titleDescription">
-                <span style={{ color: '#4CAF50' }}>{app.appName}</span> wants<br /> you to login to the website
+                <span style={{ color: "#4CAF50" }}>{app.appName}</span> wants
+                <br /> you to login to the website
               </TH3>
               <TP style={{ color: "#6E84A3" }}>
                 Use {settings.config.appName} app to complete your login
@@ -552,12 +579,14 @@ export default function Login() {
         Back
       </Button>
       {username && (
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          fontSize: 20
-        }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            fontSize: 20,
+          }}
+        >
           <TImage
             height={20}
             src={settings.config.images.logo48}
@@ -591,7 +620,7 @@ export default function Login() {
           width: "100%",
           textAlign: "center",
           marginTop: 60,
-          marginBottom: 20
+          marginBottom: 20,
         }}
         className="custom-swiper"
       >
@@ -618,12 +647,10 @@ export default function Login() {
   );
 
   return (
-    <div className="container" >
-
+    <div className="container">
       {status === "qr" && renderQRSection()}
       {status === "connecting" && renderConnectingSection()}
       {status === "app" && renderAppSection()}
-
     </div>
   );
 }
