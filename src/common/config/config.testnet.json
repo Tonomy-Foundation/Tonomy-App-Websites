@@ -1,8 +1,8 @@
 {
     "themeFile": "theme.pangea.css",
     "appLogoUrl": "/favicon.png",
-    "appName": "Pangea ID Testnet",
-    "ecosystemName": "Pangea Testnet",
+    "appName": "Tonomy ID Testnet",
+    "ecosystemName": "Tonomy Testnet",
     "appSlogan": "For a Better Tomorrow",
     "images": {
         "logo48": "/pangea/favicon.png",
@@ -18,12 +18,12 @@
     "accountSuffix": ".testnet.pangea",
     "tonomyIdSchema": "pangea-testnet://",
     "communicationUrl": "wss://communication.testnet.pangea.web4.world",
-    "ssoWebsiteOrigin": "https://accounts.testnet.pangea.web4.world",
+    "ssoWebsiteOrigin": "https://accounts.testnet.tonomy.io",
     "blockchainUrl": "https://blockchain-api-testnet.pangea.web4.world",
     "loggerLevel": "error",
-    "blockExplorerUrl": "https://explorer.testnet.pangea.web4.world/",
+    "blockExplorerUrl": "https://explorer.testnet.tonomy.io",
     "documentationLink": "https://docs.pangea.web4.world",
-    "currencySymbol": "LEOS",
+    "currencySymbol": "TONO",
     "appId": "pangeatestnet",
     "sha256CertFingerprints": "24:8A:15:4B:BC:84:4C:D8:8F:F8:20:86:80:DC:08:65:75:5D:79:3C:20:CB:D9:EA:49:96:A8:D6:EC:C4:10:FD"
 }
