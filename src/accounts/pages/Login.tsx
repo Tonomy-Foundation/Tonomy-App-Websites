@@ -31,7 +31,6 @@ import { TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
-import { isMobile } from "../utils/IsMobile";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { TButton } from "../../common/atoms/TButton";
@@ -85,7 +84,7 @@ export default function Login() {
           ----> loginToTonomyAndSendRequests()
               ----> getAppDetails()
               if mobile:
-              ----> redirectToMobileAppUrl()
+              ----> redirectToMobileAppUsingUniversalRedirect()
               else:
               ----> setShowQR()
               ----> subscribeToLoginRequestResponse()
@@ -113,32 +112,6 @@ export default function Login() {
 
     onLoad();
   }, []);
-
-  // sends the login request to Tonomy ID via URL
-  async function redirectToMobileAppUrl(requests: WalletRequest[]) {
-    debug("redirectToMobileAppUrl()", requests.length);
-    // Update the current URL to add query param mobile=true
-
-    const payload = {
-      requests,
-    };
-    const base64UrlPayload = objToBase64Url(payload);
-
-    // Attempt to open the app using window.location.replace
-    const appUrl = `${settings.config.tonomyIdSchema}SSO?payload=${base64UrlPayload}`;
-    // Create an invisible iframe to attempt to open the app
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src = appUrl;
-    document.body.appendChild(iframe);
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-      navigation("/download");
-    }, 1000);
-    if (/android/i.test(navigator.userAgent)) {
-      window.location.replace(appUrl);
-    }
-  }
 
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
   async function connectToTonomyId(
@@ -349,17 +322,13 @@ export default function Login() {
 
       const managedRequestsToSend = new RequestsManager(requestsToSend);
 
-      if (isMobile()) {
-        await redirectToMobileAppUrl(requestsToSend);
-      } else {
-        const did = managedRequestsToSend
-          .getLoginRequestWithSameOriginOrThrow()
-          .getIssuer();
+      const did = managedRequestsToSend
+        .getLoginRequestWithSameOriginOrThrow()
+        .getIssuer();
 
-        setShowQR(createLoginQrCode(did));
-        await subscribeToLoginRequestResponse();
-        await connectToTonomyId(requestsToSend, loginToCommunication, user);
-      }
+      setShowQR(createLoginQrCode(did));
+      await subscribeToLoginRequestResponse();
+      await connectToTonomyId(requestsToSend, loginToCommunication, user);
     } catch (e) {
       if (
         e instanceof SdkError &&
@@ -467,7 +436,7 @@ export default function Login() {
       });
 
       if (isLoggedIn()) {
-        // TODO send a message to Tonomy ID telling it the request is cancelled
+        // TODO: send a message to Tonomy ID telling it the request is cancelled
       }
 
       window.location.href = callbackUrl;
