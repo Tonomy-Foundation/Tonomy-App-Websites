@@ -5,6 +5,7 @@ import { TP } from "../../common/atoms/THeadings";
 import { Link } from "react-router-dom";
 import settings from "../../common/settings";
 import "./QRCodeHelpModal.css";
+import IconClose from "../assets/icon-close.png";
 export default function QRCodeHelpModal({
   open,
   onClose,
@@ -35,7 +36,7 @@ export default function QRCodeHelpModal({
               <TImage
                 height={20}
                 width={20}
-                src={"/src/accounts/assets/icon-close.png"}
+                src={IconClose}
                 alt={`Close icon`}
               />
             </ButtonBase>
