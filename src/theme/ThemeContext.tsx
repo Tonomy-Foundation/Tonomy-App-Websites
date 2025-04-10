@@ -13,8 +13,7 @@ import {
 } from "../accounts/utils/color";
 
 interface ThemeContextType {
-  setAppAccent: (color: string) => void;
-  setAppBackground: (color: string) => void;
+  updateThemeColors: (accent?: string, background?: string) => void;
   appAccent: string;
   appBackground: string;
 }
@@ -23,8 +22,7 @@ const defaultAccent = "#2563EB";
 const defaultBackground = "#F9FAFB";
 
 const ThemeContext = createContext<ThemeContextType>({
-  setAppAccent: () => {},
-  setAppBackground: () => {},
+  updateThemeColors: () => {},
   appAccent: defaultAccent,
   appBackground: defaultBackground,
 });
@@ -32,6 +30,11 @@ const ThemeContext = createContext<ThemeContextType>({
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
   const [appAccent, setAppAccent] = useState(defaultAccent);
   const [appBackground, setAppBackground] = useState(defaultBackground);
+
+  const updateThemeColors = (accent?: string, background?: string) => {
+    setAppAccent(accent ?? defaultAccent);
+    setAppBackground(background ?? defaultBackground);
+  };
 
   const theme = useMemo(
     () =>
@@ -108,7 +111,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ setAppAccent, setAppBackground, appAccent, appBackground }}
+      value={{ updateThemeColors, appAccent, appBackground }}
     >
       <ThemeProvider theme={theme}>
         <CssBaseline />

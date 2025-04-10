@@ -67,13 +67,12 @@ export default function Login() {
 
   let rendered = false;
 
-  const { setAppAccent, setAppBackground } = useThemeContext();
+  const { updateThemeColors } = useThemeContext();
 
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr" && app) {
-      setAppAccent(app.accentColor);
-      setAppBackground(app.backgroundColor);
+      updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);
 
