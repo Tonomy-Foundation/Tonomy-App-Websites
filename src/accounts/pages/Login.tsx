@@ -72,7 +72,7 @@ export default function Login() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (status === "qr" && app) {
-      setAppAccent(app.brandingColor);
+      setAppAccent(app.accentColor);
       setAppBackground(app.backgroundColor);
     }
   }, [status, app]);
