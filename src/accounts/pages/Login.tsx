@@ -113,6 +113,22 @@ export default function Login() {
     onLoad();
   }, []);
 
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+
+    // Set a timeout to redirect to the app store if app isn't opened
+    const fallbackTimeout = setTimeout(() => {
+      if (/android/i.test(userAgent)) {
+        window.location.href = settings.config.links.playStoreDownload;
+      } else if (/iPad|iPhone|iPod/.test(userAgent)) {
+        navigation("/download");
+      }
+    }, 2000); // 2 seconds
+
+    // Clear the timeout if the user navigates away (edge case)
+    return () => clearTimeout(fallbackTimeout);
+  }, []);
+
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
   async function connectToTonomyId(
     requests: LoginRequest[],
