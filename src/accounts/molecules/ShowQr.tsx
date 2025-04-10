@@ -10,6 +10,7 @@ import { useState } from "react";
 import QRCodeHelpModal from "../atoms/QRCodeHelpModal";
 import MuiLink from "@mui/material/Link";
 import "./ShowQr.css";
+import IconQR from "../assets/icon-qr.svg";
 export default function QROrLoading({
   showQr,
 }: {
@@ -98,7 +99,7 @@ export default function QROrLoading({
                         <TImage
                           height={18}
                           width={18}
-                          src="/src/accounts/assets/icon-qr.svg"
+                          src={IconQR}
                           alt="QR icon"
                         />
                       </MuiLink>

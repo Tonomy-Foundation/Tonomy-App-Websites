@@ -36,6 +36,7 @@ import {
 import useErrorStore from "../../common/stores/errorStore";
 import { useUserStore } from "../../common/stores/user.store";
 import { useThemeContext } from "../../theme/ThemeContext";
+import IconSecure from "../assets/icon-secure.svg";
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 export default function DownloadApp() {
@@ -366,12 +367,7 @@ export default function DownloadApp() {
 
       {/* Secure Info */}
       <ButtonBase className="secureInfoButton">
-        <TImage
-          height={22}
-          width={22}
-          src="/src/accounts/assets/icon-secure.svg"
-          alt="Secure icon"
-        />
+        <TImage height={22} width={22} src={IconSecure} alt="Secure icon" />
         Pangea uses end-to-end cryptography. We cannot see your personal data.
       </ButtonBase>
 
