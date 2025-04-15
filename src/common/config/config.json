@@ -22,7 +22,7 @@
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "loggerLevel": "debug",
     "blockExplorerUrl": "https://local.bloks.io",
-    "documentationLink": "https://docs.pangea.web4.world",
+    "documentationLink": "https://docs.tonomy.io",
     "currencySymbol": "LEOS",
     "appId": "tonomyiddevelopment",
     "sha256CertFingerprints": "00:E5:7D:E1:DA:75:7C:DD:06:1F:9B:D8:35:02:4B:A9:7E:35:9B:EA:54:4F:52:7E:81:8E:62:B3:3A:5C:99:D7"
