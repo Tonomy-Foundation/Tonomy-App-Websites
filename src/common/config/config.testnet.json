@@ -6,8 +6,8 @@
     "appSlogan": "For a Better Tomorrow",
     "images": {
         "logo48": "/pangea/favicon.png",
-        "logo1024": "/pangea/pangea-large-logo.png",
-        "mobileLogo": "/pangea/pangea-mobile-logo.png"
+        "logo1024": "/pangea/logo1024x1024.png",
+        "mobileLogo": "/pangea/logo48x48.png"
     },
     "links": {
         "readMoreDownload": "https://tonomy.io",

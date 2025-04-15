@@ -6,8 +6,8 @@
     "appSlogan": "Building ecosystems of trust",
     "images": {
         "logo48": "/development/favicon.png",
-        "logo1024": "/development/pangea-large-logo.png",
-        "mobileLogo": "/development/pangea-mobile-logo.png"
+        "logo1024": "/development/logo1024x1024.png",
+        "mobileLogo": "/development/logo48x48.png"
     },
     "links": {
         "readMoreDownload": "https://tonomy.io",
