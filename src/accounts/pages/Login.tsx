@@ -77,7 +77,7 @@ export default function Login() {
   }, [status, app]);
 
   const sliders = [
-    "With Pangea ID you own your data! Your phone stores all your credentials in secure storage",
+    "With Tonomy ID you own your data! Your phone stores all your credentials in secure storage",
     "Your data isn't in a database like Google's, so it's safe from server breaches",
     "With portable data, you'll never have to re-fill the same information again",
   ];
@@ -517,7 +517,7 @@ export default function Login() {
               stroke-linejoin="round"
             />
           </svg>
-          Pangea uses end-to-end cryptography. We cannot see your personal data
+          Tonomy uses end-to-end cryptography. We cannot see your personal data
         </ButtonBase>
       </div>
     </>
