@@ -94,16 +94,16 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
               body: {
                 backgroundColor: "var(--app-background)",
                 color: "var(--accent)",
-                fontFamily: "'Epilogue', sans-serif",
+                fontFamily: "'Host Grotesk', sans-serif",
               },
               "*": {
-                fontFamily: "'Epilogue', sans-serif",
+                fontFamily: "'Host Grotesk', sans-serif",
               },
             },
           },
         },
         typography: {
-          fontFamily: "'Epilogue', sans-serif",
+          fontFamily: "'Host Grotesk', sans-serif",
         },
       }),
     [appAccent, appBackground]

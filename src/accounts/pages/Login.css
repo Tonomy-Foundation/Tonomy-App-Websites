@@ -95,7 +95,7 @@
 
 .secondaryButton {
   letter-spacing: 0.16px !important;
-  color: var(--text-secondary) !important;
+  color: var(--accent) !important;
   text-transform: none !important;
   font-size: 20px !important;
   font-weight: 400 !important;
@@ -106,4 +106,20 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.primary-button {
+  padding: 12px 50px;
+  border-radius: 8px;
+  background-color: var(--app-accent);
+  color: var(--white);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+}
+.back-to-app {
+  color: var(--app-accent);
+  display: block;
+  text-decoration: none;
+  margin-top: 15px;
 }
