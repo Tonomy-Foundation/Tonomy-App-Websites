@@ -6,8 +6,8 @@
   "appSlogan": "For a Better Tomorrow",
   "images": {
     "logo48": "/pangea/favicon.png",
-    "logo1024": "/pangea/pangea-large-logo.png",
-    "mobileLogo": "/pangea/pangea-mobile-logo.png"
+    "logo1024": "/pangea/logo1024x1024.png",
+    "mobileLogo": "/pangea/logo48x48.png"
   },
   "links": {
     "readMoreDownload": "https://tonomy.io",
@@ -15,15 +15,15 @@
     "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.pangeatestnet",
     "appleStoreDownload": "https://testflight.apple.com/join/ou7KmYiE"
   },
-  "accountSuffix": ".testnet.tonomy",
-  "tonomyIdSchema": "tonomy-testnet://",
+  "accountSuffix": ".testnet.pangea",
+  "tonomyIdSchema": "pangea-testnet://",
   "communicationUrl": "wss://communication.testnet.tonomy.io",
   "ssoWebsiteOrigin": "https://accounts.testnet.tonomy.io",
   "blockchainUrl": "https://blockchain-api-testnet.tonomy.io",
   "loggerLevel": "error",
-  "blockExplorerUrl": "https://explorer.testnet.tonomy.io/",
+  "blockExplorerUrl": "https://explorer.testnet.tonomy.io",
   "documentationLink": "https://docs.tonomy.io",
   "currencySymbol": "TONO",
-  "appId": "tonomytestnet",
+  "appId": "pangeatestnet",
   "sha256CertFingerprints": "24:8A:15:4B:BC:84:4C:D8:8F:F8:20:86:80:DC:08:65:75:5D:79:3C:20:CB:D9:EA:49:96:A8:D6:EC:C4:10:FD"
 }

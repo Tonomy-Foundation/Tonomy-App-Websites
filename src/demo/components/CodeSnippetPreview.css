@@ -1,81 +1,82 @@
 /* Common styles for both desktop and mobile */
 .documentation {
-    position: relative;
-    text-align: left;
-    margin-bottom: 0.5rem;
-    padding: 4rem 6rem;
+  position: relative;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  padding: 4rem 6rem;
+}
+
+.documentation p {
+  margin-bottom: 0.3rem;
+  text-decoration-line: underline;
+}
+.documentation a {
+  text-decoration: none;
+}
+.documentation button {
+  width: 230px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--gray-50);
+  text-align: left;
+  padding-left: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 0.3rem;
+}
+
+.dropdown-arrow {
+  float: right;
+  margin-right: 1.2rem;
+  font-size: 1.2rem;
+}
+
+/* Media query for desktop */
+@media (min-width: 768px) {
+  .documentation {
+    display: inline-block;
+    align-items: center;
   }
-  
-  .documentation p {
-    margin-bottom: 0.3rem;
-    text-decoration-line: underline;
+
+  .dropdown-content {
+    position: absolute;
+    left: 2rem;
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1;
+    width: 320px;
+    height: 200px;
+    color: white;
+    top: -11rem; /* This value makes the dropdown appear below the button on desktop */
   }
-  .documentation a {
-    text-decoration: none;
+}
+
+/* Media query for mobile */
+@media (max-width: 767px) {
+  .documentation {
+    display: block;
   }
-  .documentation button {
-    width: 230px;
-    height: 46px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: var(--accent);
-    color: var(--gray-50);
-    text-align: left;
-    padding-left: 1rem;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin-top:0.3rem;
+
+  .dropdown-content {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
   }
-  
-  .dropdown-arrow {
-    float: right;
-    margin-right: 1.2rem;
-    font-size: 1.2rem;
+}
+
+.centered-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  background-color: var(--primary);
+}
+
+@media only screen and (min-width: 325px) and (max-width: 767px) {
+  .mobile-display-none {
+    display: none;
   }
-  
-  /* Media query for desktop */
-  @media (min-width: 768px) {
-    .documentation {
-      display: inline-block;
-      align-items: center;
-    }
-  
-    .dropdown-content {
-      position: absolute;
-      left: 2rem;
-      padding: 10px;
-      border-radius: 4px;
-      z-index: 1;
-      width: 320px;
-      height: 200px;
-      color: white;
-      top: -11rem; /* This value makes the dropdown appear below the button on desktop */
-    }
-  }
-  
-  /* Media query for mobile */
-  @media (max-width: 767px) {
-    .documentation {
-      display: block; 
-    }
-  
-    .dropdown-content {
-      position: static; 
-      width: 100%;
-      height: auto; 
-      margin-top: 10px; 
-    }
-    }
-  
-  .centered-button {
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    gap: 56px; 
-  }
-  
-  @media only screen and (min-width: 325px) and (max-width: 767px) {
-    .mobile-display-none{
-      display: none;
-    }
-  }
+}
