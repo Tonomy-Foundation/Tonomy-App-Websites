@@ -627,7 +627,7 @@ export default function Login() {
           )}
         </Box>
       </Box>
-      {renderAppDetailsSection()}
+      {status !== "app" && renderAppDetailsSection()}
     </>
   );
 
