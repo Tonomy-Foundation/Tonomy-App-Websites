@@ -1,29 +1,29 @@
 {
-  "themeFile": "theme.pangea.css",
-  "appLogoUrl": "/favicon.png",
-  "appName": "Tonomy ID Development",
-  "ecosystemName": "Tonomy Development",
-  "appSlogan": "Building ecosystems of trust",
-  "images": {
-    "logo48": "/development/favicon.png",
-    "logo1024": "/development/logo1024x1024.png",
-    "mobileLogo": "/development/logo48x48.png"
-  },
-  "links": {
-    "readMoreDownload": "https://tonomy.io",
-    "readMoreFoundation": "https://tonomy.foundation",
-    "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
-    "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
-  },
-  "accountSuffix": ".stag.tonomy.id",
-  "tonomyIdSchema": "tonomy-id-development://",
-  "communicationUrl": "wss://communication.staging.tonomy.foundation",
-  "ssoWebsiteOrigin": "http://accounts.localhost:5174",
-  "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-  "loggerLevel": "debug",
-  "blockExplorerUrl": "https://local.bloks.io",
-  "documentationLink": "https://docs.tonomy.io",
-  "currencySymbol": "LEOS",
-  "appId": "tonomyiddevelopment",
-  "sha256CertFingerprints": "00:E5:7D:E1:DA:75:7C:DD:06:1F:9B:D8:35:02:4B:A9:7E:35:9B:EA:54:4F:52:7E:81:8E:62:B3:3A:5C:99:D7"
+    "themeFile": "theme.pangea.css",
+    "appLogoUrl": "/favicon.png",
+    "appName": "Tonomy ID Development",
+    "ecosystemName": "Tonomy Development",
+    "appSlogan": "Building ecosystems of trust",
+    "images": {
+        "logo48": "/development/favicon.png",
+        "logo1024": "/development/logo1024x1024.png",
+        "mobileLogo": "/development/logo48x48.png"
+    },
+    "links": {
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
+        "appleStoreDownload": "https://tonomy-foundation.notion.site/Tonomy-ID-Staging-iOS-app-6e027c1db49d475585b0539fb8109207?pvs=4"
+    },
+    "accountSuffix": ".stag.tonomy.id",
+    "tonomyIdSchema": "tonomy-id-development://",
+    "communicationUrl": "wss://communication.staging.tonomy.foundation",
+    "ssoWebsiteOrigin": "http://accounts.localhost:5174",
+    "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
+    "loggerLevel": "debug",
+    "blockExplorerUrl": "https://local.bloks.io",
+    "documentationLink": "https://docs.tonomy.io",
+    "currencySymbol": "TONO",
+    "appId": "tonomyiddevelopment",
+    "sha256CertFingerprints": "00:E5:7D:E1:DA:75:7C:DD:06:1F:9B:D8:35:02:4B:A9:7E:35:9B:EA:54:4F:52:7E:81:8E:62:B3:3A:5C:99:D7"
 }

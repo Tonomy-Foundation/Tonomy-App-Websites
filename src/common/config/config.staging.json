@@ -1,29 +1,29 @@
 {
-  "themeFile": "theme.tonomy.css",
-  "appLogoUrl": "/tonomy-logo48.png",
-  "appName": "Tonomy ID Staging",
-  "ecosystemName": "Tonomy Staging",
-  "appSlogan": "Building ecosystems of trust",
-  "images": {
-    "logo48": "/tonomy/tonomy-logo48.png",
-    "logo1024": "/tonomy/tonomy-logo1024.png",
-    "mobileLogo": "/tonomy/tonomy-mobile-logo.png"
-  },
-  "links": {
-    "readMoreDownload": "https://tonomy.io",
-    "readMoreFoundation": "https://tonomy.foundation",
-    "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
-    "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
-  },
-  "accountSuffix": ".stag.tonomy.id",
-  "tonomyIdSchema": "tonomy-id-staging://",
-  "communicationUrl": "wss://communication.staging.tonomy.foundation",
-  "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
-  "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-  "loggerLevel": "debug",
-  "blockExplorerUrl": "https://local.bloks.io",
-  "documentationLink": "https://docs.tonomy.foundation",
-  "currencySymbol": "TONO",
-  "appId": "tonomyidstaging",
-  "sha256CertFingerprints": "05:37:B7:5E:0A:6F:D2:07:89:A2:B1:4D:F1:8B:D2:C7:99:56:DB:71:D0:9B:39:4C:EE:64:95:87:FE:0F:DF:E9"
+    "themeFile": "theme.tonomy.css",
+    "appLogoUrl": "/tonomy-logo48.png",
+    "appName": "Tonomy ID Staging",
+    "ecosystemName": "Tonomy Staging",
+    "appSlogan": "Building ecosystems of trust",
+    "images": {
+        "logo48": "/tonomy/tonomy-logo48.png",
+        "logo1024": "/tonomy/tonomy-logo1024.png",
+        "mobileLogo": "/tonomy/tonomy-mobile-logo.png"
+    },
+    "links": {
+        "readMoreDownload": "https://tonomy.io",
+        "readMoreFoundation": "https://tonomy.foundation",
+        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.tonomyidstaging",
+        "appleStoreDownload": "https://testflight.apple.com/join/7Bdd9jdB"
+    },
+    "accountSuffix": ".stag.tonomy.id",
+    "tonomyIdSchema": "tonomy-id-staging://",
+    "communicationUrl": "wss://communication.staging.tonomy.foundation",
+    "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
+    "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
+    "loggerLevel": "debug",
+    "blockExplorerUrl": "https://local.bloks.io",
+    "documentationLink": "https://docs.tonomy.foundation",
+    "currencySymbol": "TONO",
+    "appId": "tonomyidstaging",
+    "sha256CertFingerprints": "05:37:B7:5E:0A:6F:D2:07:89:A2:B1:4D:F1:8B:D2:C7:99:56:DB:71:D0:9B:39:4C:EE:64:95:87:FE:0F:DF:E9"
 }
