@@ -67,8 +67,7 @@
     "vite": "^5.3.4"
   },
   "resolutions": {
-    "jsonld": "link:./node_modules/@digitalcredentials/jsonld",
-    "@tonomy/tonomy-id-sdk": "portal:/home/jekingohel/Tonomy-ID-Integration/Tonomy-ID-SDK"
+    "jsonld": "link:./node_modules/@digitalcredentials/jsonld"
   },
   "packageManager": "yarn@4.3.1",
   "engines": {
