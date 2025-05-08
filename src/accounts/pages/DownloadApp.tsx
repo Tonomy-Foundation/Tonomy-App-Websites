@@ -58,7 +58,7 @@ export default function DownloadApp() {
 
   // Update CSS variable dynamically
   useEffect(() => {
-    if (status === "qr" && app) {
+    if (app) {
       updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);
@@ -287,7 +287,7 @@ export default function DownloadApp() {
             <TH3 className="qrTitle">
               Log in with{" "}
               <Tooltip
-                title="Learn more about Pangea ID"
+                title="Learn more about Tonomy ID"
                 placement="top"
                 arrow
                 slotProps={{
@@ -304,7 +304,7 @@ export default function DownloadApp() {
                 }}
               >
                 <Link
-                  to="https://pangea.web4.world/technology/pangea-passport"
+                  to="https://tonomy.io"
                   className="highlightedLink"
                   onMouseUp={(e) => {
                     e.currentTarget.style.borderBottom =
@@ -368,7 +368,7 @@ export default function DownloadApp() {
       {/* Secure Info */}
       <ButtonBase className="secureInfoButton">
         <TImage height={22} width={22} src={IconSecure} alt="Secure icon" />
-        Pangea uses end-to-end cryptography. We cannot see your personal data.
+        Tonomy uses end-to-end cryptography. We cannot see your personal data.
       </ButtonBase>
 
       {/* Help Modal */}

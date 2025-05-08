@@ -7,7 +7,7 @@ import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
 
-export default function RootRoutes(): JSX.Element {
+export default function RootRoutes() {
   return (
     <Router>
       <AuthProvider>

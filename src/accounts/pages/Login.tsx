@@ -71,13 +71,13 @@ export default function Login() {
 
   // Update CSS variable dynamically
   useEffect(() => {
-    if (status === "qr" && app) {
+    if (app) {
       updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);
 
   const sliders = [
-    "With Pangea ID you own your data! Your phone stores all your credentials in secure storage",
+    "With Tonomy ID you own your data! Your phone stores all your credentials in secure storage",
     "Your data isn't in a database like Google's, so it's safe from server breaches",
     "With portable data, you'll never have to re-fill the same information again",
   ];
@@ -482,20 +482,23 @@ export default function Login() {
     }
   };
 
+  const renderAppDetailsSection = () =>
+    app ? (
+      <div className="titleContainer">
+        <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
+        <div className="titleContent">
+          <TH2 className="title">{app.appName}</TH2>
+          <TP className="description">
+            {app.appName} uses {settings.config.appName} to give you control of
+            your identity and data
+          </TP>
+        </div>
+      </div>
+    ) : null;
+
   const renderQRSection = () => (
     <>
-      {app && (
-        <div className="titleContainer">
-          <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
-          <div className="titleContent">
-            <TH2 className="title">{app.appName}</TH2>
-            <TP className="description">
-              {app.appName} uses {settings.config.appName} to give you control
-              of your identity and data
-            </TP>
-          </div>
-        </div>
-      )}
+      {renderAppDetailsSection()}
       <QROrLoading showQr={showQR} />
       <div className="secureInfoButtonContainer">
         <ButtonBase className="secureInfoButton">
@@ -514,7 +517,7 @@ export default function Login() {
               stroke-linejoin="round"
             />
           </svg>
-          Pangea uses end-to-end cryptography. We cannot see your personal data
+          Tonomy uses end-to-end cryptography. We cannot see your personal data
         </ButtonBase>
       </div>
     </>
@@ -522,7 +525,7 @@ export default function Login() {
 
   const renderConnectingSection = () => (
     <Box justifyContent="center" alignItems="center" display="flex">
-      <Box maxWidth="sm">
+      <Box maxWidth="md">
         <HeaderSection />
         <div className="detailContainer">
           {connectionError ? (
@@ -572,51 +575,60 @@ export default function Login() {
   );
 
   const HeaderSection = () => (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      textAlign="left"
-      sx={{ marginBottom: 10 }}
-    >
-      <Button
-        onClick={async () => {
-          await onCancel();
-        }}
-        className="secondaryButton"
-        variant="text"
-        startIcon={<ArrowCircleLeftOutlined />}
+    <>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        textAlign="left"
       >
-        Back
-      </Button>
-      {username && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontSize: 20,
-          }}
-        >
-          <TImage
-            height={20}
-            src={settings.config.images.logo48}
-            alt={`${settings.config.appName} Logo`}
-          />
-          @{username}
-        </div>
-      )}
-      {user && (
         <Button
-          onClick={onLogout}
-          variant="text"
+          onClick={async () => {
+            await onCancel();
+          }}
           className="secondaryButton"
-          startIcon={<LogoutIcon />}
+          variant="text"
+          startIcon={<ArrowCircleLeftOutlined />}
         >
-          Logout
+          Back
         </Button>
-      )}
-    </Box>
+        <Box
+          display="flex"
+          gap={5}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          {username && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                fontSize: 20,
+              }}
+            >
+              <TImage
+                height={20}
+                src={settings.config.images.logo48}
+                alt={`${settings.config.appName} Logo`}
+              />
+              @{username}
+            </div>
+          )}
+          {user && (
+            <Button
+              onClick={onLogout}
+              variant="text"
+              className="secondaryButton"
+              startIcon={<LogoutIcon />}
+            >
+              Logout
+            </Button>
+          )}
+        </Box>
+      </Box>
+      {status !== "app" && renderAppDetailsSection()}
+    </>
   );
 
   const SliderSection = () => (
@@ -642,7 +654,7 @@ export default function Login() {
                 fontSize: 18,
                 fontWeight: "400",
                 padding: 20,
-                backgroundColor: "var(--swiper-background)",
+                backgroundColor: "var(--app-background-active)",
                 backgroundImage: `url(${LightBulbIcon})`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "left",
