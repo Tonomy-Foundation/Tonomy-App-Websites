@@ -5,7 +5,7 @@
 .top-menu-bar{
     height: 70px;
     background-color: var(--accent);
-    color: var(--white);
+    color: var(--gray-50);
     display: flex;
     align-items: center;
     justify-content: center;

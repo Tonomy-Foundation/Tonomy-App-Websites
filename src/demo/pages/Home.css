@@ -5,12 +5,15 @@
   height: 100%;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
-
+  background: linear-gradient(
+    115.56deg,
+    var(--main-light-gradient) 44.33%,
+    var(--main-blue-gradient) 89.31%
+  );
 }
-.box{
+.box {
   display: flex;
-  align-items:center;
+  align-items: center;
   color: var(--accent);
   padding: 1rem;
 }
@@ -35,7 +38,7 @@
   text-align: left;
   text-transform: uppercase;
 }
-.demo-main{
+.demo-main {
   font-size: 7rem;
   font-weight: 700;
   line-height: 7rem;
@@ -44,15 +47,15 @@
   margin-top: 1rem;
   color: var(--accent);
 }
-.intro{
+.intro {
   width: 65%;
 }
 .main-image {
   width: 35%;
-  display: flex; 
-  flex-direction: column; 
-  align-items: flex-end; 
-  justify-content: flex-end; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
   flex: 1.2;
   height: 100%;
 }
@@ -85,9 +88,9 @@ header {
 .text-body {
   max-width: 34vw;
   line-height: 1.8rem;
-  margin-top: 1.3rem ;
+  margin-top: 1.3rem;
   margin-bottom: 1rem;
-  font-size: 1.2rem ;
+  font-size: 1.2rem;
 }
 h1 {
   text-align: left !important;
@@ -97,10 +100,10 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.intro-container{
+.intro-container {
   padding: 6rem 0.5rem 0rem 6.5rem;
 }
-.mobile-img{
+.mobile-img {
   position: relative;
   right: 2rem;
   left: -12rem;
@@ -108,21 +111,20 @@ h1 {
   top: 1rem;
   width: 65%;
 }
-.hand-img{
+.hand-img {
   width: 75%;
 }
 .main-image .title {
   margin-top: auto;
   color: var(---bg);
 }
-.mobile-logo{
+.mobile-logo {
   display: none;
 }
 
 .tonomy-login-button {
-  padding: .5rem 2.5rem;
+  padding: 0.5rem 2.5rem;
   background-color: var(--primary) !important;
-
 }
 
 @media only screen and (max-width: 768px) {
@@ -143,16 +145,16 @@ h1 {
   h1 {
     text-align: center;
   }
-  
+
   .intro .footer {
     margin-bottom: 3rem;
   }
 }
 @media only screen and (max-width: 325px) {
-  .demo-main{
+  .demo-main {
     font-size: 2.1rem;
   }
-  
+
   .text-body {
     width: 100%;
     padding: 0rem 0.3rem;
@@ -164,14 +166,18 @@ h1 {
   }
 }
 
-@media only screen and  (max-width: 767px) {
-  .container{
+@media only screen and (max-width: 767px) {
+  .container {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     margin-top: 0rem;
     overflow-x: hidden;
-    background: linear-gradient(115.56deg, var(--main-light-gradient) 44.33%, var(--main-blue-gradient) 89.31%) ;  
+    background: linear-gradient(
+      115.56deg,
+      var(--main-light-gradient) 44.33%,
+      var(--main-blue-gradient) 89.31%
+    );
   }
   .text-body {
     max-width: 100%;
@@ -179,67 +185,63 @@ h1 {
   .intro {
     width: 100%;
   }
-  .box{
+  .box {
     display: block;
   }
-  .demo-head{
+  .demo-head {
     font-size: 1.2rem;
     text-align: center;
     line-height: 1;
     margin-top: 1.2rem;
-
   }
-  .demo-main{
+  .demo-main {
     text-align: center;
     line-height: 1;
   }
-  .intro-container{
+  .intro-container {
     padding: 0rem;
     margin-top: 0.5rem;
   }
-  .display-none{
+  .display-none {
     display: none;
   }
-  .text-body{
+  .text-body {
     text-align: center;
     max-width: 100%;
   }
-  .t-button{
+  .t-button {
     border-radius: 0.5rem;
-    
   }
-  .main-img{
+  .main-img {
     position: relative;
-
   }
-  .hand-img{
+  .hand-img {
     position: relative;
     width: 265%;
     top: -6rem;
     left: 9.2rem;
     right: 0rem;
   }
-  .mobile-img{
+  .mobile-img {
     position: relative;
     right: 0rem;
     width: 180%;
     left: 2rem;
     top: -6rem;
   }
-  .intro .footer{
+  .intro .footer {
     margin-top: 1.8rem;
   }
-  .mobile-logo{
+  .mobile-logo {
     width: 100px;
     height: 100px;
     display: inline;
     margin-top: 1rem;
   }
-  
 }
 
 @media only screen and (min-width: 325px) and (max-width: 767px) {
-  .demo-main{
+  .demo-main {
     font-size: 2.8rem;
   }
 }

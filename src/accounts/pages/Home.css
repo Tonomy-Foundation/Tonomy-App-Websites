@@ -1,0 +1,22 @@
+.user-profile-photo {
+  background-color: var(--white);
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.welcome-title {
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+.welcome-title span {
+  color: var(--app-accent);
+}
+.share-icon,
+.share-link {
+  color: var(--app-accent);
+  text-decoration: none;
+}

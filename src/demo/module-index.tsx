@@ -3,15 +3,17 @@ import ReactDOM from "react-dom/client";
 import Router from "./routes/routes";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
+import { ThemeContextProvider } from "../theme/ThemeContext";
 
 export default function initiate(root: ReactDOM.Root) {
   return root.render(
     <React.StrictMode>
-      <ErrorHandlerProvider />
-
-      <ProSidebarProvider>
-        <Router />
-      </ProSidebarProvider>
+      <ThemeContextProvider>
+        <ErrorHandlerProvider />
+        <ProSidebarProvider>
+          <Router />
+        </ProSidebarProvider>
+      </ThemeContextProvider>
     </React.StrictMode>
   );
 }

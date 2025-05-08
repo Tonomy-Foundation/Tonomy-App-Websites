@@ -7,7 +7,7 @@ import HomeScreen from "../pages/Home";
 import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 
-export default function RootRoutes(): JSX.Element {
+export default function RootRoutes() {
   return (
     <Router>
       <AuthProvider>

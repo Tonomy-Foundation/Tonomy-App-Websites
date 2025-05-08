@@ -4,7 +4,7 @@
   cursor: pointer;
 }
 .contained-button{
-  color: var(--white);
+  color: var(--gray-50);
   background-color: var(--primary);
   border-radius: 1.5rem;
   padding: .5rem 2.5rem;
@@ -17,7 +17,7 @@
 }
 
 .contained-button:hover{
-  background-color: var(--white);
+  background-color: var(--gray-50);
   color: var(--primary);
 }
 

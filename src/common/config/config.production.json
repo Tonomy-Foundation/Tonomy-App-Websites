@@ -1,29 +1,29 @@
 {
-    "themeFile": "theme.pangea.css",
-    "appLogoUrl": "/favicon.png",
-    "appName": "Tonomy ID",
-    "ecosystemName": "Tonomy",
-    "appSlogan": "For a Better Tomorrow",
-    "images": {
-        "logo48": "/pangea/favicon.png",
-        "logo1024": "/pangea/logo1024x1024.png",
-        "mobileLogo": "/pangea/logo48x48.png"
-    },
-    "links": {
-        "readMoreDownload": "https://tonomy.io",
-        "readMoreFoundation": "https://tonomy.foundation",
-        "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.unitedwallet",
-        "appleStoreDownload": "https://apps.apple.com/us/app/united-citizens-wallet/id6482296993"
-    },
-    "accountSuffix": ".pangea.id",
-    "tonomyIdSchema": "united-wallet://",
-    "communicationUrl": "wss://communication.tonomy.io",
-    "ssoWebsiteOrigin": "https://accounts.tonomy.io",
-    "blockchainUrl": "https://blockchain-api.tonomy.io",
-    "loggerLevel": "error",
-    "blockExplorerUrl": "https://explorer.tonomy.io",
-    "documentationLink": "https://docs.tonomy.io",
-    "currencySymbol": "TONO",
-    "appId": "unitedwallet",
-    "sha256CertFingerprints": "02:AE:D4:C2:77:0E:63:08:9E:C1:B9:AB:BF:52:69:44:FA:F7:C5:B6:C6:33:C3:93:1F:49:DC:E0:24:99:38:35"
+  "themeFile": "theme.pangea.css",
+  "appLogoUrl": "/favicon.png",
+  "appName": "Tonomy ID",
+  "ecosystemName": "Tonomy",
+  "appSlogan": "For a Better Tomorrow",
+  "images": {
+    "logo48": "/pangea/favicon.png",
+    "logo1024": "/pangea/logo1024x1024.png",
+    "mobileLogo": "/pangea/logo48x48.png"
+  },
+  "links": {
+    "readMoreDownload": "https://tonomy.io",
+    "readMoreFoundation": "https://tonomy.foundation",
+    "playStoreDownload": "https://play.google.com/store/apps/details?id=foundation.tonomy.projects.unitedwallet",
+    "appleStoreDownload": "https://apps.apple.com/us/app/united-citizens-wallet/id6482296993"
+  },
+  "accountSuffix": ".pangea.id",
+  "tonomyIdSchema": "united-wallet://",
+  "communicationUrl": "wss://communication.tonomy.io",
+  "ssoWebsiteOrigin": "https://accounts.tonomy.io",
+  "blockchainUrl": "https://blockchain-api.tonomy.io",
+  "loggerLevel": "error",
+  "blockExplorerUrl": "https://explorer.tonomy.io",
+  "documentationLink": "https://docs.tonomy.io",
+  "currencySymbol": "TONO",
+  "appId": "unitedwallet",
+  "sha256CertFingerprints": "02:AE:D4:C2:77:0E:63:08:9E:C1:B9:AB:BF:52:69:44:FA:F7:C5:B6:C6:33:C3:93:1F:49:DC:E0:24:99:38:35"
 }
