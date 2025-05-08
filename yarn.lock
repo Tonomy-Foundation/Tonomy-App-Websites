@@ -1252,9 +1252,9 @@ __metadata:
   linkType: hard
 
 "@humanwhocodes/retry@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@humanwhocodes/retry@npm:0.4.2"
-  checksum: 10c0/0235525d38f243bee3bf8b25ed395fbf957fb51c08adae52787e1325673071abe856c7e18e530922ed2dd3ce12ed82ba01b8cee0279ac52a3315fcdc3a69ef0c
+  version: 0.4.3
+  resolution: "@humanwhocodes/retry@npm:0.4.3"
+  checksum: 10c0/3775bb30087d4440b3f7406d5a057777d90e4b9f435af488a4923ef249e93615fb78565a85f173a186a076c7706a81d0d57d563a2624e4de2c5c9c66c486ce42
   languageName: node
   linkType: hard
 
@@ -3095,11 +3095,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^20.14.11":
-  version: 20.17.43
-  resolution: "@types/node@npm:20.17.43"
+  version: 20.17.45
+  resolution: "@types/node@npm:20.17.45"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/359ccd811aab90a1e09280fcfad54c8ee27e1a6968b25cf1dcfd6af4a7789e9aa69d6ca446c5afa18e145e0c3c43624422ccfe497267d1475d0c2c9f278f3c9f
+  checksum: 10c0/8d4ed716b5e2a360a6821237708c8e5aa445c526f991505350150ff7ed706c1ef0bb0176914b2fac18990eb5bee648fb921e0017978a765ad7c2c8435bcf79bc
   languageName: node
   linkType: hard
 
@@ -3117,19 +3117,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.12":
+"@types/prop-types@npm:^15.7.12":
   version: 15.7.14
   resolution: "@types/prop-types@npm:15.7.14"
   checksum: 10c0/1ec775160bfab90b67a782d735952158c7e702ca4502968aa82565bd8e452c2de8601c8dfe349733073c31179116cf7340710160d3836aa8a1ef76d1532893b1
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.10":
-  version: 18.3.7
-  resolution: "@types/react-dom@npm:18.3.7"
+"@types/react-dom@npm:^19.1.3":
+  version: 19.1.3
+  resolution: "@types/react-dom@npm:19.1.3"
   peerDependencies:
-    "@types/react": ^18.0.0
-  checksum: 10c0/8bd309e2c3d1604a28a736a24f96cbadf6c05d5288cfef8883b74f4054c961b6b3a5e997fd5686e492be903c8f3380dba5ec017eff3906b1256529cd2d39603e
+    "@types/react": ^19.0.0
+  checksum: 10c0/bb1e3f7a446958f5aa7e46f74cf8470dab7444ab958a57efacca1abcc9847e4ca71e2df68515176ed8fe3fc89315bd949d60f1f346cbadbdbf302bff59d3961b
   languageName: node
   linkType: hard
 
@@ -3151,22 +3151,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:>=16.9.11":
+"@types/react@npm:*, @types/react@npm:>=16.9.11, @types/react@npm:^19.1.3":
   version: 19.1.3
   resolution: "@types/react@npm:19.1.3"
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10c0/f158f88871b8df1eeed637942d3e6142abcf505b617e4921ef3763b6d4f22241b9a883d864878dd2b6a2bdc8f4e7f871f24ef88f633d144a63257f4764b9478d
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18.0.27":
-  version: 18.3.21
-  resolution: "@types/react@npm:18.3.21"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/b33424c62f01ab2404c60abef995e05aa1a696a636bdd77a34ef6c942d171c673b1e451d9dba7f9a169a83c9eef0ddfaf1ba08f6cef542df9404290199a73967
   languageName: node
   linkType: hard
 
@@ -5214,9 +5204,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.149":
-  version: 1.5.150
-  resolution: "electron-to-chromium@npm:1.5.150"
-  checksum: 10c0/898c232d5678a1e50f254b93902042e7287c6435ec8adab2a0f35e9f11f343eac901b799babaac92ec455a36f35ac0321847a391470629dd0060a681f850797d
+  version: 1.5.151
+  resolution: "electron-to-chromium@npm:1.5.151"
+  checksum: 10c0/9b3d73836a784af4fd113676b87b0d233ae51984cd4d4396f7252c7369e2f897afeca9fb53910c314e74a4b5d22b6faa4450e95304ceeb1c4fd04e8356030d4b
   languageName: node
   linkType: hard
 
@@ -5774,14 +5764,14 @@ __metadata:
   linkType: hard
 
 "ethr-did@npm:^3.0.5":
-  version: 3.0.32
-  resolution: "ethr-did@npm:3.0.32"
+  version: 3.0.33
+  resolution: "ethr-did@npm:3.0.33"
   dependencies:
     did-jwt: "npm:^8.0.0"
     did-resolver: "npm:^4.1.0"
     ethers: "npm:^6.8.1"
     ethr-did-resolver: "npm:11.0.3"
-  checksum: 10c0/46e6365ad52803e55955456d63dde28cd447ef94f8dd1bacb9345d02f446515e93a1ce2e31c6ef7ec17f73d03b40adc4648b0edcb4605bda3263dfad98d07e9d
+  checksum: 10c0/994b3f6459dcfed4b5b07f6b0fe7bee4559594e5bdcb3c16c9ba5a76c9a682a0ac1ffca85eaea8e80ea033c632f954d37d6f0409693c71f45260989cee929773
   languageName: node
   linkType: hard
 
@@ -10753,8 +10743,8 @@ __metadata:
   linkType: hard
 
 "styled-components@npm:^6.1.12":
-  version: 6.1.17
-  resolution: "styled-components@npm:6.1.17"
+  version: 6.1.18
+  resolution: "styled-components@npm:6.1.18"
   dependencies:
     "@emotion/is-prop-valid": "npm:1.2.2"
     "@emotion/unitless": "npm:0.8.1"
@@ -10768,7 +10758,7 @@ __metadata:
   peerDependencies:
     react: ">= 16.8.0"
     react-dom: ">= 16.8.0"
-  checksum: 10c0/87f35173c5fc2291ddba7ed8224d19fe6872d056a577f55fe130248f5ea23e5c48c012e881fa1ad93df60b56a12c1c2d553f628e204f090189221734927e50b0
+  checksum: 10c0/067778b8cf9aa24b23590d23210b0e7964c6469630e5ab821c68dac64af6e0c0270c972a836f60a8bbd9753770f0475f911fcd34eeba6bd003c233a79a391e6b
   languageName: node
   linkType: hard
 
@@ -11087,8 +11077,8 @@ __metadata:
     "@semantic-release/git": "npm:^10.0.1"
     "@tonomy/tonomy-id-sdk": "npm:0.29.0-development.14"
     "@types/node": "npm:^20.14.11"
-    "@types/react": "npm:^18.0.27"
-    "@types/react-dom": "npm:^18.0.10"
+    "@types/react": "npm:^19.1.3"
+    "@types/react-dom": "npm:^19.1.3"
     "@types/react-lottie": "npm:^1"
     "@typescript-eslint/eslint-plugin": "npm:^7.16.1"
     "@vitejs/plugin-react": "npm:^4.3.1"
