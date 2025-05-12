@@ -27,14 +27,11 @@ import {
   RequestsManager,
   ResponsesManager,
 } from "@tonomy/tonomy-id-sdk";
-import { TH3, TH4, TP } from "../../common/atoms/THeadings";
+import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
-import TProgressCircle from "../../common/atoms/TProgressCircle";
 import settings from "../../common/settings";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { TButton } from "../../common/atoms/TButton";
-import { TContainedButton } from "../../common/atoms/TContainedButton";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
 import QROrLoading from "../molecules/ShowQr";
@@ -42,22 +39,18 @@ import useErrorStore from "../../common/stores/errorStore";
 import { useWalletRequestsStore } from "../stores/loginStore";
 import ConnectionError from "../molecules/ConnectionError";
 import Debug from "debug";
+import { Box, Button, ButtonBase } from "@mui/material";
+import { ArrowCircleLeftOutlined } from "@mui/icons-material";
+import TSpinner from "../atoms/TSpinner";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import LightBulbIcon from "../assets/icon-light-bulb.png";
+import { useThemeContext } from "../../theme/ThemeContext";
 
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
-
-const styles = {
-  container: {
-    flex: 1,
-    textAlign: "center" as const,
-    alignSelf: "center",
-  },
-  detailContainer: {
-    marginTop: "20px",
-    padding: "40px 10px",
-    border: "2px solid var(--grey-border)",
-    borderRadius: "20px",
-  },
-};
 
 export default function Login() {
   const [status, setStatus] = useState<"qr" | "connecting" | "app">("qr");
@@ -73,6 +66,21 @@ export default function Login() {
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
+
+  const { updateThemeColors } = useThemeContext();
+
+  // Update CSS variable dynamically
+  useEffect(() => {
+    if (app) {
+      updateThemeColors(app.accentColor, app.backgroundColor);
+    }
+  }, [status, app]);
+
+  const sliders = [
+    "With Tonomy ID you own your data! Your phone stores all your credentials in secure storage",
+    "Your data isn't in a database like Google's, so it's safe from server breaches",
+    "With portable data, you'll never have to re-fill the same information again",
+  ];
 
   /*
   useEffect()
@@ -113,11 +121,27 @@ export default function Login() {
     onLoad();
   }, []);
 
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+
+    // Set a timeout to redirect to the app store if app isn't opened
+    const fallbackTimeout = setTimeout(() => {
+      if (/android/i.test(userAgent)) {
+        window.location.href = settings.config.links.playStoreDownload;
+      } else if (/iPad|iPhone|iPod/.test(userAgent)) {
+        navigation("/download");
+      }
+    }, 2000); // 2 seconds
+
+    // Clear the timeout if the user navigates away (edge case)
+    return () => clearTimeout(fallbackTimeout);
+  }, []);
+
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
   async function connectToTonomyId(
     requests: LoginRequest[],
     loginToCommunication: AuthenticationMessage,
-    user?: ExternalUser,
+    user?: ExternalUser
   ) {
     debug("connectToTonomyId()", requests.length, typeof user);
     // Login to the communication server
@@ -138,7 +162,7 @@ export default function Login() {
           requests,
         },
         issuer,
-        tonomyIDDid,
+        tonomyIDDid
       );
 
       await communication.sendMessage(requestMessage);
@@ -158,7 +182,7 @@ export default function Login() {
               requests,
             },
             jwkIssuer,
-            identifyMessage.getSender(),
+            identifyMessage.getSender()
           );
 
           await communication.sendMessage(requestMessage);
@@ -186,7 +210,7 @@ export default function Login() {
         debug("subscribeToLoginRequestResponse()");
 
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
-          message,
+          message
         ).getPayload();
 
         if (loginRequestResponsePayload.success !== true) {
@@ -198,7 +222,7 @@ export default function Login() {
             managedRequests.getRequestsDifferentOriginOrThrow();
 
           const managedExternalResponses = new ResponsesManager(
-            new RequestsManager(externalRequests),
+            new RequestsManager(externalRequests)
           );
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
@@ -214,7 +238,7 @@ export default function Login() {
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
               callbackPath: externalLoginRequest.getPayload().callbackPath,
-            },
+            }
           );
 
           window.location.href = url as string;
@@ -267,12 +291,12 @@ export default function Login() {
         let loginWithTonomyMessage: LoginWithTonomyMessages;
         if (accountsLogin) {
           debug(
-            "loginToTonomyAndSendRequests() using accountsLogin from store",
+            "loginToTonomyAndSendRequests() using accountsLogin from store"
           );
           loginWithTonomyMessage = accountsLogin;
         } else {
           debug(
-            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy"
           );
           loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
@@ -311,7 +335,7 @@ export default function Login() {
 
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          issuer,
+          issuer
         );
 
         requestsToSend.push(loginRequest);
@@ -337,7 +361,7 @@ export default function Login() {
       ) {
         errorStore.setError({
           error: new Error(
-            "Please try again and do not refresh this website during login",
+            "Please try again and do not refresh this website during login"
           ),
           expected: true,
           title: "Login unsuccessful",
@@ -458,86 +482,199 @@ export default function Login() {
     }
   };
 
-  return (
-    <div style={styles.container}>
-      <TImage
-        height={58}
-        src={settings.config.images.logo48}
-        alt={`${settings.config.appName} Logo`}
-      />
-      <TH3>Login with {settings.config.appName}</TH3>
-      {(status === "connecting" || status === "app") && (
-        <>{username && <TH4>{username}</TH4>}</>
-      )}
-
-      <div
-        style={{
-          ...styles.detailContainer,
-        }}
-      >
-        {status === "qr" && <QROrLoading showQr={showQR} />}
-
-        {status === "connecting" && (
-          <>
-            {connectionError ? (
-              <ConnectionError
-                username={username}
-                tryAgainLink={window.document.referrer}
-              />
-            ) : (
-              <LinkingPhone />
-            )}
-          </>
-        )}
-        {status === "app" && (
-          <>
-            {app && (
-              <>
-                <TImage src={app.logoUrl}></TImage>
-                <TH3>{app.appName}</TH3>
-                <TH4>wants you to log in to their application</TH4>
-                <TP style={{ margin: "10px" }}>
-                  Please proceed to login to {settings.config.appName} app on
-                  your phone.
-                </TP>
-              </>
-            )}
-            {!app && (
-              <div className="detail-container">
-                <TH4>Loading app details</TH4>
-                <TProgressCircle />
-              </div>
-            )}
-          </>
-        )}
+  const renderAppDetailsSection = () =>
+    app ? (
+      <div className="titleContainer">
+        <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
+        <div className="titleContent">
+          <TH2 className="title">{app.appName}</TH2>
+          <TP className="description">
+            {app.appName} uses {settings.config.appName} to give you control of
+            your identity and data
+          </TP>
+        </div>
       </div>
-      {status === "qr" && (
-        <TContainedButton onClick={() => navigation("/download")}>
-          {`Don't have ${settings.config.appName} yet?`}
-        </TContainedButton>
-      )}
-      {(status === "connecting" || status === "app") && (
-        <>
-          <div>
-            <TContainedButton
-              onClick={async () => {
-                await onCancel();
+    ) : null;
+
+  const renderQRSection = () => (
+    <>
+      {renderAppDetailsSection()}
+      <QROrLoading showQr={showQR} />
+      <div className="secureInfoButtonContainer">
+        <ButtonBase className="secureInfoButton">
+          <svg
+            width="14"
+            height="18"
+            viewBox="0 0 14 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 9H12.4C12.7314 9 13 9.2686 13 9.6V16.4C13 16.7314 12.7314 17 12.4 17H1.6C1.26863 17 1 16.7314 1 16.4V9.6C1 9.2686 1.26863 9 1.6 9H3M11 9V5C11 3.66667 10.2 1 7 1C3.8 1 3 3.66667 3 5V9M11 9H3"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Tonomy uses end-to-end cryptography. We cannot see your personal data
+        </ButtonBase>
+      </div>
+    </>
+  );
+
+  const renderConnectingSection = () => (
+    <Box justifyContent="center" alignItems="center" display="flex">
+      <Box maxWidth="md">
+        <HeaderSection />
+        <div className="detailContainer">
+          {connectionError ? (
+            <ConnectionError
+              username={username}
+              tryAgainLink={window.document.referrer}
+            />
+          ) : (
+            <LinkingPhone />
+          )}
+        </div>
+        <SliderSection />
+      </Box>
+    </Box>
+  );
+
+  const renderAppSection = () => (
+    <Box justifyContent="center" alignItems="center" display="flex">
+      <Box maxWidth="sm">
+        <HeaderSection />
+        <div className="detailContainer app-details">
+          {app ? (
+            <>
+              <TImage style={{ marginTop: 15 }} width={80} src={app.logoUrl} />
+              <TH3 className="titleDescription">
+                <span style={{ color: "var(--app-accent)" }}>
+                  {app.appName}
+                </span>{" "}
+                wants
+                <br /> you to login to the website
+              </TH3>
+              <TP style={{ color: "var(--text-secondary)" }}>
+                Use {settings.config.appName} app to complete your login
+              </TP>
+              <TSpinner />
+            </>
+          ) : (
+            <div className="detail-container">
+              <TH4>Loading app details</TH4>
+              <TSpinner />
+            </div>
+          )}
+        </div>
+        <SliderSection />
+      </Box>
+    </Box>
+  );
+
+  const HeaderSection = () => (
+    <>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        textAlign="left"
+      >
+        <Button
+          onClick={async () => {
+            await onCancel();
+          }}
+          className="secondaryButton"
+          variant="text"
+          startIcon={<ArrowCircleLeftOutlined />}
+        >
+          Back
+        </Button>
+        <Box
+          display="flex"
+          gap={5}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          {username && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                fontSize: 20,
               }}
             >
-              Cancel
-            </TContainedButton>
-          </div>
+              <TImage
+                height={20}
+                src={settings.config.images.logo48}
+                alt={`${settings.config.appName} Logo`}
+              />
+              @{username}
+            </div>
+          )}
           {user && (
-            <TButton
-              className="logout margin-top"
+            <Button
               onClick={onLogout}
-              startIcon={<LogoutIcon></LogoutIcon>}
+              variant="text"
+              className="secondaryButton"
+              startIcon={<LogoutIcon />}
             >
               Logout
-            </TButton>
+            </Button>
           )}
-        </>
-      )}
+        </Box>
+      </Box>
+      {status !== "app" && renderAppDetailsSection()}
+    </>
+  );
+
+  const SliderSection = () => (
+    <>
+      <Swiper
+        modules={[Pagination]}
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={10}
+        slidesPerView={1}
+        style={{
+          width: "100%",
+          textAlign: "center",
+          marginTop: 60,
+          marginBottom: 20,
+        }}
+        className="custom-swiper"
+      >
+        {sliders.map((text, index) => (
+          <SwiperSlide key={index}>
+            <div
+              style={{
+                fontSize: 18,
+                fontWeight: "400",
+                padding: 20,
+                backgroundColor: "var(--app-background-active)",
+                backgroundImage: `url(${LightBulbIcon})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "left",
+                borderRadius: 12,
+              }}
+            >
+              {text}
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className="swiper-pagination"></div>
+    </>
+  );
+
+  return (
+    <div className="container">
+      {status === "qr" && renderQRSection()}
+      {status === "connecting" && renderConnectingSection()}
+      {status === "app" && renderAppSection()}
     </div>
   );
 }
