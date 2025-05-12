@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
-export default function PrivateRoute({ children }: { children: JSX.Element }) {
+export default function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);
   const location = useLocation();
 

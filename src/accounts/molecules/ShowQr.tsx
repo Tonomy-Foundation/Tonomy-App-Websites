@@ -32,7 +32,7 @@ export default function QROrLoading({
                   <TH3 className="qrTitle">
                     Log in with{" "}
                     <Tooltip
-                      title="Learn more about Pangea ID"
+                      title="Learn more about Tonomy ID"
                       placement="top"
                       arrow
                       componentsProps={{
@@ -47,9 +47,9 @@ export default function QROrLoading({
                       }}
                     >
                       <Link
-                        to="https://pangea.web4.world/technology/pangea-passport"
+                        to="https://tonomy.io/"
                         className="highlightedLink"
-                        title="Learn more about Pangea ID"
+                        title="Learn more about Tonomy ID"
                       >
                         {settings.config.appName}
                       </Link>
