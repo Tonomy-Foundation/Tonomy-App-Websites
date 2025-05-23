@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
-  font-family: "Host Grotesk", Inter, system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
+  font-family:
+    "Host Grotesk", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -30,8 +30,8 @@ html {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .tonomy-login-button {
@@ -45,4 +45,10 @@ code {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.5s ease;
+}
+
+.login-callback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

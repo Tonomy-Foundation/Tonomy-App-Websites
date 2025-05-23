@@ -1,90 +1,93 @@
 .detailContainer {
-    margin-top: 30px;
-    padding: 35px;
-    border-radius: 20px;
-    background-color: var(--app-background-active);
+  margin-top: 30px;
+  padding: 35px;
+  border-radius: 20px;
+  background-color: var(--app-background-active);
 }
 
 .qrContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .qrSubContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .qrTitle {
-    font-weight: 600;
-    line-height: 24.6px;
-    letter-spacing: 0.5px;
-    font-size: 24px;
+  font-weight: 600;
+  line-height: 24.6px;
+  letter-spacing: 0.5px;
+  font-size: 24px;
 }
 
 .qrDescription {
-    font-size: 20px;
-    line-height: 100%;
-    letter-spacing: 0.5px;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0.5px;
 }
 
 .qrList {
-    font-size: 20px;
-    letter-spacing: 0.5px;
-    padding-left: 23px;
-    padding-top: 12px;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  padding-left: 23px;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .highlightedLink {
-    color: var(--accent);
-    text-decoration: none;
-    border: none;
+  color: var(--accent);
+  text-decoration: none;
+  border: none;
 }
 
 .highlightedLink:hover {
-    border-bottom: 2px solid var(--app-accent-hover);
+  border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .qrAssistanceButton:active {
-    border-bottom: var(--app-accent-active) !important;
+  border-bottom: var(--app-accent-active) !important;
 }
 
 .qrAssistanceButton {
-    color: var(--app-accent) !important;
-    font-size: 20px;
-    line-height: 20.5px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  color: var(--app-accent) !important;
+  font-size: 20px;
+  line-height: 20.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .qrAssistanceButton:hover {
-    border-bottom: 2px solid var(--app-accent-hover);
+  border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .qrAssistanceButton:active {
-    color: var(--app-accent-active);
+  color: var(--app-accent-active);
 }
 
 .commonLink {
-    color: var(--app-accent);
-    text-decoration: none;
+  color: var(--app-accent);
+  text-decoration: none;
 }
 
 .commonLink :hover {
-    border-bottom: 2px solid var(--app-accent-hover);
+  border-bottom: 2px solid var(--app-accent-hover);
 }
 
 .commonLink:active {
-    color: var(--app-accent-active);
+  color: var(--app-accent-active);
 }
 
 .linksWrapper {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-    line-height: 20.5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  line-height: 20.5px;
 }
