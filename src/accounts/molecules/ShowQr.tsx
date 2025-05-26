@@ -50,6 +50,7 @@ export default function QROrLoading({
                         to="https://tonomy.io/"
                         className="highlightedLink"
                         title="Learn more about Tonomy ID"
+                        target="_blank"
                       >
                         {settings.config.appName}
                       </Link>
