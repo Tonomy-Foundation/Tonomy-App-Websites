@@ -16,6 +16,7 @@ export default function QRCodeHelpModal({
   return (
     <Modal open={open} onClose={onClose}>
       <Box
+        className="helpmodal"
         sx={{
           position: "absolute",
           top: "50%",
@@ -23,7 +24,7 @@ export default function QRCodeHelpModal({
           transform: "translate(-50%, -50%)",
           width: "90%",
           maxWidth: "600px",
-          bgcolor: "background.paper",
+          bgcolor: "var(--app-background-active)",
           borderRadius: 2,
           p: 4,
         }}
@@ -66,6 +67,7 @@ export default function QRCodeHelpModal({
                 Make sure you are using the latest version of{" "}
                 {settings.config.appName} from the{" "}
                 <Link
+                  target="_blank"
                   className="commonLink"
                   to={settings.config.links.appleStoreDownload}
                 >
@@ -73,6 +75,7 @@ export default function QRCodeHelpModal({
                 </Link>{" "}
                 or{" "}
                 <Link
+                  target="_blank"
                   className="commonLink"
                   to={settings.config.links.playStoreDownload}
                 >
