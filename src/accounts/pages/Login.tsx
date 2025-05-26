@@ -670,8 +670,11 @@ export default function Login() {
     </>
   );
 
+  const containerClass =
+    status === "qr" ? "container qr-container" : "container";
+
   return (
-    <div className="container">
+    <div className={containerClass}>
       {status === "qr" && renderQRSection()}
       {status === "connecting" && renderConnectingSection()}
       {status === "app" && renderAppSection()}
