@@ -1,4 +1,4 @@
-import React from "react";
+import React, { JSX } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
@@ -7,7 +7,7 @@ import MainLayout from "../layout/MainLayout";
 import mainRoutes from "./mainRoutes";
 import AuthProvider from "../providers/AuthProvider";
 
-export default function RootRoutes() {
+export default function RootRoutes(): JSX.Element {
   return (
     <Router>
       <AuthProvider>
