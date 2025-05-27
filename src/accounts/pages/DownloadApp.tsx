@@ -304,6 +304,7 @@ export default function DownloadApp() {
                 }}
               >
                 <Link
+                  target="_blank"
                   to="https://tonomy.io"
                   className="highlightedLink"
                   onMouseUp={(e) => {
@@ -324,14 +325,14 @@ export default function DownloadApp() {
 
           {/* Store Badges */}
           <div className="storeBadges">
-            <Link to={appleStoreDownload}>
+            <Link to={appleStoreDownload} target="_blank">
               <img
                 alt="Get it on Apple store"
                 src={appStoreImage}
                 className="storeBadgeImage"
               />
             </Link>
-            <Link to={playStoreDownload}>
+            <Link to={playStoreDownload} target="_blank">
               <img
                 alt="Get it on Google Play"
                 src={playStoreBadge}

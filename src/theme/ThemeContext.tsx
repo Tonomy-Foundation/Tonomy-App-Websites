@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import {
+  adjustBackgroundColor,
   adjustColor,
   getContrastTextColor,
   hexToRGB,
@@ -55,7 +56,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
             styleOverrides: {
               ":root": {
                 "--app-background": appBackground,
-                "--app-background-active": adjustColor(appBackground, 10),
+                "--app-background-active": adjustBackgroundColor(appBackground),
                 "--app-accent": appAccent,
                 "--app-accent-hover": adjustColor(appAccent, 10),
                 "--app-accent-active": adjustColor(appAccent, -10),

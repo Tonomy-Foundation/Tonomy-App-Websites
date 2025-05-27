@@ -20,7 +20,7 @@ export default function initiate(root: ReactDOM.Root) {
     // this will make components render twice in development to catch errors
     <React.StrictMode>
       <ThemeContextProvider>
-        <Container maxWidth="md" style={styles.container}>
+        <Container maxWidth="lg" style={styles.container}>
           <ErrorHandlerProvider />
           <RouterProvider router={router}></RouterProvider>
         </Container>
