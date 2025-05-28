@@ -1,0 +1,88 @@
+.qrContainerModal {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: var(--app-background-active);
+}
+
+.qrModalHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.qrModalTitle {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 30.75px;
+}
+
+.qrModalSectionTitle {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18.45px;
+}
+
+.qrModalList {
+  padding-left: 23px;
+  padding-top: 10px;
+  font-size: 18px;
+}
+
+.qrModalHelp {
+  color: var(--app-accent) !important;
+  margin-top: 24px !important;
+  display: flex !important;
+  gap: 12px;
+  text-decoration: none !important;
+  font-size: 20px;
+  line-height: 20.5px;
+  cursor: pointer !important;
+  align-items: center !important;
+}
+
+.qrModalHelp:hover {
+  border-bottom: 2px solid var(--app-accent-hover);
+}
+
+.qrModalHelp:active {
+  color: var(--app-accent-active);
+}
+
+.commonLink {
+  color: var(--app-accent);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.commonLink:hover {
+  border-bottom: 2px solid var(--app-accent-hover);
+}
+
+.commonLink:active {
+  color: var(--app-accent-active);
+}
+
+@media (max-width: 768px) {
+  .qrContainerModal {
+    gap: 15px;
+  }
+
+  .qrModalTitle {
+    font-size: 22px;
+    line-height: 22.55px;
+  }
+
+  .qrModalSectionTitle {
+    font-size: 16px;
+    line-height: 5px;
+  }
+
+  .qrModalList {
+    font-size: 16px;
+  }
+
+  .qrModalHelp {
+    font-size: 16px;
+    line-height: 5px;
+  }
+}

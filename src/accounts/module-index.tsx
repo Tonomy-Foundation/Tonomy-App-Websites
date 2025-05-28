@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import reportWebVitals from "../common/reportWebVitals";
 import router from "./routes/root";
 import ErrorHandlerProvider from "../common/providers/ErrorHandler";
+import { ThemeContextProvider } from "../theme/ThemeContext";
 
 const styles = {
   container: {
@@ -18,10 +19,12 @@ export default function initiate(root: ReactDOM.Root) {
   root.render(
     // this will make components render twice in development to catch errors
     <React.StrictMode>
-      <Container maxWidth="sm" style={styles.container}>
-        <ErrorHandlerProvider />
-        <RouterProvider router={router}></RouterProvider>
-      </Container>
+      <ThemeContextProvider>
+        <Container maxWidth="lg" style={styles.container}>
+          <ErrorHandlerProvider />
+          <RouterProvider router={router}></RouterProvider>
+        </Container>
+      </ThemeContextProvider>
     </React.StrictMode>
   );
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import TProgressCircle from "../../common/atoms/TProgressCircle";
 import {
   ExternalUser,
   terminateLoginRequest,
@@ -11,6 +10,7 @@ import {
   ResponsesManager,
   LoginRequestResponseMessagePayload,
 } from "@tonomy/tonomy-id-sdk";
+import TSpinner from "../atoms/TSpinner";
 
 export default function CallBackPage() {
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function CallBackPage() {
 
         const managedResponses = new ResponsesManager(response);
         const managedRequests = new RequestsManager(
-          managedResponses.getRequests(),
+          managedResponses.getRequests()
         );
 
         await managedResponses.verify();
@@ -60,7 +60,7 @@ export default function CallBackPage() {
           managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
         const managedExternalRequests = new RequestsManager(
-          managedRequests.getRequestsDifferentOriginOrThrow(),
+          managedRequests.getRequestsDifferentOriginOrThrow()
         );
 
         if (!error) throw new Error("Error not defined");
@@ -71,7 +71,7 @@ export default function CallBackPage() {
           {
             callbackOrigin: externalLoginRequest.getPayload().origin,
             callbackPath: externalLoginRequest.getPayload().callbackPath,
-          },
+          }
         );
 
         window.location.href = callbackUrl as string;
@@ -93,8 +93,8 @@ export default function CallBackPage() {
           const callbackUrl = await terminateLoginRequest(
             new ResponsesManager(
               new RequestsManager(
-                managedRequests.getRequestsDifferentOriginOrThrow(),
-              ),
+                managedRequests.getRequestsDifferentOriginOrThrow()
+              )
             ),
             "mobile",
             {
@@ -107,7 +107,7 @@ export default function CallBackPage() {
             {
               callbackOrigin: externalLoginRequest.getPayload().origin,
               callbackPath: externalLoginRequest.getPayload().callbackPath,
-            },
+            }
           );
 
           window.location.href = callbackUrl as string;
@@ -121,8 +121,8 @@ export default function CallBackPage() {
   }
 
   return (
-    <div className="center">
-      <TProgressCircle />
+    <div className="login-callback">
+      <TSpinner />
     </div>
   );
 }

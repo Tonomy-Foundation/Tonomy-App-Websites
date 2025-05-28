@@ -18,7 +18,7 @@ export const HeaderTonomy = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--dark-grey, #313938);
+  color: var(--gray-900, #313938);
   font-size: 220px;
   font-style: normal;
   font-weight: 500;
@@ -34,7 +34,7 @@ export const HeaderTonomySmall = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--dark-grey, #313938);
+  color: var(--gray-900, #313938);
   font-size: 120px;
   font-style: normal;
   font-weight: 500;
@@ -48,7 +48,7 @@ export const MainContainer = styled.div`
   flex-shrink: 0;
   background: var(--white-off-white, #f9f9f9);
   @media only screen and (max-width: 767px) {
-    background: var(--white);
+    background: var(--gray-50);
   }
 `;
 
