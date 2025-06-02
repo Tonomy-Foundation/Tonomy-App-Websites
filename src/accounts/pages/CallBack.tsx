@@ -30,7 +30,7 @@ export default function CallBackPage() {
 
         const managedResponses = new ResponsesManager(response);
         const managedRequests = new RequestsManager(
-          managedResponses.getRequests()
+          managedResponses.getRequests(),
         );
 
         await managedResponses.verify();
@@ -56,22 +56,16 @@ export default function CallBackPage() {
         if (!error) throw new Error("Error not defined");
 
         const managedRequests = new RequestsManager(error.requests);
-        const externalLoginRequest =
-          managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
         const managedExternalRequests = new RequestsManager(
-          managedRequests.getRequestsDifferentOriginOrThrow()
+          managedRequests.getRequestsDifferentOriginOrThrow(),
         );
 
         if (!error) throw new Error("Error not defined");
-        const callbackUrl = await terminateLoginRequest(
+        const callbackUrl = await rejectLoginRequest(
           new ResponsesManager(managedExternalRequests),
-          "mobile",
+          "redirect",
           error,
-          {
-            callbackOrigin: externalLoginRequest.getPayload().origin,
-            callbackPath: externalLoginRequest.getPayload().callbackPath,
-          }
         );
 
         window.location.href = callbackUrl as string;
@@ -90,13 +84,13 @@ export default function CallBackPage() {
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
 
-          const callbackUrl = await terminateLoginRequest(
+          const callbackUrl = await rejectLoginRequest(
             new ResponsesManager(
               new RequestsManager(
-                managedRequests.getRequestsDifferentOriginOrThrow()
-              )
+                managedRequests.getRequestsDifferentOriginOrThrow(),
+              ),
             ),
-            "mobile",
+            "redirect",
             {
               code: e.code,
               reason:
@@ -104,10 +98,6 @@ export default function CallBackPage() {
                   ? "User logged out"
                   : "User cancelled login",
             },
-            {
-              callbackOrigin: externalLoginRequest.getPayload().origin,
-              callbackPath: externalLoginRequest.getPayload().callbackPath,
-            }
           );
 
           window.location.href = callbackUrl as string;

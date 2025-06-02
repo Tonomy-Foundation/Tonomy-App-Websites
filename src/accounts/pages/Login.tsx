@@ -7,7 +7,7 @@ import {
   AuthenticationMessage,
   IdentifyMessage,
   LoginRequestsMessage,
-  terminateLoginRequest,
+  rejectLoginRequest,
   LoginRequestResponseMessage,
   objToBase64Url,
   SdkError,
@@ -99,7 +99,7 @@ export default function Login() {
                   if success:
                   ----> window.location.replace()
                   if failed:
-                  ----> terminateLoginRequest()
+                  ----> rejectLoginRequest()
               ----> connectToTonomyId()
                   if logged in already:
                   ----> communication.sendMessage(requests)
@@ -141,7 +141,7 @@ export default function Login() {
   async function connectToTonomyId(
     requests: LoginRequest[],
     loginToCommunication: AuthenticationMessage,
-    user?: ExternalUser
+    user?: ExternalUser,
   ) {
     debug("connectToTonomyId()", requests.length, typeof user);
     // Login to the communication server
@@ -162,7 +162,7 @@ export default function Login() {
           requests,
         },
         issuer,
-        tonomyIDDid
+        tonomyIDDid,
       );
 
       await communication.sendMessage(requestMessage);
@@ -182,7 +182,7 @@ export default function Login() {
               requests,
             },
             jwkIssuer,
-            identifyMessage.getSender()
+            identifyMessage.getSender(),
           );
 
           await communication.sendMessage(requestMessage);
@@ -210,7 +210,7 @@ export default function Login() {
         debug("subscribeToLoginRequestResponse()");
 
         const loginRequestResponsePayload = new LoginRequestResponseMessage(
-          message
+          message,
         ).getPayload();
 
         if (loginRequestResponsePayload.success !== true) {
@@ -222,7 +222,7 @@ export default function Login() {
             managedRequests.getRequestsDifferentOriginOrThrow();
 
           const managedExternalResponses = new ResponsesManager(
-            new RequestsManager(externalRequests)
+            new RequestsManager(externalRequests),
           );
           const externalLoginRequest =
             managedRequests.getLoginRequestWithDifferentOriginOrThrow();
@@ -231,14 +231,10 @@ export default function Login() {
             ...error,
             requests: externalRequests,
           };
-          const url = await terminateLoginRequest(
+          const url = await rejectLoginRequest(
             managedExternalResponses,
-            "mobile",
+            "redirect",
             externalError,
-            {
-              callbackOrigin: externalLoginRequest.getPayload().origin,
-              callbackPath: externalLoginRequest.getPayload().callbackPath,
-            }
           );
 
           window.location.href = url as string;
@@ -291,12 +287,12 @@ export default function Login() {
         let loginWithTonomyMessage: LoginWithTonomyMessages;
         if (accountsLogin) {
           debug(
-            "loginToTonomyAndSendRequests() using accountsLogin from store"
+            "loginToTonomyAndSendRequests() using accountsLogin from store",
           );
           loginWithTonomyMessage = accountsLogin;
         } else {
           debug(
-            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy"
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
           );
           loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
@@ -335,7 +331,7 @@ export default function Login() {
 
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          issuer
+          issuer,
         );
 
         requestsToSend.push(loginRequest);
@@ -361,7 +357,7 @@ export default function Login() {
       ) {
         errorStore.setError({
           error: new Error(
-            "Please try again and do not refresh this website during login"
+            "Please try again and do not refresh this website during login",
           ),
           expected: true,
           title: "Login unsuccessful",
@@ -431,10 +427,11 @@ export default function Login() {
 
     const managedResponses = new ResponsesManager(managedRequests);
 
-    return (await terminateLoginRequest(managedResponses, "mobile", error, {
-      callbackOrigin: externalLoginRequest.getPayload().origin,
-      callbackPath: externalLoginRequest.getPayload().callbackPath,
-    })) as string;
+    return (await rejectLoginRequest(
+      managedResponses,
+      "redirect",
+      error,
+    )) as string;
   }
 
   const onLogout = async () => {

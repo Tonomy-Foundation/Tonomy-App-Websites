@@ -58,10 +58,11 @@ export default function Home() {
 
     const managedResponses = new ResponsesManager(managedRequests);
 
-    return (await terminateLoginRequest(managedResponses, "mobile", error, {
-      callbackOrigin: externalLoginRequest.getPayload().origin,
-      callbackPath: externalLoginRequest.getPayload().callbackPath,
-    })) as string;
+    return (await rejectLoginRequest(
+      managedResponses,
+      "redirect",
+      error,
+    )) as string;
   }
 
   const onLogout = async () => {

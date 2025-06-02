@@ -130,10 +130,11 @@ export default function DownloadApp() {
 
     const managedResponses = new ResponsesManager(managedRequests);
 
-    return (await terminateLoginRequest(managedResponses, "mobile", error, {
-      callbackOrigin: externalLoginRequest.getPayload().origin,
-      callbackPath: externalLoginRequest.getPayload().callbackPath,
-    })) as string;
+    return (await rejectLoginRequest(
+      managedResponses,
+      "redirect",
+      error,
+    )) as string;
   }
 
   const onRefresh = async () => {
@@ -176,12 +177,12 @@ export default function DownloadApp() {
         let loginWithTonomyMessage: LoginWithTonomyMessages;
         if (accountsLogin) {
           debug(
-            "loginToTonomyAndSendRequests() using accountsLogin from store"
+            "loginToTonomyAndSendRequests() using accountsLogin from store",
           );
           loginWithTonomyMessage = accountsLogin;
         } else {
           debug(
-            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy"
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
           );
           loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
@@ -220,7 +221,7 @@ export default function DownloadApp() {
 
         const loginRequest = await LoginRequest.signRequest(
           loginRequestPayload,
-          issuer
+          issuer,
         );
 
         requestsToSend.push(loginRequest);
@@ -236,7 +237,7 @@ export default function DownloadApp() {
       ) {
         errorStore.setError({
           error: new Error(
-            "Please try again and do not refresh this website during login"
+            "Please try again and do not refresh this website during login",
           ),
           expected: true,
           title: "Login unsuccessful",
