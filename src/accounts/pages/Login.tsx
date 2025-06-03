@@ -94,7 +94,7 @@ export default function Login() {
       if (/android/i.test(userAgent)) {
         window.location.href = settings.config.links.playStoreDownload;
       } else if (/iPad|iPhone|iPod/.test(userAgent)) {
-        navigation("/download");
+        window.location.href = settings.config.links.appleStoreDownload;
       }
     }, 2000); // 2 seconds
 
