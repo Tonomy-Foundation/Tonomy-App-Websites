@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import {
   ExternalUser,
-  terminateLoginRequest,
-  SdkError,
+  rejectLoginRequest,
+  isErrorCode,
+  getErrorCode,
   SdkErrors,
-  objToBase64Url,
-  getLoginRequestResponseFromUrl,
-  RequestsManager,
-  ResponsesManager,
   LoginRequestResponseMessagePayload,
 } from "@tonomy/tonomy-id-sdk";
 import TSpinner from "../atoms/TSpinner";
@@ -72,8 +69,7 @@ export default function CallBackPage() {
       }
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.UserLogout || e.code === SdkErrors.UserCancelled)
+        isErrorCode(e, [SdkErrors.KeyNotFound, SdkErrors.AccountDoesntExist])
       ) {
         try {
           const { error } = getLoginRequestResponseFromUrl();
@@ -92,11 +88,10 @@ export default function CallBackPage() {
             ),
             "redirect",
             {
-              code: e.code,
-              reason:
-                e.code === SdkErrors.UserLogout
-                  ? "User logged out"
-                  : "User cancelled login",
+              code: getErrorCode(e),
+              reason: isErrorCode(e, SdkErrors.UserLogout)
+                ? "User logged out"
+                : "User cancelled login",
             },
           );
 

@@ -9,8 +9,7 @@ import {
   LoginRequestsMessage,
   rejectLoginRequest,
   LoginRequestResponseMessage,
-  objToBase64Url,
-  SdkError,
+  isErrorCode,
   SdkErrors,
   createLoginQrCode,
   ExternalUser,
@@ -22,10 +21,7 @@ import {
   CommunicationError,
   WalletRequest,
   getDidKeyIssuerFromStorage,
-  getLoginRequestFromUrl,
   onRedirectLogin,
-  RequestsManager,
-  ResponsesManager,
 } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -350,11 +346,7 @@ export default function Login() {
       await subscribeToLoginRequestResponse();
       await connectToTonomyId(requestsToSend, loginToCommunication, user);
     } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.ReferrerEmpty ||
-          e.code === SdkErrors.MissingParams)
-      ) {
+      if (isErrorCode(e, [SdkErrors.ReferrerEmpty, SdkErrors.MissingParams])) {
         errorStore.setError({
           error: new Error(
             "Please try again and do not refresh this website during login",
@@ -406,10 +398,11 @@ export default function Login() {
       await checkLoggedIn();
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.UserNotLoggedIn ||
-          e.code === SdkErrors.AccountDoesntExist)
+        isErrorCode(e, [
+          SdkErrors.AccountNotFound,
+          SdkErrors.UserNotLoggedIn,
+          SdkErrors.AccountDoesntExist,
+        ])
       ) {
         loginToTonomyAndSendRequests();
       } else {

@@ -18,7 +18,6 @@ import {
   AuthenticationMessage,
   CommunicationError,
   ExternalUser,
-  getLoginRequestFromUrl,
   JsKeyManager,
   KeyManagerLevel,
   LoginRequest,
@@ -26,15 +25,12 @@ import {
   LoginWithTonomyMessages,
   onRedirectLogin,
   randomString,
-  RequestsManager,
-  ResponsesManager,
-  SdkError,
   SdkErrors,
-  terminateLoginRequest,
+  rejectLoginRequest,
+  isErrorCode,
   WalletRequest,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
-import { useUserStore } from "../../common/stores/user.store";
 import { useThemeContext } from "../../theme/ThemeContext";
 import IconSecure from "../assets/icon-secure.svg";
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
@@ -88,10 +84,11 @@ export default function DownloadApp() {
       await checkLoggedIn();
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.UserNotLoggedIn ||
-          e.code === SdkErrors.AccountDoesntExist)
+        isErrorCode(e, [
+          SdkErrors.UserNotLoggedIn,
+          SdkErrors.AccountNotFound,
+          SdkErrors.AccountDoesntExist,
+        ])
       ) {
         loginToTonomyAndSendRequests();
       } else {
@@ -230,11 +227,7 @@ export default function DownloadApp() {
           await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       }
     } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.ReferrerEmpty ||
-          e.code === SdkErrors.MissingParams)
-      ) {
+      if (isErrorCode(e, [SdkErrors.ReferrerEmpty, SdkErrors.MissingParams])) {
         errorStore.setError({
           error: new Error(
             "Please try again and do not refresh this website during login",

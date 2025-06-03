@@ -15,19 +15,13 @@ import FiddleArt from "../assets/fiddle-art.svg";
 import { useUserStore } from "../../common/stores/user.store";
 import {
   ExternalUser,
-  getLoginRequestFromUrl,
-  RequestsManager,
-  ResponsesManager,
   SdkErrors,
-  terminateLoginRequest,
+  rejectLoginRequest,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 import "./Home.css";
 import UserAvatar from "../assets/avatar.svg";
-
-import Debug from "debug";
 
 export default function Home() {
   const [username, setUsername] = useState<string>();
