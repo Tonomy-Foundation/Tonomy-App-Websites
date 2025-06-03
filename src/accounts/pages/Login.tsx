@@ -22,7 +22,6 @@ import {
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import settings from "../../common/settings";
-import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
@@ -48,7 +47,6 @@ export default function Login() {
   const [username, setUsername] = useState<string>();
   const [showQR, setShowQR] = useState<string>();
   const [app, setApp] = useState<App>();
-  const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
@@ -63,6 +61,7 @@ export default function Login() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (app) {
+      console.log(app);
       updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);
@@ -210,7 +209,7 @@ export default function Login() {
         setRequests(dualWalletRequests);
       }
 
-      setApp(dualWalletRequests.external.getApp());
+      setApp(await dualWalletRequests.external.getApp());
 
       if (user) {
         // if the user is already logged in, we just need to create the login request

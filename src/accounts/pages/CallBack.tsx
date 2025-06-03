@@ -9,6 +9,9 @@ import {
   DualWalletResponse,
 } from "@tonomy/tonomy-id-sdk";
 import TSpinner from "../atoms/TSpinner";
+import Debug from "debug";
+
+const debug = Debug("tonomy-app-websites:accounts:pages:CallBackPage");
 
 export default function CallBackPage() {
   useEffect(() => {
@@ -17,6 +20,11 @@ export default function CallBackPage() {
 
   async function verifyLoginCallback() {
     try {
+      debug(
+        "verifyLoginCallback() called",
+        typeof ExternalUser,
+        typeof ExternalUser.verifyLoginResponse,
+      );
       await ExternalUser.verifyLoginResponse();
 
       const responses = DualWalletResponse.fromUrl();
@@ -26,6 +34,7 @@ export default function CallBackPage() {
         if (!responses.external) throw new Error("External response not found");
         await responses.verify();
 
+        // Create a response only with the external response
         const externalResponse = DualWalletResponse.fromResponses(
           responses.external,
         );
@@ -35,6 +44,7 @@ export default function CallBackPage() {
         if (!responses.error) throw new Error("Error not defined");
         if (!responses.requests) throw new Error("Requests not defined");
 
+        // Create a response only with the external response
         const externalRequest = new DualWalletRequests(
           responses.requests.external,
         );
@@ -54,6 +64,7 @@ export default function CallBackPage() {
           if (!responses.error) throw new Error("Error not defined");
           if (!responses.requests) throw new Error("Requests not defined");
 
+          // Create a response only with the external response
           const externalRequest = new DualWalletRequests(
             responses.requests.external,
           );
@@ -69,10 +80,13 @@ export default function CallBackPage() {
           );
           window.location.href = callbackUrl;
         } catch (e) {
-          console.error(e);
+          console.error(
+            "error in verifyLoginCallback() while handling KeyNotFound or AccountDoesntExist",
+            e,
+          );
         }
       } else {
-        console.error(e);
+        console.error("error in verifyLoginCallback()", e);
       }
     }
   }
