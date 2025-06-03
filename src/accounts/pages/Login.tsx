@@ -212,7 +212,13 @@ export default function Login() {
 
       setApp(dualWalletRequests.external.getApp());
 
-      if (!user) {
+      if (user) {
+        // if the user is already logged in, we just need to create the login request
+        const issuer = await user.getIssuer();
+
+        loginToCommunication =
+          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
+      } else {
         // if the user is not logged in, we need to create a new login request for the SSO website
         let loginWithTonomyMessage: LoginWithTonomyMessages | undefined =
           accountsLogin;
@@ -236,14 +242,7 @@ export default function Login() {
           loginWithTonomyMessage.requests.external,
         );
         loginToCommunication = loginWithTonomyMessage.loginToCommunication;
-
-        setShowQR(createLoginQrCode(dualWalletRequests.external.getDid()));
-      } else {
-        // if the user is already logged in, we just need to create the login request
-        const issuer = await user.getIssuer();
-
-        loginToCommunication =
-          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
+        setShowQR(createLoginQrCode(dualWalletRequests.sso.getDid()));
       }
 
       await subscribeToLoginRequestResponse();
