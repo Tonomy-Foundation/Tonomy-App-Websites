@@ -5,7 +5,8 @@ import {
   isErrorCode,
   getErrorCode,
   SdkErrors,
-  LoginRequestResponseMessagePayload,
+  DualWalletRequests,
+  DualWalletResponse,
 } from "@tonomy/tonomy-id-sdk";
 import TSpinner from "../atoms/TSpinner";
 
@@ -16,76 +17,48 @@ export default function CallBackPage() {
 
   async function verifyLoginCallback() {
     try {
-      await ExternalUser.verifyLoginRequest();
+      await ExternalUser.verifyLoginResponse();
 
-      const { success, error, response } = getLoginRequestResponseFromUrl();
+      const responses = DualWalletResponse.fromUrl();
 
-      if (success) {
-        if (!response) {
-          throw new Error("Invalid response");
-        }
+      let callbackUrl: string;
+      if (responses.isSuccess()) {
+        if (!responses.external) throw new Error("External response not found");
+        await responses.verify();
 
-        const managedResponses = new ResponsesManager(response);
-        const managedRequests = new RequestsManager(
-          managedResponses.getRequests(),
+        const externalResponse = DualWalletResponse.fromResponses(
+          responses.external,
         );
 
-        await managedResponses.verify();
-        await managedResponses.fetchMeta();
-
-        const loginRequestPayload = managedRequests
-          .getLoginRequestWithDifferentOriginOrThrow()
-          .getPayload();
-        let url = loginRequestPayload.origin + loginRequestPayload.callbackPath;
-
-        const externalResponse = managedResponses
-          .getResponsesWithDifferentOriginOrThrow()
-          .map((response) => response.getRequestAndResponse());
-
-        const responsePayload: LoginRequestResponseMessagePayload = {
-          success: true,
-          response: externalResponse,
-        };
-
-        url += "?payload=" + objToBase64Url(responsePayload);
-        window.location.href = url;
+        callbackUrl = externalResponse.getRedirectUrl();
       } else {
-        if (!error) throw new Error("Error not defined");
+        if (!responses.error) throw new Error("Error not defined");
+        if (!responses.requests) throw new Error("Requests not defined");
 
-        const managedRequests = new RequestsManager(error.requests);
-
-        const managedExternalRequests = new RequestsManager(
-          managedRequests.getRequestsDifferentOriginOrThrow(),
+        const externalRequest = new DualWalletRequests(
+          responses.requests.external,
         );
-
-        if (!error) throw new Error("Error not defined");
-        const callbackUrl = await rejectLoginRequest(
-          new ResponsesManager(managedExternalRequests),
+        callbackUrl = await rejectLoginRequest(
+          externalRequest,
           "redirect",
-          error,
+          responses.error,
         );
-
-        window.location.href = callbackUrl as string;
       }
+      window.location.href = callbackUrl;
     } catch (e) {
       if (
         isErrorCode(e, [SdkErrors.KeyNotFound, SdkErrors.AccountDoesntExist])
       ) {
         try {
-          const { error } = getLoginRequestResponseFromUrl();
+          const responses = DualWalletResponse.fromUrl();
+          if (!responses.error) throw new Error("Error not defined");
+          if (!responses.requests) throw new Error("Requests not defined");
 
-          if (!error) throw new Error("Error not defined");
-          const managedRequests = new RequestsManager(error.requests);
-
-          const externalLoginRequest =
-            managedRequests.getLoginRequestWithDifferentOriginOrThrow();
-
+          const externalRequest = new DualWalletRequests(
+            responses.requests.external,
+          );
           const callbackUrl = await rejectLoginRequest(
-            new ResponsesManager(
-              new RequestsManager(
-                managedRequests.getRequestsDifferentOriginOrThrow(),
-              ),
-            ),
+            externalRequest,
             "redirect",
             {
               code: getErrorCode(e),
@@ -94,8 +67,7 @@ export default function CallBackPage() {
                 : "User cancelled login",
             },
           );
-
-          window.location.href = callbackUrl as string;
+          window.location.href = callbackUrl;
         } catch (e) {
           console.error(e);
         }

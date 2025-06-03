@@ -13,7 +13,7 @@ import CodeSnippetPreview from "../components/CodeSnippetPreview";
 const snippetCode = `
 // LoginPage.jsx
 async function onButtonPress() {
-  await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
+  await ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
 }
 
 <button className="tonomy-login-button" onClick={onButtonPress}>Login with ${settings.config.appName}</button>

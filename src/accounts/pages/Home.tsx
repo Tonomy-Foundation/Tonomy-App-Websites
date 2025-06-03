@@ -16,6 +16,7 @@ import { useUserStore } from "../../common/stores/user.store";
 import {
   ExternalUser,
   SdkErrors,
+  DualWalletRequests,
   rejectLoginRequest,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
@@ -44,19 +45,9 @@ export default function Home() {
   }, []);
 
   async function terminateLogin(error): Promise<string> {
-    const { requests } = await getLoginRequestFromUrl();
-    const managedRequests = new RequestsManager(requests);
+    const requests = DualWalletRequests.fromUrl();
 
-    const externalLoginRequest =
-      managedRequests.getLoginRequestWithDifferentOriginOrThrow();
-
-    const managedResponses = new ResponsesManager(managedRequests);
-
-    return (await rejectLoginRequest(
-      managedResponses,
-      "redirect",
-      error,
-    )) as string;
+    return await rejectLoginRequest(requests, "redirect", error);
   }
 
   const onLogout = async () => {

@@ -21,7 +21,7 @@ export default function Callback() {
 
   async function verifyLogin() {
     try {
-      const user = await ExternalUser.verifyLoginRequest();
+      const user = await ExternalUser.verifyLoginResponse();
 
       if (user) {
         signin(user);
