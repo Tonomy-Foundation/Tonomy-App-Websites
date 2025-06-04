@@ -5,19 +5,23 @@ import {
 import { create } from "zustand";
 
 interface WalletRequestsStore {
-  accountsLogin?: LoginWithTonomyMessages;
-  requests?: DualWalletRequests;
-  setRequests: (requests: DualWalletRequests) => void;
-  setAccountsLogin: (accountsLogin: LoginWithTonomyMessages) => void;
+  loginWithTonomyMessageStore?: LoginWithTonomyMessages;
+  requestsStore?: DualWalletRequests;
+  setRequestsStore: (requests: DualWalletRequests) => void;
+  setLoginWithTonomyMessageStore: (
+    loginWithTonomyMessageStore: LoginWithTonomyMessages,
+  ) => void;
 }
 
 export const useWalletRequestsStore = create<WalletRequestsStore>((set) => ({
-  accountsLogin: undefined,
-  requests: undefined,
-  setRequests: (requests: DualWalletRequests) => {
-    set({ requests });
+  loginWithTonomyMessageStore: undefined,
+  requestsStore: undefined,
+  setRequestsStore: (requests: DualWalletRequests) => {
+    set({ requestsStore: requests });
   },
-  setAccountsLogin: (accountsLogin: LoginWithTonomyMessages) => {
-    set({ accountsLogin });
+  setLoginWithTonomyMessageStore: (
+    loginWithTonomyMessageStore: LoginWithTonomyMessages,
+  ) => {
+    set({ loginWithTonomyMessageStore });
   },
 }));

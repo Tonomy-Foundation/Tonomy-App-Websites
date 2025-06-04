@@ -18,6 +18,12 @@ import {
   DualWalletRequests,
   getDidKeyIssuerFromStorage,
   onRedirectLogin,
+  JsKeyManager,
+  KeyManagerLevel,
+  randomString,
+  LoginRequestPayload,
+  WalletRequest,
+  WalletRequestVerifiableCredential,
 } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -50,8 +56,12 @@ export default function Login() {
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
-  const { requests, accountsLogin, setRequests, setAccountsLogin } =
-    useWalletRequestsStore();
+  const {
+    requestsStore,
+    loginWithTonomyMessageStore,
+    setRequestsStore,
+    setLoginWithTonomyMessageStore,
+  } = useWalletRequestsStore();
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
@@ -199,28 +209,55 @@ export default function Login() {
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
-      debug("loginToTonomyAndSendRequests()", typeof user, typeof requests);
+      debug(
+        "loginToTonomyAndSendRequests()",
+        typeof user,
+        typeof requestsStore,
+      );
 
-      let dualWalletRequests: DualWalletRequests | undefined = requests;
+      let requests: DualWalletRequests | undefined = requestsStore;
       let loginToCommunication: AuthenticationMessage | undefined;
 
-      if (!dualWalletRequests) {
-        dualWalletRequests = await onRedirectLogin();
-        setRequests(dualWalletRequests);
+      if (!requests) {
+        requests = await onRedirectLogin();
+        setRequestsStore(requests);
       }
 
-      setApp(await dualWalletRequests.external.getApp());
+      setApp(await requests.external.getApp());
 
       if (user) {
         // if the user is already logged in, we just need to create the login request
         const issuer = await user.getIssuer();
+
+        // This will get the key from storage so that it uses the same one
+        const publicKey = await new JsKeyManager().getKey({
+          level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+        });
+
+        const loginRequestPayload: LoginRequestPayload = {
+          login: {
+            randomString: randomString(32),
+            origin: window.location.origin,
+            publicKey: publicKey,
+            callbackPath: "/callback",
+          },
+        };
+        const ssoWalletRequest =
+          await WalletRequestVerifiableCredential.signRequest(
+            { requests: [loginRequestPayload] },
+            issuer,
+          );
+        requests = new DualWalletRequests(
+          requests.external,
+          new WalletRequest(ssoWalletRequest),
+        );
 
         loginToCommunication =
           await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
       } else {
         // if the user is not logged in, we need to create a new login request for the SSO website
         let loginWithTonomyMessage: LoginWithTonomyMessages | undefined =
-          accountsLogin;
+          loginWithTonomyMessageStore;
         if (!loginWithTonomyMessage) {
           debug(
             "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
@@ -232,20 +269,20 @@ export default function Login() {
               username: true,
             },
           })) as LoginWithTonomyMessages;
-          setAccountsLogin(loginWithTonomyMessage);
+          setLoginWithTonomyMessageStore(loginWithTonomyMessage);
         }
 
         // set the wallet requests, by adding the SSO request
-        dualWalletRequests = new DualWalletRequests(
-          dualWalletRequests.external,
+        requests = new DualWalletRequests(
+          requests.external,
           loginWithTonomyMessage.requests.external,
         );
         loginToCommunication = loginWithTonomyMessage.loginToCommunication;
-        setShowQR(createLoginQrCode(dualWalletRequests.sso.getDid()));
+        setShowQR(createLoginQrCode(requests.sso.getDid()));
       }
 
       await subscribeToLoginRequestResponse();
-      await connectToTonomyId(dualWalletRequests, loginToCommunication, user);
+      await connectToTonomyId(requests, loginToCommunication, user);
     } catch (e) {
       if (isErrorCode(e, [SdkErrors.ReferrerEmpty, SdkErrors.MissingParams])) {
         errorStore.setError({
@@ -274,7 +311,7 @@ export default function Login() {
 
     // only clear state if the accountsLogin is not set (i.e. they are not navigating from other part of the website)
     const user = await ExternalUser.getUser({
-      autoLogout: accountsLogin ? false : true,
+      autoLogout: loginWithTonomyMessageStore ? false : true,
     });
 
     setStatus("connecting");

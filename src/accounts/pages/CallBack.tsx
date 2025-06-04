@@ -20,11 +20,7 @@ export default function CallBackPage() {
 
   async function verifyLoginCallback() {
     try {
-      debug(
-        "verifyLoginCallback() called",
-        typeof ExternalUser,
-        typeof ExternalUser.verifyLoginResponse,
-      );
+      debug("verifyLoginCallback() called");
       await ExternalUser.verifyLoginResponse();
 
       const responses = DualWalletResponse.fromUrl();
