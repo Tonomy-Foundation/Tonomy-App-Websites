@@ -24,6 +24,7 @@ import {
   LoginRequestPayload,
   WalletRequest,
   WalletRequestVerifiableCredential,
+  DualWalletResponse,
 } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -179,26 +180,30 @@ export default function Login() {
       try {
         debug("subscribeToLoginRequestResponse()");
 
-        const dualWalletResponse = new LoginRequestResponseMessage(
+        let dualWalletResponse = new LoginRequestResponseMessage(
           message,
         ).getPayload();
 
-        if (!dualWalletResponse.isSuccess()) {
+        if (dualWalletResponse.isSuccess()) {
+          dualWalletResponse = DualWalletResponse.fromResponses(
+            dualWalletResponse.external,
+          );
+          window.location.href = dualWalletResponse.getRedirectUrl();
+        } else {
           if (!dualWalletResponse.error) throw new Error("No error found");
           if (!dualWalletResponse.requests)
             throw new Error("No requests found");
+          const dualWalletRequests = new DualWalletRequests(
+            dualWalletResponse.requests.external,
+          );
 
           const url = await rejectLoginRequest(
-            dualWalletResponse.requests,
+            dualWalletRequests,
             "redirect",
             dualWalletResponse.error,
           );
 
           window.location.href = url as string;
-        } else {
-          window.location.replace(
-            "/callback?payload=" + dualWalletResponse.toString(),
-          );
         }
       } catch (e) {
         errorStore.setError({ error: e, expected: false });
