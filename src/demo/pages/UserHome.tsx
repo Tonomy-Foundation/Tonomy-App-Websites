@@ -11,7 +11,7 @@ import settings from "../../common/settings";
 
 const snippetCode = `
 // CallbackPage.jsx
-const user = await api.ExternalUser.verifyLoginRequest();
+const user = await ExternalUser.verifyLoginResponse();
 `;
 
 const USerHome: React.FC = () => {
