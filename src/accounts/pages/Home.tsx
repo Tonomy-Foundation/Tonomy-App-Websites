@@ -47,7 +47,12 @@ export default function Home() {
   async function terminateLogin(error): Promise<string> {
     const requests = DualWalletRequests.fromUrl();
 
-    return await rejectLoginRequest(requests, "redirect", error);
+    return (await rejectLoginRequest(
+      requests,
+      "redirect",
+      error,
+      {},
+    )) as string;
   }
 
   const onLogout = async () => {

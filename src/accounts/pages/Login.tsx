@@ -118,7 +118,12 @@ export default function Login() {
     loginToCommunication: AuthenticationMessage,
     user?: ExternalUser,
   ) {
-    debug("connectToTonomyId()", requests.length, typeof user);
+    debug(
+      "connectToTonomyId()",
+      requests.external.getRequests().length,
+      requests.sso?.getRequests().length,
+      typeof user,
+    );
     // Login to the communication server
     await communication.login(loginToCommunication);
 
@@ -185,6 +190,8 @@ export default function Login() {
         ).getPayload();
 
         if (dualWalletResponse.isSuccess()) {
+          if (!dualWalletResponse.external)
+            throw new Error("external WalletRequest not found");
           dualWalletResponse = DualWalletResponse.fromResponses(
             dualWalletResponse.external,
           );
@@ -201,6 +208,7 @@ export default function Login() {
             dualWalletRequests,
             "redirect",
             dualWalletResponse.error,
+            {},
           );
 
           window.location.href = url as string;
@@ -283,7 +291,9 @@ export default function Login() {
           loginWithTonomyMessage.requests.external,
         );
         loginToCommunication = loginWithTonomyMessage.loginToCommunication;
-        setShowQR(createLoginQrCode(requests.sso.getDid()));
+        setShowQR(
+          createLoginQrCode(loginWithTonomyMessage.requests.external.getDid()),
+        );
       }
 
       await subscribeToLoginRequestResponse();
@@ -351,7 +361,12 @@ export default function Login() {
   async function terminateLogin(error: WalletResponseError): Promise<string> {
     const requests = DualWalletRequests.fromUrl();
 
-    return await rejectLoginRequest(requests, "redirect", error);
+    return (await rejectLoginRequest(
+      requests,
+      "redirect",
+      error,
+      {},
+    )) as string;
   }
 
   const onLogout = async () => {
