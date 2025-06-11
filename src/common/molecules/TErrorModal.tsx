@@ -115,11 +115,15 @@ export default function TErrorModal(props: TErrorModalProps) {
         {props.error && (
           <>
             <div>
-              <TP size={2}>{props.error.message}</TP>
+              <TP size={2} style={{ color: "black" }}>
+                {props.error.message}
+              </TP>
             </div>
 
             {props?.expected === false && (
-              <div>The Tonomy Foundation has been notified</div>
+              <div style={{ fontSize: "0.8em" }}>
+                The Tonomy Foundation has been notified
+              </div>
             )}
 
             {isExpandable() && (
