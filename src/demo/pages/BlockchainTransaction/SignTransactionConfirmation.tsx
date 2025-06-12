@@ -13,7 +13,7 @@ export type SignTransactionConfirmationProps = {
 };
 
 const SignTransactionConfirmation = (
-  props: SignTransactionConfirmationProps
+  props: SignTransactionConfirmationProps,
 ) => (
   <>
     <div className="web-view">

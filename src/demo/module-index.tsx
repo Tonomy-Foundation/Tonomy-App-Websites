@@ -14,7 +14,7 @@ export default function initiate(root: ReactDOM.Root) {
           <Router />
         </ProSidebarProvider>
       </ThemeContextProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
 
