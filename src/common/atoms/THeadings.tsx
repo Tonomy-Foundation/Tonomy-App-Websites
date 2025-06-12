@@ -22,8 +22,5 @@ export function TH4(props: React.HTMLAttributes<HTMLHeadingElement>) {
 }
 
 export function TP(props: PProps) {
-  return (
-    // eslint-disable-next-line react/prop-types
-    <p {...props} className={"size" + props.size + " " + props.className} />
-  );
+  return <p {...props} className={`size${props.size} ${props.className}`} />;
 }

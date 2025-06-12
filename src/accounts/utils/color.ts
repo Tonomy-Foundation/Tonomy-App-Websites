@@ -6,11 +6,11 @@ function hexToHSL(hex: string) {
   const g = parseInt(hex.substring(3, 5), 16) / 255;
   const b = parseInt(hex.substring(5, 7), 16) / 255;
 
-  const max = Math.max(r, g, b),
-    min = Math.min(r, g, b);
-  let h = 0,
-    s = 0,
-    l = (max + min) / 2;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
 
   if (max !== min) {
     const d = max - min;

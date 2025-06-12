@@ -8,9 +8,8 @@ import { Link } from "react-router-dom";
 import TImage from "../../common/atoms/TImage";
 import { useState } from "react";
 import QRCodeHelpModal from "../atoms/QRCodeHelpModal";
-import MuiLink from "@mui/material/Link";
 import "./ShowQr.css";
-import IconQR from "../assets/icon-qr.svg";
+
 export default function QROrLoading({
   showQr,
 }: {
