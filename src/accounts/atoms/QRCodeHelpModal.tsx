@@ -16,7 +16,7 @@ export default function QRCodeHelpModal({
   return (
     <Modal open={open} onClose={onClose}>
       <Box
-        className="helpmodal"
+        className="help-modal"
         sx={{
           position: "absolute",
           top: "50%",
@@ -29,9 +29,9 @@ export default function QRCodeHelpModal({
           p: 4,
         }}
       >
-        <div className="qrContainerModal">
-          <div className="qrModalHeader">
-            <h2 className="qrModalTitle">QR Code Login Tips</h2>
+        <div className="qr-container-modal">
+          <div className="qr-modal-header">
+            <h2 className="qr-modal-title">QR Code Login Tips</h2>
             <ButtonBase onClick={onClose}>
               {" "}
               <TImage
@@ -87,7 +87,7 @@ export default function QRCodeHelpModal({
         </div>
         <div>
           <ButtonBase
-            className="qrModalHelp"
+            className="qr-modal-help"
             onClick={() => window.open("https://discord.com/invite/8zDf8AF3ja")}
           >
             Get help on Discord

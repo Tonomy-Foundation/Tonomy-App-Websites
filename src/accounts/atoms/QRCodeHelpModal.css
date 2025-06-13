@@ -1,34 +1,34 @@
-.qrContainerModal {
+.qr-container-modal {
   display: flex;
   flex-direction: column;
   gap: 30px;
   background-color: var(--app-background-active);
 }
 
-.qrModalHeader {
+.qr-modal-header {
   display: flex;
   justify-content: space-between;
 }
 
-.qrModalTitle {
+.qr-modal-title {
   font-weight: 600;
   font-size: 30px;
   line-height: 30.75px;
 }
 
-.qrModalSectionTitle {
+.qr-modal-section-title {
   font-weight: 600;
   font-size: 18px;
   line-height: 18.45px;
 }
 
-.qrModalList {
+.qr-modal-list {
   padding-left: 23px;
   padding-top: 10px;
   font-size: 18px;
 }
 
-.qrModalHelp {
+.qr-modal-help {
   color: var(--app-accent) !important;
   margin-top: 24px !important;
   display: flex !important;
@@ -40,48 +40,48 @@
   align-items: center !important;
 }
 
-.qrModalHelp:hover {
+.qr-modal-help:hover {
   border-bottom: 2px solid var(--app-accent-hover);
 }
 
-.qrModalHelp:active {
+.qr-modal-help:active {
   color: var(--app-accent-active);
 }
 
-.commonLink {
+.common-link {
   color: var(--app-accent);
   text-decoration: none;
   cursor: pointer;
 }
 
-.commonLink:hover {
+.common-link:hover {
   border-bottom: 2px solid var(--app-accent-hover);
 }
 
-.commonLink:active {
+.common-link:active {
   color: var(--app-accent-active);
 }
 
 @media (max-width: 768px) {
-  .qrContainerModal {
+  .qr-container-modal {
     gap: 15px;
   }
 
-  .qrModalTitle {
+  .qr-modal-title {
     font-size: 22px;
     line-height: 22.55px;
   }
 
-  .qrModalSectionTitle {
+  .qr-modal-section-title {
     font-size: 16px;
     line-height: 5px;
   }
 
-  .qrModalList {
+  .qr-modal-list {
     font-size: 16px;
   }
 
-  .qrModalHelp {
+  .qr-modal-help {
     font-size: 16px;
     line-height: 5px;
   }

@@ -79,7 +79,7 @@ export default function Home() {
                   <img
                     src={settings.config.images.logo48}
                     alt={`${settings.config.appName} Logo`}
-                    className="btnImage"
+                    className="btn-image"
                   />
                   <span>Login with {settings.config.appName}</span>
                 </div>

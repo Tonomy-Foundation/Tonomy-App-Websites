@@ -22,5 +22,5 @@ export function TH4(props: React.HTMLAttributes<HTMLHeadingElement>) {
 }
 
 export function TP(props: PProps) {
-  return <p {...props} className={`size${props.size} ${props.className}`} />;
+  return <p {...props} className={`size-${props.size} ${props.className}`} />;
 }
