@@ -7,12 +7,12 @@
     align-items: center;
 }
 
-.card-container .MuiCardHeader-title {
+.card-container .mui-card-header-title {
     font-size: 1.3rem;
     font-weight: 600;
 }
 
-.card-container .MuiCardHeader-subheader {
+.card-container .mui-card-header-subheader {
     font-size: 1rem;
 }
 

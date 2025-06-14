@@ -8,7 +8,7 @@ import Debug from "debug";
 const debug = Debug("tonomy-app-websites:common:settings");
 
 // cannot use NODE_ENV as it is always "production" on `npm run build`
-const environmentVariables = import.meta.env ||  process?.env;
+const environmentVariables = import.meta.env || process?.env;
 const env = environmentVariables.VITE_APP_NODE_ENV || "development";
 
 console.log(`VITE_APP_NODE_ENV=${env}`);
@@ -103,25 +103,25 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
 
 // Add title
 settings.config = config;
-if (typeof document !== "undefined") {
 
+if (typeof document !== "undefined") {
   document.title = settings.config.appName;
 
   // Add favicon
   const faviconLink = document.createElement("link");
-  
+
   faviconLink.type = "image/svg+xml";
   faviconLink.rel = "icon";
   faviconLink.href = settings.config.images.logo48;
   document.head.appendChild(faviconLink);
-  
+
   // Add stylesheet
   const stylesheetLink = document.createElement("link");
-  
+
   stylesheetLink.rel = "stylesheet";
   stylesheetLink.href = "/theme/" + settings.config.themeFile;
   document.head.appendChild(stylesheetLink);
-  
+
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 }
 

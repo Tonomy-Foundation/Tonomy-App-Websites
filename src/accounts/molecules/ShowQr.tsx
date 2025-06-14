@@ -8,9 +8,8 @@ import { Link } from "react-router-dom";
 import TImage from "../../common/atoms/TImage";
 import { useState } from "react";
 import QRCodeHelpModal from "../atoms/QRCodeHelpModal";
-import MuiLink from "@mui/material/Link";
 import "./ShowQr.css";
-import IconQR from "../assets/icon-qr.svg";
+
 export default function QROrLoading({
   showQr,
 }: {
@@ -23,13 +22,13 @@ export default function QROrLoading({
   return (
     <>
       {!isMobile() && (
-        <Box className="detailContainer">
+        <Box className="detail-container">
           <Grid container spacing={10}>
             {/* Left side */}
             <Grid item xs={12} md={8}>
-              <Box className="qrContainer">
-                <Box className="qrSubContainer">
-                  <TH3 className="qrTitle">
+              <Box className="qr-container">
+                <Box className="qr-sub-container">
+                  <TH3 className="qr-title">
                     Log in with{" "}
                     <Tooltip
                       title="Learn more about Tonomy ID"
@@ -48,7 +47,7 @@ export default function QROrLoading({
                     >
                       <Link
                         to="https://tonomy.io/"
-                        className="highlightedLink"
+                        className="highlighted-link"
                         title="Learn more about Tonomy ID"
                         target="_blank"
                       >
@@ -56,7 +55,7 @@ export default function QROrLoading({
                       </Link>
                     </Tooltip>
                   </TH3>
-                  <TP className="qrDescription">
+                  <TP className="qr-description">
                     You'll need the {settings.config.appName} app for a secure,
                     one-tap login that streamlines your access.
                   </TP>
@@ -64,9 +63,9 @@ export default function QROrLoading({
 
                 <Divider sx={{ borderColor: "rgba(var(--accent-rgb),0.2)" }} />
 
-                <ol className="qrList">
+                <ol className="qr-list">
                   <li>
-                    <Box className="linksWrapper">
+                    <Box className="links-wrapper">
                       Download
                       <TImage
                         width={24}
@@ -78,7 +77,7 @@ export default function QROrLoading({
                       <Link
                         target="_blank"
                         to={settings.config.links.appleStoreDownload}
-                        className="commonLink"
+                        className="common-link"
                       >
                         iOS
                       </Link>{" "}
@@ -86,7 +85,7 @@ export default function QROrLoading({
                       <Link
                         target="_blank"
                         to={settings.config.links.playStoreDownload}
-                        className="commonLink"
+                        className="common-link"
                       >
                         Android
                       </Link>
@@ -96,7 +95,7 @@ export default function QROrLoading({
                   <li>Create an account in {settings.config.appName}</li>
 
                   <li>
-                    <Box className="linksWrapper" alignItems="center">
+                    <Box className="links-wrapper" alignItems="center">
                       Press the scan QR button
                       <svg
                         width="26"

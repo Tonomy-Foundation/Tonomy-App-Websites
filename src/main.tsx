@@ -19,7 +19,7 @@ setFetch(window.fetch.bind(window));
  */
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
 const subdomain = window.location.host.split(".")[1]

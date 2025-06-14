@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import TModal from "./TModal";
 import { TButton } from "../atoms/TButton";
 import { TP } from "../atoms/THeadings";

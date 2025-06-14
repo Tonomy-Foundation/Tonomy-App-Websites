@@ -6,7 +6,7 @@
   padding: 2.6rem 0.4rem;
 }
 
-.box{
+.box {
   display: flex;
   align-items:center;
   color: var(--accent);
@@ -36,7 +36,7 @@
   text-align: center;
 }
 
-.demo-main{
+.demo-main {
   font-size: 1.6rem;
   font-weight: 300;
   line-height: 2rem;
@@ -74,7 +74,7 @@
   margin-top: 2rem;
 }
 
-.btnImage{
+.btn-image {
   margin-right: 0.6rem;
 }
 
@@ -82,7 +82,7 @@
   text-align: center;
 }
 
-.blue-color{
+.blue-color {
   color: var(--link-color);
   text-decoration: underline; 
 }

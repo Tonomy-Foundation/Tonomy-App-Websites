@@ -31,22 +31,22 @@ p {
     line-height: 40px;
 }
 
-p.size2 {
+p.size-2 {
     font-size: 16px;
 }
 
-p.size1 {
+p.size-1 {
     font-size: 12px;
 }
 
 
 @media only screen and (max-width: 768px) {
-    p.size2 {
+    p.size-2 {
         font-size: 16px;
         line-height: 24px;
     }
 
-    p.size1 {
+    p.size-1 {
         font-size: 12px;
         line-height: 16px;
     }

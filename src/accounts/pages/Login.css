@@ -44,11 +44,12 @@
   align-self: center;
   margin-top: -90px;
 }
+
 .qr-container {
   margin-top: -160px;
 }
 
-.titleContainer {
+.title-container {
   padding: 0 2rem;
   gap: 15px;
   display: flex;
@@ -59,7 +60,7 @@
   margin: 0 auto;
 }
 
-.titleContent {
+.title-content {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -80,7 +81,7 @@
   font-weight: 400;
 }
 
-.titleDescription {
+.title-description {
   letter-spacing: 0.5px;
   font-size: 24px;
   line-height: 28.7px;
@@ -88,11 +89,11 @@
   margin-top: 20px;
 }
 
-.secureInfoButtonContainer {
+.secure-info-button-container {
   text-align: center;
 }
 
-.secureInfoButton {
+.secure-info-button {
   font-size: 16px;
   line-height: 16.4px;
   gap: 8px;
@@ -100,7 +101,7 @@
   margin-top: 24px !important;
 }
 
-.secondaryButton {
+.secondary-button {
   letter-spacing: 0.16px !important;
   color: var(--accent) !important;
   text-transform: none !important;

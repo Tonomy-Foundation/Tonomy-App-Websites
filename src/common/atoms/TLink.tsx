@@ -10,7 +10,6 @@ export function TLink(
 ) {
   const navigation = useNavigate();
 
-  // eslint-disable-next-line react/prop-types
   const { href } = props;
   const newProps = Object.assign({}, props);
 

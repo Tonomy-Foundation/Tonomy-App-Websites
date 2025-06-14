@@ -173,7 +173,7 @@ export default function Home() {
               onClick={onLogout}
               variant="text"
               startIcon={<LogoutIcon />}
-              className="secondaryButton"
+              className="secondary-button"
             >
               Logout
             </Button>

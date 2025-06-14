@@ -32,12 +32,12 @@ const CardView = (props: CardViewProps) => {
           }
           title={
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={props.logo} alt="App-logo" className="myapp-logo" />
+              <img src={props.logo} alt="App-logo" className="my-app-logo" />
               <span style={{ marginLeft: "8px" }}>{props.appName}</span>
             </div>
           }
           subheader={
-            <div className="card-subheader grey-color">
+            <div className="my-app-subheader grey-color">
               Manager: <span className="black-color">{props.username}</span>
             </div>
           }

@@ -1,5 +1,5 @@
 import connectionImage from "../assets/404-error.svg";
-import { TH2, TH3, TP } from "../../common/atoms/THeadings";
+import { TH2, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import settings from "../../common/settings";
 import { Box, Grid } from "@mui/material";

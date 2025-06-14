@@ -5,7 +5,7 @@
     font-weight: 500;
 }
 
-.imageContainer{
+.image-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -16,7 +16,8 @@
     align-items: center;
     text-align: center;
 }
-.bottomLeftButton {
+
+.bottom-left-button {
     position: fixed;
     bottom: 4rem;
     right: 2rem;

@@ -12,6 +12,7 @@
     "lint:styles": "stylelint \"src/**/*.css\"",
     "lint": "yarn run lint:ts && yarn run lint:styles",
     "lint:fix": "yarn lint --fix",
+    "typeCheck": "tsc --noEmit",
     "start:prod:accounts": "serve -s dist -l 3000 -n",
     "start:prod:demo": "serve -s dist -l 3001 -n",
     "start:prod:console": "serve -s dist -l 3002 -n",

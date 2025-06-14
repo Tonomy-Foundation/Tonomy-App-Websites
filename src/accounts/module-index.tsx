@@ -25,7 +25,7 @@ export default function initiate(root: ReactDOM.Root) {
           <RouterProvider router={router}></RouterProvider>
         </Container>
       </ThemeContextProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 
   // If you want to start measuring performance in your app, pass a function
