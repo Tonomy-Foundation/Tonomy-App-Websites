@@ -4,7 +4,8 @@
  * @returns {string} the user agent string e.g. "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
  */
 const getUserAgent = (): string => {
-  return navigator.userAgent || navigator.vendor || (window as Window).opera;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return navigator.userAgent || navigator.vendor || (window as any).opera;
 };
 
 const MOBILE_PHONE_USER_AGENT_REGEX =
