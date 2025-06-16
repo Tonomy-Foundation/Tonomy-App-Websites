@@ -46,12 +46,12 @@ export default function AppManager() {
       {apps?.length > 0 ? (
         <>{appCards}</>
       ) : (
-        <div className="imageContainer">
+        <div className="image-container">
           <img src={AppNotFound} alt="App-Not-Found" />
         </div>
       )}
 
-      <button className="bottomLeftButton">+</button>
+      <button className="bottom-left-button">+</button>
     </div>
   );
 }

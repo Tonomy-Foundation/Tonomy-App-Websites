@@ -1,5 +1,5 @@
 import connectionImage from "../assets/connecting.svg";
-import { TP } from "../../common/atoms/THeadings";
+
 import TImage from "../../common/atoms/TImage";
 import TSpinner from "../atoms/TSpinner";
 import { Box, Grid } from "@mui/material";
