@@ -126,7 +126,6 @@ export default function Login() {
     );
     // Login to the communication server
     await communication.login(loginToCommunication);
-
     if (user) {
       setStatus("connecting");
 
@@ -416,9 +415,9 @@ export default function Login() {
 
   const renderAppDetailsSection = () =>
     app ? (
-      <div className="titleContainer">
+      <div className="title-container">
         <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
-        <div className="titleContent">
+        <div className="title-content">
           <TH2 className="title">{app.appName}</TH2>
           <TP className="description">
             {app.appName} uses {settings.config.appName} to give you control of
@@ -432,8 +431,8 @@ export default function Login() {
     <>
       {renderAppDetailsSection()}
       <QROrLoading showQr={showQR} />
-      <div className="secureInfoButtonContainer">
-        <ButtonBase className="secureInfoButton">
+      <div className="secure-info-button-container">
+        <ButtonBase className="secure-info-button">
           <svg
             width="14"
             height="18"
@@ -459,7 +458,7 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="md">
         <HeaderSection />
-        <div className="detailContainer">
+        <div className="detail-container">
           {connectionError ? (
             <ConnectionError
               username={username}
@@ -478,11 +477,11 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="sm">
         <HeaderSection />
-        <div className="detailContainer app-details">
+        <div className="detail-container app-details">
           {app ? (
             <>
               <TImage style={{ marginTop: 15 }} width={80} src={app.logoUrl} />
-              <TH3 className="titleDescription">
+              <TH3 className="title-description">
                 <span style={{ color: "var(--app-accent)" }}>
                   {app.appName}
                 </span>{" "}
@@ -518,7 +517,7 @@ export default function Login() {
           onClick={async () => {
             await onCancel();
           }}
-          className="secondaryButton"
+          className="secondary-button"
           variant="text"
           startIcon={<ArrowCircleLeftOutlined />}
         >
@@ -551,7 +550,7 @@ export default function Login() {
             <Button
               onClick={onLogout}
               variant="text"
-              className="secondaryButton"
+              className="secondary-button"
               startIcon={<LogoutIcon />}
             >
               Logout
