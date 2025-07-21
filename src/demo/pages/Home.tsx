@@ -62,7 +62,12 @@ export default function Home() {
       dataRequest: { username: true },
     });
   }
-
+  async function onKYCButtonPress() {
+    ExternalUser.loginWithTonomy({
+      callbackPath: "/callback",
+      dataRequest: { username: true, kyc: true },
+    });
+  }
   return (
     <>
       {loading ? (
@@ -102,6 +107,12 @@ export default function Home() {
                     onClick={onButtonPress}
                   >
                     Login with {settings.config.appName}
+                  </button>
+                  <button
+                    className="tonomy-login-button"
+                    onClick={onKYCButtonPress}
+                  >
+                    Login with KYC
                   </button>
                 </div>
               </div>

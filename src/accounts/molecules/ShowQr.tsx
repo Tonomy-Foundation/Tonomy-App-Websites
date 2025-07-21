@@ -129,7 +129,7 @@ export default function QROrLoading({
                 <div>
                   <ButtonBase
                     onClick={handleOpen}
-                    className="qrAssistanceButton"
+                    className="qr-assistance-button"
                   >
                     Get assistance{" "}
                     <svg

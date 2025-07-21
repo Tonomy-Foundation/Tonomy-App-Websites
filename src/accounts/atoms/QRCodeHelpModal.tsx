@@ -52,23 +52,23 @@ export default function QRCodeHelpModal({
           </div>
 
           <div>
-            <TP className="qrModalSectionTitle">Scanning Tips</TP>
-            <ol className="qrModalList">
+            <TP className="qr-modal-section-title">Scanning Tips</TP>
+            <ol className="qr-modal-list">
               <li>Ensure good lighting</li>
               <li>Keep your phone steady to avoid focus issues</li>
               <li>Hold your phone 10–15 cm away from the QR code</li>
             </ol>
           </div>
           <div>
-            <TP className="qrModalSectionTitle">Troubleshooting</TP>
-            <ol className="qrModalList">
+            <TP className="qr-modal-section-title">Troubleshooting</TP>
+            <ol className="qr-modal-list">
               <li>Ensure the app has camera access permission</li>
               <li>
                 Make sure you are using the latest version of{" "}
                 {settings.config.appName} from the{" "}
                 <Link
                   target="_blank"
-                  className="commonLink"
+                  className="common-Link"
                   to={settings.config.links.appleStoreDownload}
                 >
                   App Store
@@ -76,7 +76,7 @@ export default function QRCodeHelpModal({
                 or{" "}
                 <Link
                   target="_blank"
-                  className="commonLink"
+                  className="common-link"
                   to={settings.config.links.playStoreDownload}
                 >
                   Google Play

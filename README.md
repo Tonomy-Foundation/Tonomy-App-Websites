@@ -34,7 +34,7 @@ this is still experimental and needs some proxy configuration to make it works
 ## Update the Tonomy-ID-SDK version to the latest
 
 ```bash
-yarn run updateSdkVersion testnet
+yarn run updateSdkVersion development
 # or
 yarn run updateSdkVersion master
 ```

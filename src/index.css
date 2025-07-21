@@ -52,3 +52,8 @@ code {
   align-items: center;
   justify-content: center;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
+.MuiContainer-root {
+  display: contents !important;
+}
