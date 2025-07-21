@@ -24,7 +24,7 @@ export default function Callback() {
       const user = await ExternalUser.verifyLoginResponse();
 
       if (user) {
-        signin(user);
+        signin(user.user);
       }
     } catch (e) {
       if (isErrorCode(e, SdkErrors.UserCancelled)) {
