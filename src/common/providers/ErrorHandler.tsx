@@ -34,7 +34,7 @@ export default function ErrorHandlerProvider() {
           setShowModal(true);
         }
       }),
-    []
+    [],
   );
 
   return (

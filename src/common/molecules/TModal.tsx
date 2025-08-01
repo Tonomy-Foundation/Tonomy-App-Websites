@@ -55,24 +55,30 @@ const styles = {
   },
 };
 
-export default function TModal(props: ModalProps) {
+export default function TModal({
+  children,
+  open,
+  onPress,
+  icon,
+  iconColor,
+  title,
+  buttonLabel,
+}: ModalProps) {
   return (
-    <Modal open={props.open} onClose={props.onPress}>
+    <Modal open={open} onClose={onPress}>
       <Box sx={styles.modal}>
         <Box sx={styles.modalContent}>
-          <div style={{ textAlign: "center" }}>
-            <TIcon color={props.iconColor} icon={props.icon} />
-            <div style={styles.title}>{props.title}</div>
-            {props.children}
+          <div style={{ textAlign: "center", color: "black" }}>
+            <TIcon color={iconColor} icon={icon} />
+            <div style={styles.title}>{title}</div>
+            {children}
             <div
               style={{
                 marginTop: 16,
                 textAlign: "right",
               }}
             >
-              <TButton onClick={props.onPress}>
-                {props.buttonLabel ?? "OK"}
-              </TButton>
+              <TButton onClick={onPress}>{buttonLabel ?? "OK"}</TButton>
             </div>
           </div>
         </Box>
