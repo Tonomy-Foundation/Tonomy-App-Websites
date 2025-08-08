@@ -24,7 +24,7 @@ export default function Callback() {
       const user = await ExternalUser.verifyLoginResponse();
       if (user) {
         signin(user.user);
-        if(user.data) {
+        if (user.data) {
           signKycData(user.data);
         }
       }

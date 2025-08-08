@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {  ExternalUser, KYCPayload, KYCVC } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, KYCPayload, KYCVC } from "@tonomy/tonomy-id-sdk";
 import { useNavigate, useLocation } from "react-router-dom";
 
-interface KycDataInterface  {
-  kyc?:{
+interface KycDataInterface {
+  kyc?: {
     value: KYCPayload;
     verifiableCredential: KYCVC;
-  }
+  };
 }
 
 interface AuthContextType {
@@ -37,9 +37,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signKycData = async (data: KycDataInterface) => {
     setKycData(data);
-   if (data && data.kyc) {
-      console.log("Raw login data:", data);     
-
+    if (data && data.kyc) {
+      console.log("Raw login data:", data);
       setKycData(data);
     } else {
       setKycData(null);

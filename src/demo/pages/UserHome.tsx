@@ -21,14 +21,13 @@ const USerHome: React.FC = () => {
   const [person, setPerson] = useState<string>("");
   const { user, signout, kycData } = useContext(AuthContext);
 
-
   async function onRender() {
     try {
       const username = await user?.getUsername();
 
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
-      if(kycData && kycData.kyc) {
+      if (kycData && kycData.kyc) {
         console.log("KYC VC Payload (raw):", kycData.kyc.value);
         console.log("KYC VC JWT:", kycData.kyc.verifiableCredential);
         const person = kycData.kyc.value.data.verification.person;
@@ -45,9 +44,18 @@ const USerHome: React.FC = () => {
 
   return (
     <div className="home-container">
-      {person && <TModal open={!!person} onPress={() => setPerson("")} onClose={() => setPerson("")} title="Welcome" icon="person" iconColor="primary">
-        <div>{person}!</div>
-      </TModal>}
+      {person && (
+        <TModal
+          open={!!person}
+          onPress={() => setPerson("")}
+          onClose={() => setPerson("")}
+          title="Welcome"
+          icon="person"
+          iconColor="primary"
+        >
+          <div>{person}!</div>
+        </TModal>
+      )}
       <div className="mobile-container user-section-spacing">
         <div className="user-section">
           <img
