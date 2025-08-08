@@ -29,7 +29,9 @@ const USerHome: React.FC = () => {
       setUsername(username.getBaseUsername());
       if (kycData && kycData.kyc) {
         const person = kycData.kyc.value.data.verification.person;
-        setPerson(person.firstName?.value + " " + person.lastName?.value);
+        const firstName = person?.firstName?.value || "";
+        const lastName = person?.lastName?.value || "";
+        setPerson(firstName + " " + lastName);
       }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
