@@ -28,10 +28,8 @@ const USerHome: React.FC = () => {
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
       if (kycData && kycData.kyc) {
-        console.log("KYC VC Payload (raw):", kycData.kyc.value);
-        console.log("KYC VC JWT:", kycData.kyc.verifiableCredential);
         const person = kycData.kyc.value.data.verification.person;
-        setPerson(person.firstName + " " + person.lastName);
+        setPerson(person.firstName?.value + " " + person.lastName?.value);
       }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
@@ -48,7 +46,6 @@ const USerHome: React.FC = () => {
         <TModal
           open={!!person}
           onPress={() => setPerson("")}
-          onClose={() => setPerson("")}
           title="Welcome"
           icon="person"
           iconColor="primary"
