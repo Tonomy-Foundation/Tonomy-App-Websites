@@ -51,7 +51,16 @@ try {
 
       developersConsole(root);
     });
-  } else {
+  } else if (
+    parseInt(window.location.port) === 3003 ||
+    subdomain === "bankless"
+  ) {
+    import("./tonomyBankless/module-index.js").then((module) => {
+      const tonomyBankless = module.default;
+
+      tonomyBankless(root);
+    });
+  }else {
     throw new Error("Domain not supported");
   }
 
