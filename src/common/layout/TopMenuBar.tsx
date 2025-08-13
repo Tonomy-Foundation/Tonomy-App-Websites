@@ -7,10 +7,24 @@ import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const TopMenuBar = () => {
-  const {user, signout} = useContext(AuthContext);
+const TopMenuBar = ({page}) => {
+  const {user, signin, signout} = useContext(AuthContext);
   const [username, setUsername] = React.useState<string>("");
-
+  console.log("pagename", page)
+  useEffect(() => {
+    async function authentication() {
+      try {
+        const user = await ExternalUser.getUser({ autoLogout: false });
+        signin(user, page);
+        const username = await user.getUsername();
+        if (!username) throw new Error("No username found");
+        setUsername(username.getBaseUsername());
+      } catch (e) {
+        console.log("e", e);
+      }
+    }
+    authentication();
+  }, []);
 
     async function onRender() {
       try {
@@ -39,8 +53,10 @@ const TopMenuBar = () => {
   
 
    async function onButtonPress() {
+    let callback = "/callback";
+    if(page) callback = "/callback?page="+page;
       ExternalUser.loginWithTonomy({
-        callbackPath: "/callback",
+        callbackPath: callback,
         dataRequest: { username: true },
       });
     }
@@ -61,7 +77,7 @@ const TopMenuBar = () => {
         <ViewModuleIcon className="tonomy-arrow-icon" />
         {
           username ? (
-            <>            <span className="tonomy-time" onClick={() => signout()}>{username}</span>
+            <>            <span className="tonomy-time" onClick={() => signout(page)}>{username}</span>
                  <LogoutIcon className="tonomy-arrow-icon" />
 
 </>

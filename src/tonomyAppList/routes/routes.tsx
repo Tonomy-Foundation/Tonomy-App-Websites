@@ -16,7 +16,7 @@ export default function RootRoutes() {
           
           {/* Bankless App Routes */}
           <Route path="/bankless/*" element={
-             <MainLayout><BanklessRoutes /></MainLayout>
+             <MainLayout page="bankless"><BanklessRoutes /></MainLayout>
           } />
 
         </Routes>
