@@ -51,20 +51,21 @@ try {
 
       developersConsole(root);
     });
-  } else if (
+  } 
+ else if (
     parseInt(window.location.port) === 3003 ||
-    subdomain === "bankless"
+    subdomain === "bankless" ||
+    (parseInt(window.location.port) === 3002 && window.location.pathname.startsWith("/bankless"))
   ) {
-    import("./tonomyBankless/module-index.js").then((module) => {
-      const tonomyBankless = module.default;
-
-      tonomyBankless(root);
+    import("./tonomyAppList/module-index.js").then((module) => {
+      module.default(root);
     });
-  }else {
+  }
+  else {
     throw new Error("Domain not supported");
   }
 
   if (!settings.isProduction()) runTests();
 } catch (e) {
-  console.error(e);
+  console.error("error",e);
 }

@@ -21,12 +21,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signout = async () => {
     await user?.logout();
-    navigation("/bankless");
+     navigation("/");
   };
 
   const signin = (user: ExternalUser) => {
     setUser(user);
-    navigation("/bankless/user-home");
+    navigation("/");
   };
 
   const value = { user, signout, signin };

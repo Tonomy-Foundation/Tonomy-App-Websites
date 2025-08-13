@@ -34,7 +34,7 @@ export default function Home() {
       ) {
         // User not logged in
         setLoading(false);
-        navigation("/");
+        navigation("/bankless");
         return;
       }
 
@@ -48,7 +48,7 @@ export default function Home() {
 
   async function onButtonPress() {
     ExternalUser.loginWithTonomy({
-      callbackPath: "/callback",
+      callbackPath: "/bankless/callback",
       dataRequest: { username: true },
     });
   }

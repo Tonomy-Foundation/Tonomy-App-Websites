@@ -1,0 +1,13 @@
+h1 {
+    text-align: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+}
+
+.inner {
+    margin: "auto";
+    text-align: "center";
+}

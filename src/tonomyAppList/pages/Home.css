@@ -1,0 +1,98 @@
+.services-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.services-intro {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  width: 100%;
+  margin-top:2rem
+}
+
+.services-intro-head {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  width: 100%;
+  max-width: 510px; /* Control width to help line breaks */
+  margin: 0 auto;
+  margin-top: 2.5rem;
+}
+
+.services-intro h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+
+
+.intro-subtext {
+  width: 100%;
+    max-width: 581px;
+    line-height: 25px;
+}
+
+
+.services-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.service-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 330px;
+}
+
+.card-content {
+ 
+  height: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #D2DDEC
+}
+
+.service-link {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 12px;
+}
+
+.service-url {
+  font-size: 10px;
+  color: var(--app-accent);
+}
+
+.service-logo {
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.service-name {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+.service-description {
+  font-size: 14px;
+  color: #6E84A3;
+  margin: 0;
+  line-height: 19px;
+}

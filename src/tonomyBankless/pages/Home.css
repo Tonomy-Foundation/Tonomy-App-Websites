@@ -127,6 +127,11 @@
     font-size: 0.9rem;
     margin-bottom: 1.4rem;
   }
+  .header-column{
+  padding: 5rem 4rem;
+ 
+}
+
 }
 
 @media only screen and (max-width: 325px) {
@@ -140,6 +145,10 @@
     font-size: 0.9rem;
     margin-bottom: 1.4rem;
   }
+    .header-column{
+  padding: 5rem 2rem;
+ 
+}
 }
 
 @media only screen and (min-width: 325px) and (max-width: 767px) {
@@ -147,6 +156,10 @@
     font-size: 1.1rem;
     margin-top:1rem
   }
+    .header-column{
+  padding: 5rem 2rem;
+ 
+}
   .bottom-text {
     bottom: 0.3rem;
   }

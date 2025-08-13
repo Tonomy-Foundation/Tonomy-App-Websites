@@ -17,7 +17,7 @@ const CardView = (props: CardViewProps) => {
       <Card
         sx={{
           maxWidth: 345,
-          border: "1px solid var(--gray-400)",
+          border: "1px solid var(--gray-300)",
           borderRadius: "8px",
           boxShadow: "none",
           width: "100%",
