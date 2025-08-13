@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import TonomyBanklessLogo from "../assets/tonomy-bankless.png";
+import TonomyBanklessLogo from "../../tonomyAppList/assets/tonomy-bankless.png";
 import "./TopMenuBar.css";
 import { ExternalUser } from "@tonomy/tonomy-id-sdk";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const TopMenuBar = () => {

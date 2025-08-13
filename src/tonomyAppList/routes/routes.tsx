@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AuthProvider from "../providers/AuthProvider";
 import HomeScreen from "../pages/Home";
-import MainLayout from "../layout/MainLayout";
+import MainLayout from "../../common/layout/MainLayout";
 import Callback from "../pages/Callback";
 import BanklessRoutes from "../../tonomyBankless/routes/routes";
 
@@ -16,7 +16,7 @@ export default function RootRoutes() {
           
           {/* Bankless App Routes */}
           <Route path="/bankless/*" element={
-              <BanklessRoutes />
+             <MainLayout><BanklessRoutes /></MainLayout>
           } />
 
         </Routes>

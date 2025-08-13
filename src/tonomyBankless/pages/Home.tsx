@@ -48,7 +48,7 @@ export default function Home() {
 
   async function onButtonPress() {
     ExternalUser.loginWithTonomy({
-      callbackPath: "/bankless/callback",
+      callbackPath: "/callback?page=bankless&",
       dataRequest: { username: true },
     });
   }

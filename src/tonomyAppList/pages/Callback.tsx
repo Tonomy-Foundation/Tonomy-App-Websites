@@ -14,7 +14,8 @@ export default function Callback() {
   const navigation = useNavigate();
   const errorStore = useErrorStore();
   const { signin } = useContext(AuthContext);
-
+  const url = new URL(window.location.href);
+  const page = url.searchParams.get("page") || undefined;
   useEffect(() => {
     verifyLogin();
   }, []);
@@ -24,7 +25,7 @@ export default function Callback() {
       const user = await ExternalUser.verifyLoginResponse();
       console.log("user", user)
       if (user) {
-        signin(user.user);
+        signin(user.user, page);
       }
     } catch (e) {
       if (isErrorCode(e, SdkErrors.UserCancelled)) {
