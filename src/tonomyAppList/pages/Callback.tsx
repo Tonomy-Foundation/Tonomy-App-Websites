@@ -23,7 +23,7 @@ export default function Callback() {
   async function verifyLogin() {
     try {
       const user = await ExternalUser.verifyLoginResponse();
-      console.log("user", user)
+      console.log("user", user);
       if (user) {
         signin(user.user, page);
       }

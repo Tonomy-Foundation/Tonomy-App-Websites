@@ -18,16 +18,15 @@ export default function initiate(root: ReactDOM.Root) {
   root.render(
     // this will make components render twice in development to catch errors
     <React.StrictMode>
-            <ThemeContextProvider>
-      
-      <Container
-        maxWidth="sm"
-        style={styles.container}
-        className="developer-container"
-      >
-        <ErrorHandlerProvider />
-        <Router />
-      </Container>
+      <ThemeContextProvider>
+        <Container
+          maxWidth="sm"
+          style={styles.container}
+          className="developer-container"
+        >
+          <ErrorHandlerProvider />
+          <Router />
+        </Container>
       </ThemeContextProvider>
     </React.StrictMode>,
   );

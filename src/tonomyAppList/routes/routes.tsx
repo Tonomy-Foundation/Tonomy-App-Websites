@@ -11,14 +11,25 @@ export default function RootRoutes() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<MainLayout><HomeScreen /></MainLayout>} />
+          <Route
+            path="/"
+            element={
+              <MainLayout>
+                <HomeScreen />
+              </MainLayout>
+            }
+          />
           <Route path="/callback" element={<Callback />} />
-          
-          {/* Bankless App Routes */}
-          <Route path="/bankless/*" element={
-             <MainLayout page="bankless"><BanklessRoutes /></MainLayout>
-          } />
 
+          {/* Bankless App Routes */}
+          <Route
+            path="/bankless/*"
+            element={
+              <MainLayout page="bankless">
+                <BanklessRoutes />
+              </MainLayout>
+            }
+          />
         </Routes>
       </AuthProvider>
     </Router>

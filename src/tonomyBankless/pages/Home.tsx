@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
 import BanklessLogo from "../assets/bankless-logo.png";
-import TonomyBanklessLogo from "../assets/tonomy-bankless.png";
 
 export default function Home() {
   const { signin } = useContext(AuthContext);
@@ -59,26 +58,28 @@ export default function Home() {
         <TH2 className="loading-text">Loading...</TH2>
       ) : (
         <div className="container">
-          <header className="header-column">       
-               <div className="app-logo">
-               <img 
-          src={BanklessLogo} 
-          alt="Tonomy Logo" 
-          className="tonomy-logo"
-          width={80}
-        />
+          <header className="header-column">
+            <div className="app-logo">
+              <img
+                src={BanklessLogo}
+                alt="Tonomy Logo"
+                className="tonomy-logo"
+                width={80}
+              />
             </div>
             <div className="text-center">
               <TP className="demo-head">Tonomy Bankless</TP>
-              <TP className="demo-main">Swap your Tonomy coins quickly and securely — no banks, no middlemen, no hassle</TP>
+              <TP className="demo-main">
+                Swap your Tonomy coins quickly and securely — no banks, no
+                middlemen, no hassle
+              </TP>
 
               <button className="console-login-button" onClick={onButtonPress}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <span>Login with {settings.config.appName}</span>
                 </div>
-              </button>              
+              </button>
             </div>
-           
           </header>
         </div>
       )}
