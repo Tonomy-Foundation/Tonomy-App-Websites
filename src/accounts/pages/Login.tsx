@@ -25,6 +25,7 @@ import {
   WalletRequest,
   WalletRequestVerifiableCredential,
   DualWalletResponse,
+  SdkError,
 } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
@@ -178,15 +179,35 @@ export default function Login() {
     }
   }
 
+  async function rejectRequest(dualWalletResponse: DualWalletResponse) {
+    if (!dualWalletResponse.error) throw new Error("No error found");
+    if (!dualWalletResponse.requests) throw new Error("No requests found");
+    const dualWalletRequests = new DualWalletRequests(
+      dualWalletResponse.requests.external,
+    );
+
+    const url = await rejectLoginRequest(
+      dualWalletRequests,
+      "redirect",
+      dualWalletResponse.error,
+      {},
+    );
+
+    window.location.href = url as string;
+  }
+
   // waits for the login request response from Tonomy ID then redirects to the callback url
   async function subscribeToLoginRequestResponse() {
+    let dualWalletResponse: DualWalletResponse;
     communication.subscribeMessage(async (message: Message) => {
       try {
-        debug("subscribeToLoginRequestResponse()");
-
-        let dualWalletResponse = new LoginRequestResponseMessage(
+        dualWalletResponse = new LoginRequestResponseMessage(
           message,
         ).getPayload();
+        await ExternalUser.verifyLoginResponse({
+          external: false,
+          responses: dualWalletResponse,
+        });
 
         if (dualWalletResponse.isSuccess()) {
           if (!dualWalletResponse.external)
@@ -196,24 +217,16 @@ export default function Login() {
           );
           window.location.href = dualWalletResponse.getRedirectUrl();
         } else {
-          if (!dualWalletResponse.error) throw new Error("No error found");
-          if (!dualWalletResponse.requests)
-            throw new Error("No requests found");
-          const dualWalletRequests = new DualWalletRequests(
-            dualWalletResponse.requests.external,
-          );
-
-          const url = await rejectLoginRequest(
-            dualWalletRequests,
-            "redirect",
-            dualWalletResponse.error,
-            {},
-          );
-
-          window.location.href = url as string;
+          await rejectRequest(dualWalletResponse);
         }
       } catch (e) {
-        errorStore.setError({ error: e, expected: false });
+        if (
+          e instanceof SdkError &&
+          (e.code === SdkErrors.UserLogout ||
+            e.code === SdkErrors.UserCancelled)
+        ) {
+          await rejectRequest(dualWalletResponse);
+        } else errorStore.setError({ error: e, expected: false });
       }
     }, LoginRequestResponseMessage.getType());
   }
