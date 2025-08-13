@@ -124,6 +124,7 @@ h1 {
 
 .tonomy-login-button {
   padding: 0.5rem 2.5rem;
+  margin-right: 1rem;
   background-color: var(--primary) !important;
 }
 
@@ -149,6 +150,7 @@ h1 {
   .intro .footer {
     margin-bottom: 3rem;
   }
+
 }
 @media only screen and (max-width: 325px) {
   .demo-main {
@@ -161,9 +163,7 @@ h1 {
     font-size: 1rem;
     color: var(--accent);
   }
-  .tonomy-login-button {
-    padding: 0.5rem 1rem;
-  }
+  
 }
 
 @media only screen and (max-width: 767px) {
@@ -243,5 +243,8 @@ h1 {
 @media only screen and (min-width: 325px) and (max-width: 767px) {
   .demo-main {
     font-size: 2.8rem;
+  }
+  .tonomy-login-button {
+    margin-top: 1.2rem;
   }
 }

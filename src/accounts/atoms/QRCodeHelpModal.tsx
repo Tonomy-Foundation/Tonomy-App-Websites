@@ -16,7 +16,7 @@ export default function QRCodeHelpModal({
   return (
     <Modal open={open} onClose={onClose}>
       <Box
-        className="helpmodal"
+        className="help-modal"
         sx={{
           position: "absolute",
           top: "50%",
@@ -29,9 +29,9 @@ export default function QRCodeHelpModal({
           p: 4,
         }}
       >
-        <div className="qrContainerModal">
-          <div className="qrModalHeader">
-            <h2 className="qrModalTitle">QR Code Login Tips</h2>
+        <div className="qr-container-modal">
+          <div className="qr-modal-header">
+            <h2 className="qr-modal-title">QR Code Login Tips</h2>
             <ButtonBase onClick={onClose}>
               {" "}
               <TImage
@@ -52,23 +52,23 @@ export default function QRCodeHelpModal({
           </div>
 
           <div>
-            <TP className="qrModalSectionTitle">Scanning Tips</TP>
-            <ol className="qrModalList">
+            <TP className="qr-modal-section-title">Scanning Tips</TP>
+            <ol className="qr-modal-list">
               <li>Ensure good lighting</li>
               <li>Keep your phone steady to avoid focus issues</li>
               <li>Hold your phone 10–15 cm away from the QR code</li>
             </ol>
           </div>
           <div>
-            <TP className="qrModalSectionTitle">Troubleshooting</TP>
-            <ol className="qrModalList">
+            <TP className="qr-modal-section-title">Troubleshooting</TP>
+            <ol className="qr-modal-list">
               <li>Ensure the app has camera access permission</li>
               <li>
                 Make sure you are using the latest version of{" "}
                 {settings.config.appName} from the{" "}
                 <Link
                   target="_blank"
-                  className="commonLink"
+                  className="common-Link"
                   to={settings.config.links.appleStoreDownload}
                 >
                   App Store
@@ -76,7 +76,7 @@ export default function QRCodeHelpModal({
                 or{" "}
                 <Link
                   target="_blank"
-                  className="commonLink"
+                  className="common-link"
                   to={settings.config.links.playStoreDownload}
                 >
                   Google Play
@@ -87,7 +87,7 @@ export default function QRCodeHelpModal({
         </div>
         <div>
           <ButtonBase
-            className="qrModalHelp"
+            className="qr-modal-help"
             onClick={() => window.open("https://discord.com/invite/8zDf8AF3ja")}
           >
             Get help on Discord

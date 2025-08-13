@@ -107,7 +107,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
           fontFamily: "'Host Grotesk', sans-serif",
         },
       }),
-    [appAccent, appBackground]
+    [appAccent, appBackground],
   );
 
   return (

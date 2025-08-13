@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import "./Callback.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
@@ -13,7 +13,7 @@ export default function Callback() {
   const [errorVisible, setErrorVisible] = useState(false);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
-  const { signin } = useContext(AuthContext);
+  const { signin, signKycData } = useContext(AuthContext);
 
   useEffect(() => {
     verifyLogin();
@@ -21,29 +21,22 @@ export default function Callback() {
 
   async function verifyLogin() {
     try {
-      const user = await ExternalUser.verifyLoginRequest();
-
+      const user = await ExternalUser.verifyLoginResponse();
       if (user) {
-        signin(user);
+        signin(user.user);
+        if (user.data) {
+          signKycData(user.data);
+        }
       }
     } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.UserCancelled || SdkErrors.UserLogout)
-      ) {
-        switch (e.code) {
-          case SdkErrors.UserCancelled:
-            setErrorTitle("User cancelled login");
-            setErrorVisible(true);
-            break;
-          case SdkErrors.UserLogout:
-            setErrorTitle("User logged out");
-            setErrorVisible(true);
-            break;
-          case SdkErrors.UserRefreshed:
-            navigation("/");
-            break;
-        }
+      if (isErrorCode(e, SdkErrors.UserCancelled)) {
+        setErrorTitle("User cancelled login");
+        setErrorVisible(true);
+      } else if (isErrorCode(e, SdkErrors.UserLogout)) {
+        setErrorTitle("User logged out");
+        setErrorVisible(true);
+      } else if (isErrorCode(e, SdkErrors.UserRefreshed)) {
+        navigation("/");
       } else {
         errorStore.setError({ error: e });
       }

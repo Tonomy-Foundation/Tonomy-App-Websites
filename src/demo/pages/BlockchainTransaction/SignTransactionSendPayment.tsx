@@ -21,7 +21,7 @@ import settings from "../../../common/settings";
 import Debug from "debug";
 
 const debug = Debug(
-  "tonomy-app-websites:demo:pages:BlockchainTransaction:SignTransactionSendPayment"
+  "tonomy-app-websites:demo:pages:BlockchainTransaction:SignTransactionSendPayment",
 );
 
 const env = settings.env || "development";
@@ -47,7 +47,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
   >("prepurchase");
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState<string>(
-    "Art print from MONA gallery"
+    "Art print from MONA gallery",
   );
 
   async function onRender() {
@@ -71,14 +71,14 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           TonomyUsername.fromUsername(
             "demo",
             AccountType.APP,
-            getSettings().accountSuffix
+            getSettings().accountSuffix,
           ),
           "selfissue",
           {
             to: accountName,
             quantity: `10 DEMO`,
             memo: "test",
-          }
+          },
         );
         accountBalance = accountBalance + 10;
         props.setBalance(accountBalance);
@@ -124,7 +124,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
       const toUsername = TonomyUsername.fromUsername(
         recipient,
         AccountType.PERSON,
-        settings.config.accountSuffix
+        settings.config.accountSuffix,
       );
       const to = await getAccountNameFromUsername(toUsername);
 
@@ -136,7 +136,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
         TonomyUsername.fromUsername(
           "demo",
           AccountType.APP,
-          getSettings().accountSuffix
+          getSettings().accountSuffix,
         ),
         "transfer",
         {
@@ -144,7 +144,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
           to,
           quantity: amount + " DEMO",
           memo: "test",
-        }
+        },
       );
 
       const updateBalance = props.balance - amount;

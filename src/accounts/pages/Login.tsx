@@ -2,35 +2,34 @@ import React, { useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Message,
-  LoginRequest,
+  WalletResponseError,
   LoginWithTonomyMessages,
   AuthenticationMessage,
   IdentifyMessage,
   LoginRequestsMessage,
-  terminateLoginRequest,
+  rejectLoginRequest,
   LoginRequestResponseMessage,
-  objToBase64Url,
-  SdkError,
+  isErrorCode,
   SdkErrors,
   createLoginQrCode,
   ExternalUser,
   App,
-  LoginRequestPayload,
-  randomString,
-  KeyManagerLevel,
-  JsKeyManager,
   CommunicationError,
-  WalletRequest,
+  DualWalletRequests,
   getDidKeyIssuerFromStorage,
-  getLoginRequestFromUrl,
   onRedirectLogin,
-  RequestsManager,
-  ResponsesManager,
+  JsKeyManager,
+  KeyManagerLevel,
+  randomString,
+  LoginRequestPayload,
+  WalletRequest,
+  WalletRequestVerifiableCredential,
+  DualWalletResponse,
+  SdkError,
 } from "@tonomy/tonomy-id-sdk";
 import { TH2, TH3, TH4, TP } from "../../common/atoms/THeadings";
 import TImage from "../../common/atoms/TImage";
 import settings from "../../common/settings";
-import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import LinkingPhone from "../molecules/LinkingPhone";
 import { useUserStore } from "../../common/stores/user.store";
@@ -42,7 +41,6 @@ import Debug from "debug";
 import { Box, Button, ButtonBase } from "@mui/material";
 import { ArrowCircleLeftOutlined } from "@mui/icons-material";
 import TSpinner from "../atoms/TSpinner";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -57,12 +55,15 @@ export default function Login() {
   const [username, setUsername] = useState<string>();
   const [showQR, setShowQR] = useState<string>();
   const [app, setApp] = useState<App>();
-  const navigation = useNavigate();
   const communication = useUserStore((state) => state.communication);
   const errorStore = useErrorStore();
   const { user, setUser, isLoggedIn, logout } = useUserStore();
-  const { requests, accountsLogin, setPayload, setRequests, setAccountsLogin } =
-    useWalletRequestsStore();
+  const {
+    requestsStore,
+    loginWithTonomyMessageStore,
+    setRequestsStore,
+    setLoginWithTonomyMessageStore,
+  } = useWalletRequestsStore();
   const [connectionError, setConnectionError] = useState<boolean>(false);
 
   let rendered = false;
@@ -72,6 +73,7 @@ export default function Login() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (app) {
+      console.log(app);
       updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);
@@ -81,32 +83,6 @@ export default function Login() {
     "Your data isn't in a database like Google's, so it's safe from server breaches",
     "With portable data, you'll never have to re-fill the same information again",
   ];
-
-  /*
-  useEffect()
-  --> onLoad()
-      ----> checkLoggedIn() 
-          if logged in:
-          ----> loginToTonomyAndSendRequests(user)
-          if not logged in:
-          ----> loginToTonomyAndSendRequests()
-              ----> getAppDetails()
-              if mobile:
-              ----> redirectToMobileAppUsingUniversalRedirect()
-              else:
-              ----> setShowQR()
-              ----> subscribeToLoginRequestResponse()
-                  if success:
-                  ----> window.location.replace()
-                  if failed:
-                  ----> terminateLoginRequest()
-              ----> connectToTonomyId()
-                  if logged in already:
-                  ----> communication.sendMessage(requests)
-                  else:
-                  ----> communication.subscribeMessage()
-                      ----> communication.sendMessage(requests)
-   */
 
   useEffect(() => {
     // Prevent useEffect from running twice which causes a race condition of the
@@ -129,7 +105,7 @@ export default function Login() {
       if (/android/i.test(userAgent)) {
         window.location.href = settings.config.links.playStoreDownload;
       } else if (/iPad|iPhone|iPod/.test(userAgent)) {
-        navigation("/download");
+        window.location.href = settings.config.links.appleStoreDownload;
       }
     }, 2000); // 2 seconds
 
@@ -139,30 +115,32 @@ export default function Login() {
 
   // connects to the communication server, waits for Tonomy ID to connect via QR code and then sends the login request
   async function connectToTonomyId(
-    requests: LoginRequest[],
+    requests: DualWalletRequests,
     loginToCommunication: AuthenticationMessage,
-    user?: ExternalUser
+    user?: ExternalUser,
   ) {
-    debug("connectToTonomyId()", requests.length, typeof user);
+    debug(
+      "connectToTonomyId()",
+      requests.external.getRequests().length,
+      requests.sso?.getRequests().length,
+      typeof user,
+    );
     // Login to the communication server
     await communication.login(loginToCommunication);
-
     if (user) {
       setStatus("connecting");
 
-      const tonomyIDDid = await user.getWalletDid();
+      const tonomyIdDid = await user.getWalletDid();
 
-      if (!tonomyIDDid)
+      if (!tonomyIdDid)
         throw new Error(`No ${settings.config.appName} DID found`);
 
       const issuer = await user.getIssuer();
 
       const requestMessage = await LoginRequestsMessage.signMessage(
-        {
-          requests,
-        },
+        requests,
         issuer,
-        tonomyIDDid
+        tonomyIdDid,
       );
 
       await communication.sendMessage(requestMessage);
@@ -176,13 +154,11 @@ export default function Login() {
 
           const identifyMessage = new IdentifyMessage(message);
 
-          const jwkIssuer = await getDidKeyIssuerFromStorage();
+          const didKeyIssuer = await getDidKeyIssuerFromStorage();
           const requestMessage = await LoginRequestsMessage.signMessage(
-            {
-              requests,
-            },
-            jwkIssuer,
-            identifyMessage.getSender()
+            requests,
+            didKeyIssuer,
+            identifyMessage.getSender(),
           );
 
           await communication.sendMessage(requestMessage);
@@ -203,100 +179,113 @@ export default function Login() {
     }
   }
 
-  // waits for the login request response from Tonomy ID then redirects to the callback url
-  async function subscribeToLoginRequestResponse() {
-    communication.subscribeMessage(async (message: Message) => {
-      try {
-        debug("subscribeToLoginRequestResponse()");
+  async function rejectRequest(dualWalletResponse: DualWalletResponse) {
+    if (!dualWalletResponse.error) throw new Error("No error found");
+    if (!dualWalletResponse.requests) throw new Error("No requests found");
+    const dualWalletRequests = new DualWalletRequests(
+      dualWalletResponse.requests.external,
+    );
 
-        const loginRequestResponsePayload = new LoginRequestResponseMessage(
-          message
-        ).getPayload();
+    const url = await rejectLoginRequest(
+      dualWalletRequests,
+      "redirect",
+      dualWalletResponse.error,
+      {},
+    );
 
-        if (loginRequestResponsePayload.success !== true) {
-          const error = loginRequestResponsePayload.error;
-
-          if (!error) throw new Error("No error found");
-          const managedRequests = new RequestsManager(error.requests);
-          const externalRequests =
-            managedRequests.getRequestsDifferentOriginOrThrow();
-
-          const managedExternalResponses = new ResponsesManager(
-            new RequestsManager(externalRequests)
-          );
-          const externalLoginRequest =
-            managedRequests.getLoginRequestWithDifferentOriginOrThrow();
-
-          const externalError = {
-            ...error,
-            requests: externalRequests,
-          };
-          const url = await terminateLoginRequest(
-            managedExternalResponses,
-            "mobile",
-            externalError,
-            {
-              callbackOrigin: externalLoginRequest.getPayload().origin,
-              callbackPath: externalLoginRequest.getPayload().callbackPath,
-            }
-          );
-
-          window.location.href = url as string;
-        } else {
-          if (!loginRequestResponsePayload.response)
-            throw new Error("No response found");
-
-          const base64UrlPayload = objToBase64Url(loginRequestResponsePayload);
-
-          window.location.replace("/callback?payload=" + base64UrlPayload);
-        }
-      } catch (e) {
-        errorStore.setError({ error: e, expected: false });
-      }
-    }, LoginRequestResponseMessage.getType());
+    window.location.href = url as string;
   }
 
-  async function getAppDetails(loginRequest: LoginRequest) {
-    debug("getAppDetails()", loginRequest.getPayload().origin);
+  // waits for the login request response from Tonomy ID then redirects to the callback url
+  async function subscribeToLoginRequestResponse() {
+    let dualWalletResponse: DualWalletResponse;
+    communication.subscribeMessage(async (message: Message) => {
+      try {
+        dualWalletResponse = new LoginRequestResponseMessage(
+          message,
+        ).getPayload();
+        await ExternalUser.verifyLoginResponse({
+          external: false,
+          responses: dualWalletResponse,
+        });
 
-    const app = await App.getApp(loginRequest.getPayload().origin);
-
-    setApp(app);
+        if (dualWalletResponse.isSuccess()) {
+          if (!dualWalletResponse.external)
+            throw new Error("external WalletRequest not found");
+          dualWalletResponse = DualWalletResponse.fromResponses(
+            dualWalletResponse.external,
+          );
+          window.location.href = dualWalletResponse.getRedirectUrl();
+        } else {
+          await rejectRequest(dualWalletResponse);
+        }
+      } catch (e) {
+        if (
+          e instanceof SdkError &&
+          (e.code === SdkErrors.UserLogout ||
+            e.code === SdkErrors.UserCancelled)
+        ) {
+          await rejectRequest(dualWalletResponse);
+        } else errorStore.setError({ error: e, expected: false });
+      }
+    }, LoginRequestResponseMessage.getType());
   }
 
   // creates SSO login request and sends the login request to Tonomy ID, via URL or communication server
   async function loginToTonomyAndSendRequests(user?: ExternalUser) {
     try {
-      debug("loginToTonomyAndSendRequests()", typeof user, typeof requests);
+      debug(
+        "loginToTonomyAndSendRequests()",
+        typeof user,
+        typeof requestsStore,
+      );
 
-      let managedRequests = requests;
+      let requests: DualWalletRequests | undefined = requestsStore;
+      let loginToCommunication: AuthenticationMessage | undefined;
 
-      if (!managedRequests) {
-        managedRequests = await onRedirectLogin();
-        setRequests(managedRequests);
+      if (!requests) {
+        requests = await onRedirectLogin();
+        setRequestsStore(requests);
       }
 
-      const externalLoginRequest =
-        managedRequests.getLoginRequestWithDifferentOriginOrThrow();
+      setApp(await requests.external.getApp());
 
-      getAppDetails(externalLoginRequest);
+      if (user) {
+        // if the user is already logged in, we just need to create the login request
+        const issuer = await user.getIssuer();
 
-      const requestsToSend: WalletRequest[] = [
-        ...managedRequests.getRequests(),
-      ];
+        // This will get the key from storage so that it uses the same one
+        const publicKey = await new JsKeyManager().getKey({
+          level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
+        });
 
-      let loginToCommunication: AuthenticationMessage;
-
-      if (!user) {
-        let loginWithTonomyMessage: LoginWithTonomyMessages;
-        if (accountsLogin) {
-          debug(
-            "loginToTonomyAndSendRequests() using accountsLogin from store"
+        const loginRequestPayload: LoginRequestPayload = {
+          login: {
+            randomString: randomString(32),
+            origin: window.location.origin,
+            publicKey: publicKey,
+            callbackPath: "/callback",
+          },
+        };
+        const ssoWalletRequest =
+          await WalletRequestVerifiableCredential.signRequest(
+            { requests: [loginRequestPayload] },
+            issuer,
           );
-          loginWithTonomyMessage = accountsLogin;
-        } else {
+        requests = new DualWalletRequests(
+          requests.external,
+          new WalletRequest(ssoWalletRequest),
+        );
+
+        loginToCommunication =
+          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
+      } else {
+        // if the user is not logged in, we need to create a new login request for the SSO website
+        let loginWithTonomyMessage: LoginWithTonomyMessages | undefined =
+          loginWithTonomyMessageStore;
+        if (!loginWithTonomyMessage) {
           debug(
-            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy"
+            "loginToTonomyAndSendRequests() calling ExternalUser.loginWithTonomy",
           );
           loginWithTonomyMessage = (await ExternalUser.loginWithTonomy({
             callbackPath: "/callback",
@@ -305,63 +294,27 @@ export default function Login() {
               username: true,
             },
           })) as LoginWithTonomyMessages;
-          setAccountsLogin(loginWithTonomyMessage);
+          setLoginWithTonomyMessageStore(loginWithTonomyMessage);
         }
-        const {
-          loginRequest,
-          dataSharingRequest,
-          loginToCommunication: loginToCommunicationVal,
-        } = loginWithTonomyMessage;
 
-        requestsToSend.push(loginRequest);
-        if (dataSharingRequest) requestsToSend.push(dataSharingRequest);
-
-        loginToCommunication = loginToCommunicationVal;
-      } else {
-        if (!user) throw new Error("No user found");
-
-        const issuer = await user.getIssuer();
-
-        const publicKey = await new JsKeyManager().getKey({
-          level: KeyManagerLevel.BROWSER_LOCAL_STORAGE,
-        });
-
-        const loginRequestPayload: LoginRequestPayload = {
-          randomString: randomString(32),
-          origin: window.location.origin,
-          publicKey: publicKey,
-          callbackPath: "/callback",
-        };
-
-        const loginRequest = await LoginRequest.signRequest(
-          loginRequestPayload,
-          issuer
+        // set the wallet requests, by adding the SSO request
+        requests = new DualWalletRequests(
+          requests.external,
+          loginWithTonomyMessage.requests.external,
         );
-
-        requestsToSend.push(loginRequest);
-
-        loginToCommunication =
-          await AuthenticationMessage.signMessageWithoutRecipient({}, issuer);
+        loginToCommunication = loginWithTonomyMessage.loginToCommunication;
+        setShowQR(
+          createLoginQrCode(loginWithTonomyMessage.requests.external.getDid()),
+        );
       }
 
-      const managedRequestsToSend = new RequestsManager(requestsToSend);
-
-      const did = managedRequestsToSend
-        .getLoginRequestWithSameOriginOrThrow()
-        .getIssuer();
-
-      setShowQR(createLoginQrCode(did));
       await subscribeToLoginRequestResponse();
-      await connectToTonomyId(requestsToSend, loginToCommunication, user);
+      await connectToTonomyId(requests, loginToCommunication, user);
     } catch (e) {
-      if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.ReferrerEmpty ||
-          e.code === SdkErrors.MissingParams)
-      ) {
+      if (isErrorCode(e, [SdkErrors.ReferrerEmpty, SdkErrors.MissingParams])) {
         errorStore.setError({
           error: new Error(
-            "Please try again and do not refresh this website during login"
+            "Please try again and do not refresh this website during login",
           ),
           expected: true,
           title: "Login unsuccessful",
@@ -385,7 +338,7 @@ export default function Login() {
 
     // only clear state if the accountsLogin is not set (i.e. they are not navigating from other part of the website)
     const user = await ExternalUser.getUser({
-      autoLogout: accountsLogin ? false : true,
+      autoLogout: loginWithTonomyMessageStore ? false : true,
     });
 
     setStatus("connecting");
@@ -401,19 +354,14 @@ export default function Login() {
   // check if user logged in and if not starts login process from URL parameters
   async function onLoad() {
     try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const payload = urlParams.get("payload");
-
-      if (payload) {
-        setPayload(payload);
-      }
       await checkLoggedIn();
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.UserNotLoggedIn ||
-          e.code === SdkErrors.AccountDoesntExist)
+        isErrorCode(e, [
+          SdkErrors.AccountNotFound,
+          SdkErrors.UserNotLoggedIn,
+          SdkErrors.AccountDoesntExist,
+        ])
       ) {
         loginToTonomyAndSendRequests();
       } else {
@@ -422,19 +370,15 @@ export default function Login() {
     }
   }
 
-  async function terminateLogin(error): Promise<string> {
-    const { requests } = await getLoginRequestFromUrl();
-    const managedRequests = new RequestsManager(requests);
+  async function terminateLogin(error: WalletResponseError): Promise<string> {
+    const requests = DualWalletRequests.fromUrl();
 
-    const externalLoginRequest =
-      managedRequests.getLoginRequestWithDifferentOriginOrThrow();
-
-    const managedResponses = new ResponsesManager(managedRequests);
-
-    return (await terminateLoginRequest(managedResponses, "mobile", error, {
-      callbackOrigin: externalLoginRequest.getPayload().origin,
-      callbackPath: externalLoginRequest.getPayload().callbackPath,
-    })) as string;
+    return (await rejectLoginRequest(
+      requests,
+      "redirect",
+      error,
+      {},
+    )) as string;
   }
 
   const onLogout = async () => {
@@ -484,9 +428,9 @@ export default function Login() {
 
   const renderAppDetailsSection = () =>
     app ? (
-      <div className="titleContainer">
+      <div className="title-container">
         <TImage height={94} src={app.logoUrl} alt={`${app.appName} Logo`} />
-        <div className="titleContent">
+        <div className="title-content">
           <TH2 className="title">{app.appName}</TH2>
           <TP className="description">
             {app.appName} uses {settings.config.appName} to give you control of
@@ -500,8 +444,8 @@ export default function Login() {
     <>
       {renderAppDetailsSection()}
       <QROrLoading showQr={showQR} />
-      <div className="secureInfoButtonContainer">
-        <ButtonBase className="secureInfoButton">
+      <div className="secure-info-button-container">
+        <ButtonBase className="secure-info-button">
           <svg
             width="14"
             height="18"
@@ -527,7 +471,7 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="md">
         <HeaderSection />
-        <div className="detailContainer">
+        <div className="detail-container">
           {connectionError ? (
             <ConnectionError
               username={username}
@@ -546,11 +490,11 @@ export default function Login() {
     <Box justifyContent="center" alignItems="center" display="flex">
       <Box maxWidth="sm">
         <HeaderSection />
-        <div className="detailContainer app-details">
+        <div className="detail-container app-details">
           {app ? (
             <>
               <TImage style={{ marginTop: 15 }} width={80} src={app.logoUrl} />
-              <TH3 className="titleDescription">
+              <TH3 className="title-description">
                 <span style={{ color: "var(--app-accent)" }}>
                   {app.appName}
                 </span>{" "}
@@ -586,7 +530,7 @@ export default function Login() {
           onClick={async () => {
             await onCancel();
           }}
-          className="secondaryButton"
+          className="secondary-button"
           variant="text"
           startIcon={<ArrowCircleLeftOutlined />}
         >
@@ -619,7 +563,7 @@ export default function Login() {
             <Button
               onClick={onLogout}
               variant="text"
-              className="secondaryButton"
+              className="secondary-button"
               startIcon={<LogoutIcon />}
             >
               Logout
