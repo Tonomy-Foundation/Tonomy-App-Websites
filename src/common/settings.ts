@@ -41,6 +41,7 @@ export type ConfigType = {
   currencySymbol: string;
   appId: string;
   sha256CertFingerprints: string;
+  banklessWebsiteOrigin: string;
 };
 
 type SettingsType = {

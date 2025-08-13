@@ -6,16 +6,19 @@ import "./TopMenuBar.css";
 import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useUserStore } from "../../common/stores/user.store";
 
 const TopMenuBar = ({ page }) => {
-  const { user, signin, signout } = useContext(AuthContext);
+  const { signin, signout } = useContext(AuthContext);
+    const { setUser } = useUserStore();
   const [username, setUsername] = React.useState<string>("");
   console.log("pagename", page);
   useEffect(() => {
     async function authentication() {
       try {
         const user = await ExternalUser.getUser({ autoLogout: false });
-        signin(user, page);
+        setUser(user);
+
         const username = await user.getUsername();
         if (!username) throw new Error("No username found");
         setUsername(username.getBaseUsername());
@@ -26,29 +29,29 @@ const TopMenuBar = ({ page }) => {
     authentication();
   }, []);
 
-  async function onRender() {
-    try {
-      const username = await user?.getUsername();
+  // async function onRender() {
+  //   try {
+  //     const username = await user?.getUsername();
 
-      if (username) {
-        setUsername(username.getBaseUsername());
-      }
-    } catch (e) {
-      console.error("error", e);
-    }
-  }
+  //     if (username) {
+  //       setUsername(username.getBaseUsername());
+  //     }
+  //   } catch (e) {
+  //     console.error("error", e);
+  //   }
+  // }
 
-  let rendered = false;
+  // let rendered = false;
 
-  useEffect(() => {
-    if (!rendered) {
-      rendered = true;
-    } else {
-      return;
-    }
+  // useEffect(() => {
+  //   if (!rendered) {
+  //     rendered = true;
+  //   } else {
+  //     return;
+  //   }
 
-    onRender();
-  }, []);
+  //   onRender();
+  // }, []);
 
   async function onButtonPress() {
     let callback = "/callback";
