@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
@@ -24,10 +24,11 @@ export default function Home() {
       setLoading(false);
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
+        isErrorCode(e, [
+          SdkErrors.AccountNotFound,
+          SdkErrors.AccountDoesntExist,
+          SdkErrors.UserNotLoggedIn,
+        ])
       ) {
         // User not logged in
         setLoading(false);
@@ -78,7 +79,7 @@ export default function Home() {
                   <img
                     src={settings.config.images.logo48}
                     alt={`${settings.config.appName} Logo`}
-                    className="btnImage"
+                    className="btn-image"
                   />
                   <span>Login with {settings.config.appName}</span>
                 </div>

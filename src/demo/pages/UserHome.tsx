@@ -8,16 +8,18 @@ import "./UserHome.css";
 import CodeSnippetPreview from "../components/CodeSnippetPreview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import settings from "../../common/settings";
+import TModal from "../../common/molecules/TModal";
 
 const snippetCode = `
 // CallbackPage.jsx
-const user = await api.ExternalUser.verifyLoginRequest();
+const user = await ExternalUser.verifyLoginResponse();
 `;
 
 const USerHome: React.FC = () => {
   const errorStore = useErrorStore();
   const [username, setUsername] = useState<string>("");
-  const { user, signout } = useContext(AuthContext);
+  const [person, setPerson] = useState<string>("");
+  const { user, signout, kycData } = useContext(AuthContext);
 
   async function onRender() {
     try {
@@ -25,6 +27,12 @@ const USerHome: React.FC = () => {
 
       if (!username) throw new Error("No username found");
       setUsername(username.getBaseUsername());
+      if (kycData && kycData.kyc) {
+        const person = kycData.kyc.value.data.verification.person;
+        const firstName = person?.firstName?.value || "";
+        const lastName = person?.lastName?.value || "";
+        setPerson(firstName + " " + lastName);
+      }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -36,6 +44,17 @@ const USerHome: React.FC = () => {
 
   return (
     <div className="home-container">
+      {person && (
+        <TModal
+          open={!!person}
+          onPress={() => setPerson("")}
+          title="Welcome"
+          icon="person"
+          iconColor="primary"
+        >
+          <div>{person}!</div>
+        </TModal>
+      )}
       <div className="mobile-container user-section-spacing">
         <div className="user-section">
           <img

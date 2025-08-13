@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ExternalUser, SdkError, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
@@ -13,7 +13,7 @@ import CodeSnippetPreview from "../components/CodeSnippetPreview";
 const snippetCode = `
 // LoginPage.jsx
 async function onButtonPress() {
-  await api.ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
+  await ExternalUser.loginWithTonomy({ callbackPath: '/callback' });
 }
 
 <button className="tonomy-login-button" onClick={onButtonPress}>Login with ${settings.config.appName}</button>
@@ -36,10 +36,11 @@ export default function Home() {
       setLoading(false);
     } catch (e) {
       if (
-        e instanceof SdkError &&
-        (e.code === SdkErrors.AccountNotFound ||
-          e.code === SdkErrors.AccountDoesntExist ||
-          e.code === SdkErrors.UserNotLoggedIn)
+        isErrorCode(e, [
+          SdkErrors.AccountNotFound,
+          SdkErrors.AccountDoesntExist,
+          SdkErrors.UserNotLoggedIn,
+        ])
       ) {
         // User not logged in
         setLoading(false);
@@ -61,7 +62,12 @@ export default function Home() {
       dataRequest: { username: true },
     });
   }
-
+  async function onKYCButtonPress() {
+    ExternalUser.loginWithTonomy({
+      callbackPath: "/callback",
+      dataRequest: { username: true, kyc: true },
+    });
+  }
   return (
     <>
       {loading ? (
@@ -101,6 +107,12 @@ export default function Home() {
                     onClick={onButtonPress}
                   >
                     Login with {settings.config.appName}
+                  </button>
+                  <button
+                    className="tonomy-login-button"
+                    onClick={onKYCButtonPress}
+                  >
+                    Login with KYC
                   </button>
                 </div>
               </div>

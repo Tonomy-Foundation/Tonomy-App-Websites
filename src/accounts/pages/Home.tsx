@@ -15,19 +15,14 @@ import FiddleArt from "../assets/fiddle-art.svg";
 import { useUserStore } from "../../common/stores/user.store";
 import {
   ExternalUser,
-  getLoginRequestFromUrl,
-  RequestsManager,
-  ResponsesManager,
   SdkErrors,
-  terminateLoginRequest,
+  DualWalletRequests,
+  rejectLoginRequest,
 } from "@tonomy/tonomy-id-sdk";
 import useErrorStore from "../../common/stores/errorStore";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 import "./Home.css";
 import UserAvatar from "../assets/avatar.svg";
-
-import Debug from "debug";
 
 export default function Home() {
   const [username, setUsername] = useState<string>();
@@ -50,18 +45,14 @@ export default function Home() {
   }, []);
 
   async function terminateLogin(error): Promise<string> {
-    const { requests } = await getLoginRequestFromUrl();
-    const managedRequests = new RequestsManager(requests);
+    const requests = DualWalletRequests.fromUrl();
 
-    const externalLoginRequest =
-      managedRequests.getLoginRequestWithDifferentOriginOrThrow();
-
-    const managedResponses = new ResponsesManager(managedRequests);
-
-    return (await terminateLoginRequest(managedResponses, "mobile", error, {
-      callbackOrigin: externalLoginRequest.getPayload().origin,
-      callbackPath: externalLoginRequest.getPayload().callbackPath,
-    })) as string;
+    return (await rejectLoginRequest(
+      requests,
+      "redirect",
+      error,
+      {},
+    )) as string;
   }
 
   const onLogout = async () => {
@@ -182,7 +173,7 @@ export default function Home() {
               onClick={onLogout}
               variant="text"
               startIcon={<LogoutIcon />}
-              className="secondaryButton"
+              className="secondary-button"
             >
               Logout
             </Button>

@@ -25,7 +25,7 @@ const W3VCSignDocument = (props: W3VCSignDocumentProps) => {
   const [allergies, setAllergies] = useState("None");
   const [medications, setMedications] = useState("None");
   const [treatment, setTreatment] = useState(
-    "sufficient rest and increase intake of fluids"
+    "sufficient rest and increase intake of fluids",
   );
   const [loading, setLoading] = useState<boolean>(false);
   const errorStore = useErrorStore();
