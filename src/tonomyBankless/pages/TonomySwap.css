@@ -1,0 +1,151 @@
+.swap-container {
+ flex-wrap: wrap;
+  height: 100%;
+  padding: 2.6rem 0.4rem;
+  width: 30%;
+  margin-top: 2rem;
+}
+
+.swap-header {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.transactions {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 2px;
+  font-size: 20px;
+  margin-left: 19px;
+}
+
+.coming-soon {
+  background: #e5e7eb;
+  color: #6b7280;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+.swap-card {
+ 
+}
+
+.swap-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 19px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.swap-label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.username {
+  margin-left: 5px;
+  color: #4b5563;
+}
+
+.balance {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: auto; /* This will push it to the right */
+  padding-left: 10px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between input and currency */
+  border-radius: 5px;
+  border: 1px solid #D2DDEC;
+  padding: 0.5rem;
+
+}
+
+.input-row input {
+  flex: 1;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.currency {
+  color: #4b5563;
+  font-weight: bold;
+}
+
+/* .swap-icon {
+  background: black;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+} */
+
+.swap-icon {
+  background: #f3f4f6;
+  color: #4b5563;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.swap-icon:hover {
+  background: #e5e7eb;
+  transform: rotate(180deg);
+}
+
+.swap-icon:active {
+  transform: scale(0.95) rotate(180deg);
+}
+
+.connect-wallet {
+  color: #3b82f6;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.info-text {
+  background: #f9fafb;
+  padding: 15px;
+  font-size: 12px;
+  color: #6b7280;
+  border-radius: 6px;
+  margin-top: 20px;
+  line-height: 19px;
+
+}
+
+.connect-btn {
+  margin-top: 25px;
+  background: #a78bfa;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.connect-btn:hover {
+  background: #8b5cf6;
+}

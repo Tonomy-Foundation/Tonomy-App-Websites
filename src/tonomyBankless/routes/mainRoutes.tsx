@@ -1,10 +1,10 @@
 import { RouteObject } from "react-router-dom";
-import UserHome from "../pages/UserHome";
+import TonomySwap from "../pages/tonomySwap";
 
 const mainRoutes: RouteObject[] = [
   {
-    path: "/user-home",
-    element: <UserHome />,
+    path: "/swap",
+    element: <TonomySwap />,
   },
 ];
 

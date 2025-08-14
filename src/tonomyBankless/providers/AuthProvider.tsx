@@ -26,7 +26,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signin = (user: ExternalUser) => {
     setUser(user);
-    navigation("/bankless/user-home");
+    navigation("/bankless/swap");
   };
 
   const value = { user, signout, signin };

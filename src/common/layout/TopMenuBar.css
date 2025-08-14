@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center; /* Horizontal centering */
   align-items: center;     /* Vertical centering */
+  background-color: var(--white);
 }
 .tonomy-header {
   display: flex;
