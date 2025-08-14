@@ -8,6 +8,7 @@ import HyphaDAO from "../assets/hypha-dao.svg";
 import FiddleArt from "../assets/fiddle-art.svg";
 import Share from "../assets/share.svg";
 import TImage from "../../common/atoms/TImage";
+import settings from "../../common/settings";
 
 export default function Home() {
   const { signin } = useContext(AuthContext);
@@ -45,7 +46,7 @@ export default function Home() {
   const services = [
     {
       name: "Hypha DAO",
-      url: "hypha.earth",
+      url: "https://hypha.earth",
       description:
         "A decentralized platform empowering communities to collaborate, govern, and grow together seamlessly",
       logo: HyphaDAO,
@@ -53,7 +54,7 @@ export default function Home() {
     },
     {
       name: "Fiddle Art",
-      url: "tonomy.io",
+      url: "https://tonomy.io",
       description:
         "A vibrant creative platform where artists showcase their work, connect with others, and collaborate globally",
       logo: FiddleArt,
@@ -61,7 +62,7 @@ export default function Home() {
     },
     {
       name: "Demo website",
-      url: "192.168.28.249:3003/demo",
+      url: settings.config.demoWebsiteOrigin,
       description:
         "Search, view, and track your Tonomy Blockchain transactions and activities in real-time",
       logo: FiddleArt,
@@ -69,7 +70,7 @@ export default function Home() {
     },
     {
       name: "Tonomy Block Explorer",
-      url: "explorer.testnet.tonomy.io",
+      url: settings.config.blockExplorerUrl,
       description:
         "A tool to explore, track, and verify transactions across the Tonomy blockchain network",
       logo: FiddleArt,
@@ -77,7 +78,7 @@ export default function Home() {
     },
     {
       name: "Tonomy Bankless",
-      url: "192.168.28.249:3003/bankless",
+      url: settings.config.tonomyAppsOrigin,
       description:
         "Manage your TONO tokens as easily as any neo-banking application. Full control without compromise",
       logo: FiddleArt,
@@ -88,7 +89,7 @@ export default function Home() {
   const MoreServices = [
     {
       name: "Tonomy DAO",
-      url: "tonomy.io",
+      url: "https://tonomy.io",
       description:
         "Incorporate businesses and manage employee access and controls. Fully decentralised",
       logo: FiddleArt,
@@ -96,7 +97,7 @@ export default function Home() {
     },
     {
       name: "Tonomy Gov+",
-      url: "tonomy.io",
+      url: "https://tonomy.io",
       description:
         "Participate actively in the liquid democracy governance and help shape the future of the Tonomy ecosystem",
       logo: FiddleArt,
@@ -104,7 +105,7 @@ export default function Home() {
     },
     {
       name: "Tonomy Build",
-      url: "tonomy.io",
+      url: "https://tonomy.io",
       description:
         "Build anything with our Low-Code/No-Code suite, empowering next-generation secure and seamless app development",
       logo: FiddleArt,
@@ -128,10 +129,10 @@ export default function Home() {
           <div className="service-card" key={index}>
             <div className="card-content">
               <a
-                href={`http://${service.url}`}
+                href={`${service.url}`}
                 className="service-link"
-                // target="_blank"
-                // rel="noopener noreferrer"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="service-url">{service.url}</span>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -162,10 +163,10 @@ export default function Home() {
           <div className="service-card" key={index}>
             <div className="card-content">
               <a
-                href={`http://${service.url}`}
+                href={`${service.url}`}
                 className="service-link"
-                // target="_blank"
-                // rel="noopener noreferrer"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{ color: "var(--app-accent)" }}
               >
                 <span className="service-url">{service.url}</span>

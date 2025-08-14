@@ -53,9 +53,7 @@ try {
     });
   } else if (
     parseInt(window.location.port) === 3003 ||
-    subdomain === "bankless" ||
-    (parseInt(window.location.port) === 3002 &&
-      window.location.pathname.startsWith("/bankless"))
+    subdomain === "bankless"
   ) {
     import("./tonomyAppList/module-index.js").then((module) => {
       module.default(root);

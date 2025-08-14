@@ -9,8 +9,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useUserStore } from "../../common/stores/user.store";
 
 const TopMenuBar = ({ page }) => {
-  const { signin, signout } = useContext(AuthContext);
-    const { setUser } = useUserStore();
+  const { signout } = useContext(AuthContext);
+  const { setUser } = useUserStore();
   const [username, setUsername] = React.useState<string>("");
   console.log("pagename", page);
   useEffect(() => {

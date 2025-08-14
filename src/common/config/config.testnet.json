@@ -17,9 +17,12 @@
   },
   "accountSuffix": ".testnet.pangea",
   "tonomyIdSchema": "pangea-testnet://",
+
   "communicationUrl": "wss://communication.testnet.tonomy.io",
   "ssoWebsiteOrigin": "https://accounts.testnet.tonomy.io",
   "blockchainUrl": "https://blockchain-api-testnet.tonomy.io",
+  "tonomyAppsOrigin": "https://bankless.testnet.tonomy.io",
+  "demoWebsiteOrigin": "https://demo.testnet.tonomy.io",
   "loggerLevel": "error",
   "blockExplorerUrl": "https://explorer.testnet.tonomy.io",
   "documentationLink": "https://docs.tonomy.io",

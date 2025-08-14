@@ -96,3 +96,23 @@
   margin: 0;
   line-height: 19px;
 }
+
+@media only screen and (min-width: 325px) and (max-width: 767px)
+{
+  .services-grid {
+    justify-content: center; /* Center the grid on smaller screens */
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .services-grid {
+    justify-content: center; /* Center the grid on smaller screens */
+  }
+  
+}
+
+@media only screen and (max-width: 325px) {
+   .services-grid {
+    justify-content: center; /* Center the grid on smaller screens */
+  }
+}
