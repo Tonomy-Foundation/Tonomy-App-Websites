@@ -10,22 +10,20 @@ import { AppKitProvider } from "../../tonomyAppList/providers/AppKitProvider";
 export default function BanklessRoutes() {
   return (
     <AuthProvider>
-                        <AppKitProvider>
+      <AppKitProvider>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/swap" element={<TonomySwap />} />
 
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/swap" element={<TonomySwap />} />
-
-        {mainRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<PrivateRoute>{route?.element}</PrivateRoute>}
-          />
-        ))}
-      </Routes>
-                        </AppKitProvider>
-
+          {mainRoutes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<PrivateRoute>{route?.element}</PrivateRoute>}
+            />
+          ))}
+        </Routes>
+      </AppKitProvider>
     </AuthProvider>
   );
 }

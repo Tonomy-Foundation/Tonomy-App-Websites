@@ -1,42 +1,40 @@
 import React, { useContext, useEffect } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import TonomyBanklessLogo from "../../tonomyAppList/assets/tonomy-bankless.png";
 import "./TopMenuBar.css";
-import { App, ExternalUser } from "@tonomy/tonomy-id-sdk";
+import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useUserStore } from "../../common/stores/user.store";
 import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
 
 const TopMenuBar = ({ page }) => {
   const { user, signout, signin } = useContext(AuthContext);
   const [username, setUsername] = React.useState<string>("");
   console.log("pagename", page);
- useEffect(() => {
-  async function authentication() {
-    try {
-      const externalUser = await ExternalUser.getUser({ autoLogout: false });
-      if (externalUser) {
-        signin(externalUser, page);
-        const uname = await externalUser.getUsername();
-        if (!uname) throw new Error("No username found");
-        setUsername(uname.getBaseUsername());
-      } else {
+  useEffect(() => {
+    async function authentication() {
+      try {
+        const externalUser = await ExternalUser.getUser({ autoLogout: false });
+        if (externalUser) {
+          signin(externalUser, page);
+          const uname = await externalUser.getUsername();
+          if (!uname) throw new Error("No username found");
+          setUsername(uname.getBaseUsername());
+        } else {
+          setUsername("");
+        }
+      } catch (e) {
+        console.log("e", e);
         setUsername("");
       }
-    } catch (e) {
-      console.log("e", e);
-      setUsername("");
     }
-  }
-  authentication();
-}, [user, page]); // watch for changes
+    authentication();
+  }, [user, page]); // watch for changes
 
-function handleLogout() {
-  signout(page);
-  setUsername(""); // clear local state so UI updates instantly
-}
+  function handleLogout() {
+    signout(page);
+    setUsername(""); // clear local state so UI updates instantly
+  }
 
   // async function onRender() {
   //   try {
@@ -93,7 +91,7 @@ function handleLogout() {
         />
         {user ? (
           <>
-    <span className="tonomy-time" onClick={handleLogout}>
+            <span className="tonomy-time" onClick={handleLogout}>
               {username}
             </span>
             <LogoutIcon className="tonomy-arrow-icon" />

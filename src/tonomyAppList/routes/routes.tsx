@@ -31,7 +31,6 @@ export default function RootRoutes() {
               </MainLayout>
             }
           />
-
         </Routes>
       </AuthProvider>
     </Router>

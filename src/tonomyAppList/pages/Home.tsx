@@ -14,11 +14,10 @@ export default function Home() {
   const { signin } = useContext(AuthContext);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
-// const {isConnected, address, } = useAccount();
+  // const {isConnected, address, } = useAccount();
 
-
-// console.log("isConnected", isConnected, "address", address);
-async function onRender() {
+  // console.log("isConnected", isConnected, "address", address);
+  async function onRender() {
     try {
       const user = await ExternalUser.getUser({ autoLogout: false });
 
