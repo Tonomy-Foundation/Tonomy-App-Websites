@@ -13,48 +13,54 @@
 
 .transactions {
   font-size: 14px;
-  color: #6b7280;
-  margin-top: 2px;
+  color: var(--grey-label);
+  margin-top: 5px;
   font-size: 20px;
   margin-left: 19px;
 }
 
 .coming-soon {
-  background: #e5e7eb;
-  color: #6b7280;
+  background: var(--swiper-background);
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+  color: var(--secondary-color);
+
+}
+
+.hint-network {
+    background: var(--swiper-background);
   font-size: 10px;
   padding: 2px 5px;
   border-radius: 4px;
   margin-left: 4px;
 }
 
-.swap-card {
- 
-}
-
 .swap-box {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 19px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   text-align: left;
 }
 
 .swap-label {
-  font-size: 13px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  color: var(--grey-label)
 }
 
 .username {
   margin-left: 5px;
-  color: #4b5563;
+  color: var(--black);
 }
 
 .balance {
-  font-size: 12px;
-  color: #6b7280;
+  font-size: 13px;
+  color: var(--grey-label);
   margin-left: auto; /* This will push it to the right */
   padding-left: 10px;
 }
@@ -81,53 +87,40 @@
   font-weight: bold;
 }
 
-/* .swap-icon {
-  background: black;
-  color: white;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px auto;
-} */
+.swap-card {
+  position: relative; /* allow absolute positioning inside */
+ 
+}
 
 .swap-icon {
-  background: #f3f4f6;
-  color: #4b5563;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  position: absolute;
+  top: 50%; /* middle of the container */
+  left: 50%;
+  transform: translate(-50%, -50%); /* center the icon */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px auto;
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid #e5e7eb;
-}
-
-.swap-icon:hover {
-  background: #e5e7eb;
-  transform: rotate(180deg);
-}
-
-.swap-icon:active {
-  transform: scale(0.95) rotate(180deg);
+  z-index: 1; /* stay above boxes */
 }
 
 .connect-wallet {
-  color: #3b82f6;
+  color: var(--secondary-color);
   cursor: pointer;
   margin-left: 10px;
+}
+
+.connect-wallet:hover {
+  color: #6A46D1
 }
 
 .info-text {
   background: #f9fafb;
   padding: 15px;
   font-size: 12px;
-  color: #6b7280;
+  color: var(--grey-label);
   border-radius: 6px;
   margin-top: 20px;
   line-height: 19px;
@@ -136,7 +129,7 @@
 
 .connect-btn {
   margin-top: 25px;
-  background: #a78bfa;
+  color: var(--secondary-color);
   color: white;
   border: none;
   padding: 10px;
@@ -146,6 +139,40 @@
   width: 100%;
 }
 
-.connect-btn:hover {
-  background: #8b5cf6;
+.connect-btn:disabled {
+  background: #C2B8E6;
+}
+
+.tonomy-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+}
+
+
+@media only screen and (min-width: 325px) and (max-width: 767px)
+{
+.swap-container {
+   width: 100%; /* Center the grid on smaller screens */
+  }
+}
+
+@media only screen and (max-width: 767px) {
+ .swap-container {
+   width: 100%; /* Center the grid on smaller screens */
+  }
+  
+}
+
+@media only screen and (max-width: 325px) {
+  .swap-container {
+   width: 100%; /* Center the grid on smaller screens */
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1280px)
+{
+.swap-container {
+   width: 50%; /* Center the grid on smaller screens */
+  }
 }

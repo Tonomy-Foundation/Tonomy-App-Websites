@@ -14,8 +14,11 @@ export default function Home() {
   const { signin } = useContext(AuthContext);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
+// const {isConnected, address, } = useAccount();
 
-  async function onRender() {
+
+// console.log("isConnected", isConnected, "address", address);
+async function onRender() {
     try {
       const user = await ExternalUser.getUser({ autoLogout: false });
 
@@ -116,6 +119,7 @@ export default function Home() {
   return (
     <div className="services-container">
       <div className="services-intro-head">
+        {/* <w3m-button /> */}
         <h2>Your Tonomy apps, all in one place</h2>
         <p className="intro-subtext">
           Access all your Tonomy apps in one hub. Manage tokens, explore the

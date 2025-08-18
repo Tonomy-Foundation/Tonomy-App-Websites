@@ -22,6 +22,7 @@ export default function RootRoutes() {
           <Route path="/callback" element={<Callback />} />
 
           {/* Bankless App Routes */}
+
           <Route
             path="/bankless/*"
             element={
@@ -30,6 +31,7 @@ export default function RootRoutes() {
               </MainLayout>
             }
           />
+
         </Routes>
       </AuthProvider>
     </Router>

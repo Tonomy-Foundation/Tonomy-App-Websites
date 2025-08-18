@@ -43,7 +43,7 @@
 .tonomy-time-container {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between time and icon */
+  gap: 9px; /* Space between time and icon */
 }
 
 .tonomy-time {
@@ -51,6 +51,7 @@
   font-weight: bold;
   color: #333333;
   cursor: pointer;
+  margin-left:10px
 }
 
 .tonomy-arrow-icon {
