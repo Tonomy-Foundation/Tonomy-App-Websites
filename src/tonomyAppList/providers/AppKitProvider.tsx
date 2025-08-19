@@ -1,7 +1,7 @@
 import { createAppKit } from "@reown/appkit/react";
 
 import { WagmiProvider } from "wagmi";
-import { arbitrum, mainnet } from "@reown/appkit/networks";
+import {  mainnet } from "@reown/appkit/networks";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import type { AppKitNetwork } from "@reown/appkit/networks";
@@ -14,14 +14,14 @@ export const projectId = "f135f7b84ac6c1dc606062a5bd7ed8dd"; // this is a public
 
 // 2. Create a metadata object - optional
 const metadata = {
-  name: "AppKit",
-  description: "AppKit Example",
-  url: "http://192.168.28.249:3003", // origin must match your domain & subdomain
+  name: "Tonomy Swap",
+  description: "Swap your Tonomy coins quickly and securely",
+  url: "https://e05a7636121d.ngrok-free.app", // origin must match your domain & subdomain
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 };
 
 // 3. Set the networks
-export const networks = [mainnet, arbitrum] as [
+export const networks = [mainnet] as [
   AppKitNetwork,
   ...AppKitNetwork[],
 ];

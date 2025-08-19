@@ -4,19 +4,21 @@ import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../providers/AuthProvider";
-import HyphaDAO from "../assets/hypha-dao.svg";
 import FiddleArt from "../assets/fiddle-art.svg";
 import Share from "../assets/share.svg";
 import TImage from "../../common/atoms/TImage";
 import settings from "../../common/settings";
+import GOVPlusIcon from "../assets/appSwitcherIcons/gov+.png";
+import DAOIcon from "../assets/appSwitcherIcons/DAO.png";
+import BuildIcon from "../assets/appSwitcherIcons/Build.png";
+import BanklessIcon from "../assets/appSwitcherIcons/Bankless.png";
+import DemoIcon from "../assets/appSwitcherIcons/demo.png";
 
 export default function Home() {
   const { signin } = useContext(AuthContext);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
-  // const {isConnected, address, } = useAccount();
 
-  // console.log("isConnected", isConnected, "address", address);
   async function onRender() {
     try {
       const user = await ExternalUser.getUser({ autoLogout: false });
@@ -51,26 +53,10 @@ export default function Home() {
       url: "https://hypha.earth",
       description:
         "A decentralized platform empowering communities to collaborate, govern, and grow together seamlessly",
-      logo: HyphaDAO,
+      logo: DAOIcon,
       icon: Share,
     },
-    {
-      name: "Fiddle Art",
-      url: "https://tonomy.io",
-      description:
-        "A vibrant creative platform where artists showcase their work, connect with others, and collaborate globally",
-      logo: FiddleArt,
-      icon: Share,
-    },
-    {
-      name: "Demo website",
-      url: settings.config.demoWebsiteOrigin,
-      description:
-        "Search, view, and track your Tonomy Blockchain transactions and activities in real-time",
-      logo: FiddleArt,
-      icon: Share,
-    },
-    {
+     {
       name: "Tonomy Block Explorer",
       url: settings.config.blockExplorerUrl,
       description:
@@ -79,11 +65,19 @@ export default function Home() {
       icon: Share,
     },
     {
+      name: "Demo website",
+      url: settings.config.demoWebsiteOrigin,
+      description:
+        "Search, view, and track your Tonomy Blockchain transactions and activities in real-time",
+      logo: DemoIcon,
+      icon: Share,
+    },
+    {
       name: "Tonomy Bankless",
       url: settings.config.tonomyAppsOrigin,
       description:
         "Manage your TONO tokens as easily as any neo-banking application. Full control without compromise",
-      logo: FiddleArt,
+      logo: BanklessIcon,
       icon: Share,
     },
   ];
@@ -94,7 +88,7 @@ export default function Home() {
       url: "https://tonomy.io",
       description:
         "Incorporate businesses and manage employee access and controls. Fully decentralised",
-      logo: FiddleArt,
+      logo: DAOIcon,
       icon: Share,
     },
     {
@@ -102,7 +96,7 @@ export default function Home() {
       url: "https://tonomy.io",
       description:
         "Participate actively in the liquid democracy governance and help shape the future of the Tonomy ecosystem",
-      logo: FiddleArt,
+      logo: GOVPlusIcon,
       icon: Share,
     },
     {
@@ -110,7 +104,7 @@ export default function Home() {
       url: "https://tonomy.io",
       description:
         "Build anything with our Low-Code/No-Code suite, empowering next-generation secure and seamless app development",
-      logo: FiddleArt,
+      logo: BuildIcon,
       icon: Share,
     },
   ];
@@ -118,7 +112,6 @@ export default function Home() {
   return (
     <div className="services-container">
       <div className="services-intro-head">
-        {/* <w3m-button /> */}
         <h2>Your Tonomy apps, all in one place</h2>
         <p className="intro-subtext">
           Access all your Tonomy apps in one hub. Manage tokens, explore the

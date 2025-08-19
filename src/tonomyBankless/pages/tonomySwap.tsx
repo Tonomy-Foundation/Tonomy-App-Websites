@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useAppKit } from "@reown/appkit/react";
 import SwapIcon from "../assets/icons/swap-icon.png";
 import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
 import "./TonomySwap.css";
+import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -15,10 +16,28 @@ export default function Swap() {
   const [currentDirection, setCurrentDirection] = useState(
     SwapDirection.TONOMY_TO_BASE,
   );
-  const { isConnected } = useAccount();
+  const { user } = useContext(AuthContext);
+    const [username, setUsername] = React.useState<string>("");
+  
+  const { isConnected, address } = useAccount();
+  console.log("account" , address)
   const { open } = useAppKit();
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
+
+    useEffect(() => {
+      async function authentication() {
+        try {
+         
+          const username = await user?.getUsername();
+          if (!username) throw new Error("No username found");
+          setUsername(username.getBaseUsername());
+        } catch (e) {
+          console.log("e", e);
+        }
+      }
+      authentication();
+    }, []);
 
   const handleSwap = () => {
     const newDirection =
@@ -51,6 +70,11 @@ export default function Swap() {
       : "Enter Amount"
     : "Connect Wallet";
 
+    const formatAddress = (address) => {
+  return `${address.substring(0, 5)}....${address.substring(address.length - 5)}`;
+};
+
+
   const renderSwapBox = (isFromBox) => {
     const isTonomyToBase = currentDirection === SwapDirection.TONOMY_TO_BASE;
     const isFromTonomy =
@@ -69,16 +93,18 @@ export default function Swap() {
           </span>
           {isFromTonomy ? (
             <>
-              From Tonomy <span className="username">@miles-brown</span>
+              From Tonomy <span className="username">@{username}</span>
               <span className="balance">10.0000 $TONO</span>
             </>
           ) : (
             <>
               To Base{" "}
-              {isConnectWalletNeeded && (
+              {isConnectWalletNeeded? (
                 <span className="connect-wallet" onClick={() => open()}>
                   Connect Wallet ›
                 </span>
+              ) : (
+                <span className="username">{formatAddress(address)}</span>
               )}
             </>
           )}
@@ -134,3 +160,4 @@ export default function Swap() {
     </div>
   );
 }
+

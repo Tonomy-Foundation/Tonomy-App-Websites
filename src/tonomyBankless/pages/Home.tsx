@@ -5,7 +5,7 @@ import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import BanklessLogo from "../assets/bankless-logo.png";
 
 export default function Home() {
@@ -47,7 +47,7 @@ export default function Home() {
 
   async function onButtonPress() {
     ExternalUser.loginWithTonomy({
-      callbackPath: "/callback?page=bankless&",
+      callbackPath: "/callback?page=bankless",
       dataRequest: { username: true },
     });
   }

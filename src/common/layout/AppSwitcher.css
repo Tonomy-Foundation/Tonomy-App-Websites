@@ -1,0 +1,39 @@
+.app-switcher {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 20px 10px 20px 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 300px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.app-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 10px;
+      text-decoration: none;
+
+}
+
+.app-item:hover {
+  background: var(--gray-100);
+  transform: translateY(-2px);
+}
+
+.app-icon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
+
+.app-label {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--black);
+}

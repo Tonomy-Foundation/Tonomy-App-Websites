@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TonomyBanklessLogo from "../../tonomyAppList/assets/tonomy-bankless.png";
 import "./TopMenuBar.css";
@@ -6,10 +6,13 @@ import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
+import AppSwitcher from "./AppSwitcher";
 
 const TopMenuBar = ({ page }) => {
   const { user, signout, signin } = useContext(AuthContext);
-  const [username, setUsername] = React.useState<string>("");
+  const [username, setUsername] = useState<string>("");
+    const [showSwitcher, setShowSwitcher] = useState(false);
+
   console.log("pagename", page);
   useEffect(() => {
     async function authentication() {
@@ -82,26 +85,31 @@ const TopMenuBar = ({ page }) => {
         <h1 className="tonomy-main-title">Tonomy Bankless</h1>
       </div>
       <div className="tonomy-time-container">
-        <img
-          src={AppSwitcherIcon}
-          alt="Tonomy Logo"
-          className="tonomy-logo"
-          width={18}
-          height={18}
-        />
+        <div className="switcher-container">
+    <img
+      src={AppSwitcherIcon}
+      alt="App Switcher"
+      className="tonomy-logo cursor-pointer"
+      width={18}
+      height={18}
+      onClick={() => setShowSwitcher(!showSwitcher)}
+    />
+    {showSwitcher && <AppSwitcher />}
+  </div>
+
         {user ? (
           <>
             <span className="tonomy-time" onClick={handleLogout}>
               {username}
             </span>
-            <LogoutIcon className="tonomy-arrow-icon" />
+            <LogoutIcon className="tonomy-arrow-icon cursor-pointer" />
           </>
         ) : (
           <>
             <span className="tonomy-time" onClick={() => onButtonPress()}>
               Login
             </span>
-            <ArrowForwardIcon className="tonomy-arrow-icon" />
+            <ArrowForwardIcon className="tonomy-arrow-icon cursor-pointer" />
           </>
         )}
       </div>
