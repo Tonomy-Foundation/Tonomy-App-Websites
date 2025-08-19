@@ -11,7 +11,6 @@ export default function BanklessRoutes() {
     <AppKitProvider>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route path="/swap" element={<TonomySwap />} />
 
         {mainRoutes.map((route) => (
           <Route
