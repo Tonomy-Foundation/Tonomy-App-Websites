@@ -21,7 +21,7 @@
   "ssoWebsiteOrigin": "https://accounts.tonomy.io",
   "blockchainUrl": "https://blockchain-api.tonomy.io",
       "demoWebsiteOrigin": "https://demo.tonomy.io",
-  "tonomyAppsOrigin": "https://bankless.tonomy.io",
+  "tonomyAppsOrigin": "https://apps.tonomy.io",
   "loggerLevel": "error",
   "blockExplorerUrl": "https://explorer.tonomy.io",
   "documentationLink": "https://docs.tonomy.io",
