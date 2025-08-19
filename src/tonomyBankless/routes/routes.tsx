@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
-import TonomySwap from "../pages/tonomySwap";
 import { AppKitProvider } from "../../tonomyAppList/providers/AppKitProvider";
 
 export default function BanklessRoutes() {
