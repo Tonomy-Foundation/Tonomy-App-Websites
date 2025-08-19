@@ -6,6 +6,8 @@ import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
 import "./TonomySwap.css";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
+import { EosioTokenContract } from "@tonomy/tonomy-id-sdk";
+import Decimal from "decimal.js";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -17,27 +19,33 @@ export default function Swap() {
     SwapDirection.TONOMY_TO_BASE,
   );
   const { user } = useContext(AuthContext);
-    const [username, setUsername] = React.useState<string>("");
-  
+  const [username, setUsername] = React.useState<string>("");
+  const [availableBalance, setAvailableBalance] = useState<Decimal>(
+    new Decimal(0),
+  );
   const { isConnected, address } = useAccount();
-  console.log("account" , address)
   const { open } = useAppKit();
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
+  const [isBalanceSufficient, setIsBalanceSufficient] = useState(true);
 
-    useEffect(() => {
-      async function authentication() {
-        try {
-         
-          const username = await user?.getUsername();
-          if (!username) throw new Error("No username found");
-          setUsername(username.getBaseUsername());
-        } catch (e) {
-          console.log("e", e);
-        }
+  useEffect(() => {
+    async function authentication() {
+      try {
+        const username = await user?.getUsername();
+        if (!username) throw new Error("No username found");
+        setUsername(username.getBaseUsername());
+        const accountName = await user?.getAccountName();
+        if (!accountName) throw new Error("No account name found");
+        const balance =
+          await EosioTokenContract.Instance.getBalanceDecimal(accountName);
+        setAvailableBalance(balance);
+      } catch (e) {
+        console.log("e", e);
       }
-      authentication();
-    }, []);
+    }
+    authentication();
+  }, []);
 
   const handleSwap = () => {
     const newDirection =
@@ -50,10 +58,17 @@ export default function Swap() {
     setToAmount(temp);
   };
 
-  const handleAmountChange = (e) => {
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setFromAmount(value);
     setToAmount(value);
+
+    // Check if value is numeric and > availableBalance
+    if (new Decimal(value || 0).greaterThan(availableBalance)) {
+      setIsBalanceSufficient(false);
+    } else {
+      setIsBalanceSufficient(true);
+    }
   };
 
   const handleSwapAction = () => {
@@ -70,10 +85,9 @@ export default function Swap() {
       : "Enter Amount"
     : "Connect Wallet";
 
-    const formatAddress = (address) => {
-  return `${address.substring(0, 5)}....${address.substring(address.length - 5)}`;
-};
-
+  const formatAddress = (address) => {
+    return `${address.substring(0, 5)}....${address.substring(address.length - 5)}`;
+  };
 
   const renderSwapBox = (isFromBox) => {
     const isTonomyToBase = currentDirection === SwapDirection.TONOMY_TO_BASE;
@@ -94,12 +108,14 @@ export default function Swap() {
           {isFromTonomy ? (
             <>
               From Tonomy <span className="username">@{username}</span>
-              <span className="balance">10.0000 $TONO</span>
+              <span className="balance">
+                {availableBalance.toString()} $TONO
+              </span>
             </>
           ) : (
             <>
               To Base{" "}
-              {isConnectWalletNeeded? (
+              {isConnectWalletNeeded ? (
                 <span className="connect-wallet" onClick={() => open()}>
                   Connect Wallet ›
                 </span>
@@ -143,6 +159,9 @@ export default function Swap() {
         </div>
         <div className="swap-box">{renderSwapBox(false)}</div>
       </div>
+      {!isBalanceSufficient && (
+        <p className="error-text">Insufficient balance</p>
+      )}
 
       <p className="info-text">
         Send $TONO from Tonomy to Base. Connect your Base wallet, choose the
@@ -152,7 +171,9 @@ export default function Swap() {
 
       <button
         className="connect-btn"
-        disabled={!isConnected || !fromAmount || !toAmount}
+        disabled={
+          !isConnected || !fromAmount || !toAmount || !isBalanceSufficient
+        }
         onClick={handleSwapAction}
       >
         {buttonText}
@@ -160,4 +181,3 @@ export default function Swap() {
     </div>
   );
 }
-

@@ -56,7 +56,7 @@ export default function Home() {
       logo: DAOIcon,
       icon: Share,
     },
-     {
+    {
       name: "Tonomy Block Explorer",
       url: settings.config.blockExplorerUrl,
       description:

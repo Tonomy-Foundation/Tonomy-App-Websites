@@ -93,7 +93,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
                 "--main-blue-gradient": "#67d7ed",
                 "--grey-label": "#6b7280",
                 "--secondary-color": "#5833BC",
-                "--hover-color": "#1A1A1A"
+                "--hover-color": "#1A1A1A",
               },
               body: {
                 backgroundColor: "var(--app-background)",

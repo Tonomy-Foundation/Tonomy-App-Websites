@@ -11,7 +11,7 @@ import AppSwitcher from "./AppSwitcher";
 const TopMenuBar = ({ page }) => {
   const { user, signout, signin } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
-    const [showSwitcher, setShowSwitcher] = useState(false);
+  const [showSwitcher, setShowSwitcher] = useState(false);
 
   console.log("pagename", page);
   useEffect(() => {
@@ -86,16 +86,16 @@ const TopMenuBar = ({ page }) => {
       </div>
       <div className="tonomy-time-container">
         <div className="switcher-container">
-    <img
-      src={AppSwitcherIcon}
-      alt="App Switcher"
-      className="tonomy-logo cursor-pointer"
-      width={18}
-      height={18}
-      onClick={() => setShowSwitcher(!showSwitcher)}
-    />
-    {showSwitcher && <AppSwitcher />}
-  </div>
+          <img
+            src={AppSwitcherIcon}
+            alt="App Switcher"
+            className="tonomy-logo cursor-pointer"
+            width={18}
+            height={18}
+            onClick={() => setShowSwitcher(!showSwitcher)}
+          />
+          {showSwitcher && <AppSwitcher />}
+        </div>
 
         {user ? (
           <>
