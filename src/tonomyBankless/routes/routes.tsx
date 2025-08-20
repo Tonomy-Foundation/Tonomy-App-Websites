@@ -1,15 +1,16 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import AuthProvider from "../providers/AuthProvider";
 import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
+import { AppKitProvider } from "../../tonomyAppList/providers/AppKitProvider";
 
 export default function BanklessRoutes() {
   return (
-    <AuthProvider>
+    <AppKitProvider>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
+
         {mainRoutes.map((route) => (
           <Route
             key={route.path}
@@ -18,6 +19,6 @@ export default function BanklessRoutes() {
           />
         ))}
       </Routes>
-    </AuthProvider>
+    </AppKitProvider>
   );
 }

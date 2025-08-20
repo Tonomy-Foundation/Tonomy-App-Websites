@@ -21,6 +21,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signout = async (page?: string) => {
     await user?.logout();
+
     if (page) navigation("/" + page);
     else navigation("/");
   };

@@ -1,9 +1,21 @@
-/* In your CSS file */
+.switcher-container {
+  position: relative; /* keeps dropdown tied to the icon */
+  display: inline-block;
+}
+
+.switcher-container .app-switcher {
+  position: absolute;
+  top: 30px;   /* dropdown appears below the icon */
+  right: 0;    /* align to right edge of icon */
+  z-index: 2000;
+}
+
 .tonomy-bankless-container {
   flex: 1;
   display: flex;
   justify-content: center; /* Horizontal centering */
   align-items: center;     /* Vertical centering */
+  background-color: var(--white);
 }
 .tonomy-header {
   display: flex;
@@ -42,7 +54,7 @@
 .tonomy-time-container {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between time and icon */
+  gap: 9px; /* Space between time and icon */
 }
 
 .tonomy-time {
@@ -50,11 +62,20 @@
   font-weight: bold;
   color: #333333;
   cursor: pointer;
+  margin-left:10px
 }
 
 .tonomy-arrow-icon {
   color: #333333; /* Match the text color */
   font-size: 20px; /* Adjust size as needed */
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-pointer:hover {
+  background-color: var(--gray-100);
 }
 
 @media only screen and (min-width: 325px) and (max-width: 767px)

@@ -20,7 +20,7 @@
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-    "tonomyAppsOrigin": "http://bankless.localhost:5174",
+    "tonomyAppsOrigin": "http://apps.localhost:5174",
     "demoWebsiteOrigin": "http://demo.localhost:5174",
     "loggerLevel": "debug",
     "blockExplorerUrl": "https://local.bloks.io",
