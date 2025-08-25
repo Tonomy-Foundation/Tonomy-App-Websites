@@ -89,11 +89,16 @@
   .tonomy-header {
     padding: 9px 1rem; /* Adjust padding for smaller screens */
   }
-  
+  .switcher-container .app-switcher {
+    right:-85px;
+  }
 }
 
 @media only screen and (max-width: 325px) {
   .tonomy-header {
     padding: 9px 1rem; /* Further adjust padding for smaller screens */
+  }
+  .switcher-container .app-switcher {
+    right:-20px
   }
 }

@@ -7,6 +7,7 @@
   max-width: 1500px;
   margin: 0 auto;
   padding: 20px;
+  margin-bottom: 5rem;
 }
 
 .services-intro {
@@ -57,9 +58,8 @@
 }
 
 .card-content {
- 
   height: 100%;
-  padding: 16px;
+  padding: 17px;
   border-radius: 8px;
   border: 1px solid #D2DDEC
 }
@@ -82,19 +82,24 @@
 .service-logo {
   max-height: 80px;
   object-fit: contain;
+  width: 58px;
 }
 
 .service-name {
   font-size: 16px;
   font-weight: 500;
-  margin: 8px 0;
+  margin: 8px 10px;
 }
 
 .service-description {
   font-size: 14px;
   color: #6E84A3;
-  margin: 0;
+  margin: 0px 10px;
   line-height: 19px;
+}
+
+.more-services .card-content {
+  padding-top: 30px;
 }
 
 @media only screen and (min-width: 325px) and (max-width: 767px)

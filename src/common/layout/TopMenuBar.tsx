@@ -72,30 +72,46 @@ const TopMenuBar = ({ page }) => {
     });
   }
 
+  function shouldShowAppSwitch(url) {
+    const urlObj = new URL(url);
+    const path = urlObj.pathname;
+
+    // Don't show if path is empty, just "/", or only contains query/hash
+    return path !== "" && path !== "/";
+  }
+
   return (
     <div className="tonomy-header">
       <div className="tonomy-title">
-        <img
-          src={TonomyBanklessLogo}
-          alt="Tonomy Logo"
-          className="tonomy-logo"
-          width={25}
-          height={25}
-        />
-        <h1 className="tonomy-main-title">Tonomy Bankless</h1>
+        <a
+          href={window.location.origin}
+          className="tonomy-title"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <img
+            src={TonomyBanklessLogo}
+            alt="Tonomy Logo"
+            className="tonomy-logo"
+            width={25}
+            height={25}
+          />
+          <h1 className="tonomy-main-title">Tonomy Bankless</h1>
+        </a>
       </div>
       <div className="tonomy-time-container">
-        <div className="switcher-container">
-          <img
-            src={AppSwitcherIcon}
-            alt="App Switcher"
-            className="tonomy-logo cursor-pointer"
-            width={18}
-            height={18}
-            onClick={() => setShowSwitcher(!showSwitcher)}
-          />
-          {showSwitcher && <AppSwitcher />}
-        </div>
+        {shouldShowAppSwitch(window.location.href) && (
+          <div className="switcher-container">
+            <img
+              src={AppSwitcherIcon}
+              alt="App Switcher"
+              className="tonomy-logo cursor-pointer"
+              width={18}
+              height={18}
+              onClick={() => setShowSwitcher(!showSwitcher)}
+            />
+            {showSwitcher && <AppSwitcher />}
+          </div>
+        )}
 
         {user ? (
           <>
