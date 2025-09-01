@@ -74,6 +74,7 @@ export default function Home() {
         "Manage your TONO tokens as easily as any neo-banking application. Full control without compromise",
       logo: BanklessIcon,
       icon: Share,
+      noredirect: true,
     },
 
     {
@@ -156,7 +157,7 @@ export default function Home() {
               <a
                 href={`${service.url}`}
                 className="service-link"
-                target={"_blank"}
+                target={service.noredirect ? "_self" : "_blank"}
                 rel="noopener noreferrer"
               >
                 <span className="service-url">{service.url}</span>

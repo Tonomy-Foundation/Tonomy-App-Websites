@@ -10,13 +10,13 @@ import type { AppKitNetwork } from "@reown/appkit/networks";
 const queryClient = new QueryClient();
 
 // 1. Get projectId from https://dashboard.reown.com
-export const projectId = "f135f7b84ac6c1dc606062a5bd7ed8dd"; // this is a public projectId only to use on localhost
+export const projectId = "2850896ad9cf6c1d958203b00b199c2d"; // this is a public projectId only to use on localhost
 
 // 2. Create a metadata object - optional
 const metadata = {
   name: "Tonomy Swap",
   description: "Swap your Tonomy coins quickly and securely",
-  url: "https://e05a7636121d.ngrok-free.app", // origin must match your domain & subdomain
+  url: "https://778614e3cce1.ngrok-free.app", // origin must match your domain & subdomain
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 };
 

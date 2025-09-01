@@ -16,6 +16,7 @@ export default function Callback() {
   const { signin } = useContext(AuthContext);
   const url = new URL(window.location.href);
   const page = url.searchParams.get("page") || undefined;
+  console.log("page", page);
   useEffect(() => {
     verifyLogin();
   }, []);
