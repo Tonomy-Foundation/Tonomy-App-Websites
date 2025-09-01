@@ -51,11 +51,7 @@ try {
 
       developersConsole(root);
     });
-  } else if (
-    parseInt(window.location.port) === 3003 ||
-    window.origin === "https://55bf6c5471db.ngrok-free.app" ||
-    subdomain === "bankless"
-  ) {
+  } else if (parseInt(window.location.port) === 3003 || subdomain === "apps") {
     import("./tonomyAppList/module-index.js").then((module) => {
       module.default(root);
     });

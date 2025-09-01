@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import TonomyBanklessLogo from "../../tonomyAppList/assets/tonomy-bankless.png";
+import TonomyLogo from "../../tonomyAppList/assets/appSwitcherIcons/tonomy.png";
 import "./TopMenuBar.css";
 import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
 import AppSwitcher from "./AppSwitcher";
 
 const TopMenuBar = ({ page }) => {
-  const { user, signout, signin } = useContext(AuthContext);
+  const { signout, signin } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
   const [showSwitcher, setShowSwitcher] = useState(false);
+  const [open, setOpen] = useState(false);
 
   console.log("pagename", page);
   useEffect(() => {
@@ -32,36 +35,12 @@ const TopMenuBar = ({ page }) => {
       }
     }
     authentication();
-  }, [user, page]); // watch for changes
+  }, []); // watch for changes
 
   function handleLogout() {
-    signout(page);
-    setUsername(""); // clear local state so UI updates instantly
+    signout();
+    setUsername("");
   }
-
-  // async function onRender() {
-  //   try {
-  //     const username = await user?.getUsername();
-
-  //     if (username) {
-  //       setUsername(username.getBaseUsername());
-  //     }
-  //   } catch (e) {
-  //     console.error("error", e);
-  //   }
-  // }
-
-  // let rendered = false;
-
-  // useEffect(() => {
-  //   if (!rendered) {
-  //     rendered = true;
-  //   } else {
-  //     return;
-  //   }
-
-  //   onRender();
-  // }, []);
 
   async function onButtonPress() {
     let callback = "/callback";
@@ -72,44 +51,76 @@ const TopMenuBar = ({ page }) => {
     });
   }
 
+  function shouldShowAppSwitch(url) {
+    const urlObj = new URL(url);
+    const path = urlObj.pathname;
+
+    // Don't show if path is empty, just "/", or only contains query/hash
+    return path !== "" && path !== "/";
+  }
+
   return (
     <div className="tonomy-header">
       <div className="tonomy-title">
-        <img
-          src={TonomyBanklessLogo}
-          alt="Tonomy Logo"
-          className="tonomy-logo"
-          width={25}
-          height={25}
-        />
-        <h1 className="tonomy-main-title">Tonomy Bankless</h1>
+        <a
+          href={window.location.origin}
+          className="tonomy-title"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <img
+            src={TonomyLogo}
+            alt="Tonomy Logo"
+            className="tonomy-logo"
+            width={37}
+            height={37}
+          />
+          <h1 className="tonomy-main-title">Tonomy</h1>
+        </a>
       </div>
       <div className="tonomy-time-container">
-        <div className="switcher-container">
-          <img
-            src={AppSwitcherIcon}
-            alt="App Switcher"
-            className="tonomy-logo cursor-pointer"
-            width={18}
-            height={18}
-            onClick={() => setShowSwitcher(!showSwitcher)}
-          />
-          {showSwitcher && <AppSwitcher />}
-        </div>
+        {shouldShowAppSwitch(window.location.href) && (
+          <div className="switcher-container">
+            <img
+              src={AppSwitcherIcon}
+              alt="App Switcher"
+              className="tonomy-logo cursor-pointer"
+              width={18}
+              height={18}
+              onClick={() => setShowSwitcher(!showSwitcher)}
+            />
+            {showSwitcher && <AppSwitcher />}
+          </div>
+        )}
 
-        {user ? (
-          <>
-            <span className="tonomy-time" onClick={handleLogout}>
-              {username}
-            </span>
-            <LogoutIcon className="tonomy-arrow-icon cursor-pointer" />
-          </>
+        {username ? (
+          <div className="dropdown">
+            {/* Trigger */}
+            <div className="dropdown-trigger" onClick={() => setOpen(!open)}>
+              <span className="username">@{username}</span>
+              {open ? (
+                <KeyboardArrowUpIcon className="arrow" />
+              ) : (
+                <KeyboardArrowDownIcon className="arrow" />
+              )}
+            </div>
+
+            {/* Dropdown menu */}
+            {open && (
+              <div className="dropdown-menu cursor-pointer">
+                <button className="dropdown-item" onClick={handleLogout}>
+                  Log out
+                  <LogoutIcon className="icon" />
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <>
-            <span className="tonomy-time" onClick={() => onButtonPress()}>
-              Login
-            </span>
-            <ArrowForwardIcon className="tonomy-arrow-icon cursor-pointer" />
+            <span className="tonomy-time">Login</span>
+            <ArrowForwardIcon
+              onClick={() => onButtonPress()}
+              className="tonomy-arrow-icon cursor-pointer"
+            />
           </>
         )}
       </div>

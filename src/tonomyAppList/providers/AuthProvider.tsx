@@ -28,6 +28,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signin = (user: ExternalUser, page?: string) => {
     setUser(user);
+    console.log("page in signin", page);
     if (page) navigation("/" + page);
     else navigation("/");
   };

@@ -35,7 +35,6 @@
 
 .tonomy-logo {
   display: inline-block;
-  /* Adjust size if needed - or use width/height attributes */
 }
 
 .tonomy-main-title {
@@ -78,6 +77,70 @@
   background-color: var(--gray-100);
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-trigger:hover {
+  background: #f5f5f5;
+}
+
+.username {
+  font-weight: 500;
+}
+
+.arrow {
+  font-size: 20px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 6px;
+  min-width: 140px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  background: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #f5f5f5;
+}
+
+.icon {
+  font-size: 15px !important;
+}
+
+
 @media only screen and (min-width: 325px) and (max-width: 767px)
 {
   .tonomy-header {
@@ -89,11 +152,16 @@
   .tonomy-header {
     padding: 9px 1rem; /* Adjust padding for smaller screens */
   }
-  
+  .switcher-container .app-switcher {
+    right:-85px;
+  }
 }
 
 @media only screen and (max-width: 325px) {
   .tonomy-header {
     padding: 9px 1rem; /* Further adjust padding for smaller screens */
+  }
+  .switcher-container .app-switcher {
+    right:-20px
   }
 }
