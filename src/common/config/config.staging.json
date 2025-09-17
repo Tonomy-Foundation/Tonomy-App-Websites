@@ -17,9 +17,12 @@
     },
     "accountSuffix": ".stag.tonomy.id",
     "tonomyIdSchema": "tonomy-id-staging://",
+
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "https://accounts.staging.tonomy.foundation",
+    "tonomyAppsOrigin": "https://apps.staging.tonomy.foundation",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
+    "demoWebsiteOrigin": "https://demo.staging.tonomy.foundation",
     "loggerLevel": "debug",
     "blockExplorerUrl": "https://local.bloks.io",
     "documentationLink": "https://docs.tonomy.foundation",

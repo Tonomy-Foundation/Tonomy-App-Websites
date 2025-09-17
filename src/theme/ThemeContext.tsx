@@ -91,6 +91,9 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
                 "--blue-gradient": "#8be1f1",
                 "--main-light-gradient": "#c1eef8",
                 "--main-blue-gradient": "#67d7ed",
+                "--grey-label": "#6b7280",
+                "--secondary-color": "#5833BC",
+                "--hover-color": "#1A1A1A",
               },
               body: {
                 backgroundColor: "var(--app-background)",

@@ -1,0 +1,47 @@
+import { createAppKit } from "@reown/appkit/react";
+
+import { WagmiProvider } from "wagmi";
+import { mainnet } from "@reown/appkit/networks";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import type { AppKitNetwork } from "@reown/appkit/networks";
+
+// 0. Setup queryClient
+const queryClient = new QueryClient();
+
+// 1. Get projectId from https://dashboard.reown.com
+export const projectId = "2850896ad9cf6c1d958203b00b199c2d"; // this is a public projectId only to use on localhost
+
+// 2. Create a metadata object - optional
+const metadata = {
+  name: "Tonomy Swap",
+  description: "Swap your Tonomy coins quickly and securely",
+  url: "https://778614e3cce1.ngrok-free.app", // origin must match your domain & subdomain
+  icons: ["https://avatars.githubusercontent.com/u/179229932"],
+};
+
+// 3. Set the networks
+export const networks = [mainnet] as [AppKitNetwork, ...AppKitNetwork[]];
+
+// 4. Create Wagmi Adapter
+const wagmiAdapter = new WagmiAdapter({
+  networks,
+  projectId,
+  ssr: true,
+});
+
+// 5. Create modal
+createAppKit({
+  adapters: [wagmiAdapter],
+  networks,
+  projectId,
+  metadata,
+});
+
+export function AppKitProvider({ children }) {
+  return (
+    <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </WagmiProvider>
+  );
+}

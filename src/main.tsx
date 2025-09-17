@@ -51,11 +51,15 @@ try {
 
       developersConsole(root);
     });
+  } else if (parseInt(window.location.port) === 3003 || subdomain === "apps") {
+    import("./tonomyAppList/module-index.js").then((module) => {
+      module.default(root);
+    });
   } else {
     throw new Error("Domain not supported");
   }
 
   if (!settings.isProduction()) runTests();
 } catch (e) {
-  console.error(e);
+  console.error("error", e);
 }
