@@ -61,7 +61,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
           (route) => `
         <url>
           <loc>${urlToUse}${route.path}</loc>
-        </url>`
+        </url>`,
         )
         .join("\n")}
   </urlset>

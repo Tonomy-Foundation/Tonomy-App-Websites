@@ -15,7 +15,7 @@ const appleAppSiteAssociation: {
   applinks: {
     details: [
       {
-        appIDs: [], 
+        appIDs: [],
         paths: ["/login/*"],
       },
     ],
@@ -29,7 +29,6 @@ const appleAppSiteAssociation: {
 };
 
 const tonomyAppId: string = `6BLD42QR78.foundation.tonomy.projects.${appId}`;
-
 
 appleAppSiteAssociation.applinks.details[0].appIDs.push(tonomyAppId);
 appleAppSiteAssociation.appclips.apps.push(tonomyAppId);
@@ -47,14 +46,16 @@ fs.writeFileSync(filePath, JSON.stringify(appleAppSiteAssociation, null, 2));
 console.log(`File written successfully to ${filePath}`);
 
 //Android Universal Link Setup
-const androidSiteAssociation = [{
-  relation: ["delegate_permission/common.handle_all_urls"],
-  target: {
-    namespace: "android_app",
-    package_name: `foundation.tonomy.projects.${appId}`,
-    sha256_cert_fingerprints: [sha256_cert_fingerprints],
+const androidSiteAssociation = [
+  {
+    relation: ["delegate_permission/common.handle_all_urls"],
+    target: {
+      namespace: "android_app",
+      package_name: `foundation.tonomy.projects.${appId}`,
+      sha256_cert_fingerprints: [sha256_cert_fingerprints],
+    },
   },
-}];
+];
 
 const androidDirectoryPath = path.join("public", ".well-known");
 const androidFilePath = path.join(directoryPath, "assetlinks.json");

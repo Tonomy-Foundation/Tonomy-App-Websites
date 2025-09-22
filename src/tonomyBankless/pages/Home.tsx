@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  AppsExternalUser,
+  isErrorCode,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
@@ -16,7 +20,7 @@ export default function Home() {
 
   async function onRender() {
     try {
-      const user = await ExternalUser.getUser({ autoLogout: false });
+      const user = await AppsExternalUser.getUser({ autoLogout: false });
 
       if (user) {
         signin(user, "bankless/swap");

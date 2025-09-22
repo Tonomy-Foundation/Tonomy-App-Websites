@@ -6,8 +6,13 @@ import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
 import "./TonomySwap.css";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
-import { EosioTokenContract } from "@tonomy/tonomy-id-sdk";
+import {
+  DemoTokenContract,
+  createSignedProofMessage,
+  AppsExternalUser
+} from "@tonomy/tonomy-id-sdk";
 import Decimal from "decimal.js";
+import TModal from "../../common/molecules/TModal";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -18,11 +23,11 @@ export default function Swap() {
   const [currentDirection, setCurrentDirection] = useState(
     SwapDirection.TONOMY_TO_BASE,
   );
+  const [swapModal, setSwapModal] = useState(false);
+
   const { user } = useContext(AuthContext);
   const [username, setUsername] = React.useState<string>("");
-  const [availableBalance, setAvailableBalance] = useState<Decimal>(
-    new Decimal(0),
-  );
+  const [availableBalance, setAvailableBalance] = useState<number>(0);
   const { isConnected, address } = useAccount();
   const { open } = useAppKit();
   const [fromAmount, setFromAmount] = useState("");
@@ -37,9 +42,9 @@ export default function Swap() {
         setUsername(username.getBaseUsername());
         const accountName = await user?.getAccountName();
         if (!accountName) throw new Error("No account name found");
-        const balance =
-          await EosioTokenContract.Instance.getBalanceDecimal(accountName);
-        setAvailableBalance(balance);
+        const demoTokenContract = await DemoTokenContract.atAccount();
+        const accountBalance = await demoTokenContract.getBalance(accountName);
+        setAvailableBalance(accountBalance);
       } catch (e) {
         console.log("e", e);
       }
@@ -71,11 +76,22 @@ export default function Swap() {
     }
   };
 
-  const handleSwapAction = () => {
+  const handleSwapAction = async () => {
     if (currentDirection === SwapDirection.TONOMY_TO_BASE) {
       console.log(`Swapping ${fromAmount} $TONO from Tonomy to Base`);
     } else {
       console.log(`Swapping ${fromAmount} $TONO from Base to Tonomy`);
+    }
+    if (buttonText === "Swap Assets") {
+      setSwapModal(true);
+      const signer = await AppsExternalUser.getIssuer();
+      const proof = await createSignedProofMessage(signer);
+
+      try {
+        await AppsExternalUser.swapToken(fromAmount, proof, "base", username);
+      } catch (error) {
+        console.log("e", error);
+      }
     }
   };
 
@@ -178,6 +194,19 @@ export default function Swap() {
       >
         {buttonText}
       </button>
+
+      <TModal
+        onPress={async () => {
+          setSwapModal(false);
+        }}
+        icon="block"
+        iconColor="warning"
+        title={"Confirm your swap"}
+        buttonLabel="Try again"
+        open={swapModal}
+      >
+        <></>
+      </TModal>
     </div>
   );
 }
