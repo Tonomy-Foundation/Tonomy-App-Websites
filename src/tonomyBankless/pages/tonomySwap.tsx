@@ -84,11 +84,13 @@ export default function Swap() {
     }
     if (buttonText === "Swap Assets") {
       setSwapModal(true);
-      const signer = await AppsExternalUser.getIssuer();
-      const proof = await createSignedProofMessage(signer);
+      if(!user) return;
+      const appUser = new AppsExternalUser(user);
+      const issuer = await appUser.getIssuer();
+      const proof = await createSignedProofMessage(issuer.signer as any);
 
       try {
-        await AppsExternalUser.swapToken(fromAmount, proof, "base", username);
+        await appUser.swapToken(new Decimal(fromAmount), proof, "base", username);
       } catch (error) {
         console.log("e", error);
       }

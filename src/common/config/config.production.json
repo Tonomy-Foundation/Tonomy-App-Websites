@@ -20,7 +20,7 @@
   "communicationUrl": "wss://communication.tonomy.io",
   "ssoWebsiteOrigin": "https://accounts.tonomy.io",
   "blockchainUrl": "https://blockchain-api.tonomy.io",
-      "demoWebsiteOrigin": "https://demo.tonomy.io",
+  "demoWebsiteOrigin": "https://demo.tonomy.io",
   "tonomyAppsOrigin": "https://apps.tonomy.io",
   "loggerLevel": "error",
   "blockExplorerUrl": "https://explorer.tonomy.io",
