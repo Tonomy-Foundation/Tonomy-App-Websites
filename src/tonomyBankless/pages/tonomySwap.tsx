@@ -12,7 +12,8 @@ import {
   AppsExternalUser
 } from "@tonomy/tonomy-id-sdk";
 import Decimal from "decimal.js";
-import TModal from "../../common/molecules/TModal";
+import TModal from "../../tonomyAppList/components/TModal";
+import CircularIcon from "../assets/icons/circular-arrow.png";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -23,8 +24,8 @@ export default function Swap() {
   const [currentDirection, setCurrentDirection] = useState(
     SwapDirection.TONOMY_TO_BASE,
   );
-  const [swapModal, setSwapModal] = useState(false);
-
+  const [swapModal, setSwapModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [username, setUsername] = React.useState<string>("");
   const [availableBalance, setAvailableBalance] = useState<number>(0);
@@ -77,13 +78,7 @@ export default function Swap() {
   };
 
   const handleSwapAction = async () => {
-    if (currentDirection === SwapDirection.TONOMY_TO_BASE) {
-      console.log(`Swapping ${fromAmount} $TONO from Tonomy to Base`);
-    } else {
-      console.log(`Swapping ${fromAmount} $TONO from Base to Tonomy`);
-    }
     if (buttonText === "Swap Assets") {
-      setSwapModal(true);
       if(!user) return;
       const appUser = new AppsExternalUser(user);
       const issuer = await appUser.getIssuer();
@@ -93,6 +88,10 @@ export default function Swap() {
         await appUser.swapToken(new Decimal(fromAmount), proof, "base", username);
       } catch (error) {
         console.log("e", error);
+      } finally {
+        setShowModal(false);
+        setFromAmount("");
+        setToAmount("");
       }
     }
   };
@@ -197,18 +196,36 @@ export default function Swap() {
         {buttonText}
       </button>
 
-      <TModal
-        onPress={async () => {
-          setSwapModal(false);
-        }}
-        icon="block"
-        iconColor="warning"
-        title={"Confirm your swap"}
-        buttonLabel="Try again"
-        open={swapModal}
-      >
-        <></>
-      </TModal>
+     <TModal
+      open={swapModal}
+      image={CircularIcon}
+      title="Confirm your swap"
+      description={`You're about to swap ${fromAmount} $TONO from Base Blockchain to Tononomy Blockchain.`}
+      cancelLabel="Cancel"
+      confirmLabel="Confirm Swap"
+      onCancel={() => setSwapModal(false)}
+      onConfirm={() => {
+        setSwapModal(false); 
+        setShowModal(true);
+      }}
+    >
+      {/* Add any modal content here if needed */}
+      <div></div>
+    </TModal>
+
+     <TModal
+      open={showModal}
+      image={CircularIcon}
+      title="Swap in progress"
+      description={`We’re swapping ${fromAmount} $TONO from Base to Tonomy.Your balance should change in your wallet shortly`}
+      confirmLabel="Return to Swap"
+      onCancel={() => setShowModal(false)}
+      onConfirm={handleSwap}
+    >
+      {/* Add any modal content here if needed */}
+      <div></div>
+    </TModal>
+
     </div>
   );
 }

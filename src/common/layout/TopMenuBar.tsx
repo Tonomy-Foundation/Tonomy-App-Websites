@@ -9,6 +9,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
 import AppSwitcher from "./AppSwitcher";
+import Debug from "debug";
+const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 const TopMenuBar = ({ page }) => {
   const { signout, signin } = useContext(AuthContext);
@@ -21,6 +23,7 @@ const TopMenuBar = ({ page }) => {
     async function authentication() {
       try {
         const externalUser = await ExternalUser.getUser({ autoLogout: false });
+        debug("externalUser", externalUser)
         if (externalUser) {
           signin(externalUser, page);
           const uname = await externalUser.getUsername();

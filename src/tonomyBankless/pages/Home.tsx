@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   AppsExternalUser,
+  ExternalUser,
   isErrorCode,
   SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
@@ -19,30 +20,31 @@ export default function Home() {
   const errorStore = useErrorStore();
 
   async function onRender() {
-    try {
-      const user = await AppsExternalUser.getUser({ autoLogout: false });
+    // try {
+    //   const user = await ExternalUser.getUser({ autoLogout: false });
+    //   console.log("useruser", user)
+    //   if (user) {
+    //     signin(user, "bankless/swap");
+    //   }
 
-      if (user) {
-        signin(user, "bankless/swap");
-      }
+    //   setLoading(false);
+    // } catch (e) {
+    //   if (
+    //     isErrorCode(e, [
+    //       SdkErrors.AccountNotFound,
+    //       SdkErrors.AccountDoesntExist,
+    //       SdkErrors.UserNotLoggedIn,
+    //     ])
+    //   ) {
+    //     // User not logged in
+    //     setLoading(false);
+    //     navigation("/bankless");
+    //     return;
+    //   }
 
-      setLoading(false);
-    } catch (e) {
-      if (
-        isErrorCode(e, [
-          SdkErrors.AccountNotFound,
-          SdkErrors.AccountDoesntExist,
-          SdkErrors.UserNotLoggedIn,
-        ])
-      ) {
-        // User not logged in
-        setLoading(false);
-        navigation("/bankless");
-        return;
-      }
-
-      errorStore.setError({ error: e, expected: false });
-    }
+    //   errorStore.setError({ error: e, expected: false });
+    // }
+     navigation("/bankless");
   }
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function Home() {
   }, []);
 
   async function onButtonPress() {
-    ExternalUser.loginWithTonomy({
+    AppsExternalUser.loginWithTonomy({
       callbackPath: "/callback?page=bankless",
       dataRequest: { username: true },
     });

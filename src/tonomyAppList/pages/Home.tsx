@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import {
   AppsExternalUser,
+  ExternalUser,
   isErrorCode,
   SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
@@ -29,27 +30,28 @@ export default function Home() {
   const errorStore = useErrorStore();
 
   async function onRender() {
-    try {
-      const user = await AppsExternalUser.getUser({ autoLogout: false });
+    navigation("/");
+    // try {
+    //   const user = await ExternalUser.getUser({ autoLogout: false });
 
-      if (user) {
-        signin(user);
-      }
-    } catch (e) {
-      if (
-        isErrorCode(e, [
-          SdkErrors.AccountNotFound,
-          SdkErrors.AccountDoesntExist,
-          SdkErrors.UserNotLoggedIn,
-        ])
-      ) {
-        // User not logged in
-        navigation("/");
-        return;
-      }
+    //   if (user) {
+    //     signin(user);
+    //   }
+    // } catch (e) {
+    //   if (
+    //     isErrorCode(e, [
+    //       SdkErrors.AccountNotFound,
+    //       SdkErrors.AccountDoesntExist,
+    //       SdkErrors.UserNotLoggedIn,
+    //     ])
+    //   ) {
+    //     // User not logged in
+    //     navigation("/");
+    //     return;
+    //   }
 
-      errorStore.setError({ error: e, expected: false });
-    }
+    //   errorStore.setError({ error: e, expected: false });
+    // }
   }
 
   useEffect(() => {
