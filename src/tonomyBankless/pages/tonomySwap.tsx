@@ -14,6 +14,7 @@ import {
 import Decimal from "decimal.js";
 import TModal from "../../tonomyAppList/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
+import InprogressIcon from "../assets/icons/inprogress.png";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -24,7 +25,7 @@ export default function Swap() {
   const [currentDirection, setCurrentDirection] = useState(
     SwapDirection.TONOMY_TO_BASE,
   );
-  const [swapModal, setSwapModal] = useState(true);
+  const [swapModal, setSwapModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [username, setUsername] = React.useState<string>("");
@@ -215,12 +216,13 @@ export default function Swap() {
 
      <TModal
       open={showModal}
-      image={CircularIcon}
+      image={InprogressIcon}
       title="Swap in progress"
       description={`We’re swapping ${fromAmount} $TONO from Base to Tonomy.Your balance should change in your wallet shortly`}
       confirmLabel="Return to Swap"
       onCancel={() => setShowModal(false)}
       onConfirm={handleSwap}
+      loading={true}
     >
       {/* Add any modal content here if needed */}
       <div></div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Modal, Button, Typography, ButtonBase } from "@mui/material";
 import IconClose from "../assets/icon-close.png";
 import TImage from "../../common/atoms/TImage";
+import { keyframes } from "@mui/system";
 
 export type ModalProps = React.ComponentProps<typeof Modal> & {
   onCancel: () => void;
@@ -13,6 +14,7 @@ export type ModalProps = React.ComponentProps<typeof Modal> & {
   confirmLabel?: string;
   cancelLabel?: string;
   open: boolean;
+  loading?:boolean;
 };
 
 const styles = {
@@ -41,7 +43,7 @@ const styles = {
     display: "flex",
     flexDirection: "column" as const,
     justifyContent: "space-between",
-    position: "relative" as const, // Added for proper positioning
+    position: "relative" as const, 
   },
   closeButton: {
     position: "absolute" as const,
@@ -81,7 +83,10 @@ const styles = {
     padding: "0px 5rem",
   },
 };
-
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+`;
 export default function TModal({
   open,
   onCancel,
@@ -92,12 +97,12 @@ export default function TModal({
   description,
   confirmLabel = "Confirm Swap",
   cancelLabel ,
+  loading
 }: ModalProps) {
   return (
     <Modal open={open} onClose={onCancel}>
       <Box sx={styles.overlay}>
         <Box sx={styles.modalBox}>
-          {/* Close button positioned absolutely at top-left */}
           <ButtonBase 
             onClick={onCancel}
             sx={styles.closeButton}
@@ -112,11 +117,24 @@ export default function TModal({
           
           <div>
             <div style={styles.imageWrapper}>
+              {
+                loading? 
+ <Box
+              component="img"
+              src={image}
+              alt={imageAlt}
+              sx={{ 
+                ...styles.image, 
+                animation: `${spin} 1s linear infinite`  
+              }} /> :
               <img 
                 src={image} 
                 alt={imageAlt} 
                 style={styles.image}
               />
+              }
+             
+              
             </div>
             <Typography sx={styles.title}>{title}</Typography>
             {description && (
