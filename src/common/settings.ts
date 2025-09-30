@@ -35,6 +35,8 @@ export type ConfigType = {
   communicationUrl: string;
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
+  demoWebsiteOrigin: string;
+  tonomyAppsOrigin: string;
   loggerLevel: "debug" | "error";
   blockExplorerUrl: string;
   documentationLink: string;
