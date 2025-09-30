@@ -37,8 +37,8 @@ export default function Swap() {
         setUsername(username.getBaseUsername());
         const accountName = await user?.getAccountName();
         if (!accountName) throw new Error("No account name found");
-        const balance =
-          await EosioTokenContract.Instance.getBalanceDecimal(accountName);
+        const eosioTokenContract = await EosioTokenContract.atAccount();
+        const balance = await eosioTokenContract.getBalanceDecimal(accountName);
         setAvailableBalance(balance);
       } catch (e) {
         console.log("e", e);
