@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   AppsExternalUser,
-  ExternalUser,
   isErrorCode,
   SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
@@ -28,7 +27,7 @@ export default function Callback() {
 
   async function verifyLogin() {
     try {
-      const user = await ExternalUser.verifyLoginResponse();
+      const user = await AppsExternalUser.verifyLoginResponse();
       console.log("user", user);
       if (user) {
         signin(user.user, page);
