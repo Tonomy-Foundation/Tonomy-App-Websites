@@ -7,14 +7,15 @@ import BaseIcon from "../assets/icons/base-icon.png";
 import "./TonomySwap.css";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import {
-  DemoTokenContract,
   createSignedProofMessage,
-  AppsExternalUser
+  AppsExternalUser,
+  EosioTokenContract
 } from "@tonomy/tonomy-id-sdk";
 import Decimal from "decimal.js";
 import TModal from "../../tonomyAppList/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
+import useErrorStore from "../../common/stores/errorStore";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -22,6 +23,7 @@ const SwapDirection = {
 };
 
 export default function Swap() {
+    const errorStore = useErrorStore();
   const [currentDirection, setCurrentDirection] = useState(
     SwapDirection.TONOMY_TO_BASE,
   );
@@ -29,12 +31,13 @@ export default function Swap() {
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [username, setUsername] = React.useState<string>("");
-  const [availableBalance, setAvailableBalance] = useState<number>(0);
+  const [availableBalance, setAvailableBalance] = useState<Decimal>(new Decimal(0));
   const { isConnected, address } = useAccount();
   const { open } = useAppKit();
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
   const [isBalanceSufficient, setIsBalanceSufficient] = useState(true);
+  const [error, setError] = useState<string|null>(null);
 
   useEffect(() => {
     async function authentication() {
@@ -44,8 +47,9 @@ export default function Swap() {
         setUsername(username.getBaseUsername());
         const accountName = await user?.getAccountName();
         if (!accountName) throw new Error("No account name found");
-        const demoTokenContract = await DemoTokenContract.atAccount();
-        const accountBalance = await demoTokenContract.getBalance(accountName);
+        const eosioTokenContract = await EosioTokenContract.atAccount();
+        const accountBalance = await eosioTokenContract.getBalanceDecimal(accountName);
+        console.log("accountBalance", accountBalance);
         setAvailableBalance(accountBalance);
       } catch (e) {
         console.log("e", e);
@@ -66,9 +70,16 @@ export default function Swap() {
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
     const value = e.target.value;
     setFromAmount(value);
     setToAmount(value);
+
+    const validRegex = /^[\d.]*$/;
+     if (!validRegex.test(value)) {
+      setError("Only numbers and decimal point allowed");
+      return;
+     }
 
     // Check if value is numeric and > availableBalance
     if (new Decimal(value || 0).greaterThan(availableBalance)) {
@@ -78,7 +89,7 @@ export default function Swap() {
     }
   };
 
-  const handleSwapAction = async () => {
+  const confirmSwapAsset = async () => {
     if (buttonText === "Swap Assets") {
       if(!user) return;
       const appUser = new AppsExternalUser(user);
@@ -86,9 +97,12 @@ export default function Swap() {
       const proof = await createSignedProofMessage(issuer.signer as any);
 
       try {
-        await appUser.swapToken(new Decimal(fromAmount), proof, "base", username);
+        let direction: "tonomy" | "base" = currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
+        await appUser.swapToken(new Decimal(toAmount), proof, direction, username);
+
       } catch (error) {
         console.log("e", error);
+        errorStore.setError({ error: error, expected: false });
       } finally {
         setShowModal(false);
         setFromAmount("");
@@ -145,7 +159,6 @@ export default function Swap() {
         </div>
         <div className="input-row">
           <input
-            type="number"
             placeholder="0.0"
             value={isFromBox ? fromAmount : toAmount}
             onChange={handleAmountChange}
@@ -180,6 +193,9 @@ export default function Swap() {
       {!isBalanceSufficient && (
         <p className="error-text">Insufficient balance</p>
       )}
+      {
+        error && <p className="error-text">{error}</p>
+      }
 
       <p className="info-text">
         Send $TONO from Tonomy to Base. Connect your Base wallet, choose the
@@ -192,7 +208,11 @@ export default function Swap() {
         disabled={
           !isConnected || !fromAmount || !toAmount || !isBalanceSufficient
         }
-        onClick={handleSwapAction}
+        onClick={() => {
+          if(buttonText === "Swap Assets") {
+            setSwapModal(true);
+          }
+        }}
       >
         {buttonText}
       </button>
@@ -221,7 +241,7 @@ export default function Swap() {
       description={`We’re swapping ${fromAmount} $TONO from Base to Tonomy.Your balance should change in your wallet shortly`}
       confirmLabel="Return to Swap"
       onCancel={() => setShowModal(false)}
-      onConfirm={handleSwap}
+      onConfirm={confirmSwapAsset}
       loading={true}
     >
       {/* Add any modal content here if needed */}
