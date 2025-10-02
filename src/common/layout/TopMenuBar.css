@@ -1,6 +1,7 @@
 .switcher-container {
   position: relative; /* keeps dropdown tied to the icon */
   display: inline-block;
+  margin-top: 10px;
 }
 
 .switcher-container .app-switcher {

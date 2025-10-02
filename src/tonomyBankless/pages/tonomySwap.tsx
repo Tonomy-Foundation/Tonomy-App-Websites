@@ -123,7 +123,7 @@ export default function Swap() {
         walletProvider as import("ethers").Eip1193Provider,
       );
       const signer = await ethersProvider.getSigner();
-      const proof = await createSignedProofMessage(signer as JsonRpcSigner);
+      const proof = await createSignedProofMessage(signer as JsonRpcSigner as any);
 
       try {
         const direction: "tonomy" | "base" =
