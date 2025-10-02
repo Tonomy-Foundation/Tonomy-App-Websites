@@ -12,7 +12,7 @@ if (!projectId) {
 export const metadata = {
   name: "AppKit",
   description: "AppKit Example",
-  url: "http://192.168.28.249:3003", // origin must match your domain & subdomain
+  url: "http://192.168.28.250:3003", // origin must match your domain & subdomain
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 };
 

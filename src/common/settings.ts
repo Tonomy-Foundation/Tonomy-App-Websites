@@ -43,6 +43,9 @@ export type ConfigType = {
   currencySymbol: string;
   appId: string;
   sha256CertFingerprints: string;
+  reownProjectId: string;
+  baseNetwork: "localhost" | "base" | "base_testnet";
+  baseTokenAddress: string;
 };
 
 type SettingsType = {
@@ -57,26 +60,20 @@ const settings: SettingsType = {
     ["production", "testnet", "staging"].includes(settings.env),
 } as SettingsType;
 
-type FixLoggerLevelEnumType<T> = Omit<T, "loggerLevel"> & {
-  loggerLevel: "debug" | "error";
-};
-
 switch (env) {
   case "test":
   case "local":
   case "development":
-    config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
+    config = defaultConfig as ConfigType;
     break;
   case "staging":
-    config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
+    config = stagingConfig as ConfigType;
     break;
   case "testnet":
-    config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
+    config = testnetConfig as ConfigType;
     break;
   case "production":
-    config = productionConfig as FixLoggerLevelEnumType<
-      typeof productionConfig
-    >;
+    config = productionConfig as ConfigType;
     break;
   default:
     throw new Error("Unknown environment: " + env);

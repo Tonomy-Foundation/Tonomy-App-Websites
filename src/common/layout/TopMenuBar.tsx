@@ -2,25 +2,37 @@ import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TonomyLogo from "../../tonomyAppList/assets/appSwitcherIcons/tonomy.png";
 import "./TopMenuBar.css";
-import { ExternalUser } from "@tonomy/tonomy-id-sdk";
+import {
+  AppsExternalUser,
+  ExternalUser,
+  isErrorCode,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
 import AppSwitcher from "./AppSwitcher";
+import useErrorStore from "../../common/stores/errorStore";
+import Debug from "debug";
+const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 const TopMenuBar = ({ page }) => {
   const { signout, signin } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
   const [showSwitcher, setShowSwitcher] = useState(false);
   const [open, setOpen] = useState(false);
+  const errorStore = useErrorStore();
 
   console.log("pagename", page);
   useEffect(() => {
     async function authentication() {
       try {
-        const externalUser = await ExternalUser.getUser({ autoLogout: false });
+        const externalUser = await AppsExternalUser.getUser({
+          autoLogout: false,
+        });
+        debug("externalUser", externalUser);
         if (externalUser) {
           signin(externalUser, page);
           const uname = await externalUser.getUsername();
@@ -31,14 +43,24 @@ const TopMenuBar = ({ page }) => {
         }
       } catch (e) {
         console.log("e", e);
-        setUsername("");
+        if (
+          isErrorCode(e, [
+            SdkErrors.AccountNotFound,
+            SdkErrors.UserNotLoggedIn,
+            SdkErrors.AccountDoesntExist,
+          ])
+        ) {
+          setUsername("");
+        } else {
+          errorStore.setError({ error: e, expected: false });
+        }
       }
     }
     authentication();
   }, []); // watch for changes
 
   function handleLogout() {
-    signout();
+    signout(page);
     setUsername("");
   }
 

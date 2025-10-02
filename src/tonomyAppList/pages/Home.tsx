@@ -1,5 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  AppsExternalUser,
+  isErrorCode,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
@@ -26,7 +30,7 @@ export default function Home() {
 
   async function onRender() {
     try {
-      const user = await ExternalUser.getUser({ autoLogout: false });
+      const user = await AppsExternalUser.getUser({ autoLogout: false });
 
       if (user) {
         signin(user);

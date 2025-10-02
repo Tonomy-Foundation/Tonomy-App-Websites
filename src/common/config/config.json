@@ -20,13 +20,15 @@
     "communicationUrl": "wss://communication.staging.tonomy.foundation",
     "ssoWebsiteOrigin": "http://accounts.localhost:5174",
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
-    "tonomyAppsOrigin": "http://192.168.28.249:3003",
-    "demoWebsiteOrigin": "http://192.168.28.249:3001",
+    "tonomyAppsOrigin": "http://apps.localhost:5174",
+    "demoWebsiteOrigin": "http://demo.localhost:5174",
     "loggerLevel": "debug",
     "blockExplorerUrl": "https://local.bloks.io",
     "documentationLink": "https://docs.tonomy.io",
     "currencySymbol": "TONO",
     "appId": "tonomyiddevelopment",
-    "sha256CertFingerprints": "00:E5:7D:E1:DA:75:7C:DD:06:1F:9B:D8:35:02:4B:A9:7E:35:9B:EA:54:4F:52:7E:81:8E:62:B3:3A:5C:99:D7"
-
+    "sha256CertFingerprints": "00:E5:7D:E1:DA:75:7C:DD:06:1F:9B:D8:35:02:4B:A9:7E:35:9B:EA:54:4F:52:7E:81:8E:62:B3:3A:5C:99:D7",
+    "reownProjectId": "2850896ad9cf6c1d958203b00b199c2d",
+    "baseNetwork": "localhost",
+    "baseTokenAddress": "0xb09da8a5B236fE0295A345035287e80bb0008290"
 }
