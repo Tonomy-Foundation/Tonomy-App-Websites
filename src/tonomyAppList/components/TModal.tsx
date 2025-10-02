@@ -14,7 +14,7 @@ export type ModalProps = React.ComponentProps<typeof Modal> & {
   confirmLabel?: string;
   cancelLabel?: string;
   open: boolean;
-  loading?:boolean;
+  loading?: boolean;
 };
 
 const styles = {
@@ -43,7 +43,7 @@ const styles = {
     display: "flex",
     flexDirection: "column" as const,
     justifyContent: "space-between",
-    position: "relative" as const, 
+    position: "relative" as const,
   },
   closeButton: {
     position: "absolute" as const,
@@ -96,45 +96,32 @@ export default function TModal({
   title,
   description,
   confirmLabel = "Confirm Swap",
-  cancelLabel ,
-  loading
+  cancelLabel,
+  loading,
 }: ModalProps) {
   return (
     <Modal open={open} onClose={onCancel}>
       <Box sx={styles.overlay}>
         <Box sx={styles.modalBox}>
-          <ButtonBase 
-            onClick={onCancel}
-            sx={styles.closeButton}
-          >
-            <TImage
-              height={20}
-              width={20}
-              src={IconClose}
-              alt="Close icon"
-            />
+          <ButtonBase onClick={onCancel} sx={styles.closeButton}>
+            <TImage height={20} width={20} src={IconClose} alt="Close icon" />
           </ButtonBase>
-          
+
           <div>
             <div style={styles.imageWrapper}>
-              {
-                loading? 
- <Box
-              component="img"
-              src={image}
-              alt={imageAlt}
-              sx={{ 
-                ...styles.image, 
-                animation: `${spin} 1s linear infinite`  
-              }} /> :
-              <img 
-                src={image} 
-                alt={imageAlt} 
-                style={styles.image}
-              />
-              }
-             
-              
+              {loading ? (
+                <Box
+                  component="img"
+                  src={image}
+                  alt={imageAlt}
+                  sx={{
+                    ...styles.image,
+                    animation: `${spin} 1s linear infinite`,
+                  }}
+                />
+              ) : (
+                <img src={image} alt={imageAlt} style={styles.image} />
+              )}
             </div>
             <Typography sx={styles.title}>{title}</Typography>
             {description && (
@@ -142,25 +129,30 @@ export default function TModal({
             )}
           </div>
 
-          <div style={styles.buttonRow}>{
-            cancelLabel && <Button
-              variant="outlined"
-              onClick={onCancel}
-              sx={{
-                flex: "0 0 35%",
-                borderRadius: "8px",
-                padding: "10px",
-                fontSize: "16px",
-                fontWeight: 600,
-                borderColor: "transparent",
-                backgroundColor: "#EDF2F9",
-                color: "var(--black)",
-                "&:hover": { backgroundColor: "#EDF2F9",  borderColor: "transparent", color: "var(--black)"},
-              }}
-            >
-              {cancelLabel}
-            </Button>}
-            
+          <div style={styles.buttonRow}>
+            {cancelLabel && (
+              <Button
+                variant="outlined"
+                onClick={onCancel}
+                sx={{
+                  flex: "0 0 35%",
+                  borderRadius: "8px",
+                  padding: "10px",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  borderColor: "transparent",
+                  backgroundColor: "#EDF2F9",
+                  color: "var(--black)",
+                  "&:hover": {
+                    backgroundColor: "#EDF2F9",
+                    borderColor: "transparent",
+                    color: "var(--black)",
+                  },
+                }}
+              >
+                {cancelLabel}
+              </Button>
+            )}
 
             <Button
               variant="contained"

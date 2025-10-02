@@ -2,7 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TonomyLogo from "../../tonomyAppList/assets/appSwitcherIcons/tonomy.png";
 import "./TopMenuBar.css";
-import { AppsExternalUser, ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  AppsExternalUser,
+  ExternalUser,
+  isErrorCode,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -24,8 +29,10 @@ const TopMenuBar = ({ page }) => {
   useEffect(() => {
     async function authentication() {
       try {
-        const externalUser = await AppsExternalUser.getUser({ autoLogout: false });
-        debug("externalUser", externalUser)
+        const externalUser = await AppsExternalUser.getUser({
+          autoLogout: false,
+        });
+        debug("externalUser", externalUser);
         if (externalUser) {
           signin(externalUser, page);
           const uname = await externalUser.getUsername();
@@ -36,18 +43,17 @@ const TopMenuBar = ({ page }) => {
         }
       } catch (e) {
         console.log("e", e);
-         if (
-                isErrorCode(e, [
-                  SdkErrors.AccountNotFound,
-                  SdkErrors.UserNotLoggedIn,
-                  SdkErrors.AccountDoesntExist,
-                ])
-              ) {
-                          setUsername("");
-
-              } else {
-                errorStore.setError({ error: e, expected: false });
-              }
+        if (
+          isErrorCode(e, [
+            SdkErrors.AccountNotFound,
+            SdkErrors.UserNotLoggedIn,
+            SdkErrors.AccountDoesntExist,
+          ])
+        ) {
+          setUsername("");
+        } else {
+          errorStore.setError({ error: e, expected: false });
+        }
       }
     }
     authentication();

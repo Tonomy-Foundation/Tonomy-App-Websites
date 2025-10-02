@@ -42,7 +42,6 @@ export default function Home() {
 
       errorStore.setError({ error: e, expected: false });
     }
-   
   }
 
   useEffect(() => {
