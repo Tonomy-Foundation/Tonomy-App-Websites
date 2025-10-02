@@ -143,6 +143,7 @@
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
+  background-color: var(--primary);
 }
 
 .connect-btn:disabled {

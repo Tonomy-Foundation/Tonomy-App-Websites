@@ -43,6 +43,9 @@ export type ConfigType = {
   currencySymbol: string;
   appId: string;
   sha256CertFingerprints: string;
+  reownProjectId: string;
+  baseNetwork: "localhost" | "base" | "base_testnet";
+  baseTokenAddress: string;
 };
 
 type SettingsType = {
