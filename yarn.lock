@@ -3767,9 +3767,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:0.35.0-development.4":
-  version: 0.35.0-development.4
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.35.0-development.4"
+"@tonomy/tonomy-id-sdk@npm:0.35.0-development.5":
+  version: 0.35.0-development.5
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.35.0-development.5"
   dependencies:
     "@consento/sync-randombytes": "npm:^1.0.5"
     "@tonomy/antelope-did-resolver": "npm:^0.10.0"
@@ -3797,7 +3797,7 @@ __metadata:
     typeorm: "npm:0.3.22"
     universal-base64url: "npm:^1.1.0"
     web-did-resolver: "npm:^2.0.27"
-  checksum: 10c0/611cc9293c8e9dee5914a052571ad907e510611d8dd49bbbd427ac02a920d137da0837e560e9cc0674f28ac058e1ab35be33d5b333b25ab9c00ebaa65a36c79e
+  checksum: 10c0/2d1c8e9e4713f677848cf92441db7e26af4e172389af04c11bdf881e72cd3f6d90a4a82fe9631aad375404d564b4b2137b46903c367800285a6957bd8fab2dbb
   languageName: node
   linkType: hard
 
@@ -13414,7 +13414,7 @@ __metadata:
     "@rollup/plugin-node-resolve": "npm:^15.0.1"
     "@semantic-release/git": "npm:^10.0.1"
     "@tanstack/react-query": "npm:^5.85.3"
-    "@tonomy/tonomy-id-sdk": "npm:0.35.0-development.4"
+    "@tonomy/tonomy-id-sdk": "npm:0.35.0-development.5"
     "@types/node": "npm:^20.14.11"
     "@types/react": "npm:^19.1.3"
     "@types/react-dom": "npm:^19.1.3"
