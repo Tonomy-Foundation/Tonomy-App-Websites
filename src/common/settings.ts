@@ -44,7 +44,7 @@ export type ConfigType = {
   appId: string;
   sha256CertFingerprints: string;
   reownProjectId: string;
-  baseNetwork: "localhost" | "base" | "base_testnet";
+  baseNetwork: "localhost" | "base" | "base-sepolia";
   baseTokenAddress: string;
 };
 
