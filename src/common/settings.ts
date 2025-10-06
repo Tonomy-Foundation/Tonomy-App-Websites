@@ -46,6 +46,7 @@ export type ConfigType = {
   reownProjectId: string;
   baseNetwork: "localhost" | "base" | "base-sepolia";
   baseTokenAddress: string;
+  baseRpcUrl: string;
 };
 
 type SettingsType = {
@@ -99,6 +100,8 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
   );
   config.communicationUrl = environmentVariables.VITE_COMMUNICATION_URL;
 }
+
+config.baseRpcUrl += environmentVariables.INFURA_API_KEY;
 
 // Add title
 settings.config = config;
