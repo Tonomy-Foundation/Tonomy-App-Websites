@@ -30,5 +30,7 @@
   "sha256CertFingerprints": "02:AE:D4:C2:77:0E:63:08:9E:C1:B9:AB:BF:52:69:44:FA:F7:C5:B6:C6:33:C3:93:1F:49:DC:E0:24:99:38:35",
   "reownProjectId": "TODO",
     "baseNetwork": "base",
-    "baseTokenAddress": "TODO"
+    "baseTokenAddress": "TODO",
+        "baseRpcUrl": "https://base.infura.io/v3/"
+
 }
