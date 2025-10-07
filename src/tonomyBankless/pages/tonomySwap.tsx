@@ -49,7 +49,7 @@ export default function Swap() {
   const { walletProvider } = useAppKitProvider("eip155");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   // Update the type to match the expected result from fetchBalance
-  const [baseBalance, setBaseBalance] = useState<any>();
+  const [baseBalance, setBaseBalance] = useState();
 
   // Add this after the useAppKit line
   const events = useAppKitEvents();
@@ -107,7 +107,7 @@ export default function Swap() {
   useEffect(() => {
     if (isConnected) {
       fetchBalance().then((result) => {
-        console.log("baseBalance", result, result?.data);
+        console.log("baseBalance", result, result?.data, baseBalance);
 
         if (result && result.data) {
           setBaseBalance(result.data);
