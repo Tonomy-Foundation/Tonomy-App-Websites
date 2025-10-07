@@ -25,7 +25,6 @@ const TopMenuBar = ({ page }) => {
   const [open, setOpen] = useState(false);
   const errorStore = useErrorStore();
 
-  console.log("pagename", page);
   useEffect(() => {
     async function authentication() {
       try {
@@ -138,7 +137,9 @@ const TopMenuBar = ({ page }) => {
           </div>
         ) : (
           <>
-            <span className="tonomy-time">Login</span>
+            <span onClick={() => onButtonPress()} className="tonomy-time">
+              Login
+            </span>
             <ArrowForwardIcon
               onClick={() => onButtonPress()}
               className="tonomy-arrow-icon cursor-pointer"

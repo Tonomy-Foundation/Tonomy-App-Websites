@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useAccount } from "wagmi";
 import { useAppKit, useAppKitProvider } from "@reown/appkit/react";
 import SwapIcon from "../assets/icons/swap-icon.png";
@@ -18,6 +18,7 @@ import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
+import { useAppKitBalance, useAppKitEvents } from "@reown/appkit/react";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -38,6 +39,7 @@ export default function Swap() {
   );
   const [walletBalance, setWalletBalance] = useState<Decimal>(new Decimal(0));
   const { isConnected, address } = useAccount();
+  const { fetchBalance } = useAppKitBalance();
   const { open } = useAppKit();
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
@@ -45,6 +47,13 @@ export default function Swap() {
   const [error, setError] = useState<string | null>(null);
   const { signin } = useContext(AuthContext);
   const { walletProvider } = useAppKitProvider("eip155");
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  // Update the type to match the expected result from fetchBalance
+  const [baseBalance, setBaseBalance] = useState<any>();
+
+  // Add this after the useAppKit line
+  const events = useAppKitEvents();
+  console.log("appkit events", events);
 
   useEffect(() => {
     async function authentication() {
@@ -56,15 +65,58 @@ export default function Swap() {
           }
         }
         const username = await user?.getUsername();
-        if (!username) throw new Error("No username found");
-        setUsername(username.getBaseUsername());
-        await updateBalance();
+        if (username) {
+          setUsername(username.getBaseUsername());
+          await updateBalance();
+          startBalancePolling();
+        }
       } catch (e) {
         errorStore.setError({ error: e, expected: false });
       }
     }
     authentication();
+    // Cleanup function to clear interval on component unmount
+    return () => {
+      stopBalancePolling();
+    };
   }, []);
+
+  const startBalancePolling = () => {
+    // Clear any existing interval first
+    stopBalancePolling();
+
+    // Set up new interval
+    intervalRef.current = setInterval(async () => {
+      try {
+        await updateBalance();
+      } catch (error) {
+        console.error("Error polling balance:", error);
+        // Don't stop polling on error, just log it
+      }
+    }, 10000); // 10 seconds
+  };
+
+  // Function to stop polling
+  const stopBalancePolling = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    if (isConnected) {
+      fetchBalance().then((result) => {
+        console.log("baseBalance", result, result?.data);
+
+        if (result && result.data) {
+          setBaseBalance(result.data);
+        } else {
+          setBaseBalance(undefined);
+        }
+      });
+    }
+  }, [isConnected, fetchBalance]);
 
   const updateBalance = async () => {
     try {
@@ -73,10 +125,18 @@ export default function Swap() {
       const eosioTokenContract = await EosioTokenContract.atAccount();
       const accountBalance =
         await eosioTokenContract.getBalanceDecimal(accountName);
-      setAvailableBalance(accountBalance);
+      // Only update state if balance actually changed
+      if (!availableBalance.equals(accountBalance)) {
+        setAvailableBalance(accountBalance);
+      }
       if (address) {
-        const accountBalance2 = await getBaseTokenContract().balanceOf(address);
-        setWalletBalance(new Decimal(accountBalance2.toString()));
+        const walletAmount = await getBaseTokenContract().balanceOf(address);
+        const newWalletBalance = new Decimal(walletAmount.toString());
+
+        // Only update state if balance actually changed
+        if (!walletBalance.equals(newWalletBalance)) {
+          setWalletBalance(newWalletBalance);
+        }
       }
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
