@@ -47,6 +47,7 @@ export type ConfigType = {
   baseNetwork: "localhost" | "base" | "base-sepolia";
   baseTokenAddress: string;
   baseRpcUrl: string;
+  basePrivateKey: string;
 };
 
 type SettingsType = {
@@ -102,6 +103,7 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
 }
 
 config.baseRpcUrl += environmentVariables.INFURA_API_KEY;
+config.basePrivateKey += environmentVariables.ETHEREUM_PRIVATE_KEY;
 
 // Add title
 settings.config = config;
