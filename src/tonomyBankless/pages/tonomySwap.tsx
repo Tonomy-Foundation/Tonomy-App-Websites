@@ -49,7 +49,7 @@ export default function Swap() {
   const { walletProvider } = useAppKitProvider("eip155");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   // Update the type to match the expected result from fetchBalance
-  const [baseBalance, setBaseBalance] = useState();
+  const [baseBalance, setBaseBalance] = useState<unknown | undefined>(undefined);
 
   // Add this after the useAppKit line
   const events = useAppKitEvents();
