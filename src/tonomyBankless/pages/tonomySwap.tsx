@@ -188,7 +188,7 @@ export default function Swap() {
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
       } catch (error) {
         console.log("e", error);
-        errorStore.setError({ error: error, expected: false });
+        errorStore.setError({ error: error.message, expected: false });
       } finally {
         await updateBalance();
         setShowModal(false);
