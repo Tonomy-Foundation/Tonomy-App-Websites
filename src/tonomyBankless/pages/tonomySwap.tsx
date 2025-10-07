@@ -55,7 +55,17 @@ export default function Swap() {
 
   // Add this after the useAppKit line
   const events = useAppKitEvents();
-  console.log("appkit events", events);
+
+  // `events` gives you the *last event*
+  useEffect(() => {
+    if (!events) return;
+
+    if (events.data.event === "MODAL_CLOSE" || events.data.event === "USER_REJECTED") {
+      // handle closure
+      setSwapModal(false);
+      setShowModal(false);
+    } 
+  }, [events]);
 
   useEffect(() => {
     async function authentication() {
@@ -106,20 +116,6 @@ export default function Swap() {
     }
   };
 
-  useEffect(() => {
-    if (isConnected) {
-      fetchBalance().then((result) => {
-        console.log("baseBalance", result, result?.data, baseBalance);
-
-        if (result && result.data) {
-          setBaseBalance(result.data);
-        } else {
-          setBaseBalance(undefined);
-        }
-      });
-    }
-  }, [isConnected, fetchBalance]);
-
   const updateBalance = async () => {
     try {
       const accountName = await user?.getAccountName();
@@ -133,6 +129,7 @@ export default function Swap() {
       }
       if (address) {
         const walletAmount = await getBaseTokenContract().balanceOf(address);
+        console.log("walletAmount", walletAmount, walletAmount.toString());
         const newWalletBalance = new Decimal(walletAmount.toString());
 
         // Only update state if balance actually changed
