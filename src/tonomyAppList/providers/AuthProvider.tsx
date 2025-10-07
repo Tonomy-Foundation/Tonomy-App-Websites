@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ExternalUser } from "@tonomy/tonomy-id-sdk";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDisconnect } from "@reown/appkit/react";
 
 interface AuthContextType {
   user: ExternalUser | null;
@@ -14,6 +15,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<ExternalUser | null>(null);
   const navigation = useNavigate();
   const { pathname } = useLocation();
+  const { disconnect } = useDisconnect();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,6 +23,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signout = async (page?: string) => {
     await user?.logout();
+    await disconnect();
 
     if (page) navigation("/" + page);
     else navigation("/");
