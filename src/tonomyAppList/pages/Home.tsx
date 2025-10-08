@@ -98,14 +98,6 @@ export default function Home() {
       icon: Share,
     },
     {
-      name: "Hypha DAO",
-      url: "https://hypha.earth",
-      description:
-        "A decentralized platform empowering communities to collaborate, govern, and grow together seamlessly",
-      logo: HyphaDAO,
-      icon: Share,
-    },
-    {
       name: "Fiddle.art",
       url: "https://fiddl.art",
       description:
@@ -146,7 +138,7 @@ export default function Home() {
   return (
     <div className="services-container">
       <div className="services-intro-head">
-        <h2>Your Tonomy apps, all in one place</h2>
+        <h2 className="landing-title">Your Tonomy apps, all in one place</h2>
         <p className="intro-subtext">
           Access all your Tonomy apps in one hub. Manage tokens, explore the
           blockchain, create, collaborate, and build — it’s all at your
@@ -157,6 +149,12 @@ export default function Home() {
       <div className="services-grid">
         {services.map((service, index) => (
           <div className="service-card" key={index}>
+             <a
+              href={`${service.url}`}
+              className="service-link card-link"
+              target={service.noredirect ? "_self" : "_blank"}
+              rel="noopener noreferrer"
+            >
             <div className="card-content">
               <a
                 href={`${service.url}`}
@@ -164,7 +162,7 @@ export default function Home() {
                 target={service.noredirect ? "_self" : "_blank"}
                 rel="noopener noreferrer"
               >
-                <span className="service-url">{service.url}</span>
+                <span className="service-url">{new URL(service.url).hostname}</span>
                 <svg
                   width="12"
                   height="12"
@@ -188,6 +186,7 @@ export default function Home() {
               <h3 className="service-name">{service.name}</h3>
               <p className="service-description">{service.description}</p>
             </div>
+            </a>
           </div>
         ))}
       </div>

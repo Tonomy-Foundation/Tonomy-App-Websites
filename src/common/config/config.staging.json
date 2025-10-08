@@ -24,7 +24,7 @@
     "blockchainUrl": "https://blockchain-api-staging.tonomy.foundation",
     "demoWebsiteOrigin": "https://demo.staging.tonomy.foundation",
     "loggerLevel": "debug",
-    "blockExplorerUrl": "https://local.bloks.io",
+    "blockExplorerUrl": "https://local.bloks.io/?nodeUrl=https%3A%2F%2Fblockchain-api-staging.tonomy.foundation&coreSymbol=TONO&corePrecision=6&systemDomain=eosio",
     "documentationLink": "https://docs.tonomy.foundation",
     "currencySymbol": "TONO",
     "appId": "tonomyidstaging",

@@ -8,13 +8,17 @@
 
 .swap-header {
   display: flex;
+   align-items: center;
   margin-bottom: 15px;
+}
+
+.swap-title{
+  font-size: 20px;
 }
 
 .transactions {
   font-size: 14px;
   color: var(--grey-label);
-  margin-top: 5px;
   font-size: 20px;
   margin-left: 19px;
 }
@@ -63,6 +67,7 @@
   color: var(--grey-label);
   margin-left: auto; /* This will push it to the right */
   padding-left: 10px;
+  font-weight: 500;
 }
 
 .input-row {

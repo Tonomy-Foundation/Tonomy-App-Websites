@@ -41,10 +41,10 @@ import Debug from "debug";
 import { Box, Button, ButtonBase } from "@mui/material";
 import { ArrowCircleLeftOutlined } from "@mui/icons-material";
 import TSpinner from "../atoms/TSpinner";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide   } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import LightBulbIcon from "../assets/icon-light-bulb.png";
 import { useThemeContext } from "../../theme/ThemeContext";
 
@@ -578,8 +578,12 @@ export default function Login() {
   const SliderSection = () => (
     <>
       <Swiper
-        modules={[Pagination]}
-        pagination={{ clickable: true }}
+        modules={[Pagination, Autoplay]} 
+      pagination={{ clickable: true }}
+      autoplay={{
+        delay: 4000, 
+        disableOnInteraction: false, 
+      }}
         loop
         spaceBetween={10}
         slidesPerView={1}
