@@ -125,7 +125,7 @@ export default function Swap() {
       if (!availableBalance.equals(accountBalance)) {
         setAvailableBalance(accountBalance);
       }
-     fetchWalletBalance();
+      fetchWalletBalance();
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -201,91 +201,88 @@ export default function Swap() {
   };
 
   const fetchWalletBalance = async () => {
-          if (address) {
+    if (address) {
+      const walletAmount = await getBaseTokenContract().balanceOf(address);
+      console.log("walletAmount", walletAmount, walletAmount.toString());
+      const newWalletBalance = new Decimal(walletAmount.toString());
 
-        const walletAmount = await getBaseTokenContract().balanceOf(address);
-        console.log("walletAmount", walletAmount, walletAmount.toString());
-        const newWalletBalance = new Decimal(walletAmount.toString());
-        
-        if (!walletBalance.equals(newWalletBalance)) {
-          setWalletBalance(newWalletBalance);
-        }
+      if (!walletBalance.equals(newWalletBalance)) {
+        setWalletBalance(newWalletBalance);
       }
-     
-  }
+    }
+  };
 
   // Add this useEffect to update wallet balance when address changes
-useEffect(() => {
-      try {
-
-  fetchWalletBalance();
-   } catch (e) {
-        console.error("Error updating wallet balance:", e);
-      }
-}, [address, walletProvider]); 
+  useEffect(() => {
+    try {
+      fetchWalletBalance();
+    } catch (e) {
+      console.error("Error updating wallet balance:", e);
+    }
+  }, [address, walletProvider]);
 
   const renderSwapBox = (isFromBox) => {
-  const isTonomyToBase = currentDirection === SwapDirection.TONOMY_TO_BASE;
-  
-  // Determine if this box is for Tonomy or Base
-  const isTonomyBox = 
-    (isFromBox && isTonomyToBase) || // Top box in TONOMY_TO_BASE direction
-    (!isFromBox && !isTonomyToBase); // Bottom box in BASE_TO_TONOMY direction
-  
-  const isBaseBox = !isTonomyBox;
-  const isConnectWalletNeeded = isBaseBox && !isConnected;
+    const isTonomyToBase = currentDirection === SwapDirection.TONOMY_TO_BASE;
 
-  return (
-    <>
-      <div className="swap-label">
-        <span role="img" aria-label={isTonomyBox ? "tonomy" : "base"}>
-          <img
-            src={isTonomyBox ? TonomyIcon : BaseIcon}
-            alt={isTonomyBox ? "Tonomy Logo" : "Base Logo"}
-            className="tonomy-icon"
-          />
-        </span>
-        {isFromBox ? "From" : "To"} {isTonomyBox ? "Tonomy" : "Base"}{" "}
-        {isTonomyBox ? (
-          <>
-            <span className="username">@{username}</span>
-            <span className="balance">
-              {availableBalance.toString()} $TONO
-            </span>
-          </>
-        ) : (
-          <>
-            {isConnectWalletNeeded ? (
-              <span className="connect-wallet" onClick={() => open()}>
-                Connect Wallet ›
-              </span>
-            ) : (
-              <>
-                <span className="username">{formatAddress(address)}</span>
-                <span className="balance">
-                  {walletBalance.toString()} $TONO
-                </span>
-              </>
-            )}
-          </>
-        )}
-      </div>
-      <div className="input-row">
-        <input
-          placeholder="0.0"
-          value={isFromBox ? fromAmount : toAmount}
-          onChange={handleAmountChange}
-        />
-        <span className="currency">
-          $TONO{" "}
-          <span className="hint-network">
-            {isTonomyBox ? "Tonomy" : "Base"}
+    // Determine if this box is for Tonomy or Base
+    const isTonomyBox =
+      (isFromBox && isTonomyToBase) || // Top box in TONOMY_TO_BASE direction
+      (!isFromBox && !isTonomyToBase); // Bottom box in BASE_TO_TONOMY direction
+
+    const isBaseBox = !isTonomyBox;
+    const isConnectWalletNeeded = isBaseBox && !isConnected;
+
+    return (
+      <>
+        <div className="swap-label">
+          <span role="img" aria-label={isTonomyBox ? "tonomy" : "base"}>
+            <img
+              src={isTonomyBox ? TonomyIcon : BaseIcon}
+              alt={isTonomyBox ? "Tonomy Logo" : "Base Logo"}
+              className="tonomy-icon"
+            />
           </span>
-        </span>
-      </div>
-    </>
-  );
-};
+          {isFromBox ? "From" : "To"} {isTonomyBox ? "Tonomy" : "Base"}{" "}
+          {isTonomyBox ? (
+            <>
+              <span className="username">@{username}</span>
+              <span className="balance">
+                {availableBalance.toString()} $TONO
+              </span>
+            </>
+          ) : (
+            <>
+              {isConnectWalletNeeded ? (
+                <span className="connect-wallet" onClick={() => open()}>
+                  Connect Wallet ›
+                </span>
+              ) : (
+                <>
+                  <span className="username">{formatAddress(address)}</span>
+                  <span className="balance">
+                    {walletBalance.toString()} $TONO
+                  </span>
+                </>
+              )}
+            </>
+          )}
+        </div>
+        <div className="input-row">
+          <input
+            placeholder="0.0"
+            value={isFromBox ? fromAmount : toAmount}
+            onChange={handleAmountChange}
+          />
+          <span className="currency">
+            $TONO{" "}
+            <span className="hint-network">
+              {isTonomyBox ? "Tonomy" : "Base"}
+            </span>
+          </span>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="swap-container">
@@ -309,7 +306,9 @@ useEffect(() => {
       {error && <p className="error-text">{error}</p>}
 
       <p className="info-text">
-        Connect your wallet, choose the amount, and confirm the transfer. The same amount will be released to the destination network once the swap is complete.
+        Connect your wallet, choose the amount, and confirm the transfer. The
+        same amount will be released to the destination network once the swap is
+        complete.
       </p>
 
       <button
