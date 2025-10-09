@@ -15,6 +15,7 @@ export type ModalProps = React.ComponentProps<typeof Modal> & {
   cancelLabel?: string;
   open: boolean;
   loading?: boolean;
+  closeIcon?: boolean;
 };
 
 const styles = {
@@ -95,17 +96,20 @@ export default function TModal({
   imageAlt = "",
   title,
   description,
-  confirmLabel = "Confirm Swap",
+  confirmLabel,
   cancelLabel,
   loading,
+  closeIcon = true,
 }: ModalProps) {
   return (
     <Modal open={open} onClose={onCancel}>
       <Box sx={styles.overlay}>
-        <Box sx={styles.modalBox}>
-          <ButtonBase onClick={onCancel} sx={styles.closeButton}>
-            <TImage height={20} width={20} src={IconClose} alt="Close icon" />
-          </ButtonBase>
+        <Box sx={styles.modalBox} style={{ height: "auto" }}>
+          {closeIcon && (
+            <ButtonBase onClick={onCancel} sx={styles.closeButton}>
+              <TImage height={20} width={20} src={IconClose} alt="Close icon" />
+            </ButtonBase>
+          )}
 
           <div>
             <div style={styles.imageWrapper}>
@@ -128,48 +132,50 @@ export default function TModal({
               <Typography sx={styles.description}>{description}</Typography>
             )}
           </div>
-
-          <div style={styles.buttonRow}>
-            {cancelLabel && (
-              <Button
-                variant="outlined"
-                onClick={onCancel}
-                sx={{
-                  flex: "0 0 35%",
-                  borderRadius: "8px",
-                  padding: "10px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  borderColor: "transparent",
-                  backgroundColor: "#EDF2F9",
-                  color: "var(--black)",
-                  "&:hover": {
-                    backgroundColor: "#EDF2F9",
+          {(confirmLabel || cancelLabel) && (
+            <div style={styles.buttonRow}>
+              {cancelLabel && (
+                <Button
+                  variant="outlined"
+                  onClick={onCancel}
+                  sx={{
+                    flex: "0 0 35%",
+                    borderRadius: "8px",
+                    padding: "10px",
+                    fontSize: "16px",
+                    fontWeight: 600,
                     borderColor: "transparent",
+                    backgroundColor: "#EDF2F9",
                     color: "var(--black)",
-                  },
-                }}
-              >
-                {cancelLabel}
-              </Button>
-            )}
-
-            <Button
-              variant="contained"
-              onClick={onConfirm}
-              sx={{
-                flex: "1",
-                backgroundColor: "var(--primary)",
-                "&:hover": { backgroundColor: "#6A46D1" },
-                borderRadius: "8px",
-                padding: "10px",
-                fontSize: "16px",
-                fontWeight: 600,
-              }}
-            >
-              {confirmLabel}
-            </Button>
-          </div>
+                    "&:hover": {
+                      backgroundColor: "#EDF2F9",
+                      borderColor: "transparent",
+                      color: "var(--black)",
+                    },
+                  }}
+                >
+                  {cancelLabel}
+                </Button>
+              )}
+              {confirmLabel && (
+                <Button
+                  variant="contained"
+                  onClick={onConfirm}
+                  sx={{
+                    flex: "1",
+                    backgroundColor: "var(--primary)",
+                    "&:hover": { backgroundColor: "#6A46D1" },
+                    borderRadius: "8px",
+                    padding: "10px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                  }}
+                >
+                  {confirmLabel}
+                </Button>
+              )}
+            </div>
+          )}
         </Box>
       </Box>
     </Modal>

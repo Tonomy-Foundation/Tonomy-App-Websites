@@ -178,7 +178,6 @@ export default function Swap() {
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
       } catch (error) {
-        console.log("e", error);
         errorStore.setError({ error: error.message, expected: false });
       } finally {
         await updateBalance();
@@ -203,8 +202,10 @@ export default function Swap() {
   const fetchWalletBalance = async () => {
     if (address) {
       const walletAmount = await getBaseTokenContract().balanceOf(address);
-      console.log("walletAmount", walletAmount, walletAmount.toString());
-      const newWalletBalance = new Decimal(walletAmount.toString());
+      const precisionMultiplier = new Decimal(10).pow(18);
+      const newWalletBalance = new Decimal(walletAmount.toString()).div(
+        precisionMultiplier,
+      );
 
       if (!walletBalance.equals(newWalletBalance)) {
         setWalletBalance(newWalletBalance);
@@ -296,7 +297,7 @@ export default function Swap() {
       <div className="swap-card">
         <div className="swap-box">{renderSwapBox(true)}</div>
         <div className="swap-icon" onClick={handleSwap}>
-          <img src={SwapIcon} alt="Swap Icon" style={{ width: "36px" }} />
+          <img src={SwapIcon} alt="Swap Icon" />
         </div>
         <div className="swap-box">{renderSwapBox(false)}</div>
       </div>
@@ -347,11 +348,11 @@ export default function Swap() {
         open={showModal}
         image={InprogressIcon}
         title="Swap in progress"
-        description={`We’re swapping ${fromAmount} $TONO from Base to Tonomy.Your balance should change in your wallet shortly`}
-        confirmLabel="Return to Swap"
+        description={"It usually takes less than a minute"}
         onCancel={() => setShowModal(false)}
         onConfirm={() => setShowModal(false)}
         loading={true}
+        closeIcon={false}
       >
         {/* Add any modal content here if needed */}
         <div></div>
