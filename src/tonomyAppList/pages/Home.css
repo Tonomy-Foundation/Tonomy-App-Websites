@@ -18,12 +18,17 @@
   margin-top:2rem
 }
 
+.landing-title{
+  font-size: 44px;
+  font-weight: 700;
+}
+
 .services-intro-head {
   text-align: center;
   font-size: 20px;
   font-weight: 400;
   width: 100%;
-  max-width: 510px; /* Control width to help line breaks */
+  max-width: 710px; /* Control width to help line breaks */
   margin: 0 auto;
   margin-top: 2.5rem;
 }
@@ -33,12 +38,22 @@
   margin-bottom: 12px;
 }
 
+.card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit; /* Keep text colors consistent */
+}
+
+.card-link:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
 
 
 .intro-subtext {
   width: 100%;
-    max-width: 581px;
+    max-width: 710px;
     line-height: 25px;
+    font-size: 20px;
 }
 
 

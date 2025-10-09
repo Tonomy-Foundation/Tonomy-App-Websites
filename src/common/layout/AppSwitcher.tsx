@@ -31,7 +31,6 @@ const availableApps = [
     link: settings.config.blockExplorerUrl,
   },
   { name: "Demo", icon: DemoIcon, link: settings.config.demoWebsiteOrigin },
-  { name: "Hypha DAO", icon: DAOIcon, link: "https://hypha.earth" },
   { name: "Fiddle.art", icon: FiddleArtIcon, link: "https://fiddl.art" },
 ];
 

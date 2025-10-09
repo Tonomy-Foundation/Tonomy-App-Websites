@@ -125,16 +125,7 @@ export default function Swap() {
       if (!availableBalance.equals(accountBalance)) {
         setAvailableBalance(accountBalance);
       }
-      if (address) {
-        const walletAmount = await getBaseTokenContract().balanceOf(address);
-        console.log("walletAmount", walletAmount, walletAmount.toString());
-        const newWalletBalance = new Decimal(walletAmount.toString());
-
-        // Only update state if balance actually changed
-        if (!walletBalance.equals(newWalletBalance)) {
-          setWalletBalance(newWalletBalance);
-        }
-      }
+      fetchWalletBalance();
     } catch (e) {
       errorStore.setError({ error: e, expected: false });
     }
@@ -187,7 +178,6 @@ export default function Swap() {
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
       } catch (error) {
-        console.log("e", error);
         errorStore.setError({ error: error.message, expected: false });
       } finally {
         await updateBalance();
@@ -209,32 +199,60 @@ export default function Swap() {
     return `${address.substring(0, 5)}....${address.substring(address.length - 5)}`;
   };
 
+  const fetchWalletBalance = async () => {
+    if (address) {
+      const walletAmount = await getBaseTokenContract().balanceOf(address);
+      const precisionMultiplier = new Decimal(10).pow(18);
+      const newWalletBalance = new Decimal(walletAmount.toString()).div(
+        precisionMultiplier,
+      );
+
+      if (!walletBalance.equals(newWalletBalance)) {
+        setWalletBalance(newWalletBalance);
+      }
+    }
+  };
+
+  // Add this useEffect to update wallet balance when address changes
+  useEffect(() => {
+    try {
+      fetchWalletBalance();
+    } catch (e) {
+      console.error("Error updating wallet balance:", e);
+    }
+  }, [address, walletProvider]);
+
   const renderSwapBox = (isFromBox) => {
     const isTonomyToBase = currentDirection === SwapDirection.TONOMY_TO_BASE;
-    const isFromTonomy =
-      (isFromBox && isTonomyToBase) || (!isFromBox && !isTonomyToBase);
-    const isConnectWalletNeeded = !isFromTonomy && !isConnected;
+
+    // Determine if this box is for Tonomy or Base
+    const isTonomyBox =
+      (isFromBox && isTonomyToBase) || // Top box in TONOMY_TO_BASE direction
+      (!isFromBox && !isTonomyToBase); // Bottom box in BASE_TO_TONOMY direction
+
+    const isBaseBox = !isTonomyBox;
+    const isConnectWalletNeeded = isBaseBox && !isConnected;
 
     return (
       <>
         <div className="swap-label">
-          <span role="img" aria-label={isFromTonomy ? "from" : "to"}>
+          <span role="img" aria-label={isTonomyBox ? "tonomy" : "base"}>
             <img
-              src={isFromTonomy ? TonomyIcon : BaseIcon}
-              alt={isFromTonomy ? "Tonomy Logo" : "Base Logo"}
+              src={isTonomyBox ? TonomyIcon : BaseIcon}
+              alt={isTonomyBox ? "Tonomy Logo" : "Base Logo"}
               className="tonomy-icon"
             />
           </span>
-          {isFromTonomy ? (
+          {isFromBox ? "From" : "To"} {isTonomyBox ? "Tonomy" : "Base"}{" "}
+          {isTonomyBox ? (
             <>
-              From Tonomy <span className="username">@{username}</span>
+              <span className="username">@{username}</span>
               <span className="balance">
                 {availableBalance.toString()} $TONO
               </span>
             </>
           ) : (
             <>
-              To Base{" "}
               {isConnectWalletNeeded ? (
                 <span className="connect-wallet" onClick={() => open()}>
                   Connect Wallet ›
@@ -259,7 +277,7 @@ export default function Swap() {
           <span className="currency">
             $TONO{" "}
             <span className="hint-network">
-              {isFromTonomy ? "Tonomy" : "Base"}
+              {isTonomyBox ? "Tonomy" : "Base"}
             </span>
           </span>
         </div>
@@ -270,7 +288,7 @@ export default function Swap() {
   return (
     <div className="swap-container">
       <div className="swap-header">
-        <h2>Tonomy Swap</h2>
+        <h2 className="swap-title">Tonomy Swap</h2>
         <div className="transactions">
           Transactions <span className="coming-soon">Coming soon</span>
         </div>
@@ -279,7 +297,7 @@ export default function Swap() {
       <div className="swap-card">
         <div className="swap-box">{renderSwapBox(true)}</div>
         <div className="swap-icon" onClick={handleSwap}>
-          <img src={SwapIcon} alt="Swap Icon" style={{ width: "36px" }} />
+          <img src={SwapIcon} alt="Swap Icon" />
         </div>
         <div className="swap-box">{renderSwapBox(false)}</div>
       </div>
@@ -289,9 +307,9 @@ export default function Swap() {
       {error && <p className="error-text">{error}</p>}
 
       <p className="info-text">
-        Send $TONO from Tonomy to Base. Connect your Base wallet, choose the
-        amount, and confirm. The same amount will be released to your Base
-        wallet once the transfer is complete.
+        Connect your wallet, choose the amount, and confirm the transfer. The
+        same amount will be released to the destination network once the swap is
+        complete.
       </p>
 
       <button
@@ -330,11 +348,11 @@ export default function Swap() {
         open={showModal}
         image={InprogressIcon}
         title="Swap in progress"
-        description={`We’re swapping ${fromAmount} $TONO from Base to Tonomy.Your balance should change in your wallet shortly`}
-        confirmLabel="Return to Swap"
+        description={"It usually takes less than a minute"}
         onCancel={() => setShowModal(false)}
         onConfirm={() => setShowModal(false)}
         loading={true}
+        closeIcon={false}
       >
         {/* Add any modal content here if needed */}
         <div></div>

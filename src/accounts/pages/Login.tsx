@@ -44,7 +44,7 @@ import TSpinner from "../atoms/TSpinner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import LightBulbIcon from "../assets/icon-light-bulb.png";
 import { useThemeContext } from "../../theme/ThemeContext";
 
@@ -578,8 +578,12 @@ export default function Login() {
   const SliderSection = () => (
     <>
       <Swiper
-        modules={[Pagination]}
+        modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
         loop
         spaceBetween={10}
         slidesPerView={1}

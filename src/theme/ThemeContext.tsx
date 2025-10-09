@@ -99,6 +99,8 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
                 backgroundColor: "var(--app-background)",
                 color: "var(--accent)",
                 fontFamily: "'Host Grotesk', sans-serif",
+                width: "100%",
+                height: "100%",
               },
               "*": {
                 fontFamily: "'Host Grotesk', sans-serif",
