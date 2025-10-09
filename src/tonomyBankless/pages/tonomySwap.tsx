@@ -103,7 +103,7 @@ export default function Swap() {
         console.error("Error polling balance:", error);
         // Don't stop polling on error, just log it
       }
-    }, 10000); // 10 seconds
+    }, 8000); // 10 seconds
   };
 
   // Function to stop polling
@@ -177,10 +177,10 @@ export default function Swap() {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
+        await updateBalance();
       } catch (error) {
         errorStore.setError({ error: error.message, expected: false });
       } finally {
-        await updateBalance();
         setShowModal(false);
         setSwapModal(false);
         setFromAmount("");
@@ -285,6 +285,10 @@ export default function Swap() {
     );
   };
 
+  const description = currentDirection === SwapDirection.TONOMY_TO_BASE 
+    ? `You're about to swap ${fromAmount} $TONO from Tonomy Blockchain to Base Blockchain.`
+    : `You're about to swap ${fromAmount} $TONO from Base Blockchain to Tonomy Blockchain.`;
+
   return (
     <div className="swap-container">
       <div className="swap-header">
@@ -330,7 +334,7 @@ export default function Swap() {
         open={swapModal}
         image={CircularIcon}
         title="Confirm your swap"
-        description={`You're about to swap ${fromAmount} $TONO from Base Blockchain to Tononomy Blockchain.`}
+        description={description}
         cancelLabel="Cancel"
         confirmLabel="Confirm Swap"
         onCancel={() => setSwapModal(false)}
