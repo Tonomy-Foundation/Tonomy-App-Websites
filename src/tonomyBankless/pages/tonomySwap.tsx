@@ -285,9 +285,10 @@ export default function Swap() {
     );
   };
 
-  const description = currentDirection === SwapDirection.TONOMY_TO_BASE 
-    ? `You're about to swap ${fromAmount} $TONO from Tonomy Blockchain to Base Blockchain.`
-    : `You're about to swap ${fromAmount} $TONO from Base Blockchain to Tonomy Blockchain.`;
+  const description =
+    currentDirection === SwapDirection.TONOMY_TO_BASE
+      ? `You're about to swap ${fromAmount} $TONO from Tonomy Blockchain to Base Blockchain.`
+      : `You're about to swap ${fromAmount} $TONO from Base Blockchain to Tonomy Blockchain.`;
 
   return (
     <div className="swap-container">
