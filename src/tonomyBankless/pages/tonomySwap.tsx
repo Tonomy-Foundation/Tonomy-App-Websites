@@ -132,6 +132,8 @@ export default function Swap() {
   };
 
   const handleSwap = () => {
+    setIsBalanceSufficient(false);
+    setError(null);
     const newDirection =
       currentDirection === SwapDirection.TONOMY_TO_BASE
         ? SwapDirection.BASE_TO_TONOMY
@@ -140,6 +142,17 @@ export default function Swap() {
     const temp = fromAmount;
     setFromAmount(toAmount);
     setToAmount(temp);
+    if (
+      newDirection === SwapDirection.TONOMY_TO_BASE &&
+      new Decimal(temp).greaterThan(availableBalance)
+    ) {
+      setIsBalanceSufficient(false);
+    } else if (
+      newDirection === SwapDirection.BASE_TO_TONOMY &&
+      new Decimal(temp).greaterThan(walletBalance)
+    ) {
+      setIsBalanceSufficient(false);
+    }
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
