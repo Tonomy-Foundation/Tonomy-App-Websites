@@ -185,11 +185,13 @@ export default function Swap() {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
+        if(currentDirection === SwapDirection.BASE_TO_TONOMY){
+          await new Promise(resolve => setTimeout(resolve, 15000));
+        }
         await updateBalance();
       } catch (error) {
         errorStore.setError({ error: error.message, expected: false });
       } finally {
-        await new Promise((resolve) => setTimeout(resolve, 7000));
         setShowModal(false);
         setSwapModal(false);
         setFromAmount("");
