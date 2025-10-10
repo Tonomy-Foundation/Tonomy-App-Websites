@@ -11,7 +11,7 @@ import settings from "../../common/settings";
 const queryClient = new QueryClient();
 
 // 1. Get projectId from https://dashboard.reown.com
-export const projectId = settings.config.reownProjectId; 
+export const projectId = settings.config.reownProjectId;
 
 // 2. Create a metadata object - optional
 const metadata = {
