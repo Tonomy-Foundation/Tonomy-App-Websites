@@ -156,7 +156,12 @@ export default function Swap() {
     const decimalValue = new Decimal(value || 0);
     // Check if value is numeric and > availableBalance or wallet balance
     if (
-      decimalValue.greaterThan(availableBalance) ||
+      currentDirection === SwapDirection.TONOMY_TO_BASE &&
+      decimalValue.greaterThan(availableBalance)
+    ) {
+      setIsBalanceSufficient(false);
+    } else if (
+      currentDirection === SwapDirection.BASE_TO_TONOMY &&
       decimalValue.greaterThan(walletBalance)
     ) {
       setIsBalanceSufficient(false);
