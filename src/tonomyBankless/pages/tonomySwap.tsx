@@ -132,6 +132,8 @@ export default function Swap() {
   };
 
   const handleSwap = () => {
+    setIsBalanceSufficient(false);
+    setError(null);
     const newDirection =
       currentDirection === SwapDirection.TONOMY_TO_BASE
         ? SwapDirection.BASE_TO_TONOMY
