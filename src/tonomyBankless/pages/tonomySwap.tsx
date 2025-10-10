@@ -153,9 +153,12 @@ export default function Swap() {
       setError("Only numbers and decimal point allowed");
       return;
     }
-
-    // Check if value is numeric and > availableBalance
-    if (new Decimal(value || 0).greaterThan(availableBalance)) {
+    const decimalValue = new Decimal(value || 0);
+    // Check if value is numeric and > availableBalance or wallet balance
+    if (
+      decimalValue.greaterThan(availableBalance) ||
+      decimalValue.greaterThan(walletBalance)
+    ) {
       setIsBalanceSufficient(false);
     } else {
       setIsBalanceSufficient(true);
@@ -181,6 +184,7 @@ export default function Swap() {
       } catch (error) {
         errorStore.setError({ error: error.message, expected: false });
       } finally {
+        await new Promise((resolve) => setTimeout(resolve, 7000));
         setShowModal(false);
         setSwapModal(false);
         setFromAmount("");
@@ -273,6 +277,7 @@ export default function Swap() {
             placeholder="0.0"
             value={isFromBox ? fromAmount : toAmount}
             onChange={handleAmountChange}
+            className="input-width"
           />
           <span className="currency">
             $TONO{" "}
