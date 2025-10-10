@@ -119,6 +119,10 @@
   border: 1px solid #222222;
 }
 
+.input-width{
+  max-width: 510px;
+}
+
 .error-text {
   color: red;
   font-size: 14px;
@@ -175,6 +179,7 @@
 .swap-container {
    width: 100%; /* Center the grid on smaller screens */
   }
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -188,6 +193,9 @@
   .swap-container {
    width: 100%; /* Center the grid on smaller screens */
   }
+    .input-width{
+  max-width: 110px;
+}
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1280px)

@@ -13,7 +13,7 @@ export default function Callback() {
   const [errorVisible, setErrorVisible] = useState(false);
   const navigation = useNavigate();
   const errorStore = useErrorStore();
-  const { signin } = useContext(AuthContext);
+  const { signin, signKycData } = useContext(AuthContext);
 
   useEffect(() => {
     verifyLogin();
@@ -22,9 +22,11 @@ export default function Callback() {
   async function verifyLogin() {
     try {
       const user = await ExternalUser.verifyLoginResponse();
-
       if (user) {
         signin(user.user);
+        if (user.data) {
+          signKycData(user.data);
+        }
       }
     } catch (e) {
       if (isErrorCode(e, SdkErrors.UserCancelled)) {
