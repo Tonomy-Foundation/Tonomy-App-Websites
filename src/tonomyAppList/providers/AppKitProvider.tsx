@@ -1,4 +1,3 @@
-
 import { createAppKit } from "@reown/appkit/react";
 
 import { WagmiProvider } from "wagmi";
