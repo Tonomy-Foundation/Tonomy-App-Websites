@@ -29,6 +29,6 @@
     "appId": "tonomyiddevelopment",
     "sha256CertFingerprints": "00:E5:7D:E1:DA:75:7C:DD:06:1F:9B:D8:35:02:4B:A9:7E:35:9B:EA:54:4F:52:7E:81:8E:62:B3:3A:5C:99:D7",
     "baseNetwork": "localhost",
-    "baseTokenAddress": "0xb09da8a5B236fE0295A345035287e80bb0008290",
+    "baseTokenAddress": "0x56aD9925f417358640746266eF44a701622c54Ba",
     "baseRpcUrl": "https://base-sepolia.infura.io/v3/"
 }
