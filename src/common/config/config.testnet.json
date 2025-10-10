@@ -29,9 +29,8 @@
   "currencySymbol": "TONO",
   "appId": "pangeatestnet",
   "sha256CertFingerprints": "24:8A:15:4B:BC:84:4C:D8:8F:F8:20:86:80:DC:08:65:75:5D:79:3C:20:CB:D9:EA:49:96:A8:D6:EC:C4:10:FD",
-  "reownProjectId": "2850896ad9cf6c1d958203b00b199c2d",
-    "baseNetwork": "base-sepolia",
-    "baseTokenAddress": "0xC71Ae7EBa91037Ff145671D0d25Ba415BB69450c",
-        "baseRpcUrl": "https://base-sepolia.infura.io/v3/"
+  "baseNetwork": "base-sepolia",
+  "baseTokenAddress": "0xC71Ae7EBa91037Ff145671D0d25Ba415BB69450c",
+  "baseRpcUrl": "https://base-sepolia.infura.io/v3/"
 
 }

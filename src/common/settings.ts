@@ -104,6 +104,7 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
 
 config.baseRpcUrl += environmentVariables.VITE_INFURA_API;
 config.basePrivateKey = environmentVariables.VITE_ETHEREUM;
+config.reownProjectId = environmentVariables.VITE_REOWN_PROJECT_ID;
 
 // Add title
 settings.config = config;
