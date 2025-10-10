@@ -30,6 +30,6 @@
     "appId": "tonomyidstaging",
     "sha256CertFingerprints": "05:37:B7:5E:0A:6F:D2:07:89:A2:B1:4D:F1:8B:D2:C7:99:56:DB:71:D0:9B:39:4C:EE:64:95:87:FE:0F:DF:E9",
     "baseNetwork": "base-sepolia",
-    "baseTokenAddress": "0xC71Ae7EBa91037Ff145671D0d25Ba415BB69450c",
+    "baseTokenAddress": "0x56aD9925f417358640746266eF44a701622c54Ba",
     "baseRpcUrl": "https://base-sepolia.infura.io/v3/"
 }
