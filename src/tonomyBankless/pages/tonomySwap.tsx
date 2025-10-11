@@ -142,7 +142,7 @@ export default function Swap() {
     const temp = fromAmount;
     setFromAmount(toAmount);
     setToAmount(temp);
-    if(Number(temp) > 0) {
+    if (Number(temp) > 0) {
       if (
         newDirection === SwapDirection.TONOMY_TO_BASE &&
         new Decimal(temp).greaterThan(availableBalance)
