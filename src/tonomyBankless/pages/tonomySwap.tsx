@@ -203,7 +203,7 @@ export default function Swap() {
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
         await new Promise((resolve) => setTimeout(resolve, 20000));
       } catch (error) {
-        console.log("error", error)
+        console.log("error", error);
         errorStore.setError({ error: error.message, expected: false });
       } finally {
         await updateBalance();
