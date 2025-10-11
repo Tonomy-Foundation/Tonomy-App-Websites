@@ -127,6 +127,7 @@ export default function Swap() {
       }
       fetchWalletBalance();
     } catch (e) {
+      console.log("update balance error", e);
       errorStore.setError({ error: e, expected: false });
     }
   };
@@ -200,13 +201,12 @@ export default function Swap() {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
-        if (currentDirection === SwapDirection.BASE_TO_TONOMY) {
-          await new Promise((resolve) => setTimeout(resolve, 15000));
-        }
-        await updateBalance();
+        await new Promise((resolve) => setTimeout(resolve, 20000));
       } catch (error) {
+        console.log("error", error);
         errorStore.setError({ error: error.message, expected: false });
       } finally {
+        await updateBalance();
         setShowModal(false);
         setSwapModal(false);
         setFromAmount("");
