@@ -127,6 +127,7 @@ export default function Swap() {
       }
       fetchWalletBalance();
     } catch (e) {
+      console.log("update balance error", e);
       errorStore.setError({ error: e, expected: false });
     }
   };
@@ -202,6 +203,7 @@ export default function Swap() {
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
         await new Promise((resolve) => setTimeout(resolve, 20000));
       } catch (error) {
+        console.log("error", error)
         errorStore.setError({ error: error.message, expected: false });
       } finally {
         await updateBalance();
