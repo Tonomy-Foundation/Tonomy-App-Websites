@@ -35,12 +35,19 @@ export type ConfigType = {
   communicationUrl: string;
   ssoWebsiteOrigin: string;
   blockchainUrl: string;
+  demoWebsiteOrigin: string;
+  tonomyAppsOrigin: string;
   loggerLevel: "debug" | "error";
   blockExplorerUrl: string;
   documentationLink: string;
   currencySymbol: string;
   appId: string;
   sha256CertFingerprints: string;
+  reownProjectId: string;
+  baseNetwork: "localhost" | "base" | "base-sepolia";
+  baseTokenAddress: string;
+  baseRpcUrl: string;
+  basePrivateKey: string;
 };
 
 type SettingsType = {
@@ -55,26 +62,20 @@ const settings: SettingsType = {
     ["production", "testnet", "staging"].includes(settings.env),
 } as SettingsType;
 
-type FixLoggerLevelEnumType<T> = Omit<T, "loggerLevel"> & {
-  loggerLevel: "debug" | "error";
-};
-
 switch (env) {
   case "test":
   case "local":
   case "development":
-    config = defaultConfig as FixLoggerLevelEnumType<typeof defaultConfig>;
+    config = defaultConfig as ConfigType;
     break;
   case "staging":
-    config = stagingConfig as FixLoggerLevelEnumType<typeof stagingConfig>;
+    config = stagingConfig as ConfigType;
     break;
   case "testnet":
-    config = testnetConfig as FixLoggerLevelEnumType<typeof testnetConfig>;
+    config = testnetConfig as ConfigType;
     break;
   case "production":
-    config = productionConfig as FixLoggerLevelEnumType<
-      typeof productionConfig
-    >;
+    config = productionConfig as ConfigType;
     break;
   default:
     throw new Error("Unknown environment: " + env);
@@ -100,6 +101,10 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
   );
   config.communicationUrl = environmentVariables.VITE_COMMUNICATION_URL;
 }
+
+config.baseRpcUrl += environmentVariables.VITE_INFURA_API;
+config.basePrivateKey = environmentVariables.VITE_ETHEREUM;
+config.reownProjectId = environmentVariables.VITE_REOWN_PROJECT_ID;
 
 // Add title
 settings.config = config;

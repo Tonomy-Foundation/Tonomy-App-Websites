@@ -1,0 +1,25 @@
+
+.card-container {
+    margin: 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container .mui-card-header-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.card-container .mui-card-header-subheader {
+    font-size: 1rem;
+}
+
+.card-subheader {
+    margin-top: 0.3rem;
+}
+
+.myapp-logo {
+    width: 24px;
+}

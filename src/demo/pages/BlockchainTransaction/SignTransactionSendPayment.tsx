@@ -26,8 +26,6 @@ const debug = Debug(
 
 const env = settings.env || "development";
 
-const demoTokenContract = DemoTokenContract.Instance;
-
 export type SignTransactionSendPaymentProps = {
   username: string;
   setActiveStep: (step: number) => void;
@@ -56,6 +54,7 @@ const SignTransactionSendPayment = (props: SignTransactionSendPaymentProps) => {
 
       if (accountName) {
         setTransactionState("loading");
+        const demoTokenContract = await DemoTokenContract.atAccount();
         let accountBalance = await demoTokenContract.getBalance(accountName);
 
         debug("accountBalance", accountBalance);
