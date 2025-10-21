@@ -3767,9 +3767,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@portal:/home/sadia/Tonomy-ID-Integration/Tonomy-ID-SDK::locator=tonomy-app-websites%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@tonomy/tonomy-id-sdk@portal:/home/sadia/Tonomy-ID-Integration/Tonomy-ID-SDK::locator=tonomy-app-websites%40workspace%3A."
+"@tonomy/tonomy-id-sdk@npm:0.35.0-development.14":
+  version: 0.35.0-development.14
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.35.0-development.14"
   dependencies:
     "@consento/sync-randombytes": "npm:^1.0.5"
     "@tonomy/antelope-did-resolver": "npm:^0.10.0"
@@ -3797,8 +3797,9 @@ __metadata:
     typeorm: "npm:0.3.22"
     universal-base64url: "npm:^1.1.0"
     web-did-resolver: "npm:^2.0.27"
+  checksum: 10c0/94100b53f19a146007f483ffdecd8ae319909255abb1e2b0f2c851b6dbe1407cd24ee0fb4d86fecb2bbd1391c6b544999fefc48415055186c20cc17b272bbaf3
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@tootallnate/once@npm:1":
   version: 1.1.2
