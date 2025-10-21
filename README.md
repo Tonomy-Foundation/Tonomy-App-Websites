@@ -31,6 +31,7 @@ Making the apps ready for production.
 test how the apps will look like on production. <br>
 this is still experimental and needs some proxy configuration to make it works
 
+
 ## Update the Tonomy-ID-SDK version to the latest
 
 ```bash
