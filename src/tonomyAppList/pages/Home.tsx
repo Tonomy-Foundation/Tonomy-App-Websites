@@ -65,7 +65,7 @@ export default function Home() {
     },
     {
       name: "Launchpad",
-      url: "https://tonomy.io",
+      url: "https://launchpad.tonomy.io",
       description: "The platform to join Tonomy early and get your tokens",
       logo: LaunchpadIcon,
       icon: Share,
