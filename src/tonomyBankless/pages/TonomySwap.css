@@ -179,8 +179,7 @@
 .swap-container {
    width: 100%; /* Center the grid on smaller screens */
   }
- .buttonRow {
-   
+ .button-row {
    padding: 0px 0rem !important;
   }
 }
@@ -199,8 +198,7 @@
     .input-width{
   max-width: 110px;
 }
- .buttonRow {
-   
+ .button-row {
    padding: 0px 0rem !important;
   }
 }

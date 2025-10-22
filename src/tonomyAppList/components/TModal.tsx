@@ -138,7 +138,7 @@ export default function TModal({
             )}
           </div>
           {(confirmLabel || cancelLabel) && (
-            <div style={styles.buttonRow} className="buttonRow">
+            <div style={styles.buttonRow} className="button-row">
               {cancelLabel && (
                 <Button
                   variant="outlined"
