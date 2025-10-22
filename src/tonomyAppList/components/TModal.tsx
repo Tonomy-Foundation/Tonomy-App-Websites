@@ -38,7 +38,7 @@ const styles = {
     width: "100%",
     maxWidth: 560,
     height: 345,
-    padding: "25px 50px",
+    padding: "25px 40px",
     textAlign: "center" as const,
     boxShadow: "0px 4px 16px rgba(0,0,0,0.2)",
     display: "flex",
@@ -82,6 +82,11 @@ const styles = {
     marginTop: "auto",
     marginBottom: "30px",
     padding: "0px 5rem",
+    // Mobile styles
+    "@media (max-width: 325px)": {
+      gap: "12px",
+      padding: "0rem",
+    },
   },
 };
 const spin = keyframes`
@@ -133,7 +138,7 @@ export default function TModal({
             )}
           </div>
           {(confirmLabel || cancelLabel) && (
-            <div style={styles.buttonRow}>
+            <div style={styles.buttonRow} className="buttonRow">
               {cancelLabel && (
                 <Button
                   variant="outlined"

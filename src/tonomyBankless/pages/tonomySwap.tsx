@@ -19,6 +19,7 @@ import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
+import { ToastContainer, toast } from "react-toastify";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -128,7 +129,6 @@ export default function Swap() {
       fetchWalletBalance();
     } catch (e) {
       console.log("update balance error", e);
-      errorStore.setError({ error: e, expected: false });
     }
   };
 
@@ -211,6 +211,7 @@ export default function Swap() {
         setSwapModal(false);
         setFromAmount("");
         setToAmount("");
+        notify();
       }
     }
   };
@@ -312,6 +313,8 @@ export default function Swap() {
     );
   };
 
+  const notify = () => toast("Swap successful! Your balance is now updated");
+
   const description =
     currentDirection === SwapDirection.TONOMY_TO_BASE
       ? `You're about to swap ${fromAmount} $TONO from Tonomy Blockchain to Base Blockchain.`
@@ -389,6 +392,17 @@ export default function Swap() {
         {/* Add any modal content here if needed */}
         <div></div>
       </TModal>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
