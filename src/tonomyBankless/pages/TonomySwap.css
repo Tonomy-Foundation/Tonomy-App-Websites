@@ -179,14 +179,16 @@
 .swap-container {
    width: 100%; /* Center the grid on smaller screens */
   }
-
+ .button-row {
+   padding: 0px 0rem !important;
+  }
 }
 
 @media only screen and (max-width: 767px) {
  .swap-container {
    width: 100%; /* Center the grid on smaller screens */
   }
-  
+ 
 }
 
 @media only screen and (max-width: 325px) {
@@ -196,6 +198,9 @@
     .input-width{
   max-width: 110px;
 }
+ .button-row {
+   padding: 0px 0rem !important;
+  }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1280px)
@@ -203,4 +208,5 @@
 .swap-container {
    width: 50%; /* Center the grid on smaller screens */
   }
+  
 }
