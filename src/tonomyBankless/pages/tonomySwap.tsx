@@ -19,6 +19,7 @@ import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
+import { ToastContainer, toast } from "react-toastify";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -127,7 +128,7 @@ export default function Swap() {
       }
       fetchWalletBalance();
     } catch (e) {
-      errorStore.setError({ error: e, expected: false });
+      console.log("update balance error", e);
     }
   };
 
@@ -200,17 +201,17 @@ export default function Swap() {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         await appUser.swapToken(new Decimal(toAmount), proof, direction);
-        if (currentDirection === SwapDirection.BASE_TO_TONOMY) {
-          await new Promise((resolve) => setTimeout(resolve, 15000));
-        }
-        await updateBalance();
+        await new Promise((resolve) => setTimeout(resolve, 20000));
       } catch (error) {
+        console.log("error", error);
         errorStore.setError({ error: error.message, expected: false });
       } finally {
+        await updateBalance();
         setShowModal(false);
         setSwapModal(false);
         setFromAmount("");
         setToAmount("");
+        notify();
       }
     }
   };
@@ -312,6 +313,8 @@ export default function Swap() {
     );
   };
 
+  const notify = () => toast("Swap successful! Your balance is now updated");
+
   const description =
     currentDirection === SwapDirection.TONOMY_TO_BASE
       ? `You're about to swap ${fromAmount} $TONO from Tonomy Blockchain to Base Blockchain.`
@@ -389,6 +392,17 @@ export default function Swap() {
         {/* Add any modal content here if needed */}
         <div></div>
       </TModal>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

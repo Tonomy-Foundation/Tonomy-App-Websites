@@ -65,7 +65,7 @@ export default function Home() {
     },
     {
       name: "Launchpad",
-      url: "https://tonomy.io",
+      url: "https://launchpad.tonomy.io",
       description: "The platform to join Tonomy early and get your tokens",
       logo: LaunchpadIcon,
       icon: Share,
@@ -97,7 +97,7 @@ export default function Home() {
       icon: Share,
     },
     {
-      name: "Fiddle.art",
+      name: "Fiddl.art",
       url: "https://fiddl.art",
       description:
         "A vibrant creative platform where artists showcase their work, connect with others, and collaborate globally",
