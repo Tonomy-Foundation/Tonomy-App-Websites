@@ -8,7 +8,7 @@ import TSpinner from "../atoms/TSpinner";
 export default function ConnectionError({
   username,
   tryAgainLink,
-  appName
+  appName,
 }: {
   username?: string;
   tryAgainLink?: string;
