@@ -205,7 +205,7 @@ export default function Swap() {
         setSwapModal(false);
         errorStore.setError({
           title: "Something goes wrong",
-          error: new Error("Swap operation timed out. Please try again."),
+          error: new Error("Swap operation timed out. Please refresh and try again."),
           expected: true,
         });
       }, timeoutDuration);
