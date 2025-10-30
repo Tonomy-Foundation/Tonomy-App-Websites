@@ -20,7 +20,7 @@
 
   "communicationUrl": "wss://communication.testnet.tonomy.io",
   "ssoWebsiteOrigin": "https://accounts.testnet.tonomy.io",
-  "blockchainUrl": "https://blockchain-api-testnet.tonomy.io",
+  "blockchainUrl": "https://test.pangea.eosusa.io",
   "tonomyAppsOrigin": "https://apps.testnet.tonomy.io",
   "demoWebsiteOrigin": "https://demo.testnet.tonomy.io",
   "loggerLevel": "error",

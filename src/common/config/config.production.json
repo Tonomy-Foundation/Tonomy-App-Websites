@@ -19,7 +19,7 @@
   "tonomyIdSchema": "united-wallet://",
   "communicationUrl": "wss://communication.tonomy.io",
   "ssoWebsiteOrigin": "https://accounts.tonomy.io",
-  "blockchainUrl": "https://blockchain-api.tonomy.io",
+  "blockchainUrl": "https://pangea.eosusa.io",
   "demoWebsiteOrigin": "https://demo.tonomy.io",
   "tonomyAppsOrigin": "https://apps.tonomy.io",
   "loggerLevel": "error",
