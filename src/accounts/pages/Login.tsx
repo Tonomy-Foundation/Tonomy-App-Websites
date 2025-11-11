@@ -476,6 +476,7 @@ export default function Login() {
             <ConnectionError
               username={username}
               tryAgainLink={window.document.referrer}
+              appName={app ? app.appName : undefined}
             />
           ) : (
             <LinkingPhone />
