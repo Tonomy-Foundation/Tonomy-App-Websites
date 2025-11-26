@@ -8,9 +8,11 @@ import TSpinner from "../atoms/TSpinner";
 export default function ConnectionError({
   username,
   tryAgainLink,
+  appName,
 }: {
   username?: string;
   tryAgainLink?: string;
+  appName: string | undefined;
 }) {
   return (
     <Box>
@@ -47,7 +49,7 @@ export default function ConnectionError({
                   Try Again
                 </a>
                 <a className="back-to-app" href={tryAgainLink}>
-                  Back to Tonomy Launchpad
+                  Back to {appName}
                 </a>
               </>
             ) : (
