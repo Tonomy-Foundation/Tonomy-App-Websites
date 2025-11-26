@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import TonomyLogo from "../../tonomyAppList/assets/appSwitcherIcons/tonomy.png";
+import TonomyLogo from "../../apps/assets/appSwitcherIcons/tonomy.png";
 import "./TopMenuBar.css";
 import {
   AppsExternalUser,
@@ -8,11 +8,11 @@ import {
   isErrorCode,
   SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
-import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
+import { AuthContext } from "../../apps/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
+import AppSwitcherIcon from "../../apps/assets/app-switcher.png";
 import AppSwitcher from "./AppSwitcher";
 import useErrorStore from "../../common/stores/errorStore";
 import Debug from "debug";

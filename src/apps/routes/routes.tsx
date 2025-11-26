@@ -4,7 +4,7 @@ import AuthProvider from "../providers/AuthProvider";
 import HomeScreen from "../pages/Home";
 import MainLayout from "../../common/layout/MainLayout";
 import Callback from "../pages/Callback";
-import BanklessRoutes from "../../tonomyBankless/routes/routes";
+import BanklessRoutes from "../../appsBankless/routes/routes";
 
 export default function RootRoutes() {
   return (

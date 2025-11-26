@@ -52,7 +52,7 @@ try {
       developersConsole(root);
     });
   } else if (parseInt(window.location.port) === 3003 || subdomain === "apps") {
-    import("./tonomyAppList/module-index.js").then((module) => {
+    import("./apps/module-index.js").then((module) => {
       const appWebsite = module.default;
 
       appWebsite(root);

@@ -5,7 +5,7 @@ import SwapIcon from "../assets/icons/swap-icon.png";
 import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
 import "./SwapComponent.css";
-import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
+import { AuthContext } from "../../apps/providers/AuthProvider";
 import {
     createSignedProofMessage,
     AppsExternalUser,
@@ -13,7 +13,7 @@ import {
     getBaseTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import Decimal from "decimal.js";
-import TModal from "../../tonomyAppList/components/TModal";
+import TModal from "../../apps/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
