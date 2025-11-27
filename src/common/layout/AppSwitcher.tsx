@@ -21,6 +21,11 @@ const availableApps = [
     link: "https://launchpad.tonomy.io",
   },
   {
+    name: "Tonoscan",
+    icon: TonomyLogo,
+    link: "https://tonomyscan.io/"
+  },
+  {
     name: "Bankless",
     icon: BanklessIcon,
     link: settings.config.tonomyAppsOrigin + "/bankless",
@@ -31,7 +36,7 @@ const availableApps = [
     link: settings.config.blockExplorerUrl,
   },
   { name: "Demo", icon: DemoIcon, link: settings.config.demoWebsiteOrigin },
-  { name: "Fiddle.art", icon: FiddleArtIcon, link: "https://fiddl.art" },
+  { name: "Fiddl.art", icon: FiddleArtIcon, link: "https://fiddl.art" },
 ];
 
 const comingSoonApps = [
