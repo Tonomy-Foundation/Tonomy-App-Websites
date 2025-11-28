@@ -73,7 +73,8 @@ export default function Home() {
     {
       name: "Tonoscan",
       url: "https://tonomyscan.io/",
-      description: "Tonomyscan allows you to explore and search the Tonomy blockchain (TONO)",
+      description:
+        "Tonomyscan allows you to explore and search the Tonomy blockchain (TONO)",
       logo: TonomyLogo,
       icon: Share,
     },

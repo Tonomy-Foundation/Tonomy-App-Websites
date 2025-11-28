@@ -23,7 +23,7 @@ const availableApps = [
   {
     name: "Tonoscan",
     icon: TonomyLogo,
-    link: "https://tonomyscan.io/"
+    link: "https://tonomyscan.io/",
   },
   {
     name: "Bankless",
