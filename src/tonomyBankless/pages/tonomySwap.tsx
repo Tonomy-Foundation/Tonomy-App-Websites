@@ -215,11 +215,8 @@ export default function Swap() {
       try {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
-          if(direction === "base") {
-            const swapId = 'swap_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            const accountName = await user?.getAccountName();
-            const memo = `swap:${swapId}:${accountName}`;
-            await appUser.swapBaseToken(new Decimal(toAmount), memo, address, signer)
+          if(direction === "base") {          
+            await appUser.swapBaseToTonomyToken(new Decimal(toAmount), address, signer)
           } else {
             await appUser.swapToken(new Decimal(toAmount), proof, direction);
           }
