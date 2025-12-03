@@ -218,7 +218,7 @@ export default function Swap() {
           if(direction === "base") {          
             await appUser.swapBaseToTonomyToken(new Decimal(toAmount), address, signer)
           } else {
-            await appUser.swapToken(new Decimal(toAmount), proof, direction);
+            await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof, direction);
           }
         await new Promise((resolve) => setTimeout(resolve, 10000));
       } catch (error) {
