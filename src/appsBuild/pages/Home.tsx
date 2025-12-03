@@ -1,11 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  AppsExternalUser,
+  isErrorCode,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../../common/stores/errorStore";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../apps/providers/AuthProvider";
+import BuildLogo from "../../apps/assets/appSwitcherIcons/Build.png";
 
 export default function Home() {
   const { signin } = useContext(AuthContext);
@@ -15,10 +20,9 @@ export default function Home() {
 
   async function onRender() {
     try {
-      const user = await ExternalUser.getUser({ autoLogout: false });
-
+      const user = await AppsExternalUser.getUser({ autoLogout: false });
       if (user) {
-        signin(user);
+        signin(user, "build/");
       }
 
       setLoading(false);
@@ -32,7 +36,7 @@ export default function Home() {
       ) {
         // User not logged in
         setLoading(false);
-        navigation("/");
+        navigation("/build");
         return;
       }
 
@@ -45,8 +49,8 @@ export default function Home() {
   }, []);
 
   async function onButtonPress() {
-    ExternalUser.loginWithTonomy({
-      callbackPath: "/callback",
+    AppsExternalUser.loginWithTonomy({
+      callbackPath: "/callback?page=build",
       dataRequest: { username: true },
     });
   }
@@ -57,41 +61,26 @@ export default function Home() {
         <TH2 className="loading-text">Loading...</TH2>
       ) : (
         <div className="container">
-          <header>
-            <div className="box">
-              <div className="box-heading">
-                <span>Need help ?</span>
-              </div>
-            </div>
+          <header className="header-column">
             <div className="app-logo">
               <img
-                src={settings.config.images.logo1024}
-                alt={`${settings.config.appName} Logo`}
-                width="120px"
+                src={BuildLogo}
+                alt="Tonomy Logo"
+                className="tonomy-logo"
+                width={80}
               />
             </div>
             <div className="text-center">
-              <TP className="demo-head">Tonomy Developer Console</TP>
-              <TP className="demo-main">Building ecosystem of Trust</TP>
+              <TP className="demo-head">Tonomy Build</TP>
+              <TP className="demo-main">
+                Manage your Tonomy applications and infrastructure easily from one place
+              </TP>
 
               <button className="console-login-button" onClick={onButtonPress}>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <img
-                    src={settings.config.images.logo48}
-                    alt={`${settings.config.appName} Logo`}
-                    className="btn-image"
-                  />
                   <span>Login with {settings.config.appName}</span>
                 </div>
               </button>
-              <div className="bottom-text">
-                <p>By creating an account, you agree to our</p>
-                <p>
-                  <span className="blue-color">Terms & Conditions </span>
-                  and agree to{" "}
-                  <span className="blue-color">Privacy Policy</span>
-                </p>
-              </div>
             </div>
           </header>
         </div>

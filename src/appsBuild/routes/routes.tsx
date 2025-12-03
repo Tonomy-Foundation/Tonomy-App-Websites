@@ -4,7 +4,6 @@ import AuthProvider from "../providers/AuthProvider";
 import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
-import Callback from "../pages/Callback";
 import MainLayout from "../layout/MainLayout";
 
 export default function BuildRoutes() {
@@ -12,7 +11,6 @@ export default function BuildRoutes() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route path="/callback" element={<Callback />} />
 
         {mainRoutes.map((route) => (
           <Route
