@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
-import { AuthContext } from "../../../tonomyAppList/providers/AuthProvider";
+import { AuthContext } from "../../../apps/providers/AuthProvider";
 
 export default function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);

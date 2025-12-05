@@ -97,7 +97,7 @@ export default function Home() {
       icon: Share,
     },
     {
-      name: "Fiddle.art",
+      name: "Fiddl.art",
       url: "https://fiddl.art",
       description:
         "A vibrant creative platform where artists showcase their work, connect with others, and collaborate globally",

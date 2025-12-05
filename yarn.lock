@@ -3767,9 +3767,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonomy/tonomy-id-sdk@npm:0.35.0-development.14":
-  version: 0.35.0-development.14
-  resolution: "@tonomy/tonomy-id-sdk@npm:0.35.0-development.14"
+"@tonomy/tonomy-id-sdk@npm:0.35.1":
+  version: 0.35.1
+  resolution: "@tonomy/tonomy-id-sdk@npm:0.35.1"
   dependencies:
     "@consento/sync-randombytes": "npm:^1.0.5"
     "@tonomy/antelope-did-resolver": "npm:^0.10.0"
@@ -3797,7 +3797,7 @@ __metadata:
     typeorm: "npm:0.3.22"
     universal-base64url: "npm:^1.1.0"
     web-did-resolver: "npm:^2.0.27"
-  checksum: 10c0/94100b53f19a146007f483ffdecd8ae319909255abb1e2b0f2c851b6dbe1407cd24ee0fb4d86fecb2bbd1391c6b544999fefc48415055186c20cc17b272bbaf3
+  checksum: 10c0/9cd1abd88396fa2bd7ee058cebff155cf3afc00862d5ea509a1bc7bcd3221f971f28de0a553ffb3c3b88ddb588f19f3e543ef693e538d0be5f1c8c7248757dc9
   languageName: node
   linkType: hard
 
@@ -12032,6 +12032,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-toastify@npm:^11.0.5":
+  version: 11.0.5
+  resolution: "react-toastify@npm:11.0.5"
+  dependencies:
+    clsx: "npm:^2.1.1"
+  peerDependencies:
+    react: ^18 || ^19
+    react-dom: ^18 || ^19
+  checksum: 10c0/50f5b81323ebb1957b2efd0963fac24aa1407155d16ab756ffd6d0f42f8af17e796b3958a9fce13e9d1b945d6c3a5a9ebf13529478474d8a2af4bf1dd0db67d2
+  languageName: node
+  linkType: hard
+
 "react-transition-group@npm:^4.4.5":
   version: 4.4.5
   resolution: "react-transition-group@npm:4.4.5"
@@ -13423,7 +13435,7 @@ __metadata:
     "@rollup/plugin-node-resolve": "npm:^15.0.1"
     "@semantic-release/git": "npm:^10.0.1"
     "@tanstack/react-query": "npm:^5.85.3"
-    "@tonomy/tonomy-id-sdk": "npm:0.35.0-development.14"
+    "@tonomy/tonomy-id-sdk": "npm:0.35.1"
     "@types/node": "npm:^20.14.11"
     "@types/react": "npm:^19.1.3"
     "@types/react-dom": "npm:^19.1.3"
@@ -13446,6 +13458,7 @@ __metadata:
     react-pro-sidebar: "npm:^1.0.0"
     react-qr-code: "npm:^2.0.11"
     react-router-dom: "npm:^6.25.1"
+    react-toastify: "npm:^11.0.5"
     semantic-release: "npm:^24.2.0"
     serve: "npm:^14.2.0"
     sql.js: "npm:^1.10.3"

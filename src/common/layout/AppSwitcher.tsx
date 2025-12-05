@@ -1,14 +1,14 @@
 import React from "react";
-import IDIcon from "../../tonomyAppList/assets/appSwitcherIcons/ID.png";
-import GOVPlusIcon from "../../tonomyAppList/assets/appSwitcherIcons/gov+.png";
-import DAOIcon from "../../tonomyAppList/assets/appSwitcherIcons/DAO.png";
-import BuildIcon from "../../tonomyAppList/assets/appSwitcherIcons/Build.png";
-import BanklessIcon from "../../tonomyAppList/assets/appSwitcherIcons/Bankless.png";
-import DemoIcon from "../../tonomyAppList/assets/appSwitcherIcons/demo.png";
-import LaunchpadIcon from "../../tonomyAppList/assets/appSwitcherIcons/launchpad.png";
-import TonomyLogo from "../../tonomyAppList/assets/appSwitcherIcons/tonomy.png";
-import FiddleArtIcon from "../../tonomyAppList/assets/appSwitcherIcons/fiddleart.png";
-import CXCWorldIcon from "../../tonomyAppList/assets/appSwitcherIcons/cxcworld.png"; // add new icon
+import IDIcon from "../../apps/assets/appSwitcherIcons/ID.png";
+import GOVPlusIcon from "../../apps/assets/appSwitcherIcons/gov+.png";
+import DAOIcon from "../../apps/assets/appSwitcherIcons/DAO.png";
+import BuildIcon from "../../apps/assets/appSwitcherIcons/Build.png";
+import BanklessIcon from "../../apps/assets/appSwitcherIcons/Bankless.png";
+import DemoIcon from "../../apps/assets/appSwitcherIcons/demo.png";
+import LaunchpadIcon from "../../apps/assets/appSwitcherIcons/launchpad.png";
+import TonomyLogo from "../../apps/assets/appSwitcherIcons/tonomy.png";
+import FiddleArtIcon from "../../apps/assets/appSwitcherIcons/fiddleart.png";
+import CXCWorldIcon from "../../apps/assets/appSwitcherIcons/cxcworld.png"; // add new icon
 
 import "./AppSwitcher.css";
 import settings from "../settings";

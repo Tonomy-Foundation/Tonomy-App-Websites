@@ -73,7 +73,6 @@ export default function Login() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (app) {
-      console.log(app);
       updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);
@@ -476,6 +475,7 @@ export default function Login() {
             <ConnectionError
               username={username}
               tryAgainLink={window.document.referrer}
+              appName={app ? app.appName : undefined}
             />
           ) : (
             <LinkingPhone />
