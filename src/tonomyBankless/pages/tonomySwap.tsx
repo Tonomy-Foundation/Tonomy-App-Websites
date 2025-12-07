@@ -375,7 +375,10 @@ export default function Swap() {
       >
         {buttonText}
       </button>
-      <p className="swap-disable-text ">Swapping is temporarily disabled as we work to resolve an issue. Thank you for your patience.</p>
+      <p className="swap-disable-text ">
+        Swapping is temporarily disabled as we work to resolve an issue. Thank
+        you for your patience.
+      </p>
       <TModal
         open={swapModal}
         image={CircularIcon}
