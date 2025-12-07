@@ -366,9 +366,7 @@ export default function Swap() {
 
       <button
         className="connect-btn"
-        disabled={
-          !isConnected || !fromAmount || !toAmount || !isBalanceSufficient
-        }
+        disabled={true} //!isConnected || !fromAmount || !toAmount || !isBalanceSufficient
         onClick={() => {
           if (buttonText === "Swap Assets") {
             setSwapModal(true);
@@ -377,7 +375,7 @@ export default function Swap() {
       >
         {buttonText}
       </button>
-
+      <p className="swap-disable-text ">Swapping is temporarily disabled as we work to resolve an issue. Thank you for your patience.</p>
       <TModal
         open={swapModal}
         image={CircularIcon}
