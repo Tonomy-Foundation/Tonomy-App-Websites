@@ -215,11 +215,11 @@ export default function Swap() {
       try {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
-          if(direction === "base") {     
-            await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer)
-          } else {
-            await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
-          }
+        if (direction === "base") {
+          await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer);
+        } else {
+          await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
+        }
         await new Promise((resolve) => setTimeout(resolve, 10000));
       } catch (error) {
         console.log("error", error);
