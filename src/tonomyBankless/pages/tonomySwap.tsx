@@ -215,7 +215,11 @@ export default function Swap() {
       try {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
-        await appUser.swapToken(new Decimal(toAmount), proof, direction);
+          if(direction === "base") {     
+            await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer)
+          } else {
+            await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
+          }
         await new Promise((resolve) => setTimeout(resolve, 10000));
       } catch (error) {
         console.log("error", error);
@@ -366,7 +370,9 @@ export default function Swap() {
 
       <button
         className="connect-btn"
-        disabled={true} //!isConnected || !fromAmount || !toAmount || !isBalanceSufficient
+        disabled={
+          !isConnected || !fromAmount || !toAmount || !isBalanceSufficient
+        }
         onClick={() => {
           if (buttonText === "Swap Assets") {
             setSwapModal(true);
@@ -375,10 +381,7 @@ export default function Swap() {
       >
         {buttonText}
       </button>
-      <p className="swap-disable-text ">
-        Swapping is temporarily disabled as we work to resolve an issue. Thank
-        you for your patience.
-      </p>
+
       <TModal
         open={swapModal}
         image={CircularIcon}

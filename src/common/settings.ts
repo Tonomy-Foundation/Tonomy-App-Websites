@@ -14,6 +14,7 @@ const env = environmentVariables.VITE_APP_NODE_ENV || "development";
 console.log(`VITE_APP_NODE_ENV=${env}`);
 
 export type ConfigType = {
+  environment: string;
   appLogoUrl: string;
   appName: string;
   ecosystemName: string;
@@ -48,6 +49,7 @@ export type ConfigType = {
   baseTokenAddress: string;
   baseRpcUrl: string;
   basePrivateKey: string;
+  baseMintBurnAddress: string;
 };
 
 type SettingsType = {
@@ -105,6 +107,8 @@ if (environmentVariables.VITE_COMMUNICATION_URL) {
 config.baseRpcUrl += environmentVariables.VITE_INFURA_API;
 config.basePrivateKey = environmentVariables.VITE_ETHEREUM;
 config.reownProjectId = environmentVariables.VITE_REOWN_PROJECT_ID;
+
+config.environment = env;
 
 // Add title
 settings.config = config;
