@@ -71,6 +71,14 @@ export default function Home() {
       icon: Share,
     },
     {
+      name: "Tonoscan",
+      url: "https://tonomyscan.io/",
+      description:
+        "Tonomyscan allows you to explore and search the Tonomy blockchain (TONO)",
+      logo: TonomyLogo,
+      icon: Share,
+    },
+    {
       name: "Tonomy Bankless",
       url: settings.config.tonomyAppsOrigin + "/bankless",
       description:
@@ -97,7 +105,7 @@ export default function Home() {
       icon: Share,
     },
     {
-      name: "Fiddle.art",
+      name: "Fiddl.art",
       url: "https://fiddl.art",
       description:
         "A vibrant creative platform where artists showcase their work, connect with others, and collaborate globally",
