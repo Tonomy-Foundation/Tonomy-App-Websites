@@ -75,8 +75,7 @@
   },
   "resolutions": {
     "jsonld": "link:./node_modules/@digitalcredentials/jsonld",
-    "@wharfkit/antelope": "1.0.10",
-    "@tonomy/tonomy-id-sdk": "portal:/home/sadia/Tonomy/Tonomy-ID-Integration/Tonomy-ID-SDK"
+    "@wharfkit/antelope": "1.0.10"
   },
   "packageManager": "yarn@4.3.1",
   "engines": {
