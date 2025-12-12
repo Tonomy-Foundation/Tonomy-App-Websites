@@ -22,7 +22,10 @@ const metadata = {
 };
 
 // 3. Set the networks
-export const networks = [mainnet, baseSepolia, base] as [AppKitNetwork, ...AppKitNetwork[]];
+export const networks = [mainnet, baseSepolia, base] as [
+  AppKitNetwork,
+  ...AppKitNetwork[],
+];
 
 // 4. Create Wagmi Adapter
 const wagmiAdapter = new WagmiAdapter({
@@ -37,6 +40,7 @@ createAppKit({
   networks,
   projectId,
   metadata,
+  defaultNetwork: settings.env === "testnet" ? baseSepolia : mainnet,
 });
 
 export function AppKitProvider({ children }) {
