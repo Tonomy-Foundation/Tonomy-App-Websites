@@ -192,7 +192,7 @@ export default function Swap() {
       const appUser = new AppsExternalUser(user);
 
       const ethersProvider = new BrowserProvider(
-        walletProvider as import("ethers").Eip1193Provider,
+        walletProvider as any
       );
       const signer = await ethersProvider.getSigner();
       const proof = await createSignedProofMessage(signer as JsonRpcSigner);
