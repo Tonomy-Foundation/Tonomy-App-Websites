@@ -215,7 +215,7 @@ export default function Swap() {
       try {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
-        if (direction === "base") {
+        if (direction === "tonomy") {
           await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer);
         } else {
           await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
