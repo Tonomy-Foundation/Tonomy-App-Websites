@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useAccount } from "wagmi";
-import { useAppKit, useAppKitProvider } from "@reown/appkit/react";
+import {
+  useAppKit,
+  useAppKitNetwork,
+  useAppKitProvider,
+} from "@reown/appkit/react";
 import SwapIcon from "../assets/icons/swap-icon.png";
 import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
@@ -20,6 +24,7 @@ import useErrorStore from "../../common/stores/errorStore";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
 import { ToastContainer, toast } from "react-toastify";
+import { baseSepolia } from "@reown/appkit/networks";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -48,6 +53,7 @@ export default function Swap() {
   const { signin } = useContext(AuthContext);
   const { walletProvider } = useAppKitProvider("eip155");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const { switchNetwork, chainId } = useAppKitNetwork();
 
   // Add this after the useAppKit line
   const events = useAppKitEvents();
@@ -191,9 +197,7 @@ export default function Swap() {
       if (!user) return;
       const appUser = new AppsExternalUser(user);
 
-      const ethersProvider = new BrowserProvider(
-        walletProvider as any
-      );
+      const ethersProvider = new BrowserProvider(walletProvider as any);
       const signer = await ethersProvider.getSigner();
       const proof = await createSignedProofMessage(signer as JsonRpcSigner);
       // Set up timeout for 100 seconds
@@ -213,6 +217,11 @@ export default function Swap() {
       }, timeoutDuration);
 
       try {
+        console.log("chainId", chainId, baseSepolia.id);
+        if (chainId !== baseSepolia.id) {
+          await switchNetwork(baseSepolia);
+        }
+
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         if (direction === "tonomy") {
