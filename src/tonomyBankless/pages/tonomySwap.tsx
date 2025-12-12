@@ -217,7 +217,7 @@ export default function Swap() {
       }, timeoutDuration);
 
       try {
-        console.log("chainId", chainId, baseSepolia.id)
+        console.log("chainId", chainId, baseSepolia.id);
         if (chainId !== baseSepolia.id) {
           await switchNetwork(baseSepolia);
         }
