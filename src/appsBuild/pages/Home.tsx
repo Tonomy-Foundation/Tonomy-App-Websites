@@ -7,9 +7,11 @@ import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import { AuthContext } from "../../apps/providers/AuthProvider";
 import BuildLogo from "../../apps/assets/appSwitcherIcons/Build.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { user, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -18,12 +20,12 @@ export default function Home() {
   }
 
   if (user) {
-    return null; // Router will handle redirect via BuildRouterContainer
+    navigate("app-manager")
   }
 
   async function onButtonPress() {
     AppsExternalUser.loginWithTonomy({
-      callbackPath: "/callback?page=build/app-manager",
+      callbackPath: "/callback?page=build",
       dataRequest: { username: true },
     });
   }

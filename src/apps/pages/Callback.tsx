@@ -28,12 +28,12 @@ export default function Callback() {
   }, []);
 
   async function verifyLogin() {
-    const page = url.searchParams.get("page") || undefined;
+    const page = url.searchParams.get("page");
     try {
       const { user } = await AppsExternalUser.verifyLoginResponse();
       debug("verifyLogin()", page);
       if (user) {
-        signin(new AppsExternalUser(user), page);
+        signin(new AppsExternalUser(user), page ?? "/");
       }
     } catch (e) {
       if (isErrorCode(e, SdkErrors.UserCancelled)) {

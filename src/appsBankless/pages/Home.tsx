@@ -7,9 +7,11 @@ import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
 import { AuthContext } from "../../apps/providers/AuthProvider";
 import BanklessLogo from "../assets/bankless-logo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { loading, user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -18,12 +20,12 @@ export default function Home() {
   }
 
   if (user) {
-    return null; // Router will handle redirect via BanklessRouterContainer
+    navigate("swap")
   }
 
   async function onButtonPress() {
     AppsExternalUser.loginWithTonomy({
-      callbackPath: "/callback?page=bankless/swap",
+      callbackPath: "/callback?page=bankless",
       dataRequest: { username: true },
     });
   }
