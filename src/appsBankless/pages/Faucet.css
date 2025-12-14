@@ -1,0 +1,258 @@
+/* Mobile-first responsive design */
+.faucet-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem;
+    width: 100%;
+}
+
+.faucet-card {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.faucet-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.faucet-description {
+    font-size: 0.8125rem;
+    color: #b0b0b0;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.faucet-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.faucet-recipient {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.faucet-label {
+    font-size: 0.8125rem;
+    color: #b0b0b0;
+}
+
+.faucet-username {
+    font-size: 0.8125rem;
+    color: #ffffff;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.faucet-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.faucet-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 0.875rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.faucet-input-wrapper:focus-within {
+    border-color: #5833bc;
+}
+
+.faucet-input {
+    flex: 1;
+    min-width: 100px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.faucet-input::placeholder {
+    color: #666;
+}
+
+.faucet-token {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faucet-token-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.faucet-token-symbol {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.faucet-token-network {
+    font-size: 0.6875rem;
+    color: #b0b0b0;
+    padding: 0.125rem 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.faucet-max-hint {
+    font-size: 0.75rem;
+    color: #b0b0b0;
+    text-align: right;
+}
+
+.faucet-error {
+    color: #ff4444;
+    font-size: 0.8125rem;
+    margin: 0;
+    text-align: center;
+}
+
+.faucet-button {
+    background: linear-gradient(135deg, #5833bc 0%, #7b4bd9 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.faucet-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 51, 188, 0.4);
+}
+
+.faucet-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.faucet-button:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.faucet-info {
+    margin-top: 1.25rem;
+    padding: 0.875rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #5833bc;
+}
+
+.faucet-info-text {
+    font-size: 0.8125rem;
+    color: #b0b0b0;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+    .faucet-container {
+        padding: 2rem 1rem;
+    }
+
+    .faucet-card {
+        padding: 2rem;
+        border-radius: 16px;
+    }
+
+    .faucet-title {
+        font-size: 1.5rem;
+    }
+
+    .faucet-description {
+        font-size: 0.875rem;
+        margin-bottom: 2rem;
+    }
+
+    .faucet-form {
+        gap: 1.5rem;
+    }
+
+    .faucet-input-wrapper {
+        padding: 1rem;
+        flex-wrap: nowrap;
+    }
+
+    .faucet-input {
+        font-size: 1.25rem;
+        min-width: 120px;
+    }
+
+    .faucet-token-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .faucet-token-symbol {
+        font-size: 1rem;
+    }
+
+    .faucet-token-network {
+        font-size: 0.75rem;
+    }
+
+    .faucet-token {
+        padding-left: 1rem;
+    }
+
+    .faucet-button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .faucet-info {
+        margin-top: 1.5rem;
+        padding: 1rem;
+    }
+
+    .faucet-info-text {
+        font-size: 0.875rem;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+    .faucet-container {
+        padding: 2.5rem 1rem;
+    }
+}
