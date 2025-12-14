@@ -1,6 +1,5 @@
 import { RouteObject } from "react-router-dom";
 import BanklessFeatures from "../pages/BanklessFeatures";
-import Faucet from "../pages/Faucet";
 
 const mainRoutes: RouteObject[] = [
   {
@@ -9,7 +8,7 @@ const mainRoutes: RouteObject[] = [
   },
   {
     path: "/faucet",
-    element: <Faucet />,
+    element: <BanklessFeatures />,
   },
 ];
 
