@@ -2,12 +2,17 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../apps/providers/AuthProvider";
 import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import "./Faucet.css";
+import Decimal from "decimal.js";
+import useErrorStore from "../../common/stores/errorStore";
+import { amountToAsset } from "@tonomy/tonomy-id-sdk";
 
 export default function Faucet() {
     const { user } = useContext(AuthContext);
+    const errorStore = useErrorStore();
     const [amount, setAmount] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [username, setUsername] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(false);
 
     React.useEffect(() => {
         async function getUsername() {
@@ -48,11 +53,30 @@ export default function Faucet() {
             return;
         }
 
-        // TODO: Implement faucet logic with SDK
-        console.log("Request faucet tokens:", amount);
+        if (!user) {
+            setError("User not authenticated");
+            return;
+        }
+
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            await user.requestFaucetTokens(amountToAsset(parseFloat(amount), "TONO"));
+
+            // Reset form on success
+            setAmount("");
+            setError(null);
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Failed to request tokens";
+            setError(errorMessage);
+            errorStore.setError({ error: err, expected: false });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const isButtonDisabled = !amount || parseFloat(amount) <= 0 || parseFloat(amount) > 1000;
+    const isButtonDisabled = !amount || parseFloat(amount) <= 0 || parseFloat(amount) > 1000 || isLoading;
 
     return (
         <div className="faucet-container">
@@ -99,7 +123,7 @@ export default function Faucet() {
                             className="faucet-button"
                             disabled={isButtonDisabled}
                         >
-                            Request Tokens
+                            {isLoading ? "Requesting..." : "Request Tokens"}
                         </button>
                     </div>
                 </form>
