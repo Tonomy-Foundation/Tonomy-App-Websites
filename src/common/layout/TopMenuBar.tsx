@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TonomyLogo from "../../apps/assets/appSwitcherIcons/tonomy.png";
+import BuildLogo from "../../apps/assets/appSwitcherIcons/Build.png";
+import BanklessLogo from "../../appsBankless/assets/bankless-logo.png";
 import "./TopMenuBar.css";
 import {
   AppsExternalUser,
-  ExternalUser,
-  isErrorCode,
-  SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../apps/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -24,6 +23,18 @@ const TopMenuBar = ({ page }) => {
   const [showSwitcher, setShowSwitcher] = useState(false);
   const [open, setOpen] = useState(false);
   const errorStore = useErrorStore();
+
+  function getAppName(): string {
+    if (page === "bankless") return "Tonomy Bankless";
+    if (page === "build") return "Tonomy Build";
+    return "Tonomy Apps";
+  };
+
+  function getAppLogo() {
+    if (page === "bankless") return BanklessLogo;
+    if (page === "build") return BuildLogo;
+    return TonomyLogo;
+  }
 
   useEffect(() => {
     async function getUsername() {
@@ -48,14 +59,14 @@ const TopMenuBar = ({ page }) => {
   async function onButtonPress() {
     let callback = "/callback";
     if (page) callback = "/callback?page=" + page;
-    ExternalUser.loginWithTonomy({
+    AppsExternalUser.loginWithTonomy({
       callbackPath: callback,
       dataRequest: { username: true },
     });
   }
 
-  function shouldShowAppSwitch(url) {
-    const urlObj = new URL(url);
+  function shouldShowAppSwitch(): boolean {
+    const urlObj = new URL(window.location.href);
     const path = urlObj.pathname;
 
     // Don't show if path is empty, just "/", or only contains query/hash
@@ -71,17 +82,17 @@ const TopMenuBar = ({ page }) => {
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <img
-            src={TonomyLogo}
-            alt="Tonomy Logo"
+            src={getAppLogo()}
+            alt={getAppName() + " Logo"}
             className="tonomy-logo"
             width={37}
             height={37}
           />
-          <h1 className="tonomy-main-title">Tonomy</h1>
+          <h1 className="tonomy-main-title">{getAppName()}</h1>
         </a>
       </div>
       <div className="tonomy-time-container">
-        {shouldShowAppSwitch(window.location.href) && (
+        {shouldShowAppSwitch() && (
           <div className="switcher-container">
             <img
               src={AppSwitcherIcon}
