@@ -194,7 +194,7 @@ export default function SwapComponent() {
                 walletProvider as import("ethers").Eip1193Provider,
             );
             const signer = await ethersProvider.getSigner();
-            const proof = await createSignedProofMessage(signer as JsonRpcSigner);
+            const proof = await createSignedProofMessage(signer);
             // Set up timeout for 100 seconds
             const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
             // Create a timeout that will close the modal if the operation takes too long
@@ -214,7 +214,12 @@ export default function SwapComponent() {
             try {
                 const direction: "tonomy" | "base" =
                     currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
-                await appUser.swapToken(new Decimal(toAmount), proof, direction);
+                if (direction === "base") {
+                    await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer);
+                } else {
+                    await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
+                }
+
                 await new Promise((resolve) => setTimeout(resolve, 10000));
             } catch (error) {
                 console.log("error", error);
