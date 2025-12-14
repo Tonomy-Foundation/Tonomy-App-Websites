@@ -73,7 +73,8 @@ export default function Home() {
             <div className="text-center">
               <TP className="demo-head">Tonomy Build</TP>
               <TP className="demo-main">
-                Manage your Tonomy applications and infrastructure easily from one place
+                Manage your Tonomy applications and infrastructure easily from
+                one place
               </TP>
 
               <button className="console-login-button" onClick={onButtonPress}>

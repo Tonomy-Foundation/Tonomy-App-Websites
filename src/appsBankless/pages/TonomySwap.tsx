@@ -3,7 +3,9 @@ import "./TonomySwap.css";
 import SwapComponent from "../components/SwapComponent";
 
 export default function Swap() {
-  const [activeFeature, setActiveFeature] = useState<"swap" | "faucet" | "transfers">("swap");
+  const [activeFeature, setActiveFeature] = useState<
+    "swap" | "faucet" | "transfers"
+  >("swap");
 
   return (
     <div className="swap-container">
