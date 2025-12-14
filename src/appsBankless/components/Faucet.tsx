@@ -110,7 +110,7 @@ export default function Faucet() {
                                         className="faucet-token-icon"
                                     />
                                     <span className="faucet-token-symbol">$TONO</span>
-                                    <span className="faucet-token-network">Tonomy</span>
+                                    <span className="faucet-token-network">Tonomy Testnet</span>
                                 </div>
                             </div>
                             <div className="faucet-max-hint">Max: 1,000 TONO</div>
