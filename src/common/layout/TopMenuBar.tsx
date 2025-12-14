@@ -19,44 +19,26 @@ import Debug from "debug";
 const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 const TopMenuBar = ({ page }) => {
-  const { signout, signin } = useContext(AuthContext);
+  const { signout, user, loading } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
   const [showSwitcher, setShowSwitcher] = useState(false);
   const [open, setOpen] = useState(false);
   const errorStore = useErrorStore();
 
   useEffect(() => {
-    async function authentication() {
+    async function getUsername() {
       try {
-        const externalUser = await AppsExternalUser.getUser({
-          autoLogout: false,
-        });
-        debug("externalUser", externalUser);
-        if (externalUser) {
-          signin(externalUser, page);
-          const uname = await externalUser.getUsername();
-          if (!uname) throw new Error("No username found");
-          setUsername(uname.getBaseUsername());
-        } else {
-          setUsername("");
+        if (!loading && user) {
+          const username = await user.getUsername();
+          if (!username) throw new Error("No username found");
+          setUsername(username.getBaseUsername());
         }
       } catch (e) {
-        console.log("e", e);
-        if (
-          isErrorCode(e, [
-            SdkErrors.AccountNotFound,
-            SdkErrors.UserNotLoggedIn,
-            SdkErrors.AccountDoesntExist,
-          ])
-        ) {
-          setUsername("");
-        } else {
-          errorStore.setError({ error: e, expected: false });
-        }
+        errorStore.setError({ error: e, expected: false });
       }
     }
-    authentication();
-  }, []); // watch for changes
+    getUsername();
+  }, [loading, user, errorStore]);
 
   function handleLogout() {
     signout(page);

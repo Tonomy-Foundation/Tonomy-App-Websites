@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import useErrorStore from "../../common/stores/errorStore";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../apps/providers/AuthProvider";
 import "./AppManager.css";
 import AppNotFound from "../assets/no-app-found.png";
 import DefaultAppLogo from "../assets/deuces-wild.png";

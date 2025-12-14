@@ -1,13 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import {
-  AppsExternalUser,
-  isErrorCode,
-  SdkErrors,
-} from "@tonomy/tonomy-id-sdk";
+import React from "react";
 import "./Home.css";
-import { useNavigate } from "react-router-dom";
-import useErrorStore from "../../common/stores/errorStore";
-import { AuthContext } from "../providers/AuthProvider";
 import Share from "../assets/share.svg";
 import TImage from "../../common/atoms/TImage";
 import settings from "../../common/settings";
@@ -23,38 +15,6 @@ import FiddleArtIcon from "../assets/appSwitcherIcons/fiddleart.png";
 import CXCWorldIcon from "../assets/appSwitcherIcons/cxcworld.png";
 
 export default function Home() {
-  const { signin } = useContext(AuthContext);
-  const navigation = useNavigate();
-  const errorStore = useErrorStore();
-
-  async function onRender() {
-    try {
-      const user = await AppsExternalUser.getUser({ autoLogout: false });
-
-      if (user) {
-        signin(user);
-      }
-    } catch (e) {
-      if (
-        isErrorCode(e, [
-          SdkErrors.AccountNotFound,
-          SdkErrors.AccountDoesntExist,
-          SdkErrors.UserNotLoggedIn,
-        ])
-      ) {
-        // User not logged in
-        navigation("/");
-        return;
-      }
-
-      errorStore.setError({ error: e, expected: false });
-    }
-  }
-
-  useEffect(() => {
-    onRender();
-  }, []);
-
   const services = [
     {
       name: "ID",

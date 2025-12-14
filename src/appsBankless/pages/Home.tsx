@@ -1,91 +1,58 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   AppsExternalUser,
-  isErrorCode,
-  SdkErrors,
 } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
-import { useNavigate } from "react-router-dom";
-import useErrorStore from "../../common/stores/errorStore";
 import { AuthContext } from "../../apps/providers/AuthProvider";
 import BanklessLogo from "../assets/bankless-logo.png";
 
 export default function Home() {
-  const { signin } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-  const navigation = useNavigate();
-  const errorStore = useErrorStore();
+  const { loading, user } = useContext(AuthContext);
 
-  async function onRender() {
-    try {
-      const user = await AppsExternalUser.getUser({ autoLogout: false });
-      if (user) {
-        signin(user, "bankless/swap");
-      }
-
-      setLoading(false);
-    } catch (e) {
-      if (
-        isErrorCode(e, [
-          SdkErrors.AccountNotFound,
-          SdkErrors.AccountDoesntExist,
-          SdkErrors.UserNotLoggedIn,
-        ])
-      ) {
-        // User not logged in
-        setLoading(false);
-        navigation("/bankless");
-        return;
-      }
-
-      errorStore.setError({ error: e, expected: false });
-    }
+  if (loading) {
+    return (
+      <TH2 className="loading-text">Loading...</TH2>
+    );
   }
 
-  useEffect(() => {
-    onRender();
-  }, []);
+  if (user) {
+    return null; // Router will handle redirect via BanklessRouterContainer
+  }
 
   async function onButtonPress() {
     AppsExternalUser.loginWithTonomy({
-      callbackPath: "/callback?page=bankless",
+      callbackPath: "/callback?page=bankless/swap",
       dataRequest: { username: true },
     });
   }
 
   return (
-    <>
-      {loading ? (
-        <TH2 className="loading-text">Loading...</TH2>
-      ) : (
-        <div className="container">
-          <header className="header-column">
-            <div className="app-logo">
-              <img
-                src={BanklessLogo}
-                alt="Tonomy Logo"
-                className="tonomy-logo"
-                width={80}
-              />
-            </div>
-            <div className="text-center">
-              <TP className="demo-head">Tonomy Bankless</TP>
-              <TP className="demo-main">
-                Swap your Tonomy coins quickly and securely — no banks, no
-                middlemen, no hassle
-              </TP>
-
-              <button className="console-login-button" onClick={onButtonPress}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <span>Login with {settings.config.appName}</span>
-                </div>
-              </button>
-            </div>
-          </header>
+    <div className="container">
+      <header className="header-column">
+        <div className="app-logo">
+          <img
+            src={BanklessLogo}
+            alt="Tonomy Logo"
+            className="tonomy-logo"
+            width={80}
+          />
         </div>
-      )}
-    </>
+        <div className="text-center">
+          <TP className="demo-head">Tonomy Bankless</TP>
+          <TP className="demo-main">
+            Swap your Tonomy coins quickly and securely — no banks, no
+            middlemen, no hassle
+          </TP>
+
+          <button className="console-login-button" onClick={onButtonPress}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span>Login with {settings.config.appName}</span>
+            </div>
+          </button>
+        </div>
+      </header>
+    </div>
   );
 }

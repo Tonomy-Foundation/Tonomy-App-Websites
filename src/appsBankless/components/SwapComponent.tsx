@@ -45,7 +45,6 @@ export default function SwapComponent() {
   const [toAmount, setToAmount] = useState("");
   const [isBalanceSufficient, setIsBalanceSufficient] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { signin } = useContext(AuthContext);
   const { walletProvider } = useAppKitProvider("eip155");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -68,17 +67,13 @@ export default function SwapComponent() {
   useEffect(() => {
     async function authentication() {
       try {
-        if (!user) {
-          const user1 = await AppsExternalUser.getUser({ autoLogout: false });
-          if (user1) {
-            signin(user1, "bankless/swap");
+        if (user) {
+          const username = await user.getUsername();
+          if (username) {
+            setUsername(username.getBaseUsername());
+            await updateBalance();
+            startBalancePolling();
           }
-        }
-        const username = await user?.getUsername();
-        if (username) {
-          setUsername(username.getBaseUsername());
-          await updateBalance();
-          startBalancePolling();
         }
       } catch (e) {
         errorStore.setError({ error: e, expected: false });
