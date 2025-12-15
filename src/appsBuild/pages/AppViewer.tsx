@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useApps } from "../context/AppsContext";
 import SettingsIcon from "@mui/icons-material/Settings";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -15,12 +15,20 @@ import "./AppViewer.css";
 export default function AppViewer() {
     const { username } = useParams();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { getAppByUsername } = useApps();
     const app = username ? getAppByUsername(username) : undefined;
-    const [activeNav, setActiveNav] = useState("Overview");
+    
+    const tabParam = searchParams.get("tab") || "Overview";
+    const [activeNav, setActiveNav] = useState(tabParam);
 
     const formattedAppUsername = app ? formatAppUsername(app.appUsername) : "";
     const formattedOwnerUsername = app ? formatOwnerUsername(app.ownerUsername) : "";
+
+    const handleNavClick = (navItem: string) => {
+        setActiveNav(navItem);
+        setSearchParams({ tab: navItem });
+    };
 
     if (!app) {
         return (
@@ -49,32 +57,32 @@ export default function AppViewer() {
                 <nav className="sidebar-nav">
                     <button
                         className={`nav-item ${activeNav === "Overview" ? "active" : ""}`}
-                        onClick={() => setActiveNav("Overview")}
+                        onClick={() => handleNavClick("Overview")}
                     >
                         Overview
                     </button>
                     <button
                         className={`nav-item ${activeNav === "Login Setup" ? "active" : ""}`}
-                        onClick={() => setActiveNav("Login Setup")}
+                        onClick={() => handleNavClick("Login Setup")}
                     >
                         Login Setup
                     </button>
                     <button
                         className={`nav-item ${activeNav === "Plan & Billing" ? "active" : ""}`}
-                        onClick={() => setActiveNav("Plan & Billing")}
+                        onClick={() => handleNavClick("Plan & Billing")}
                     >
                         Plan & Billing
                     </button>
                     <button
                         className={`nav-item ${activeNav === "Smart Contract" ? "active" : ""}`}
-                        onClick={() => setActiveNav("Smart Contract")}
+                        onClick={() => handleNavClick("Smart Contract")}
                     >
                         Smart Contract
                         <WorkspacePremiumIcon className="nav-item-premium-icon" />
                     </button>
                     <button
                         className={`nav-item ${activeNav === "Signing Keys" ? "active" : ""}`}
-                        onClick={() => setActiveNav("Signing Keys")}
+                        onClick={() => handleNavClick("Signing Keys")}
                     >
                         Signing Keys
                         <WorkspacePremiumIcon className="nav-item-premium-icon" />

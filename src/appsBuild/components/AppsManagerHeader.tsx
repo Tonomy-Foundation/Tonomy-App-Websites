@@ -12,13 +12,13 @@ export default function AppsManagerHeader() {
     const location = useLocation();
     const { getAppByUsername } = useApps();
 
-    // Show back button only on app viewer/editor pages
-    const showBackButton = location.pathname.includes("/apps/@");
-
-    // Extract username from URL if viewing an app
-    const usernameMatch = location.pathname.match(/\/apps\/@([^\/]+)/);
-    const appUsername = usernameMatch ? formatAppUsername(`@${usernameMatch[1]}`) : null;
-    const app = usernameMatch ? getAppByUsername(`@${usernameMatch[1]}`) : null;
+    // Show back button only on app viewer/editor pages (apps/:username)
+    const usernameMatch = location.pathname.match(/\/apps\/([^\/]+)(\/|$)/);
+    const username = usernameMatch ? usernameMatch[1] : null;
+    const showBackButton = !!username;
+    
+    const app = username ? getAppByUsername(username) : null;
+    const appUsername = app ? formatAppUsername(app.appUsername) : null;
 
     const handleBack = () => {
         navigate("/build/apps");
