@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import AppsIcon from "@mui/icons-material/Apps";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import IconButton from "@mui/material/IconButton";
+import { formatAppUsername } from "../common/formatUsername";
 import "./AppsManagerHeader.css";
 
 export default function AppsManagerHeader() {
@@ -14,7 +15,7 @@ export default function AppsManagerHeader() {
 
     // Extract username from URL if viewing an app
     const usernameMatch = location.pathname.match(/\/apps\/@([^\/]+)/);
-    const appUsername = usernameMatch ? `@${usernameMatch[1]}` : null;
+    const appUsername = usernameMatch ? formatAppUsername(`@${usernameMatch[1]}`) : null;
 
     const handleBack = () => {
         navigate("/build/apps");

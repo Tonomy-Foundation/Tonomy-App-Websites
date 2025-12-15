@@ -7,6 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import LoginSetup from "./LoginSetup";
 import SmartContract from "./SmartContract";
 import PlanBilling from "./PlanBilling";
+import AccountKeys from "./AccountKeys";
+import { formatAppUsername, formatOwnerUsername } from "../common/formatUsername";
 import "./AppViewer.css";
 
 export default function AppViewer() {
@@ -15,6 +17,9 @@ export default function AppViewer() {
     const { getAppByUsername } = useApps();
     const app = username ? getAppByUsername(username) : undefined;
     const [activeNav, setActiveNav] = useState("Overview");
+
+    const formattedAppUsername = app ? formatAppUsername(app.appUsername) : "";
+    const formattedOwnerUsername = app ? formatOwnerUsername(app.ownerUsername) : "";
 
     if (!app) {
         return (
@@ -65,6 +70,12 @@ export default function AppViewer() {
                     >
                         Smart Contract
                     </button>
+                    <button
+                        className={`nav-item ${activeNav === "Signing Keys" ? "active" : ""}`}
+                        onClick={() => setActiveNav("Signing Keys")}
+                    >
+                        Signing Keys
+                    </button>
                 </nav>
             </aside>
             <div className="viewer-content">
@@ -74,7 +85,7 @@ export default function AppViewer() {
                             <img src={app.logoUrl} alt="logo" className="viewer-logo" />
                             <div className="viewer-titles">
                                 <h2 className="viewer-app-name">{app.appName}</h2>
-                                <div className="viewer-subtitle">{app.appUsername}</div>
+                                <div className="viewer-subtitle">{formattedAppUsername}</div>
                             </div>
                             <IconButton
                                 className="viewer-settings-btn"
@@ -86,6 +97,12 @@ export default function AppViewer() {
                         </div>
 
                         <div className="viewer-account-info">
+                            <div className="info-row">
+                                <span className="info-label">Owner:</span>
+                                <div className="info-with-icon">
+                                    <span className="info-value">{formattedOwnerUsername}</span>
+                                </div>
+                            </div>
                             <div className="info-row">
                                 <span className="info-label">Account:</span>
                                 <div className="info-with-icon">
@@ -156,6 +173,12 @@ export default function AppViewer() {
                 {activeNav === "Smart Contract" && (
                     <div className="viewer-card">
                         <SmartContract />
+                    </div>
+                )}
+
+                {activeNav === "Signing Keys" && (
+                    <div className="viewer-card">
+                        <AccountKeys />
                     </div>
                 )}
             </div>

@@ -1,0 +1,123 @@
+.signing-keys {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.keys-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.keys-subtitle {
+    margin: 4px 0 0 0;
+    color: var(--gray-700);
+    font-size: 14px;
+}
+
+.key-alert {
+    border: 1px solid #f0b429;
+    background: #fff9e6;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.private-key {
+    font-family: monospace;
+    background: #111827;
+    color: #f9fafb;
+    padding: 8px 10px;
+    border-radius: 6px;
+    word-break: break-all;
+}
+
+.alert-hint {
+    color: var(--gray-700);
+    font-size: 13px;
+}
+
+.keys-table {
+    border: 1px solid var(--gray-300);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.key-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    gap: 12px;
+}
+
+.key-row:last-child {
+    border-bottom: none;
+}
+
+.key-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.key-label {
+    font-size: 13px;
+    color: var(--gray-700);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.key-value {
+    font-family: monospace;
+    font-size: 14px;
+    color: var(--gray-900);
+    word-break: break-all;
+}
+
+.key-meta {
+    font-size: 12px;
+    color: var(--gray-600);
+}
+
+.key-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-text {
+    background: transparent;
+    border: none;
+    color: var(--gray-700);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.no-keys {
+    border: 1px dashed var(--gray-300);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--gray-700);
+}
+
+@media (max-width: 768px) {
+    .key-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .key-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
