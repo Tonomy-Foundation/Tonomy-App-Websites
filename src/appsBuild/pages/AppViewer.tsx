@@ -18,7 +18,7 @@ export default function AppViewer() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { getAppByUsername } = useApps();
     const app = username ? getAppByUsername(username) : undefined;
-    
+
     const tabParam = searchParams.get("tab") || "Overview";
     const [activeNav, setActiveNav] = useState(tabParam);
 

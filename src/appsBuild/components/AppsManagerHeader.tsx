@@ -16,7 +16,7 @@ export default function AppsManagerHeader() {
     const usernameMatch = location.pathname.match(/\/apps\/([^\/]+)(\/|$)/);
     const username = usernameMatch ? usernameMatch[1] : null;
     const showBackButton = !!username;
-    
+
     const app = username ? getAppByUsername(username) : null;
     const appUsername = app ? formatAppUsername(app.appUsername) : null;
 
