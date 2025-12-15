@@ -8,7 +8,7 @@ import "./AppsManagerHeader.css";
 export default function AppsManagerHeader() {
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     // Show back button only on app viewer/editor pages
     const showBackButton = location.pathname.includes("/apps/@");
 
@@ -20,7 +20,7 @@ export default function AppsManagerHeader() {
         <header className="apps-manager-header">
             <div className="header-content">
                 {showBackButton && (
-                    <IconButton 
+                    <IconButton
                         onClick={handleBack}
                         className="back-button"
                         size="small"

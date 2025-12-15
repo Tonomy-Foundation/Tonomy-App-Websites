@@ -38,25 +38,25 @@ export default function AppViewer() {
         <div className="viewer-wrapper">
             <aside className="viewer-sidebar">
                 <nav className="sidebar-nav">
-                    <button 
+                    <button
                         className={`nav-item ${activeNav === "Overview" ? "active" : ""}`}
                         onClick={() => setActiveNav("Overview")}
                     >
                         Overview
                     </button>
-                    <button 
+                    <button
                         className={`nav-item ${activeNav === "Login Setup" ? "active" : ""}`}
                         onClick={() => setActiveNav("Login Setup")}
                     >
                         Login Setup
                     </button>
-                    <button 
+                    <button
                         className={`nav-item ${activeNav === "Plan & Billing" ? "active" : ""}`}
                         onClick={() => setActiveNav("Plan & Billing")}
                     >
                         Plan & Billing
                     </button>
-                    <button 
+                    <button
                         className={`nav-item ${activeNav === "Smart Contract" ? "active" : ""}`}
                         onClick={() => setActiveNav("Smart Contract")}
                     >
@@ -72,7 +72,7 @@ export default function AppViewer() {
                             <h2 className="viewer-app-name">{app.appName}</h2>
                             <div className="viewer-subtitle">{app.appUsername}</div>
                         </div>
-                        <IconButton 
+                        <IconButton
                             className="viewer-settings-btn"
                             onClick={() => navigate(`/build/apps/${app.appUsername}/edit`)}
                             size="small"
@@ -86,8 +86,8 @@ export default function AppViewer() {
                             <span className="info-label">Account:</span>
                             <div className="info-with-icon">
                                 <span className="info-value">{app.accountName}</span>
-                                <IconButton 
-                                    size="small" 
+                                <IconButton
+                                    size="small"
                                     onClick={handleOpenAccount}
                                     className="open-icon-btn"
                                 >
@@ -99,8 +99,8 @@ export default function AppViewer() {
                             <span className="info-label">Domain:</span>
                             <div className="info-with-icon">
                                 <span className="info-value">{app.domain}</span>
-                                <IconButton 
-                                    size="small" 
+                                <IconButton
+                                    size="small"
                                     onClick={handleOpenWebsite}
                                     className="open-icon-btn"
                                 >
@@ -114,8 +114,8 @@ export default function AppViewer() {
                         <div className="color-item">
                             <span className="color-label">Background Color</span>
                             <div className="color-display">
-                                <div 
-                                    className="color-swatch" 
+                                <div
+                                    className="color-swatch"
                                     style={{ backgroundColor: app.backgroundColor }}
                                 />
                                 <span className="color-value">{app.backgroundColor}</span>
@@ -124,8 +124,8 @@ export default function AppViewer() {
                         <div className="color-item">
                             <span className="color-label">Accent Color</span>
                             <div className="color-display">
-                                <div 
-                                    className="color-swatch" 
+                                <div
+                                    className="color-swatch"
                                     style={{ backgroundColor: app.accentColor }}
                                 />
                                 <span className="color-value">{app.accentColor}</span>
