@@ -21,7 +21,7 @@ import TModal from "../../tonomyAppList/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
-import { BrowserProvider, JsonRpcSigner } from "ethers";
+import { BrowserProvider, ethers, JsonRpcSigner } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
 import { ToastContainer, toast } from "react-toastify";
 import { baseSepolia } from "@reown/appkit/networks";
@@ -199,7 +199,6 @@ export default function Swap() {
 
       const ethersProvider = new BrowserProvider(walletProvider as any);
       const signer = await ethersProvider.getSigner();
-      const proof = await createSignedProofMessage(signer as JsonRpcSigner);
       // Set up timeout for 100 seconds
       const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
       // Create a timeout that will close the modal if the operation takes too long
@@ -225,10 +224,12 @@ export default function Swap() {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         if (direction === "tonomy") {
-          console.log("iff", address);
-          await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer);
+          await appUser.swapBaseToTonomyToken(
+            new Decimal(toAmount),
+            signer as ethers.Signer,
+          );
         } else {
-          console.log("else");
+          const proof = await createSignedProofMessage(signer as JsonRpcSigner);
           await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
         }
         await new Promise((resolve) => setTimeout(resolve, 10000));

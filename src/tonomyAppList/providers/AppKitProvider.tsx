@@ -40,7 +40,6 @@ createAppKit({
   networks,
   projectId,
   metadata,
-  defaultNetwork: settings.env === "testnet" ? baseSepolia : mainnet,
 });
 
 export function AppKitProvider({ children }) {
