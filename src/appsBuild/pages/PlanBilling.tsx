@@ -1,14 +1,36 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import LayersIcon from "@mui/icons-material/Layers";
 import IconButton from "@mui/material/IconButton";
+import { useApps } from "../context/AppsContext";
 import "./PlanBilling.css";
 
 export default function PlanBilling() {
+    const { username } = useParams();
+    const { getAppByUsername, updateAppPlan } = useApps();
+    const app = username ? getAppByUsername(username) : undefined;
+
+    const currentPlan = app?.plan || "basic";
+
     const billingHistory = [
         { type: "5 GB of storage", price: "$25", date: "27.03.2025" },
         { type: "Pro subscription", price: "$100", date: "27.03.2025" },
     ];
+
+    const handleUpgradeToPro = async () => {
+        if (username && app) {
+            await updateAppPlan(username, "pro");
+        }
+    };
+
+    const handleDowngradeToBasic = async () => {
+        if (username && app) {
+            await updateAppPlan(username, "basic");
+        }
+    };
 
     return (
         <div className="plan-billing">
@@ -19,7 +41,7 @@ export default function PlanBilling() {
                     <div className="pricing-card">
                         <div className="plan-header">
                             <div className="plan-icon plan-icon-basic">
-                                <span>▭</span>
+                                <LayersIcon />
                             </div>
                             <div className="plan-info">
                                 <h3 className="plan-name">Basic</h3>
@@ -43,7 +65,13 @@ export default function PlanBilling() {
                         </ul>
 
                         <div className="plan-footer">
-                            <div className="current-plan-badge">Your current plan</div>
+                            {currentPlan === "basic" ? (
+                                <div className="current-plan-badge">Your current plan</div>
+                            ) : (
+                                <button className="downgrade-button" onClick={handleDowngradeToBasic}>
+                                    Downgrade to Basic
+                                </button>
+                            )}
                         </div>
                     </div>
 
@@ -51,7 +79,7 @@ export default function PlanBilling() {
                     <div className="pricing-card pricing-card-pro">
                         <div className="plan-header">
                             <div className="plan-icon plan-icon-pro">
-                                <span>▭</span>
+                                <WorkspacePremiumIcon />
                             </div>
                             <div className="plan-info">
                                 <h3 className="plan-name">Pro</h3>
@@ -77,18 +105,16 @@ export default function PlanBilling() {
                                 <CheckIcon className="feature-check feature-check-pro" />
                                 <span>Smart Contracts</span>
                             </li>
-                            <li>
-                                <CheckIcon className="feature-check feature-check-pro" />
-                                <span>Something more</span>
-                            </li>
-                            <li>
-                                <CheckIcon className="feature-check feature-check-pro" />
-                                <span>Something more</span>
-                            </li>
                         </ul>
 
                         <div className="plan-footer">
-                            <button className="upgrade-button">Upgrade to PRO</button>
+                            {currentPlan === "pro" ? (
+                                <div className="current-plan-badge">Your current plan</div>
+                            ) : (
+                                <button className="upgrade-button" onClick={handleUpgradeToPro}>
+                                    Upgrade to PRO
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

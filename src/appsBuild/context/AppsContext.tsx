@@ -17,6 +17,7 @@ export type AppInfo = AppCreateInfo & {
     dateCreated: Date;
     dateUpdated: Date;
     version: number;
+    plan: "basic" | "pro"; // subscription plan
 };
 
 export type AppsContextType = {
@@ -24,6 +25,7 @@ export type AppsContextType = {
     addApp: (info: AppCreateInfo) => Promise<AppInfo>;
     updateApp: (username: string, info: Partial<AppCreateInfo>) => Promise<AppInfo | undefined>;
     getAppByUsername: (username: string) => AppInfo | undefined;
+    updateAppPlan: (username: string, plan: "basic" | "pro") => Promise<AppInfo | undefined>;
 };
 
 const AppsContext = createContext<AppsContextType | undefined>(undefined);
@@ -44,6 +46,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             dateCreated: new Date("2024-01-15"),
             dateUpdated: new Date("2024-12-10"),
             version: 1,
+            plan: "basic",
         },
         {
             appName: "Cool App",
@@ -58,6 +61,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             dateCreated: new Date("2024-03-20"),
             dateUpdated: new Date("2024-12-05"),
             version: 2,
+            plan: "basic",
         }
     ]);
 
@@ -79,6 +83,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             dateCreated: new Date(),
             dateUpdated: new Date(),
             version: 1,
+            plan: "basic",
         };
         setApps((prev) => [newApp, ...prev]);
         return newApp;
@@ -108,7 +113,23 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
         return updatedApp;
     };
 
-    const value = useMemo(() => ({ apps, addApp, updateApp, getAppByUsername }), [apps]);
+    const updateAppPlan = async (username: string, plan: "basic" | "pro"): Promise<AppInfo | undefined> => {
+        const cleanUsername = username.startsWith("@") ? username.slice(1) : username;
+        const existingApp = apps.find((a) => a.appUsername === `@${cleanUsername}` || a.appUsername === cleanUsername);
+
+        if (!existingApp) return undefined;
+
+        const updatedApp: AppInfo = {
+            ...existingApp,
+            plan,
+            dateUpdated: new Date(),
+        };
+
+        setApps((prev) => prev.map((a) => (a.appUsername === existingApp.appUsername ? updatedApp : a)));
+        return updatedApp;
+    };
+
+    const value = useMemo(() => ({ apps, addApp, updateApp, getAppByUsername, updateAppPlan }), [apps]);
 
     return <AppsContext.Provider value={value}>{children}</AppsContext.Provider>;
 };

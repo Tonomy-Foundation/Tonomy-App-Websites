@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import "./LoginSetup.css";
 import { getSettings } from "@tonomy/tonomy-id-sdk";
 
@@ -129,16 +130,19 @@ ExternalUser.setSettings({
                     <a href="https://docs.tonomy.io/build-web4-apps/usage/smart-contracts" target="_blank" rel="noopener noreferrer" className="feature-card">
                         <OpenInNewIcon className="feature-icon" />
                         <span>Sign on-chain transactions</span>
+                        <WorkspacePremiumIcon className="feature-premium-icon" />
                     </a>
 
                     <button onClick={handleSmartContractClick} className="feature-card feature-card-button">
                         <OpenInNewIcon className="feature-icon" />
                         <span>Deploy and manage smart contracts</span>
+                        <WorkspacePremiumIcon className="feature-premium-icon" />
                     </button>
 
                     <a href="https://docs.tonomy.io/build-web4-apps/usage/reusable-kyc" target="_blank" rel="noopener noreferrer" className="feature-card">
                         <OpenInNewIcon className="feature-icon" />
                         <span>Verify user identity with Reusable KYC</span>
+                        <WorkspacePremiumIcon className="feature-premium-icon" />
                     </a>
 
                     <a href="https://docs.tonomy.io/build-web4-apps/usage/server-authentication" target="_blank" rel="noopener noreferrer" className="feature-card">
