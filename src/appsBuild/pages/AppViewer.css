@@ -50,11 +50,12 @@
     align-items: flex-start;
     padding: 32px;
     overflow-y: auto;
+    width: 100%;
 }
 
 .viewer-card {
     width: 100%;
-    max-width: 960px;
+    max-width: 100%;
     border: 1px solid var(--gray-300);
     border-radius: 12px;
     padding: 24px;

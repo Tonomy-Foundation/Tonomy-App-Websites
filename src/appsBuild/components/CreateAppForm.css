@@ -3,10 +3,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
     padding: 2rem;
-    min-height: 100vh;
+    min-height: 100%;
     align-items: start;
 }
 
