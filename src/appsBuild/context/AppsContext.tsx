@@ -16,7 +16,7 @@ export type AppInfo = AppCreateInfo & {
     ownerUsername: string; // username string
     dateCreated: Date;
     dateUpdated: Date;
-    version: string;
+    version: number;
 };
 
 export type AppsContextType = {
@@ -43,7 +43,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             ownerUsername: "@cmc",
             dateCreated: new Date("2024-01-15"),
             dateUpdated: new Date("2024-12-10"),
-            version: "1.0.0",
+            version: 1,
         },
         {
             appName: "Cool App",
@@ -57,7 +57,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             ownerUsername: "@coolapp",
             dateCreated: new Date("2024-03-20"),
             dateUpdated: new Date("2024-12-05"),
-            version: "2.1.3",
+            version: 2,
         }
     ]);
 
@@ -78,7 +78,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             ownerUsername: info.appUsername,
             dateCreated: new Date(),
             dateUpdated: new Date(),
-            version: "1.0.0",
+            version: 1,
         };
         setApps((prev) => [newApp, ...prev]);
         return newApp;
@@ -95,7 +95,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
     const updateApp = async (username: string, updates: Partial<AppCreateInfo>): Promise<AppInfo | undefined> => {
         const cleanUsername = username.startsWith("@") ? username.slice(1) : username;
         const existingApp = apps.find((a) => a.appUsername === `@${cleanUsername}` || a.appUsername === cleanUsername);
-        
+
         if (!existingApp) return undefined;
 
         const updatedApp: AppInfo = {

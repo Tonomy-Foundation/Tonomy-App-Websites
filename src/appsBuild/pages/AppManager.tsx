@@ -15,17 +15,16 @@ export default function AppManager() {
 
   if (showCreateForm) {
     return (
-      <div className="app-manager-container">
+      <div className="app-manager-content">
         <CreateAppForm onSubmit={handleCreateApp} onCancel={() => setShowCreateForm(false)} />
       </div>
     );
   }
 
   return (
-    <div className="app-manager-container">
+    <div className="app-manager-content">
       {apps?.length > 0 ? (
-        <div className="apps-grid">
-          <h2 className="heading">My apps</h2>
+        <div className="apps-section">
           <div className="cards-container">
             {apps.map((app) => (
               <CardView

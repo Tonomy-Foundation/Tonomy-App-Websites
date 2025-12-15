@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CreateAppForm.css";
 import LoginPreview from "./LoginPreview";
-import { useApps, AppCreateInfo } from "../context/AppsContext";
+import { useApps, AppCreateInfo, AppInfo } from "../context/AppsContext";
 
 export type CreateAppFormProps = {
     onSubmit: (formData: any) => void;
     onCancel: () => void;
+    mode?: "create" | "edit";
+    initialApp?: AppInfo;
 };
 
 export type AppFormData = {
@@ -19,14 +21,17 @@ export type AppFormData = {
 };
 
 const CreateAppForm = (props: CreateAppFormProps) => {
+    const { mode = "create", initialApp } = props;
+    const isEditMode = mode === "edit";
+
     const [formData, setFormData] = useState<AppFormData>({
-        appName: "",
-        appUsername: "",
-        domain: "",
-        description: "",
-        logoUrl: "",
-        backgroundColor: "#ffffff",
-        accentColor: "#000000",
+        appName: initialApp?.appName ?? "",
+        appUsername: initialApp?.appUsername ?? "",
+        domain: initialApp?.domain ?? "",
+        description: initialApp?.description ?? "",
+        logoUrl: initialApp?.logoUrl ?? "",
+        backgroundColor: initialApp?.backgroundColor ?? "#ffffff",
+        accentColor: initialApp?.accentColor ?? "#000000",
     });
 
     const handleInputChange = (
@@ -46,21 +51,38 @@ const CreateAppForm = (props: CreateAppFormProps) => {
         }
     };
 
-    const { addApp } = useApps();
+    const { addApp, updateApp } = useApps();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const { appName, appUsername, domain, description, logoUrl, backgroundColor, accentColor } = formData;
-        const payload: AppCreateInfo = { appName, appUsername, domain, description, logoUrl, backgroundColor, accentColor };
-        await addApp(payload);
+
+        if (isEditMode && initialApp) {
+            // Edit mode - only update allowed fields
+            const payload: Partial<AppCreateInfo> = {
+                appName,
+                description,
+                logoUrl,
+                backgroundColor,
+                accentColor
+            };
+            await updateApp(initialApp.appUsername, payload);
+        } else {
+            // Create mode
+            const payload: AppCreateInfo = { appName, appUsername, domain, description, logoUrl, backgroundColor, accentColor };
+            await addApp(payload);
+        }
         props.onSubmit(formData);
     };
+
+    const title = isEditMode ? "Edit app" : "Create app";
+    const submitButtonText = isEditMode ? "Save changes" : "Create app";
 
     return (
         <div className="create-app-form-wrapper">
             <div className="create-app-form-container">
                 <div className="create-app-form-content">
-                    <h2 className="create-app-form-title">Create app</h2>
+                    <h2 className="create-app-form-title">{title}</h2>
 
                     <form onSubmit={handleSubmit} className="form">
                         <div className="form-group">
@@ -93,6 +115,7 @@ const CreateAppForm = (props: CreateAppFormProps) => {
                                 required
                                 pattern="@[a-z0-9._-]+"
                                 title="Username must start with @ and contain only lowercase letters, numbers, dots, underscores, and hyphens"
+                                disabled={isEditMode}
                                 className="form-input"
                             />
                         </div>
@@ -111,8 +134,10 @@ const CreateAppForm = (props: CreateAppFormProps) => {
                                 required
                                 pattern="https?://.*"
                                 title="Please enter a valid URL starting with http:// or https://"
+                                disabled={isEditMode}
                                 className="form-input"
                             />
+                            <p className="form-hint">This cannot be changed later</p>
                         </div>
 
                         <div className="form-group">
@@ -208,7 +233,7 @@ const CreateAppForm = (props: CreateAppFormProps) => {
                                 Cancel
                             </button>
                             <button type="submit" className="submit-button">
-                                Create app
+                                {submitButtonText}
                             </button>
                         </div>
                     </form>

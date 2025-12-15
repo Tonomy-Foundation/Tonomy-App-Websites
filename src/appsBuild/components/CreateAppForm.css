@@ -66,6 +66,12 @@
     color: var(--gray-700, #333);
 }
 
+.form-hint {
+    font-size: 0.75rem;
+    color: var(--gray-500, #999);
+    margin-top: -0.25rem;
+}
+
 .form-input {
     padding: 0.75rem 1rem;
     border: 1px solid var(--gray-300);
@@ -75,6 +81,13 @@
     color: var(--gray-900, #111);
     transition: all 0.2s ease;
     background-color: white;
+}
+
+.form-input:disabled {
+    background-color: var(--gray-100, #f9f9f9);
+    color: var(--gray-500, #999);
+    cursor: not-allowed;
+    border-color: var(--gray-200);
 }
 
 .form-input::placeholder {

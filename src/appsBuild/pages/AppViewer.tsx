@@ -1,16 +1,21 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useApps } from "../context/AppsContext";
+import SettingsIcon from "@mui/icons-material/Settings";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import IconButton from "@mui/material/IconButton";
 import "./AppViewer.css";
 
 export default function AppViewer() {
     const { username } = useParams();
+    const navigate = useNavigate();
     const { getAppByUsername } = useApps();
     const app = username ? getAppByUsername(username) : undefined;
+    const [activeNav, setActiveNav] = useState("Overview");
 
     if (!app) {
         return (
-            <div className="viewer-container">
+            <div className="viewer-wrapper">
                 <div className="viewer-content">
                     <div className="viewer-card">
                         <h2>App not found</h2>
@@ -21,15 +26,42 @@ export default function AppViewer() {
         );
     }
 
+    const handleOpenAccount = () => {
+        window.open(`https://explorer.tonomy.io/account/${app.accountName}`, '_blank');
+    };
+
+    const handleOpenWebsite = () => {
+        window.open(app.domain, '_blank');
+    };
+
     return (
-        <div className="viewer-container">
+        <div className="viewer-wrapper">
             <aside className="viewer-sidebar">
-                <div className="sidebar-header">Tonomy Build</div>
                 <nav className="sidebar-nav">
-                    <button className="nav-item active">Overview</button>
-                    <button className="nav-item">Contracts</button>
-                    <button className="nav-item">Credentials</button>
-                    <button className="nav-item">Settings</button>
+                    <button 
+                        className={`nav-item ${activeNav === "Overview" ? "active" : ""}`}
+                        onClick={() => setActiveNav("Overview")}
+                    >
+                        Overview
+                    </button>
+                    <button 
+                        className={`nav-item ${activeNav === "Login Setup" ? "active" : ""}`}
+                        onClick={() => setActiveNav("Login Setup")}
+                    >
+                        Login Setup
+                    </button>
+                    <button 
+                        className={`nav-item ${activeNav === "Plan & Billing" ? "active" : ""}`}
+                        onClick={() => setActiveNav("Plan & Billing")}
+                    >
+                        Plan & Billing
+                    </button>
+                    <button 
+                        className={`nav-item ${activeNav === "Smart Contract" ? "active" : ""}`}
+                        onClick={() => setActiveNav("Smart Contract")}
+                    >
+                        Smart Contract
+                    </button>
                 </nav>
             </aside>
             <div className="viewer-content">
@@ -38,14 +70,70 @@ export default function AppViewer() {
                         <img src={app.logoUrl} alt="logo" className="viewer-logo" />
                         <div className="viewer-titles">
                             <h2 className="viewer-app-name">{app.appName}</h2>
-                            <div className="viewer-subtitle">{app.appUsername} • {app.domain}</div>
+                            <div className="viewer-subtitle">{app.appUsername}</div>
+                        </div>
+                        <IconButton 
+                            className="viewer-settings-btn"
+                            onClick={() => navigate(`/build/apps/${app.appUsername}/edit`)}
+                            size="small"
+                        >
+                            <SettingsIcon />
+                        </IconButton>
+                    </div>
+
+                    <div className="viewer-account-info">
+                        <div className="info-row">
+                            <span className="info-label">Account:</span>
+                            <div className="info-with-icon">
+                                <span className="info-value">{app.accountName}</span>
+                                <IconButton 
+                                    size="small" 
+                                    onClick={handleOpenAccount}
+                                    className="open-icon-btn"
+                                >
+                                    <OpenInNewIcon fontSize="small" />
+                                </IconButton>
+                            </div>
+                        </div>
+                        <div className="info-row">
+                            <span className="info-label">Domain:</span>
+                            <div className="info-with-icon">
+                                <span className="info-value">{app.domain}</span>
+                                <IconButton 
+                                    size="small" 
+                                    onClick={handleOpenWebsite}
+                                    className="open-icon-btn"
+                                >
+                                    <OpenInNewIcon fontSize="small" />
+                                </IconButton>
+                            </div>
                         </div>
                     </div>
-                    <p className="viewer-description">{app.description}</p>
-                    <div className="viewer-actions">
-                        <button className="primary">Edit app</button>
-                        <button className="secondary">Open website</button>
+
+                    <div className="viewer-colors">
+                        <div className="color-item">
+                            <span className="color-label">Background Color</span>
+                            <div className="color-display">
+                                <div 
+                                    className="color-swatch" 
+                                    style={{ backgroundColor: app.backgroundColor }}
+                                />
+                                <span className="color-value">{app.backgroundColor}</span>
+                            </div>
+                        </div>
+                        <div className="color-item">
+                            <span className="color-label">Accent Color</span>
+                            <div className="color-display">
+                                <div 
+                                    className="color-swatch" 
+                                    style={{ backgroundColor: app.accentColor }}
+                                />
+                                <span className="color-value">{app.accentColor}</span>
+                            </div>
+                        </div>
                     </div>
+
+                    <p className="viewer-description">{app.description}</p>
                 </div>
             </div>
         </div>
