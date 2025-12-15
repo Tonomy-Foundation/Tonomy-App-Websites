@@ -207,17 +207,3 @@
     line-height: 1.6;
     margin: 0;
 }
-
-@media(max-width:960px) {
-    .viewer-sidebar {
-        display: none;
-    }
-
-    .viewer-content {
-        padding: 20px;
-    }
-
-    .viewer-card {
-        max-width: 720px;
-    }
-}
