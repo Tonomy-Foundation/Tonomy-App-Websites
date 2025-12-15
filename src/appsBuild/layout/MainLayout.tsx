@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
+import { AppsProvider } from "../context/AppsContext";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="main-layout">
-      {children}
-    </div>
+    <AppsProvider>
+      <div className="main-layout">{children}</div>
+    </AppsProvider>
   );
 };
 

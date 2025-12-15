@@ -1,20 +1,21 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./CardView.css";
 
 export type CardViewProps = {
   appName: string;
-  username: string;
+  accountName: string;
+  domain: string;
   logo: string;
+  onClick?: () => void;
 };
 
 const CardView = (props: CardViewProps) => {
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={props.onClick} style={{ cursor: props.onClick ? "pointer" : "default" }}>
       <Card
         sx={{
           border: "1px solid var(--gray-300)",
@@ -33,11 +34,6 @@ const CardView = (props: CardViewProps) => {
       >
         <CardHeader
           className="card-header"
-          action={
-            <IconButton aria-label="settings" size="small">
-              <MoreVertIcon fontSize="small" />
-            </IconButton>
-          }
           title={
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <img src={props.logo} alt="App-logo" className="my-app-logo" />
@@ -46,13 +42,10 @@ const CardView = (props: CardViewProps) => {
           }
           subheader={
             <div className="my-app-subheader grey-color">
-              Manager: <span className="black-color">{props.username}</span>
+              <span className="black-color">{props.accountName}</span> • {props.domain}
             </div>
           }
         />
-        <CardContent sx={{ flexGrow: 1 }}>
-          <button className="card-action-button">Deploy Smart Contract</button>
-        </CardContent>
       </Card>
     </div>
   );

@@ -1,52 +1,22 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../../apps/providers/AuthProvider";
+import React, { useState } from "react";
 import "./AppManager.css";
 import CardView from "../components/CardView";
 import EmptyState from "../components/EmptyState";
 import CreateAppForm from "../components/CreateAppForm";
-
-type AppInfo = {
-  appName: string;
-  username: string;
-  logoUrl: string;
-}
-const stubApps: AppInfo[] = [
-  // { appName: "CoinMarketCap", username: "cmc", logoUrl: "https://wp.logos-download.com/wp-content/uploads/2019/01/CoinMarketCap_Logo.png" },
-  // { appName: "Cool App", username: "coolapp", logoUrl: "https://play-lh.googleusercontent.com/VjoaCzJAuyZuy8AiJc_PbVSHBZBoZp-LVG7_PkyeDS0RovS-fwuI32b_ku7ETryxnA" },
-];
+import { useApps } from "../context/AppsContext";
+import { useNavigate } from "react-router-dom";
 
 export default function AppManager() {
-  const { user } = useContext(AuthContext);
-  const [apps, setApps] = useState<AppInfo[]>(stubApps);
+  const { apps } = useApps();
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const navigate = useNavigate();
 
-  const handleCreateApp = async (formData: any) => {
-    let username = "Anonymous";
-    if (user) {
-      try {
-        const accountName = await user.getAccountName();
-        username = accountName.toString();
-      } catch (error) {
-        console.error("Failed to get account name:", error);
-      }
-    }
-
-    const newApp = {
-      appName: formData.appName,
-      username: username,
-      logoUrl: formData.logoUrl || "https://via.placeholder.com/48?text=App",
-    };
-    setApps([...apps, newApp]);
-    setShowCreateForm(false);
-  };
+  const handleCreateApp = async () => setShowCreateForm(false);
 
   if (showCreateForm) {
     return (
       <div className="app-manager-container">
-        <CreateAppForm
-          onSubmit={handleCreateApp}
-          onCancel={() => setShowCreateForm(false)}
-        />
+        <CreateAppForm onSubmit={handleCreateApp} onCancel={() => setShowCreateForm(false)} />
       </div>
     );
   }
@@ -57,12 +27,14 @@ export default function AppManager() {
         <div className="apps-grid">
           <h2 className="heading">My apps</h2>
           <div className="cards-container">
-            {apps.map((app, index) => (
+            {apps.map((app) => (
               <CardView
-                key={index}
+                key={app.appUsername}
                 appName={app.appName}
-                username={app.username}
+                accountName={app.accountName}
+                domain={app.domain}
                 logo={app.logoUrl}
+                onClick={() => navigate(`/build/apps/${app.appUsername}`)}
               />
             ))}
           </div>

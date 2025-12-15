@@ -31,27 +31,7 @@
     font-weight: 500;
 }
 
-.card-action-button {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: var(--gray-100);
-    border: 1px solid var(--gray-300);
-    border-radius: 4px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--gray-700);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.card-action-button:hover {
-    background-color: var(--gray-200);
-    border-color: var(--gray-400);
-}
-
-.card-action-button:active {
-    background-color: var(--gray-150);
-}
+/* Removed CTA button in cards */
 
 @media (max-width: 480px) {
     .card-header {

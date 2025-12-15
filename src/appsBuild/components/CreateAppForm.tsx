@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CreateAppForm.css";
 import LoginPreview from "./LoginPreview";
+import { useApps, AppCreateInfo } from "../context/AppsContext";
 
 export type CreateAppFormProps = {
     onSubmit: (formData: any) => void;
@@ -45,8 +46,13 @@ const CreateAppForm = (props: CreateAppFormProps) => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const { addApp } = useApps();
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const { appName, appUsername, domain, description, logoUrl, backgroundColor, accentColor } = formData;
+        const payload: AppCreateInfo = { appName, appUsername, domain, description, logoUrl, backgroundColor, accentColor };
+        await addApp(payload);
         props.onSubmit(formData);
     };
 

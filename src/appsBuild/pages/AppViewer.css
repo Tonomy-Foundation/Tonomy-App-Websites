@@ -1,0 +1,132 @@
+.viewer-container {
+    display: flex;
+    min-height: calc(100vh - 0px);
+}
+
+.viewer-sidebar {
+    width: 240px;
+    background: #0F172A;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 12px;
+}
+
+.sidebar-header {
+    font-weight: 700;
+    margin-bottom: 8px
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px
+}
+
+.nav-item {
+    all: unset;
+    cursor: pointer;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #E5E7EB
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, .06)
+}
+
+.nav-item.active {
+    background: #111827;
+    color: #fff
+}
+
+.viewer-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px
+}
+
+.viewer-card {
+    width: 100%;
+    max-width: 960px;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    padding: 24px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .08)
+}
+
+.viewer-card-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px
+}
+
+.viewer-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: contain
+}
+
+.viewer-titles {
+    display: flex;
+    flex-direction: column
+}
+
+.viewer-app-name {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700
+}
+
+.viewer-subtitle {
+    color: var(--gray-600);
+    font-size: 14px
+}
+
+.viewer-description {
+    color: var(--gray-700)
+}
+
+.viewer-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px
+}
+
+.viewer-actions .primary {
+    padding: 10px 16px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer
+}
+
+.viewer-actions .secondary {
+    padding: 10px 16px;
+    background: #fff;
+    color: var(--gray-900);
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    cursor: pointer
+}
+
+@media(max-width:960px) {
+    .viewer-sidebar {
+        display: none
+    }
+
+    .viewer-content {
+        padding: 20px
+    }
+
+    .viewer-card {
+        max-width: 720px
+    }
+}
