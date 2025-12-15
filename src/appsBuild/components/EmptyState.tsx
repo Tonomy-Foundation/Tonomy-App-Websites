@@ -1,5 +1,5 @@
 import React from "react";
-import AppNotFound from "../assets/no-app-found.png";
+import AppNotFound from "../assets/shrug-bro.png";
 import "./EmptyState.css";
 
 export type EmptyStateProps = {

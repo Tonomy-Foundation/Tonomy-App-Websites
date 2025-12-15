@@ -1,159 +1,217 @@
 import React, { useState } from "react";
 import "./CreateAppForm.css";
+import LoginPreview from "./LoginPreview";
 
 export type CreateAppFormProps = {
     onSubmit: (formData: any) => void;
     onCancel: () => void;
 };
 
+export type AppFormData = {
+    appName: string;
+    appUsername: string;
+    domain: string;
+    description: string;
+    logoUrl: string;
+    backgroundColor: string;
+    accentColor: string;
+};
+
 const CreateAppForm = (props: CreateAppFormProps) => {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<AppFormData>({
         appName: "",
+        appUsername: "",
         domain: "",
         description: "",
-        logo: null as File | null,
+        logoUrl: "",
+        backgroundColor: "#ffffff",
+        accentColor: "#000000",
     });
-    const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
 
-    const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setFormData({ ...formData, logo: file });
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setLogoPreview(reader.result as string);
-            };
-            reader.readAsDataURL(file);
+        // Auto-prepend @ for username
+        if (name === "appUsername") {
+            let processedValue = value;
+            if (!processedValue.startsWith("@")) {
+                processedValue = "@" + processedValue.replace(/^@+/, "");
+            }
+            setFormData({ ...formData, [name]: processedValue });
+        } else {
+            setFormData({ ...formData, [name]: value });
         }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        props.onSubmit({
-            ...formData,
-            logo: logoPreview,
-        });
+        props.onSubmit(formData);
     };
 
     return (
-        <div className="create-app-form-container">
-            <div className="create-app-form-content">
-                <h2 className="create-app-form-title">Create app</h2>
+        <div className="create-app-form-wrapper">
+            <div className="create-app-form-container">
+                <div className="create-app-form-content">
+                    <h2 className="create-app-form-title">Create app</h2>
 
-                <form onSubmit={handleSubmit} className="form">
-                    <div className="form-group">
-                        <label htmlFor="appName" className="form-label">
-                            App name
-                        </label>
-                        <input
-                            type="text"
-                            id="appName"
-                            name="appName"
-                            placeholder="My new app"
-                            value={formData.appName}
-                            onChange={handleInputChange}
-                            required
-                            className="form-input"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="domain" className="form-label">
-                            Domain
-                        </label>
-                        <input
-                            type="text"
-                            id="domain"
-                            name="domain"
-                            placeholder="https://example.com"
-                            value={formData.domain}
-                            onChange={handleInputChange}
-                            required
-                            className="form-input"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="description" className="form-label">
-                            Description
-                        </label>
-                        <textarea
-                            id="description"
-                            name="description"
-                            placeholder="Briefly describe your app"
-                            value={formData.description}
-                            onChange={handleInputChange}
-                            rows={4}
-                            className="form-input form-textarea"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="logo" className="form-label">
-                            Upload app logo
-                        </label>
-                        <div className="logo-upload-area">
-                            {logoPreview ? (
-                                <div className="logo-preview">
-                                    <img src={logoPreview} alt="App logo preview" />
-                                    <button
-                                        type="button"
-                                        className="remove-logo-button"
-                                        onClick={() => {
-                                            setLogoPreview(null);
-                                            setFormData({ ...formData, logo: null });
-                                        }}
-                                    >
-                                        ✕
-                                    </button>
-                                </div>
-                            ) : (
-                                <label htmlFor="logoInput" className="upload-label">
-                                    <svg
-                                        className="upload-icon"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                    >
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                        <polyline points="17 8 12 3 7 8"></polyline>
-                                        <line x1="12" y1="3" x2="12" y2="15"></line>
-                                    </svg>
-                                    <p className="upload-text">Click or drag and drop to upload</p>
-                                </label>
-                            )}
+                    <form onSubmit={handleSubmit} className="form">
+                        <div className="form-group">
+                            <label htmlFor="appName" className="form-label">
+                                App name
+                            </label>
                             <input
-                                type="file"
-                                id="logoInput"
-                                accept="image/*"
-                                onChange={handleLogoChange}
-                                className="file-input"
+                                type="text"
+                                id="appName"
+                                name="appName"
+                                placeholder="My new app"
+                                value={formData.appName}
+                                onChange={handleInputChange}
+                                required
+                                className="form-input"
                             />
                         </div>
-                    </div>
 
-                    <div className="form-actions">
-                        <button
-                            type="button"
-                            className="cancel-button"
-                            onClick={props.onCancel}
-                        >
-                            Cancel
-                        </button>
-                        <button type="submit" className="submit-button">
-                            Create app
-                        </button>
-                    </div>
-                </form>
+                        <div className="form-group">
+                            <label htmlFor="appUsername" className="form-label">
+                                Tonomy @username
+                            </label>
+                            <input
+                                type="text"
+                                id="appUsername"
+                                name="appUsername"
+                                placeholder="@myapp"
+                                value={formData.appUsername}
+                                onChange={handleInputChange}
+                                required
+                                pattern="@[a-z0-9._-]+"
+                                title="Username must start with @ and contain only lowercase letters, numbers, dots, underscores, and hyphens"
+                                className="form-input"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="domain" className="form-label">
+                                Domain
+                            </label>
+                            <input
+                                type="url"
+                                id="domain"
+                                name="domain"
+                                placeholder="https://example.com"
+                                value={formData.domain}
+                                onChange={handleInputChange}
+                                required
+                                pattern="https?://.*"
+                                title="Please enter a valid URL starting with http:// or https://"
+                                className="form-input"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="description" className="form-label">
+                                Description
+                            </label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                placeholder="Briefly describe your app"
+                                value={formData.description}
+                                onChange={handleInputChange}
+                                rows={4}
+                                className="form-input form-textarea"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="logoUrl" className="form-label">
+                                Logo URL
+                            </label>
+                            <input
+                                type="url"
+                                id="logoUrl"
+                                name="logoUrl"
+                                placeholder="https://example.com/logo.png"
+                                value={formData.logoUrl}
+                                onChange={handleInputChange}
+                                pattern="https?://.*\.(jpg|jpeg|png|gif|svg|webp)"
+                                title="Please enter a valid image URL (jpg, jpeg, png, gif, svg, or webp)"
+                                className="form-input"
+                            />
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="backgroundColor" className="form-label">
+                                    Background Color
+                                </label>
+                                <div className="color-input-wrapper">
+                                    <input
+                                        type="color"
+                                        id="backgroundColor"
+                                        name="backgroundColor"
+                                        value={formData.backgroundColor}
+                                        onChange={handleInputChange}
+                                        className="color-picker"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={formData.backgroundColor}
+                                        onChange={(e) => {
+                                            setFormData({ ...formData, backgroundColor: e.target.value });
+                                        }}
+                                        className="form-input color-text-input"
+                                        placeholder="#ffffff"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="accentColor" className="form-label">
+                                    Accent Color
+                                </label>
+                                <div className="color-input-wrapper">
+                                    <input
+                                        type="color"
+                                        id="accentColor"
+                                        name="accentColor"
+                                        value={formData.accentColor}
+                                        onChange={handleInputChange}
+                                        className="color-picker"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={formData.accentColor}
+                                        onChange={(e) => {
+                                            setFormData({ ...formData, accentColor: e.target.value });
+                                        }}
+                                        className="form-input color-text-input"
+                                        placeholder="#000000"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="form-actions">
+                            <button
+                                type="button"
+                                className="cancel-button"
+                                onClick={props.onCancel}
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" className="submit-button">
+                                Create app
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div className="preview-section">
+                <h3 className="preview-title">Login Screen Preview</h3>
+                <LoginPreview appData={formData} />
             </div>
         </div>
     );
