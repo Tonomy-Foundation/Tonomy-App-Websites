@@ -1,0 +1,66 @@
+.smart-contract {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.sc-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sc-intro h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.sc-intro p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+.sc-section h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.sc-section p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+.cta-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--gray-900);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    width: fit-content;
+}
+
+.cta-link:hover {
+    background: var(--gray-800);
+}
+
+@media (max-width: 960px) {
+    .smart-contract {
+        gap: 24px;
+    }
+
+    .sc-section {
+        gap: 12px;
+    }
+}

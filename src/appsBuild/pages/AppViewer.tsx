@@ -4,6 +4,8 @@ import { useApps } from "../context/AppsContext";
 import SettingsIcon from "@mui/icons-material/Settings";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import IconButton from "@mui/material/IconButton";
+import LoginSetup from "./LoginSetup";
+import SmartContract from "./SmartContract";
 import "./AppViewer.css";
 
 export default function AppViewer() {
@@ -65,76 +67,90 @@ export default function AppViewer() {
                 </nav>
             </aside>
             <div className="viewer-content">
-                <div className="viewer-card">
-                    <div className="viewer-card-header">
-                        <img src={app.logoUrl} alt="logo" className="viewer-logo" />
-                        <div className="viewer-titles">
-                            <h2 className="viewer-app-name">{app.appName}</h2>
-                            <div className="viewer-subtitle">{app.appUsername}</div>
+                {activeNav === "Overview" && (
+                    <div className="viewer-card">
+                        <div className="viewer-card-header">
+                            <img src={app.logoUrl} alt="logo" className="viewer-logo" />
+                            <div className="viewer-titles">
+                                <h2 className="viewer-app-name">{app.appName}</h2>
+                                <div className="viewer-subtitle">{app.appUsername}</div>
+                            </div>
+                            <IconButton
+                                className="viewer-settings-btn"
+                                onClick={() => navigate(`/build/apps/${app.appUsername}/edit`)}
+                                size="small"
+                            >
+                                <SettingsIcon />
+                            </IconButton>
                         </div>
-                        <IconButton
-                            className="viewer-settings-btn"
-                            onClick={() => navigate(`/build/apps/${app.appUsername}/edit`)}
-                            size="small"
-                        >
-                            <SettingsIcon />
-                        </IconButton>
-                    </div>
 
-                    <div className="viewer-account-info">
-                        <div className="info-row">
-                            <span className="info-label">Account:</span>
-                            <div className="info-with-icon">
-                                <span className="info-value">{app.accountName}</span>
-                                <IconButton
-                                    size="small"
-                                    onClick={handleOpenAccount}
-                                    className="open-icon-btn"
-                                >
-                                    <OpenInNewIcon fontSize="small" />
-                                </IconButton>
+                        <div className="viewer-account-info">
+                            <div className="info-row">
+                                <span className="info-label">Account:</span>
+                                <div className="info-with-icon">
+                                    <span className="info-value">{app.accountName}</span>
+                                    <IconButton
+                                        size="small"
+                                        onClick={handleOpenAccount}
+                                        className="open-icon-btn"
+                                    >
+                                        <OpenInNewIcon fontSize="small" />
+                                    </IconButton>
+                                </div>
+                            </div>
+                            <div className="info-row">
+                                <span className="info-label">Domain:</span>
+                                <div className="info-with-icon">
+                                    <span className="info-value">{app.domain}</span>
+                                    <IconButton
+                                        size="small"
+                                        onClick={handleOpenWebsite}
+                                        className="open-icon-btn"
+                                    >
+                                        <OpenInNewIcon fontSize="small" />
+                                    </IconButton>
+                                </div>
                             </div>
                         </div>
-                        <div className="info-row">
-                            <span className="info-label">Domain:</span>
-                            <div className="info-with-icon">
-                                <span className="info-value">{app.domain}</span>
-                                <IconButton
-                                    size="small"
-                                    onClick={handleOpenWebsite}
-                                    className="open-icon-btn"
-                                >
-                                    <OpenInNewIcon fontSize="small" />
-                                </IconButton>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="viewer-colors">
-                        <div className="color-item">
-                            <span className="color-label">Background Color</span>
-                            <div className="color-display">
-                                <div
-                                    className="color-swatch"
-                                    style={{ backgroundColor: app.backgroundColor }}
-                                />
-                                <span className="color-value">{app.backgroundColor}</span>
+                        <div className="viewer-colors">
+                            <div className="color-item">
+                                <span className="color-label">Background Color</span>
+                                <div className="color-display">
+                                    <div
+                                        className="color-swatch"
+                                        style={{ backgroundColor: app.backgroundColor }}
+                                    />
+                                    <span className="color-value">{app.backgroundColor}</span>
+                                </div>
+                            </div>
+                            <div className="color-item">
+                                <span className="color-label">Accent Color</span>
+                                <div className="color-display">
+                                    <div
+                                        className="color-swatch"
+                                        style={{ backgroundColor: app.accentColor }}
+                                    />
+                                    <span className="color-value">{app.accentColor}</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="color-item">
-                            <span className="color-label">Accent Color</span>
-                            <div className="color-display">
-                                <div
-                                    className="color-swatch"
-                                    style={{ backgroundColor: app.accentColor }}
-                                />
-                                <span className="color-value">{app.accentColor}</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <p className="viewer-description">{app.description}</p>
-                </div>
+                        <p className="viewer-description">{app.description}</p>
+                    </div>
+                )}
+
+                {activeNav === "Login Setup" && (
+                    <div className="viewer-card">
+                        <LoginSetup onNavigate={setActiveNav} />
+                    </div>
+                )}
+
+                {activeNav === "Smart Contract" && (
+                    <div className="viewer-card">
+                        <SmartContract />
+                    </div>
+                )}
             </div>
         </div>
     );
