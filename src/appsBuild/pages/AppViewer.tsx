@@ -6,6 +6,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import IconButton from "@mui/material/IconButton";
 import LoginSetup from "./LoginSetup";
 import SmartContract from "./SmartContract";
+import PlanBilling from "./PlanBilling";
 import "./AppViewer.css";
 
 export default function AppViewer() {
@@ -143,6 +144,12 @@ export default function AppViewer() {
                 {activeNav === "Login Setup" && (
                     <div className="viewer-card">
                         <LoginSetup onNavigate={setActiveNav} />
+                    </div>
+                )}
+
+                {activeNav === "Plan & Billing" && (
+                    <div className="viewer-card">
+                        <PlanBilling />
                     </div>
                 )}
 
