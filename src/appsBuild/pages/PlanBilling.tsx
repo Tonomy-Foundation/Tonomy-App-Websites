@@ -105,6 +105,10 @@ export default function PlanBilling() {
                                 <CheckIcon className="feature-check feature-check-pro" />
                                 <span>Smart Contracts</span>
                             </li>
+                            <li>
+                                <CheckIcon className="feature-check feature-check-pro" />
+                                <span>Signing Keys</span>
+                            </li>
                         </ul>
 
                         <div className="plan-footer">

@@ -49,7 +49,6 @@ export type AppsContextType = {
     updateSmartContractRAM: (username: string, ramPurchasedMB: number) => Promise<AppInfo | undefined>;
     sellSmartContractRAM: (username: string, ramToSellMB: number) => Promise<AppInfo | undefined>;
     addAccountKey: (username: string) => Promise<{ app: AppInfo; privateKey: string } | undefined>;
-    updateAccountKey: (username: string, publicKey: string) => Promise<{ app: AppInfo; privateKey: string } | undefined>;
     removeAccountKey: (username: string, publicKey: string) => Promise<AppInfo | undefined>;
 };
 

@@ -31,6 +31,10 @@
     color: var(--gray-700);
     font-size: 14px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
 }
 
 .nav-item:hover {
@@ -42,6 +46,13 @@
     background: var(--gray-300);
     color: var(--gray-900);
     font-weight: 500;
+}
+
+.nav-item-premium-icon {
+    width: 16px !important;
+    height: 16px !important;
+    color: #4caf50;
+    flex-shrink: 0;
 }
 
 .viewer-content {

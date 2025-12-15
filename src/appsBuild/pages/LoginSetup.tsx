@@ -18,6 +18,12 @@ export default function LoginSetup({ onNavigate }: LoginSetupProps) {
         }
     };
 
+    const handleSigningKeysClick = () => {
+        if (onNavigate) {
+            onNavigate("Signing Keys");
+        }
+    };
+
     return (
         <div className="login-setup">
             {/* Intro Section */}
@@ -136,6 +142,12 @@ ExternalUser.setSettings({
                     <button onClick={handleSmartContractClick} className="feature-card feature-card-button">
                         <OpenInNewIcon className="feature-icon" />
                         <span>Deploy and manage smart contracts</span>
+                        <WorkspacePremiumIcon className="feature-premium-icon" />
+                    </button>
+
+                    <button onClick={handleSigningKeysClick} className="feature-card feature-card-button">
+                        <OpenInNewIcon className="feature-icon" />
+                        <span>Add a Signing Key</span>
                         <WorkspacePremiumIcon className="feature-premium-icon" />
                     </button>
 

@@ -4,11 +4,13 @@ import AppsIcon from "@mui/icons-material/Apps";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import IconButton from "@mui/material/IconButton";
 import { formatAppUsername } from "../common/formatUsername";
+import { useApps } from "../context/AppsContext";
 import "./AppsManagerHeader.css";
 
 export default function AppsManagerHeader() {
     const navigate = useNavigate();
     const location = useLocation();
+    const { getAppByUsername } = useApps();
 
     // Show back button only on app viewer/editor pages
     const showBackButton = location.pathname.includes("/apps/@");
@@ -16,6 +18,7 @@ export default function AppsManagerHeader() {
     // Extract username from URL if viewing an app
     const usernameMatch = location.pathname.match(/\/apps\/@([^\/]+)/);
     const appUsername = usernameMatch ? formatAppUsername(`@${usernameMatch[1]}`) : null;
+    const app = usernameMatch ? getAppByUsername(`@${usernameMatch[1]}`) : null;
 
     const handleBack = () => {
         navigate("/build/apps");
@@ -33,9 +36,13 @@ export default function AppsManagerHeader() {
                         <ArrowBackIcon />
                     </IconButton>
                 )}
-                <AppsIcon className="header-icon" />
+                {app && app.logoUrl ? (
+                    <img src={app.logoUrl} alt="app-logo" className="header-app-logo" />
+                ) : (
+                    <AppsIcon className="header-icon" />
+                )}
                 <h1 className="header-title">
-                    Apps Manager{appUsername && `: ${appUsername}`}
+                    {appUsername ? appUsername : "Apps Manager"}
                 </h1>
             </div>
         </header>

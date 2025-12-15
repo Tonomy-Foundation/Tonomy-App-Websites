@@ -34,6 +34,14 @@
     color: var(--gray-700);
 }
 
+.header-app-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
 .header-title {
     margin: 0;
     font-size: 1.25rem;

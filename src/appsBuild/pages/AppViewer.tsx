@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useApps } from "../context/AppsContext";
 import SettingsIcon from "@mui/icons-material/Settings";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import IconButton from "@mui/material/IconButton";
 import LoginSetup from "./LoginSetup";
 import SmartContract from "./SmartContract";
@@ -69,12 +70,14 @@ export default function AppViewer() {
                         onClick={() => setActiveNav("Smart Contract")}
                     >
                         Smart Contract
+                        <WorkspacePremiumIcon className="nav-item-premium-icon" />
                     </button>
                     <button
                         className={`nav-item ${activeNav === "Signing Keys" ? "active" : ""}`}
                         onClick={() => setActiveNav("Signing Keys")}
                     >
                         Signing Keys
+                        <WorkspacePremiumIcon className="nav-item-premium-icon" />
                     </button>
                 </nav>
             </aside>
