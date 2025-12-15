@@ -12,6 +12,10 @@ export default function AppsManagerHeader() {
     // Show back button only on app viewer/editor pages
     const showBackButton = location.pathname.includes("/apps/@");
 
+    // Extract username from URL if viewing an app
+    const usernameMatch = location.pathname.match(/\/apps\/@([^\/]+)/);
+    const appUsername = usernameMatch ? `@${usernameMatch[1]}` : null;
+
     const handleBack = () => {
         navigate("/build/apps");
     };
@@ -29,7 +33,9 @@ export default function AppsManagerHeader() {
                     </IconButton>
                 )}
                 <AppsIcon className="header-icon" />
-                <h1 className="header-title">Apps Manager</h1>
+                <h1 className="header-title">
+                    Apps Manager{appUsername && `: ${appUsername}`}
+                </h1>
             </div>
         </header>
     );
