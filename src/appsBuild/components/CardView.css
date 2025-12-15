@@ -1,25 +1,69 @@
-
 .card-container {
-    margin: 1rem 0rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 
-.card-container .mui-card-header-title {
-    font-size: 1.3rem;
+.card-header {
+    padding: 1.5rem !important;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.card-title {
+    font-size: 1.125rem;
     font-weight: 600;
+    color: var(--gray-900);
 }
 
-.card-container .mui-card-header-subheader {
-    font-size: 1rem;
+.my-app-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
 }
 
-.card-subheader {
-    margin-top: 0.3rem;
+.my-app-subheader {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    color: var(--gray-600);
 }
 
-.myapp-logo {
-    width: 24px;
+.black-color {
+    color: var(--gray-900);
+    font-weight: 500;
+}
+
+.card-action-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-action-button:hover {
+    background-color: var(--gray-200);
+    border-color: var(--gray-400);
+}
+
+.card-action-button:active {
+    background-color: var(--gray-150);
+}
+
+@media (max-width: 480px) {
+    .card-header {
+        padding: 1rem !important;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .my-app-logo {
+        width: 32px;
+        height: 32px;
+    }
 }

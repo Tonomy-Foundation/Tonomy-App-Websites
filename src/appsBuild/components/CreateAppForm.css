@@ -1,0 +1,248 @@
+.create-app-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: var(--gray-50, #fafafa);
+}
+
+.create-app-form-content {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 2.5rem;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.create-app-form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900, #111);
+    margin: 0 0 2rem 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-700, #333);
+}
+
+.form-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--gray-900, #111);
+    transition: all 0.2s ease;
+    background-color: white;
+}
+
+.form-input::placeholder {
+    color: var(--gray-400, #ccc);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent, #000);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+.logo-upload-area {
+    border: 2px dashed var(--gray-300);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background-color: var(--gray-50, #fafafa);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.logo-upload-area:hover {
+    border-color: var(--accent, #000);
+    background-color: var(--gray-100, #f5f5f5);
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.upload-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--gray-400, #aaa);
+}
+
+.upload-text {
+    font-size: 0.875rem;
+    color: var(--gray-600, #666);
+    margin: 0;
+}
+
+.file-input {
+    display: none;
+}
+
+.logo-preview {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.logo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.remove-logo-button {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--gray-300);
+    border: none;
+    color: var(--gray-800);
+    font-size: 1.125rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.remove-logo-button:hover {
+    background-color: var(--gray-400);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
+.cancel-button {
+    padding: 0.75rem 2rem;
+    background-color: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+    background-color: var(--gray-50, #fafafa);
+    border-color: var(--gray-400);
+}
+
+.cancel-button:active {
+    background-color: var(--gray-100, #f5f5f5);
+}
+
+.submit-button {
+    padding: 0.75rem 2rem;
+    background-color: var(--accent, #000);
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+.submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .create-app-form-content {
+        padding: 1.5rem;
+    }
+
+    .create-app-form-title {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form {
+        gap: 1rem;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        margin-top: 0.5rem;
+    }
+
+    .cancel-button,
+    .submit-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-app-form-container {
+        padding: 1rem;
+    }
+
+    .create-app-form-content {
+        padding: 1.25rem;
+        border-radius: 4px;
+    }
+
+    .create-app-form-title {
+        font-size: 1.125rem;
+    }
+
+    .logo-upload-area {
+        padding: 1.5rem;
+    }
+
+    .form-input {
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+    }
+}

@@ -20,7 +20,7 @@ export default function Home() {
   }
 
   if (user) {
-    navigate("app-manager")
+    navigate("apps")
   }
 
   async function onButtonPress() {
