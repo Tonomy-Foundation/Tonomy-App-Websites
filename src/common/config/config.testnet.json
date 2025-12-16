@@ -31,6 +31,6 @@
   "sha256CertFingerprints": "24:8A:15:4B:BC:84:4C:D8:8F:F8:20:86:80:DC:08:65:75:5D:79:3C:20:CB:D9:EA:49:96:A8:D6:EC:C4:10:FD",
   "baseNetwork": "base-sepolia",
   "baseTokenAddress": "0x56aD9925f417358640746266eF44a701622c54Ba",
-  "baseRpcUrl": "https://base-sepolia.infura.io/v3/"
-
+  "baseRpcUrl": "https://base-sepolia.infura.io/v3/",
+  "baseMintBurnAddress": "0x8de48baf638e4cd8dab07ef12375369cb9b841db"
 }

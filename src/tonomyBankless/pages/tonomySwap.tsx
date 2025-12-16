@@ -17,7 +17,7 @@ import TModal from "../../tonomyAppList/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
-import { BrowserProvider, JsonRpcSigner } from "ethers";
+import { BrowserProvider } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -133,6 +133,7 @@ export default function Swap() {
   };
 
   const handleSwap = () => {
+    return;
     setIsBalanceSufficient(true);
     setError(null);
     const newDirection =
@@ -195,7 +196,6 @@ export default function Swap() {
         walletProvider as import("ethers").Eip1193Provider,
       );
       const signer = await ethersProvider.getSigner();
-      const proof = await createSignedProofMessage(signer as JsonRpcSigner);
       // Set up timeout for 100 seconds
       const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
       // Create a timeout that will close the modal if the operation takes too long
@@ -215,7 +215,12 @@ export default function Swap() {
       try {
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
-        await appUser.swapToken(new Decimal(toAmount), proof, direction);
+        if (direction === "tonomy") {
+          await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer);
+        } else {
+          const proof = await createSignedProofMessage(signer);
+          await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
+        }
         await new Promise((resolve) => setTimeout(resolve, 10000));
       } catch (error) {
         console.log("error", error);
@@ -366,7 +371,9 @@ export default function Swap() {
 
       <button
         className="connect-btn"
-        disabled={true} //!isConnected || !fromAmount || !toAmount || !isBalanceSufficient
+        disabled={
+          !isConnected || !fromAmount || !toAmount || !isBalanceSufficient
+        }
         onClick={() => {
           if (buttonText === "Swap Assets") {
             setSwapModal(true);
@@ -375,10 +382,6 @@ export default function Swap() {
       >
         {buttonText}
       </button>
-      <p className="swap-disable-text ">
-        Swapping is temporarily disabled as we work to resolve an issue. Thank
-        you for your patience.
-      </p>
       <TModal
         open={swapModal}
         image={CircularIcon}
