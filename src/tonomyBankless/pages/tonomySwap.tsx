@@ -380,7 +380,6 @@ export default function Swap() {
       >
         {buttonText}
       </button>
-
       <TModal
         open={swapModal}
         image={CircularIcon}
