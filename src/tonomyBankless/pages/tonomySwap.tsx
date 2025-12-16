@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useAccount } from "wagmi";
-import {
-  useAppKit,
-  useAppKitNetwork,
-  useAppKitProvider,
-} from "@reown/appkit/react";
+import { useAppKit, useAppKitProvider } from "@reown/appkit/react";
 import SwapIcon from "../assets/icons/swap-icon.png";
 import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
@@ -21,10 +17,9 @@ import TModal from "../../tonomyAppList/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
-import { BrowserProvider, ethers, JsonRpcSigner } from "ethers";
+import { BrowserProvider } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
 import { ToastContainer, toast } from "react-toastify";
-import { baseSepolia } from "@reown/appkit/networks";
 
 const SwapDirection = {
   TONOMY_TO_BASE: "TONOMY_TO_BASE",
@@ -53,7 +48,6 @@ export default function Swap() {
   const { signin } = useContext(AuthContext);
   const { walletProvider } = useAppKitProvider("eip155");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const { switchNetwork, chainId } = useAppKitNetwork();
 
   // Add this after the useAppKit line
   const events = useAppKitEvents();
@@ -139,6 +133,7 @@ export default function Swap() {
   };
 
   const handleSwap = () => {
+    return;
     setIsBalanceSufficient(true);
     setError(null);
     const newDirection =
@@ -197,7 +192,7 @@ export default function Swap() {
       if (!user) return;
       const appUser = new AppsExternalUser(user);
 
-      const ethersProvider = new BrowserProvider(walletProvider as any);
+      const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
       // Set up timeout for 100 seconds
       const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
@@ -216,20 +211,12 @@ export default function Swap() {
       }, timeoutDuration);
 
       try {
-        console.log("chainId", chainId, baseSepolia.id);
-        if (chainId !== baseSepolia.id) {
-          await switchNetwork(baseSepolia);
-        }
-
         const direction: "tonomy" | "base" =
           currentDirection === SwapDirection.TONOMY_TO_BASE ? "base" : "tonomy";
         if (direction === "tonomy") {
-          await appUser.swapBaseToTonomyToken(
-            new Decimal(toAmount),
-            signer as ethers.Signer,
-          );
+          await appUser.swapBaseToTonomyToken(new Decimal(toAmount), signer);
         } else {
-          const proof = await createSignedProofMessage(signer as JsonRpcSigner);
+          const proof = await createSignedProofMessage(signer);
           await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
         }
         await new Promise((resolve) => setTimeout(resolve, 10000));
