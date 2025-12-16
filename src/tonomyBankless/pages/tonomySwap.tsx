@@ -133,7 +133,6 @@ export default function Swap() {
   };
 
   const handleSwap = () => {
-    return;
     setIsBalanceSufficient(true);
     setError(null);
     const newDirection =
