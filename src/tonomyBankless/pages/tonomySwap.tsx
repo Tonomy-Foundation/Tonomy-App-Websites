@@ -192,7 +192,9 @@ export default function Swap() {
       if (!user) return;
       const appUser = new AppsExternalUser(user);
 
-      const ethersProvider = new BrowserProvider(walletProvider);
+      const ethersProvider = new BrowserProvider(
+        walletProvider as import("ethers").Eip1193Provider,
+      );
       const signer = await ethersProvider.getSigner();
       // Set up timeout for 100 seconds
       const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
