@@ -16,7 +16,7 @@ export default function BanklessFeatures() {
   };
 
   const [activeFeature, setActiveFeature] = useState<"swap" | "faucet">(
-    getActiveFeatureFromPath()
+    getActiveFeatureFromPath(),
   );
 
   // Update active feature when URL changes

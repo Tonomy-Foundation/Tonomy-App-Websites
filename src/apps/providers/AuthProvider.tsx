@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { AppsExternalUser, isErrorCode, SdkErrors } from "@tonomy/tonomy-id-sdk";
+import {
+  AppsExternalUser,
+  isErrorCode,
+  SdkErrors,
+} from "@tonomy/tonomy-id-sdk";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDisconnect } from "@reown/appkit/react";
 import Debug from "debug";

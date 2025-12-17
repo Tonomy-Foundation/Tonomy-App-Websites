@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import {
-  AppsExternalUser,
-} from "@tonomy/tonomy-id-sdk";
+import { AppsExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
@@ -14,13 +12,11 @@ export default function Home() {
   const navigate = useNavigate();
 
   if (loading) {
-    return (
-      <TH2 className="loading-text">Loading...</TH2>
-    );
+    return <TH2 className="loading-text">Loading...</TH2>;
   }
 
   if (user) {
-    navigate("app-manager")
+    navigate("app-manager");
   }
 
   async function onButtonPress() {
@@ -44,8 +40,8 @@ export default function Home() {
         <div className="text-center">
           <TP className="demo-head">Tonomy Build</TP>
           <TP className="demo-main">
-            Manage your Tonomy applications and infrastructure easily from
-            one place
+            Manage your Tonomy applications and infrastructure easily from one
+            place
           </TP>
 
           <button className="console-login-button" onClick={onButtonPress}>
