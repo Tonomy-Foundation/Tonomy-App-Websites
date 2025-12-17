@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
-import { AppKitProvider } from "../../tonomyAppList/providers/AppKitProvider";
+import { AppKitProvider } from "../../apps/providers/AppKitProvider";
 
 export default function BanklessRoutes() {
   return (

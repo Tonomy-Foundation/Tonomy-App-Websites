@@ -4,8 +4,8 @@ import { useAppKit, useAppKitProvider } from "@reown/appkit/react";
 import SwapIcon from "../assets/icons/swap-icon.png";
 import TonomyIcon from "../assets/icons/tonomy-icon.png";
 import BaseIcon from "../assets/icons/base-icon.png";
-import "./TonomySwap.css";
-import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
+import "./SwapComponent.css";
+import { AuthContext } from "../../apps/providers/AuthProvider";
 import {
   createSignedProofMessage,
   AppsExternalUser,
@@ -13,11 +13,11 @@ import {
   getBaseTokenContract,
 } from "@tonomy/tonomy-id-sdk";
 import Decimal from "decimal.js";
-import TModal from "../../tonomyAppList/components/TModal";
+import TModal from "../../apps/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
-import { BrowserProvider, JsonRpcSigner } from "ethers";
+import { BrowserProvider } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -26,7 +26,7 @@ const SwapDirection = {
   BASE_TO_TONOMY: "BASE_TO_TONOMY",
 };
 
-export default function Swap() {
+export default function SwapComponent() {
   const errorStore = useErrorStore();
   const [currentDirection, setCurrentDirection] = useState(
     SwapDirection.TONOMY_TO_BASE,
@@ -45,14 +45,12 @@ export default function Swap() {
   const [toAmount, setToAmount] = useState("");
   const [isBalanceSufficient, setIsBalanceSufficient] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { signin } = useContext(AuthContext);
   const { walletProvider } = useAppKitProvider("eip155");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Add this after the useAppKit line
+  // `events` gives you the *last event*
   const events = useAppKitEvents();
 
-  // `events` gives you the *last event*
   useEffect(() => {
     if (!events) return;
 
@@ -69,17 +67,13 @@ export default function Swap() {
   useEffect(() => {
     async function authentication() {
       try {
-        if (!user) {
-          const user1 = await AppsExternalUser.getUser({ autoLogout: false });
-          if (user1) {
-            signin(user1, "bankless/swap");
+        if (user) {
+          const username = await user.getUsername();
+          if (username) {
+            setUsername(username.getBaseUsername());
+            await updateBalance();
+            startBalancePolling();
           }
-        }
-        const username = await user?.getUsername();
-        if (username) {
-          setUsername(username.getBaseUsername());
-          await updateBalance();
-          startBalancePolling();
         }
       } catch (e) {
         errorStore.setError({ error: e, expected: false });
@@ -104,7 +98,7 @@ export default function Swap() {
         console.error("Error polling balance:", error);
         // Don't stop polling on error, just log it
       }
-    }, 8000); // 10 seconds
+    }, 8000); // 8 seconds
   };
 
   // Function to stop polling
@@ -195,7 +189,7 @@ export default function Swap() {
         walletProvider as import("ethers").Eip1193Provider,
       );
       const signer = await ethersProvider.getSigner();
-      const proof = await createSignedProofMessage(signer as JsonRpcSigner);
+      const proof = await createSignedProofMessage(signer);
       // Set up timeout for 100 seconds
       const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
       // Create a timeout that will close the modal if the operation takes too long
@@ -220,6 +214,7 @@ export default function Swap() {
         } else {
           await appUser.swapTonomyToBaseToken(new Decimal(toAmount), proof);
         }
+
         await new Promise((resolve) => setTimeout(resolve, 10000));
       } catch (error) {
         console.log("error", error);
@@ -342,14 +337,7 @@ export default function Swap() {
       : `You're about to swap ${fromAmount} $TONO from Base Blockchain to Tonomy Blockchain.`;
 
   return (
-    <div className="swap-container">
-      <div className="swap-header">
-        <h2 className="swap-title">Tonomy Swap</h2>
-        <div className="transactions">
-          Transactions <span className="coming-soon">Coming soon</span>
-        </div>
-      </div>
-
+    <>
       <div className="swap-card">
         <div className="swap-box">{renderSwapBox(true)}</div>
         <div className="swap-icon" onClick={handleSwap}>
@@ -396,7 +384,6 @@ export default function Swap() {
           setShowModal(true);
         }}
       >
-        {/* Add any modal content here if needed */}
         <div></div>
       </TModal>
 
@@ -410,7 +397,6 @@ export default function Swap() {
         loading={true}
         closeIcon={false}
       >
-        {/* Add any modal content here if needed */}
         <div></div>
       </TModal>
       <ToastContainer
@@ -424,6 +410,6 @@ export default function Swap() {
         pauseOnHover
         theme="dark"
       />
-    </div>
+    </>
   );
 }

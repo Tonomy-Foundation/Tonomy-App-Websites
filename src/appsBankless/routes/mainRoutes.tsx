@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import TonomySwap from "../pages/tonomySwap";
+import TonomySwap from "../pages/TonomySwap";
 
 const mainRoutes: RouteObject[] = [
   {

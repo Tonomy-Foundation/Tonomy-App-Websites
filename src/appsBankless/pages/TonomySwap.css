@@ -1,0 +1,101 @@
+.swap-container {
+  flex-wrap: wrap;
+  height: 100%;
+  padding: 2.6rem 0.4rem;
+  width: 30%;
+  margin-top: 2rem;
+}
+
+.swap-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.feature-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.feature-tab {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: var(--grey-label);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.feature-tab:hover {
+  color: var(--black);
+}
+
+.feature-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 500;
+}
+
+.swap-title {
+  font-size: 20px;
+}
+
+.transactions {
+  font-size: 14px;
+  color: var(--grey-label);
+  font-size: 20px;
+  margin-left: 19px;
+}
+
+.coming-soon {
+  background: var(--swiper-background);
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+  color: var(--secondary-color);
+
+}
+
+
+@media only screen and (min-width: 325px) and (max-width: 767px) {
+  .swap-container {
+    width: 100%;
+    /* Center the grid on smaller screens */
+  }
+
+  .button-row {
+    padding: 0px 0rem !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .swap-container {
+    width: 100%;
+    /* Center the grid on smaller screens */
+  }
+
+}
+
+@media only screen and (max-width: 325px) {
+  .swap-container {
+    width: 100%;
+    /* Center the grid on smaller screens */
+  }
+
+  .button-row {
+    padding: 0px 0rem !important;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1280px) {
+  .swap-container {
+    width: 50%;
+    /* Center the grid on smaller screens */
+  }
+
+}
