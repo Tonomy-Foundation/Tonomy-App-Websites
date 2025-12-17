@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./BanklessFeatures.css";
 import SwapComponent from "../components/SwapComponent";
@@ -19,8 +19,21 @@ export default function BanklessFeatures() {
     getActiveFeatureFromPath(),
   );
 
+  // Update active feature when URL changes
+  useEffect(() => {
+    const feature = getActiveFeatureFromPath();
+    setActiveFeature(feature);
+  }, [location.pathname]);
+
   // Check if we're on testnet
-  const isTestnet = getSettings().environment === "testnet";
+  const isProduction = getSettings().environment === "production";
+
+  // Redirect from faucet to swap if on production
+  useEffect(() => {
+    if (activeFeature === "faucet" && isProduction) {
+      navigate("/bankless/swap", { replace: true });
+    }
+  }, [activeFeature, isProduction, navigate]);
 
   const handleFeatureChange = (feature: "swap" | "faucet") => {
     setActiveFeature(feature);
@@ -30,42 +43,28 @@ export default function BanklessFeatures() {
   return (
     <div className="swap-container">
       <div className="swap-header">
-        <h2 className="swap-title">Tonomy Bankless</h2>
+        <h2
+          className={`swap-title ${activeFeature === "swap" ? "active" : ""}`}
+          onClick={() => handleFeatureChange("swap")}
+        >
+          Swap
+        </h2>
+        {!isProduction && (
+          <h2
+            className={`swap-title ${activeFeature === "faucet" ? "active" : ""}`}
+            onClick={() => handleFeatureChange("faucet")}
+          >
+            Faucet
+          </h2>
+        )}
         <div className="transactions">
           Transactions <span className="coming-soon">Coming soon</span>
         </div>
       </div>
 
-      {/* Feature tabs - ready for future expansion */}
-      <div className="feature-tabs">
-        <button
-          className={`feature-tab ${activeFeature === "swap" ? "active" : ""}`}
-          onClick={() => handleFeatureChange("swap")}
-        >
-          Swap
-        </button>
-        {isTestnet && (
-          <button
-            className={`feature-tab ${activeFeature === "faucet" ? "active" : ""}`}
-            onClick={() => handleFeatureChange("faucet")}
-          >
-            Faucet
-          </button>
-        )}
-        {/* Uncomment when implementing transfers feature */}
-        {/* <button 
-          className={`feature-tab ${activeFeature === "transfers" ? "active" : ""}`}
-          onClick={() => handleFeatureChange("transfers")}
-        >
-          Transfers
-        </button> */}
-      </div>
-
       {/* Render active feature component */}
       {activeFeature === "swap" && <SwapComponent />}
       {activeFeature === "faucet" && <Faucet />}
-      {/* Future feature components */}
-      {/* {activeFeature === "transfers" && <TransfersComponent />} */}
     </div>
   );
 }

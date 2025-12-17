@@ -1,10 +1,14 @@
 import { RouteObject } from "react-router-dom";
-import TonomySwap from "../pages/TonomySwap";
+import BanklessFeatures from "../pages/BanklessFeatures";
 
 const mainRoutes: RouteObject[] = [
   {
     path: "/swap",
-    element: <TonomySwap />,
+    element: <BanklessFeatures />,
+  },
+  {
+    path: "/faucet",
+    element: <BanklessFeatures />,
   },
 ];
 

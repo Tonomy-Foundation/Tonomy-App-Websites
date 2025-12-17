@@ -338,6 +338,13 @@ export default function SwapComponent() {
 
   return (
     <>
+      <div className="swap-header-info">
+        <h3 className="swap-feature-title">Token Swap</h3>
+        <p className="swap-feature-description">
+          Seamlessly swap $TONO tokens between Tonomy and Base blockchains.
+          Connect your wallet and enter the amount to begin.
+        </p>
+      </div>
       <div className="swap-card">
         <div className="swap-box">{renderSwapBox(true)}</div>
         <div className="swap-icon" onClick={handleSwap}>

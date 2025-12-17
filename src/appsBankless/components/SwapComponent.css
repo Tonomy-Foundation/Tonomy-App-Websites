@@ -1,9 +1,27 @@
 .hint-network {
-    background: var(--swiper-background);
+    background: #f3f4f6;
     font-size: 10px;
     padding: 2px 5px;
     border-radius: 4px;
     margin-left: 4px;
+}
+
+.swap-header-info {
+    margin-bottom: 20px;
+}
+
+.swap-feature-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 8px;
+}
+
+.swap-feature-description {
+    font-size: 14px;
+    color: var(--grey-label);
+    line-height: 1.5;
+    margin-bottom: 0;
 }
 
 .swap-box {
