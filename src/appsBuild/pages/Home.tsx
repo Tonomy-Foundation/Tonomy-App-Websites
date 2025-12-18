@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { AppsExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
@@ -11,12 +11,14 @@ export default function Home() {
   const { user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("apps");
+    }
+  }, [loading, user, navigate]);
+
   if (loading) {
     return <TH2 className="loading-text">Loading...</TH2>;
-  }
-
-  if (user) {
-    navigate("apps")
   }
 
   async function onButtonPress() {
