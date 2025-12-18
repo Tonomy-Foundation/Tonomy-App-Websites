@@ -1,8 +1,6 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./CardView.css";
 
 export type CardViewProps = {
@@ -15,7 +13,11 @@ export type CardViewProps = {
 
 const CardView = (props: CardViewProps) => {
   return (
-    <div className="card-container" onClick={props.onClick} style={{ cursor: props.onClick ? "pointer" : "default" }}>
+    <div
+      className="card-container"
+      onClick={props.onClick}
+      style={{ cursor: props.onClick ? "pointer" : "default" }}
+    >
       <Card
         sx={{
           border: "1px solid var(--gray-300)",
@@ -42,7 +44,8 @@ const CardView = (props: CardViewProps) => {
           }
           subheader={
             <div className="my-app-subheader grey-color">
-              <span className="black-color">{props.accountName}</span> • {props.domain}
+              <span className="black-color">{props.accountName}</span> •{" "}
+              {props.domain}
             </div>
           }
         />
@@ -52,4 +55,3 @@ const CardView = (props: CardViewProps) => {
 };
 
 export default CardView;
-

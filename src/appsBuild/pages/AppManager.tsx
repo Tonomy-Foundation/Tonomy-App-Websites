@@ -27,7 +27,10 @@ export default function AppManager() {
   if (showCreateForm) {
     return (
       <div className="app-manager-content">
-        <CreateAppForm onSubmit={handleCreateApp} onCancel={() => setShowCreateForm(false)} />
+        <CreateAppForm
+          onSubmit={handleCreateApp}
+          onCancel={() => setShowCreateForm(false)}
+        />
       </div>
     );
   }

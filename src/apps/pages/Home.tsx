@@ -1,8 +1,11 @@
 import React from "react";
 import "./Home.css";
-import Share from "../assets/share.svg";
 import TImage from "../../common/atoms/TImage";
-import { getCoreApps, getEcosystemApps, getComingSoonApps } from "../../common/data/apps";
+import {
+  getCoreApps,
+  getEcosystemApps,
+  getComingSoonApps,
+} from "../../common/data/apps";
 
 export default function Home() {
   const origin = window.location.origin;
