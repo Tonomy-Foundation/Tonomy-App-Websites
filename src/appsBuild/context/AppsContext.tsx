@@ -50,6 +50,7 @@ export type AppsContextType = {
     sellSmartContractRAM: (username: string, ramToSellMB: number) => Promise<AppInfo | undefined>;
     addAccountKey: (username: string) => Promise<{ app: AppInfo; privateKey: string } | undefined>;
     removeAccountKey: (username: string, publicKey: string) => Promise<AppInfo | undefined>;
+    clearAllApps: () => void;
 };
 
 const AppsContext = createContext<AppsContextType | undefined>(undefined);
@@ -344,6 +345,10 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
         return updatedApp;
     };
 
+    const clearAllApps = () => {
+        setApps([]);
+    };
+
     const value = useMemo(
         () => ({
             apps,
@@ -358,6 +363,7 @@ export const AppsProvider = ({ children, initialApps }: { children: ReactNode; i
             addAccountKey,
             updateAccountKey,
             removeAccountKey,
+            clearAllApps,
         }),
         [apps]
     );

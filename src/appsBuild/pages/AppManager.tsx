@@ -3,13 +3,24 @@ import "./AppManager.css";
 import CardView from "../components/CardView";
 import EmptyState from "../components/EmptyState";
 import CreateAppForm from "../components/CreateAppForm";
+import WelcomePopup from "../components/WelcomePopup";
 import { useApps } from "../context/AppsContext";
 import { useNavigate } from "react-router-dom";
 
 export default function AppManager() {
-  const { apps } = useApps();
+  const { apps, clearAllApps } = useApps();
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const navigate = useNavigate();
+
+  const handleUseDummyData = () => {
+    setShowWelcome(false);
+  };
+
+  const handleStartFresh = () => {
+    clearAllApps();
+    setShowWelcome(false);
+  };
 
   const handleCreateApp = async () => setShowCreateForm(false);
 
@@ -23,6 +34,13 @@ export default function AppManager() {
 
   return (
     <div className="app-manager-content">
+      {showWelcome && (
+        <WelcomePopup
+          onUseDummyData={handleUseDummyData}
+          onStartFresh={handleStartFresh}
+        />
+      )}
+
       {apps?.length > 0 ? (
         <div className="apps-section">
           <div className="cards-container">
