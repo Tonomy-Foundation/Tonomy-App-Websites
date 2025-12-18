@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import mainRoutes from "./mainRoutes";
 import PrivateRoute from "./guards/PrivateRoute";
 import HomeScreen from "../pages/Home";
-import MainLayout from "../layout/MainLayout";
+import AppsLayout from "../layout/AppsLayout";
 
 export default function BuildRoutes() {
   return (
@@ -16,7 +16,7 @@ export default function BuildRoutes() {
           path={route.path}
           element={
             <PrivateRoute>
-              <MainLayout>{route?.element}</MainLayout>
+              <AppsLayout>{route?.element}</AppsLayout>
             </PrivateRoute>
           }
         />

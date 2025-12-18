@@ -1,0 +1,458 @@
+.smart-contract {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.sc-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sc-intro h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.sc-intro p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+.sc-section h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.sc-section p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+/* Upgrade Required Button */
+.upgrade-needed-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: fit-content;
+}
+
+.upgrade-needed-btn:hover {
+    background: #45a049;
+}
+
+/* Upgrade Modal */
+.upgrade-modal {
+    padding: 32px;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-600);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.modal-close:hover {
+    background: var(--gray-100);
+    color: var(--gray-900);
+}
+
+.modal-title {
+    margin: 0 0 12px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.modal-description {
+    margin: 0 0 24px 0;
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+/* Modal uses pricing card styles from PlanBilling.css */
+
+/* Contract Card */
+.contract-card {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contract-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contract-badge {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.contract-name {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.contract-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-row {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.detail-label {
+    color: var(--gray-600);
+    min-width: 120px;
+}
+
+.detail-value {
+    color: var(--gray-900);
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.contract-link {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.contract-link:hover {
+    text-decoration: underline;
+}
+
+.contract-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Buttons */
+.btn-primary {
+    padding: 10px 20px;
+    background: var(--gray-900);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--gray-800);
+}
+
+.btn-primary:disabled {
+    background: var(--gray-400);
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background: white;
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+/* No Contract */
+.no-contract-card {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    padding: 48px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.no-contract-card p {
+    color: var(--gray-600);
+    font-size: 16px;
+}
+
+/* RAM Section */
+.ram-section {
+    gap: 20px;
+}
+
+.ram-card {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ram-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ram-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.ram-values {
+    font-size: 14px;
+    color: var(--gray-900);
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.ram-progress-bar {
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.ram-progress-fill {
+    height: 100%;
+    background: #4caf50;
+    transition: width 0.3s ease;
+}
+
+.ram-adjust {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+}
+
+.ram-adjust-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.ram-adjust-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ram-adjust-row input {
+    padding: 10px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    font-size: 14px;
+    width: 180px;
+}
+
+.ram-adjust-price {
+    font-size: 13px;
+    color: var(--gray-700);
+}
+
+/* Deployment Table */
+.deployment-table {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-header-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--gray-100);
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    text-transform: uppercase;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid var(--gray-200);
+    align-items: center;
+    font-size: 15px;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-row:hover {
+    background: var(--gray-50);
+}
+
+.status-archived {
+    color: var(--gray-600);
+    font-size: 14px;
+}
+
+/* Deploy Form */
+.deploy-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.deploy-form {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.deploy-form h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.file-upload-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.file-upload-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 2px dashed var(--gray-300);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-700);
+    transition: all 0.2s ease;
+}
+
+.file-upload-group label:hover {
+    border-color: var(--gray-400);
+    background: var(--gray-50);
+}
+
+.file-upload-group input[type="file"] {
+    display: none;
+}
+
+.file-name {
+    font-size: 13px;
+    color: var(--gray-600);
+    padding-left: 8px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+    .smart-contract {
+        gap: 24px;
+    }
+
+    .contract-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+
+    .ram-input-group input {
+        width: 100%;
+    }
+
+    .table-header-row,
+    .table-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .table-header-row {
+        display: none;
+    }
+}

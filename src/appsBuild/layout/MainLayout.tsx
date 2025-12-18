@@ -1,13 +1,11 @@
 import React, { ReactNode } from "react";
-import TopMenuBar from "./TopMenuBar";
-import "./TopMenuBar.css";
+import { AppsProvider } from "../context/AppsContext";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="main-layout">
-      <TopMenuBar />
-      {children}
-    </div>
+    <AppsProvider>
+      <div className="main-layout">{children}</div>
+    </AppsProvider>
   );
 };
 

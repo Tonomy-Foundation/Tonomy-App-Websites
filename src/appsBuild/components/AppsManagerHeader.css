@@ -1,0 +1,65 @@
+.apps-manager-header {
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid var(--gray-300);
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    margin: 0 auto;
+    height: 73px;
+}
+
+.back-button {
+    margin-right: 8px !important;
+    color: var(--gray-700) !important;
+}
+
+.back-button:hover {
+    color: var(--gray-900) !important;
+    background-color: var(--gray-100) !important;
+}
+
+.header-icon {
+    width: 28px !important;
+    height: 28px !important;
+    color: var(--gray-700);
+}
+
+.header-app-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+@media (max-width: 768px) {
+    .apps-manager-header {
+        padding: 0 16px;
+    }
+
+    .header-icon {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .header-title {
+        font-size: 1.125rem;
+    }
+}

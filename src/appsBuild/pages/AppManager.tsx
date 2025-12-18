@@ -1,57 +1,77 @@
-import React, { useEffect, useState, useContext } from "react";
-import useErrorStore from "../../common/stores/errorStore";
-import { AuthContext } from "../../apps/providers/AuthProvider";
+import React, { useState } from "react";
 import "./AppManager.css";
-import AppNotFound from "../assets/no-app-found.png";
-import DefaultAppLogo from "../assets/deuces-wild.png";
 import CardView from "../components/CardView";
-
-const apps = [
-  { appName: "Booking.com", username: "Micheal Brown", logo: DefaultAppLogo },
-  { appName: "Booking.com", username: "Micheal Brown", logo: DefaultAppLogo },
-];
+import EmptyState from "../components/EmptyState";
+import CreateAppForm from "../components/CreateAppForm";
+import WelcomePopup from "../components/WelcomePopup";
+import { useApps } from "../context/AppsContext";
+import { useNavigate } from "react-router-dom";
 
 export default function AppManager() {
-  const errorStore = useErrorStore();
-  const [username, setUsername] = useState<string>("");
-  const { user } = useContext(AuthContext);
+  const { apps, clearAllApps } = useApps();
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const navigate = useNavigate();
 
-  async function onRender() {
-    try {
-      const username = await user?.getUsername();
+  const handleUseDummyData = () => {
+    setShowWelcome(false);
+  };
 
-      if (!username) throw new Error("No username found");
-      setUsername(username.getBaseUsername());
-    } catch (e) {
-      errorStore.setError({ error: e, expected: false });
-    }
+  const handleStartFresh = () => {
+    clearAllApps();
+    setShowWelcome(false);
+  };
+
+  const handleCreateApp = async () => setShowCreateForm(false);
+
+  if (showCreateForm) {
+    return (
+      <div className="app-manager-content">
+        <CreateAppForm
+          onSubmit={handleCreateApp}
+          onCancel={() => setShowCreateForm(false)}
+        />
+      </div>
+    );
   }
 
-  useEffect(() => {
-    onRender();
-  }, []);
-
-  const appCards = apps.map((app, index) => (
-    <CardView
-      key={index}
-      appName={app.appName}
-      username={app.username}
-      logo={app.logo}
-    />
-  ));
-
   return (
-    <div>
-      <h2 className="heading">Welcome, {username}</h2>
-      {apps?.length > 0 ? (
-        <>{appCards}</>
-      ) : (
-        <div className="image-container">
-          <img src={AppNotFound} alt="App-Not-Found" />
-        </div>
+    <div className="app-manager-content">
+      {showWelcome && (
+        <WelcomePopup
+          onUseDummyData={handleUseDummyData}
+          onStartFresh={handleStartFresh}
+        />
       )}
 
-      <button className="bottom-left-button">+</button>
+      {apps?.length > 0 ? (
+        <div className="apps-section">
+          <div className="cards-container">
+            {apps.map((app) => (
+              <CardView
+                key={app.appUsername}
+                appName={app.appName}
+                accountName={app.accountName}
+                domain={app.domain}
+                logo={app.logoUrl}
+                onClick={() => navigate(`/build/apps/${app.appUsername}`)}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <EmptyState onCreateApp={() => setShowCreateForm(true)} />
+      )}
+
+      {!showCreateForm && (
+        <button
+          className="bottom-left-button"
+          onClick={() => setShowCreateForm(true)}
+          title="Create new app"
+        >
+          +
+        </button>
+      )}
     </div>
   );
 }
