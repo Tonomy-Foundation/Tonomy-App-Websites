@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TonomyLogo from "../../apps/assets/appSwitcherIcons/tonomy.png";
 import BuildLogo from "../../apps/assets/appSwitcherIcons/Build.png";
@@ -32,6 +33,12 @@ const TopMenuBar = ({ page }) => {
     return TonomyLogo;
   }
 
+  function getHomePath(): string {
+    if (page === "bankless") return "/bankless";
+    if (page === "build") return "/build";
+    return "/";
+  }
+
   useEffect(() => {
     async function getUsername() {
       try {
@@ -61,19 +68,11 @@ const TopMenuBar = ({ page }) => {
     });
   }
 
-  function shouldShowAppSwitch(): boolean {
-    const urlObj = new URL(window.location.href);
-    const path = urlObj.pathname;
-
-    // Don't show if path is empty, just "/", or only contains query/hash
-    return path !== "" && path !== "/";
-  }
-
   return (
     <div className="tonomy-header">
       <div className="tonomy-title">
-        <a
-          href={window.location.origin}
+        <Link
+          to={getHomePath()}
           className="tonomy-title"
           style={{ textDecoration: "none", color: "inherit" }}
         >
@@ -85,22 +84,20 @@ const TopMenuBar = ({ page }) => {
             height={37}
           />
           <h1 className="tonomy-main-title">{getAppName()}</h1>
-        </a>
+        </Link>
       </div>
       <div className="tonomy-time-container">
-        {shouldShowAppSwitch() && (
-          <div className="switcher-container">
-            <img
-              src={AppSwitcherIcon}
-              alt="App Switcher"
-              className="tonomy-logo cursor-pointer"
-              width={18}
-              height={18}
-              onClick={() => setShowSwitcher(!showSwitcher)}
-            />
-            {showSwitcher && <AppSwitcher />}
-          </div>
-        )}
+        <div className="switcher-container">
+          <img
+            src={AppSwitcherIcon}
+            alt="App Switcher"
+            className="tonomy-logo cursor-pointer"
+            width={18}
+            height={18}
+            onClick={() => setShowSwitcher(!showSwitcher)}
+          />
+          {showSwitcher && <AppSwitcher />}
+        </div>
 
         {username ? (
           <div className="dropdown">
