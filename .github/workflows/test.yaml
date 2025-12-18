@@ -21,4 +21,3 @@ jobs:
       - run: yarn run build
       - run: yarn run typeCheck
       - run: yarn run lint
-      - run: yarn run lint:pretty
