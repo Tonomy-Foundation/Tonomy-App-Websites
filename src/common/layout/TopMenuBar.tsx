@@ -4,9 +4,7 @@ import TonomyLogo from "../../apps/assets/appSwitcherIcons/tonomy.png";
 import BuildLogo from "../../apps/assets/appSwitcherIcons/Build.png";
 import BanklessLogo from "../../appsBankless/assets/bankless-logo.png";
 import "./TopMenuBar.css";
-import {
-  AppsExternalUser,
-} from "@tonomy/tonomy-id-sdk";
+import { AppsExternalUser } from "@tonomy/tonomy-id-sdk";
 import { AuthContext } from "../../apps/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -14,8 +12,6 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AppSwitcherIcon from "../../apps/assets/app-switcher.png";
 import AppSwitcher from "./AppSwitcher";
 import useErrorStore from "../../common/stores/errorStore";
-import Debug from "debug";
-const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 const TopMenuBar = ({ page }) => {
   const { signout, user, loading } = useContext(AuthContext);
@@ -28,7 +24,7 @@ const TopMenuBar = ({ page }) => {
     if (page === "bankless") return "Tonomy Bankless";
     if (page === "build") return "Tonomy Build";
     return "Tonomy Apps";
-  };
+  }
 
   function getAppLogo() {
     if (page === "bankless") return BanklessLogo;

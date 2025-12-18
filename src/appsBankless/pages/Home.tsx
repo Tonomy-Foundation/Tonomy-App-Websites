@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import {
-  AppsExternalUser,
-} from "@tonomy/tonomy-id-sdk";
+import { AppsExternalUser } from "@tonomy/tonomy-id-sdk";
 import settings from "../../common/settings";
 import "./Home.css";
 import { TP, TH2 } from "../../common/atoms/THeadings";
@@ -14,13 +12,11 @@ export default function Home() {
   const navigate = useNavigate();
 
   if (loading) {
-    return (
-      <TH2 className="loading-text">Loading...</TH2>
-    );
+    return <TH2 className="loading-text">Loading...</TH2>;
   }
 
   if (user) {
-    navigate("swap")
+    navigate("swap");
   }
 
   async function onButtonPress() {

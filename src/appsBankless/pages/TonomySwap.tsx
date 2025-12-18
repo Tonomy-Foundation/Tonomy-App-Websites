@@ -16,7 +16,7 @@ export default function BanklessFeatures() {
   };
 
   const [activeFeature, setActiveFeature] = useState<"swap" | "faucet">(
-    getActiveFeatureFromPath()
+    getActiveFeatureFromPath(),
   );
 
   // Check if we're on testnet
