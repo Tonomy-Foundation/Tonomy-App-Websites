@@ -17,6 +17,32 @@
     font-size: 14px;
 }
 
+.keys-usage-info {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-left: 4px solid #0284c7;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px 0;
+}
+
+.keys-usage-info h4 {
+    margin: 0 0 10px 0;
+    color: #0c4a6e;
+    font-size: 15px;
+}
+
+.keys-usage-info ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #0c4a6e;
+}
+
+.keys-usage-info li {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
 .key-alert {
     border: 1px solid #f0b429;
     background: #fff9e6;
@@ -27,13 +53,45 @@
     gap: 6px;
 }
 
+.private-key-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .private-key {
     font-family: monospace;
     background: #111827;
     color: #f9fafb;
-    padding: 8px 10px;
+    padding: 8px 40px 8px 10px;
     border-radius: 6px;
     word-break: break-all;
+    flex: 1;
+}
+
+.copy-key-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 4px;
+    padding: 4px 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.copy-key-btn:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+.copy-key-btn svg {
+    color: #111827;
 }
 
 .alert-hint {

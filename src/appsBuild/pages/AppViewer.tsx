@@ -7,6 +7,8 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import Dialog from "@mui/material/Dialog";
+import Button from "@mui/material/Button";
 import AppsManagerHeader from "../components/AppsManagerHeader";
 import LoginSetup from "./LoginSetup";
 import SmartContract from "./SmartContract";
@@ -22,12 +24,14 @@ export default function AppViewer() {
   const { username } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { getAppByUsername } = useApps();
+  const { getAppByUsername, removeApp } = useApps();
   const app = username ? getAppByUsername(username) : undefined;
 
   const tabParam = searchParams.get("tab") || "Overview";
   const [activeNav, setActiveNav] = useState(tabParam);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const formattedAppUsername = app ? formatAppUsername(app.appUsername) : "";
   const formattedOwnerUsername = app
@@ -62,6 +66,25 @@ export default function AppViewer() {
 
   const handleOpenWebsite = () => {
     window.open(app.domain, "_blank");
+  };
+
+  const handleDeleteClick = () => {
+    if (!app) return;
+    if (app.plan !== "basic") {
+      setDeleteError(
+        "To delete this app, switch to the Basic plan first. Downgrading removes access to Smart Contracts and Signing Keys.",
+      );
+      return;
+    }
+    setDeleteError(null);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!app) return;
+    await removeApp(app.appUsername);
+    setShowDeleteConfirm(false);
+    navigate("/build/apps");
   };
 
   return (
@@ -198,6 +221,27 @@ export default function AppViewer() {
               </div>
 
               <p className="viewer-description">{app.description}</p>
+
+              <div className="viewer-danger">
+                <div>
+                  <h4>Danger zone</h4>
+                  <p className="danger-copy">
+                    Delete this app from Tonomy Build. This requires the Basic plan and removes access from this dashboard.
+                  </p>
+                </div>
+                {app.plan !== "basic" && (
+                  <div className="danger-note">
+                    Downgrade to Basic before deleting. Deletion is blocked while Smart Contracts or Signing Keys are enabled.
+                  </div>
+                )}
+                {deleteError && <div className="danger-error">{deleteError}</div>}
+                <button
+                  className="danger-button"
+                  onClick={handleDeleteClick}
+                >
+                  Delete app
+                </button>
+              </div>
             </div>
           )}
 
@@ -226,6 +270,30 @@ export default function AppViewer() {
           )}
         </div>
       </div>
+
+      <Dialog
+        open={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <div className="delete-modal">
+          <h3>Delete this app?</h3>
+          <p>
+            This removes the app from Tonomy Build. You can recreate it later, but any local settings in this dashboard will be lost.
+          </p>
+          <div className="delete-actions">
+            <Button onClick={() => setShowDeleteConfirm(false)}>Cancel</Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleConfirmDelete}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      </Dialog>
     </>
   );
 }

@@ -85,6 +85,7 @@ export type AppsContextType = {
     username: string,
     publicKey: string,
   ) => Promise<AppInfo | undefined>;
+  removeApp: (username: string) => Promise<AppInfo | undefined>;
   clearAllApps: () => void;
 };
 
@@ -523,6 +524,27 @@ export const AppsProvider = ({
     return updatedApp;
   };
 
+  const removeApp = async (
+    username: string,
+  ): Promise<AppInfo | undefined> => {
+    const cleanUsername = username.startsWith("@")
+      ? username.slice(1)
+      : username;
+    const existingApp = apps.find(
+      (a) =>
+        a.appUsername === `@${cleanUsername}` ||
+        a.appUsername === cleanUsername,
+    );
+
+    if (!existingApp) return undefined;
+
+    setApps((prev) =>
+      prev.filter((a) => a.appUsername !== existingApp.appUsername),
+    );
+
+    return existingApp;
+  };
+
   const clearAllApps = () => {
     setApps([]);
   };
@@ -543,6 +565,7 @@ export const AppsProvider = ({
       addAccountKey,
       updateAccountKey,
       removeAccountKey,
+      removeApp,
       clearAllApps,
     }),
     [apps, showWelcome],

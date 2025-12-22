@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import CheckIcon from "@mui/icons-material/Check";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useApps } from "../context/AppsContext";
 import "./AccountKeys.css";
 import "./PlanBilling.css";
@@ -17,6 +18,7 @@ export default function AccountKeys() {
   const [lastPrivateKey, setLastPrivateKey] = useState<string | null>(null);
   const [loadingKey, setLoadingKey] = useState<string | null>(null);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [copiedKey, setCopiedKey] = useState(false);
 
   if (!app) {
     return (
@@ -50,6 +52,14 @@ export default function AccountKeys() {
     setLoadingKey(publicKey);
     await removeAccountKey(app.appUsername, publicKey);
     setLoadingKey(null);
+  };
+
+  const handleCopyKey = () => {
+    if (lastPrivateKey) {
+      navigator.clipboard.writeText(lastPrivateKey);
+      setCopiedKey(true);
+      setTimeout(() => setCopiedKey(false), 2000);
+    }
   };
 
   // Show upgrade prompt if trying to access on basic plan
@@ -154,10 +164,25 @@ export default function AccountKeys() {
         </button>
       </div>
 
+      {/* Usage Context */}
+      <div className="keys-usage-info">
+        <h4>What can you do with signing keys?</h4>
+        <ul>
+          <li>Sign automated transactions from a server with your own smart contract</li>
+          <li>Interact with tokens or other on-chain contracts programmatically</li>
+          <li>Automate Tonomy Build operations via on-chain transactions (e.g., deploying contracts)</li>
+        </ul>
+      </div>
+
       {lastPrivateKey && (
         <div className="key-alert">
-          <strong>Save this private key now:</strong>
-          <div className="private-key">{lastPrivateKey}</div>
+          <strong>⚠ Save this private key now:</strong>
+          <div className="private-key-wrapper">
+            <div className="private-key">{lastPrivateKey}</div>
+            <button className="copy-key-btn" onClick={handleCopyKey} title="Copy to clipboard">
+              {copiedKey ? <CheckIcon fontSize="small" /> : <ContentCopyIcon fontSize="small" />}
+            </button>
+          </div>
           <div className="alert-hint">
             This secret key is shown only once. Store it securely.
           </div>

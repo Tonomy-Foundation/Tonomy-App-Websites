@@ -131,6 +131,16 @@
     padding-top: 8px;
 }
 
+.downgrade-note {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #9a3412;
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
 .current-plan-badge {
     padding: 8px 16px;
     background: var(--gray-100);
@@ -176,6 +186,109 @@
     background: var(--gray-100);
     color: var(--gray-900);
     border-color: var(--gray-400);
+}
+
+.cost-calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calculator-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.invoice-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.invoice-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--gray-100);
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.invoice-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    align-items: center;
+    font-size: 14px;
+}
+
+.invoice-row:last-of-type {
+    border-bottom: none;
+}
+
+.invoice-col {
+    text-align: left;
+}
+
+.invoice-col-desc {
+    color: var(--gray-900);
+    font-weight: 500;
+}
+
+.invoice-col-qty {
+    text-align: center;
+    color: var(--gray-700);
+    font-family: monospace;
+}
+
+.invoice-col-unit {
+    text-align: right;
+    color: var(--gray-700);
+    font-size: 13px;
+}
+
+.invoice-col-total {
+    text-align: right;
+    color: var(--gray-900);
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.invoice-total-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    gap: 12px;
+    padding: 16px;
+    background: var(--gray-50);
+    border-top: 2px solid var(--gray-300);
+    font-size: 15px;
+    font-weight: 700;
+    align-items: center;
+}
+
+.invoice-total-row .invoice-col-total {
+    color: #111827;
+}
+
+.calculator-note {
+    margin: 0;
+    color: var(--gray-600);
+    font-size: 13px;
 }
 
 /* Billing History Section */
@@ -267,6 +380,24 @@
 .row-menu-button:hover {
     color: var(--gray-900) !important;
     background: var(--gray-200) !important;
+}
+
+.downgrade-modal {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.downgrade-modal p {
+    margin: 0;
+    color: var(--gray-700);
+}
+
+.downgrade-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 /* Responsive */
