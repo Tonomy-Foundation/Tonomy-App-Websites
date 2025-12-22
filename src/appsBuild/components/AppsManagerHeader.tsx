@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import AppsIcon from "@mui/icons-material/Apps";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -7,7 +7,13 @@ import { formatAppUsername } from "../common/formatUsername";
 import { useApps } from "../context/AppsContext";
 import "./AppsManagerHeader.css";
 
-export default function AppsManagerHeader() {
+type AppsManagerHeaderProps = {
+  children?: ReactNode;
+};
+
+export default function AppsManagerHeader({
+  children,
+}: AppsManagerHeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { getAppByUsername } = useApps();
@@ -40,6 +46,7 @@ export default function AppsManagerHeader() {
         <h1 className="header-title">
           {appUsername ? appUsername : "Apps Manager"}
         </h1>
+        {children}
       </div>
     </header>
   );

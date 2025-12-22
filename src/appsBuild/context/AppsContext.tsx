@@ -46,6 +46,8 @@ export type AppInfo = AppCreateInfo & {
 
 export type AppsContextType = {
   apps: AppInfo[];
+  showWelcome: boolean;
+  setShowWelcome: (show: boolean) => void;
   addApp: (info: AppCreateInfo) => Promise<AppInfo>;
   updateApp: (
     username: string,
@@ -83,6 +85,7 @@ export type AppsContextType = {
     username: string,
     publicKey: string,
   ) => Promise<AppInfo | undefined>;
+  removeApp: (username: string) => Promise<AppInfo | undefined>;
   clearAllApps: () => void;
 };
 
@@ -134,6 +137,7 @@ export const AppsProvider = ({
       },
     ],
   );
+  const [showWelcome, setShowWelcome] = useState(true);
 
   const generateHexString = (length: number) => {
     try {
@@ -520,6 +524,25 @@ export const AppsProvider = ({
     return updatedApp;
   };
 
+  const removeApp = async (username: string): Promise<AppInfo | undefined> => {
+    const cleanUsername = username.startsWith("@")
+      ? username.slice(1)
+      : username;
+    const existingApp = apps.find(
+      (a) =>
+        a.appUsername === `@${cleanUsername}` ||
+        a.appUsername === cleanUsername,
+    );
+
+    if (!existingApp) return undefined;
+
+    setApps((prev) =>
+      prev.filter((a) => a.appUsername !== existingApp.appUsername),
+    );
+
+    return existingApp;
+  };
+
   const clearAllApps = () => {
     setApps([]);
   };
@@ -527,6 +550,8 @@ export const AppsProvider = ({
   const value = useMemo(
     () => ({
       apps,
+      showWelcome,
+      setShowWelcome,
       addApp,
       updateApp,
       getAppByUsername,
@@ -538,9 +563,10 @@ export const AppsProvider = ({
       addAccountKey,
       updateAccountKey,
       removeAccountKey,
+      removeApp,
       clearAllApps,
     }),
-    [apps],
+    [apps, showWelcome],
   );
 
   return <AppsContext.Provider value={value}>{children}</AppsContext.Provider>;

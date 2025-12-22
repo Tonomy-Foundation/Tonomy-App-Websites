@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CheckIcon from "@mui/icons-material/Check";
 import "./LoginSetup.css";
-import { getSettings } from "@tonomy/tonomy-id-sdk";
+import { getSettings, isProduction } from "@tonomy/tonomy-id-sdk";
 
 interface LoginSetupProps {
   onNavigate?: (section: string) => void;
@@ -10,7 +12,36 @@ interface LoginSetupProps {
 
 export default function LoginSetup({ onNavigate }: LoginSetupProps) {
   const [activeInstallTab, setActiveInstallTab] = useState("npm");
+  const [copiedInstall, setCopiedInstall] = useState(false);
+  const [copiedConfig, setCopiedConfig] = useState(false);
   const settings = getSettings();
+  const isProd = isProduction();
+
+  const installCommand =
+    activeInstallTab === "npm"
+      ? "npm install @tonomy/tonomy-id-sdk"
+      : "yarn add @tonomy/tonomy-id-sdk";
+
+  const configCode = `import { ExternalUser } from '@tonomy/tonomy-id-sdk';
+
+ExternalUser.setSettings({
+    ssoWebsiteOrigin: '${settings.ssoWebsiteOrigin}',
+    blockchainUrl: '${settings.blockchainUrl}',
+    communicationUrl: '${settings.communicationUrl}',
+    currencySymbol: '${settings.currencySymbol}',
+});`;
+
+  const handleCopyInstall = () => {
+    navigator.clipboard.writeText(installCommand);
+    setCopiedInstall(true);
+    setTimeout(() => setCopiedInstall(false), 2000);
+  };
+
+  const handleCopyConfig = () => {
+    navigator.clipboard.writeText(configCode);
+    setCopiedConfig(true);
+    setTimeout(() => setCopiedConfig(false), 2000);
+  };
 
   const handleSmartContractClick = () => {
     if (onNavigate) {
@@ -64,16 +95,29 @@ export default function LoginSetup({ onNavigate }: LoginSetupProps) {
           </button>
         </div>
 
-        <div className="code-block">
-          {activeInstallTab === "npm" ? (
-            <pre>
-              <code>{`npm install @tonomy/tonomy-id-sdk`}</code>
-            </pre>
-          ) : (
-            <pre>
-              <code>{`yarn add @tonomy/tonomy-id-sdk`}</code>
-            </pre>
-          )}
+        <div className="code-block-wrapper">
+          <div className="code-block">
+            {activeInstallTab === "npm" ? (
+              <pre>
+                <code>{`npm install @tonomy/tonomy-id-sdk`}</code>
+              </pre>
+            ) : (
+              <pre>
+                <code>{`yarn add @tonomy/tonomy-id-sdk`}</code>
+              </pre>
+            )}
+          </div>
+          <button
+            className="copy-btn"
+            onClick={handleCopyInstall}
+            title="Copy to clipboard"
+          >
+            {copiedInstall ? (
+              <CheckIcon fontSize="small" />
+            ) : (
+              <ContentCopyIcon fontSize="small" />
+            )}
+          </button>
         </div>
 
         <p className="warning-note">
@@ -107,19 +151,70 @@ export default function LoginSetup({ onNavigate }: LoginSetupProps) {
           Import and configure the SDK with your preferred network environment:
         </p>
 
-        <div className="code-block">
-          <pre>
-            <code>
-              {`import { ExternalUser } from '@tonomy/tonomy-id-sdk';
+        <div className="code-block-wrapper">
+          <div className="code-block">
+            <pre>
+              <code>{configCode}</code>
+            </pre>
+          </div>
+          <button
+            className="copy-btn"
+            onClick={handleCopyConfig}
+            title="Copy to clipboard"
+          >
+            {copiedConfig ? (
+              <CheckIcon fontSize="small" />
+            ) : (
+              <ContentCopyIcon fontSize="small" />
+            )}
+          </button>
+        </div>
 
-ExternalUser.setSettings({
-    ssoWebsiteOrigin: '${settings.ssoWebsiteOrigin}',
-    blockchainUrl: '${settings.blockchainUrl}',
-    communicationUrl: '${settings.communicationUrl}',
-    currencySymbol: '${settings.currencySymbol}',
-});`}
-            </code>
-          </pre>
+        {isProd ? (
+          <p className="info-note">
+            <strong>ℹ Testing:</strong> A full testing environment is available
+            on testnet. Visit{" "}
+            <a
+              href="https://testnet.tonomy.foundation/build"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tonomy Build Testnet
+            </a>{" "}
+            to test your integration before going live.
+          </p>
+        ) : (
+          <p className="info-note">
+            <strong>ℹ Development:</strong> You can immediately test your app
+            running on <code>localhost:3000</code> connected to the Testnet
+            network.
+          </p>
+        )}
+      </section>
+
+      {/* Starter Templates Section */}
+      <section className="setup-section">
+        <h4>3. Starter Templates</h4>
+        <p>Get started quickly with our example applications:</p>
+        <div className="template-links">
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="template-link"
+          >
+            <OpenInNewIcon fontSize="small" />
+            <span>React Template</span>
+          </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="template-link"
+          >
+            <OpenInNewIcon fontSize="small" />
+            <span>Vue Template</span>
+          </a>
         </div>
       </section>
 

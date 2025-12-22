@@ -18,6 +18,23 @@
     height: 73px;
 }
 
+.menu-button {
+    margin-left: auto !important;
+    color: var(--gray-700) !important;
+    display: none !important;
+}
+
+.menu-button:hover {
+    color: var(--gray-900) !important;
+    background-color: var(--gray-100) !important;
+}
+
+@media (max-width: 768px) {
+    .menu-button {
+        display: flex !important;
+    }
+}
+
 .back-button {
     margin-right: 8px !important;
     color: var(--gray-700) !important;

@@ -422,6 +422,64 @@
     padding-left: 8px;
 }
 
+.file-error {
+    color: #b91c1c;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+.compilation-guide {
+    background: #f8fafc;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.compilation-guide h4 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--gray-900);
+}
+
+.compilation-guide p {
+    margin: 0;
+    color: var(--gray-700);
+    font-size: 14px;
+}
+
+.guide-code {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    display: none;
+}
+
+.guide-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.guide-links a {
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.guide-links a:hover {
+    text-decoration: underline;
+}
+
 .form-actions {
     display: flex;
     gap: 12px;

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import LayersIcon from "@mui/icons-material/Layers";
 import IconButton from "@mui/material/IconButton";
+import Dialog from "@mui/material/Dialog";
+import Button from "@mui/material/Button";
 import { useApps } from "../context/AppsContext";
 import "./PlanBilling.css";
 
@@ -14,6 +16,14 @@ export default function PlanBilling() {
   const app = username ? getAppByUsername(username) : undefined;
 
   const currentPlan = app?.plan || "basic";
+  const [showDowngradeConfirm, setShowDowngradeConfirm] = useState(false);
+  const activeUsers = 250; // Stub value
+  const ramGB = (app?.smartContract?.ramPurchasedMB || 0) / 1024;
+  const costPerUser = 0.05;
+  const costPerGB = 50;
+  const usersCost = activeUsers * costPerUser;
+  const ramCost = ramGB * costPerGB;
+  const totalMonthlyCost = usersCost + ramCost;
 
   const billingHistory = [
     { type: "5 GB of storage", price: "$25", date: "27.03.2025" },
@@ -30,6 +40,10 @@ export default function PlanBilling() {
     if (username && app) {
       await updateAppPlan(username, "basic");
     }
+  };
+
+  const handleDowngradeClick = () => {
+    setShowDowngradeConfirm(true);
   };
 
   return (
@@ -72,10 +86,16 @@ export default function PlanBilling() {
               ) : (
                 <button
                   className="downgrade-button"
-                  onClick={handleDowngradeToBasic}
+                  onClick={handleDowngradeClick}
                 >
                   Downgrade to Basic
                 </button>
+              )}
+              {currentPlan === "pro" && (
+                <div className="downgrade-note">
+                  Downgrading removes access to Smart Contracts, Signing Keys,
+                  and Web3 Transactions.
+                </div>
               )}
             </div>
           </div>
@@ -131,6 +151,68 @@ export default function PlanBilling() {
         </div>
       </section>
 
+      {currentPlan === "pro" && (
+        <section className="cost-calculator">
+          <h3 className="section-title">Estimate monthly cost</h3>
+          <div className="calculator-card">
+            <div className="invoice-table">
+              <div className="invoice-header">
+                <div className="invoice-col invoice-col-desc">Description</div>
+                <div className="invoice-col invoice-col-qty">Quantity</div>
+                <div className="invoice-col invoice-col-unit">Unit Price</div>
+                <div className="invoice-col invoice-col-total">Total</div>
+              </div>
+              <div className="invoice-row">
+                <div className="invoice-col invoice-col-desc">Active users</div>
+                <div className="invoice-col invoice-col-qty">{activeUsers}</div>
+                <div className="invoice-col invoice-col-unit">
+                  ${costPerUser.toFixed(2)}/user
+                </div>
+                <div className="invoice-col invoice-col-total">
+                  ${usersCost.toFixed(2)}
+                </div>
+              </div>
+              {ramGB > 0 && (
+                <div className="invoice-row">
+                  <div className="invoice-col invoice-col-desc">
+                    Storage (RAM)
+                  </div>
+                  <div className="invoice-col invoice-col-qty">
+                    {ramGB.toFixed(2)} GB
+                  </div>
+                  <div className="invoice-col invoice-col-unit">
+                    ${costPerGB}/GB
+                  </div>
+                  <div className="invoice-col invoice-col-total">
+                    ${ramCost.toFixed(2)}
+                  </div>
+                </div>
+              )}
+              <div className="invoice-total-row">
+                <div className="invoice-col invoice-col-desc"></div>
+                <div className="invoice-col invoice-col-qty"></div>
+                <div className="invoice-col invoice-col-unit">Total</div>
+                <div className="invoice-col invoice-col-total">
+                  ${totalMonthlyCost.toFixed(2)}
+                </div>
+              </div>
+            </div>
+            <p className="calculator-note">
+              Plan payments are paid in TONO to the Tonomy network governance
+              address{" "}
+              <a
+                target="_blank"
+                href="https://explorer.tonomy.io/accounts/gov.tmy"
+              >
+                gov.tmy
+              </a>
+              , which is democratically governed to allocate funds to
+              contributors, operators, and projects in the Tonomy ecosystem.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* Billing History Section */}
       <section className="billing-history-section">
         <h3 className="section-title">Billing History</h3>
@@ -155,6 +237,36 @@ export default function PlanBilling() {
           ))}
         </div>
       </section>
+
+      <Dialog
+        open={showDowngradeConfirm}
+        onClose={() => setShowDowngradeConfirm(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <div className="downgrade-modal">
+          <h3>Downgrade to Basic?</h3>
+          <p>
+            You will lose access to Smart Contracts, Signing Keys, and Web3
+            Transactions. Existing contracts and keys will be disabled.
+          </p>
+          <div className="downgrade-actions">
+            <Button onClick={() => setShowDowngradeConfirm(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                handleDowngradeToBasic();
+                setShowDowngradeConfirm(false);
+              }}
+            >
+              Confirm downgrade
+            </Button>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

@@ -31,6 +31,21 @@ export default function SmartContract() {
   const [abiFile, setAbiFile] = useState<File | null>(null);
   const [sourceCodeUrl, setSourceCodeUrl] = useState("");
   const [ramAmount, setRamAmount] = useState(500);
+  const [fileError, setFileError] = useState<string | null>(null);
+
+  const MAX_FILE_SIZE_MB = 1; // Antelope protocol has contract size limits
+  const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+  const validateFile = (file: File): boolean => {
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      setFileError(
+        `File "${file.name}" exceeds ${MAX_FILE_SIZE_MB}MB limit. Antelope contracts must be optimized and compact.`,
+      );
+      return false;
+    }
+    setFileError(null);
+    return true;
+  };
 
   const currentPlan = app?.plan || "basic";
   const smartContract = app?.smartContract;
@@ -306,10 +321,7 @@ export default function SmartContract() {
                     Sell RAM
                   </button>
                 </div>
-                <div className="ram-adjust-price">
-                  <strong>${((ramAmount / 1000) * 50).toFixed(2)}/month</strong>{" "}
-                  • $50 per GB/month
-                </div>
+                <div className="ram-adjust-price">$50 per GB/month</div>
               </div>
             </div>
           </section>
@@ -339,17 +351,57 @@ export default function SmartContract() {
         </>
       ) : (
         /* No Contract Deployed */
-        <section className="sc-section">
-          <div className="no-contract-card">
-            <p>No smart contract deployed yet.</p>
-            <button
-              className="btn-primary"
-              onClick={() => setShowDeployForm(true)}
-            >
-              Deploy Smart Contract
-            </button>
-          </div>
-        </section>
+        <>
+          {/* Smart Contract Guide */}
+          <section className="sc-section">
+            <div className="compilation-guide">
+              <h4>📚 Smart Contracts on Tonomy</h4>
+              <p>
+                Smart contracts on Tonomy are written in C++ and compiled to
+                WebAssembly (WASM) using the Antelope framework. They're
+                designed to be low-latency, efficient, and highly
+                scalable—perfect for high-throughput applications and 1-click
+                transactions.
+              </p>
+
+              <div className="guide-links">
+                <a
+                  href="https://docs.antelope.io/docs/latest/getting-started/smart-contract-development/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Write smart contracts with Antelope →
+                </a>
+                <a
+                  href="https://docs.antelope.io/docs/latest/getting-started/smart-contract-development/deploy-issue-and-transfer-tokens#step-3-compile-the-contract"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Compile your smart contract →
+                </a>
+                <a
+                  href="https://docs.tonomy.io/build-web4-apps/usage/smart-contracts/1-click-transactions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Design for 1-click transactions (optional) →
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section className="sc-section">
+            <div className="no-contract-card">
+              <p>No smart contract deployed yet.</p>
+              <button
+                className="btn-primary"
+                onClick={() => setShowDeployForm(true)}
+              >
+                Deploy Smart Contract
+              </button>
+            </div>
+          </section>
+        </>
       )}
 
       {/* Deploy/Upgrade Form */}
@@ -367,10 +419,18 @@ export default function SmartContract() {
                 <input
                   type="file"
                   accept=".wasm"
-                  onChange={(e) => setWasmFile(e.target.files?.[0] || null)}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    if (file && validateFile(file)) {
+                      setWasmFile(file);
+                    } else {
+                      setWasmFile(null);
+                      e.target.value = "";
+                    }
+                  }}
                 />
               </label>
-              {wasmFile && <span className="file-name">{wasmFile.name}</span>}
+              {wasmFile && <span className="file-name">✓ {wasmFile.name}</span>}
             </div>
             <div className="file-upload-group">
               <label>
@@ -378,11 +438,20 @@ export default function SmartContract() {
                 <input
                   type="file"
                   accept=".abi,.json"
-                  onChange={(e) => setAbiFile(e.target.files?.[0] || null)}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    if (file && validateFile(file)) {
+                      setAbiFile(file);
+                    } else {
+                      setAbiFile(null);
+                      e.target.value = "";
+                    }
+                  }}
                 />
               </label>
-              {abiFile && <span className="file-name">{abiFile.name}</span>}
+              {abiFile && <span className="file-name">✓ {abiFile.name}</span>}
             </div>
+            {fileError && <div className="file-error">{fileError}</div>}
             <div className="file-upload-group">
               <label
                 htmlFor="sourceCodeUrl"
