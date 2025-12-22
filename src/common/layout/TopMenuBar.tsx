@@ -1,62 +1,58 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import TonomyLogo from "../../tonomyAppList/assets/appSwitcherIcons/tonomy.png";
+import TonomyLogo from "../../apps/assets/appSwitcherIcons/tonomy.png";
+import BuildLogo from "../../apps/assets/appSwitcherIcons/Build.png";
+import BanklessLogo from "../../appsBankless/assets/bankless-logo.png";
 import "./TopMenuBar.css";
-import {
-  AppsExternalUser,
-  ExternalUser,
-  isErrorCode,
-  SdkErrors,
-} from "@tonomy/tonomy-id-sdk";
-import { AuthContext } from "../../tonomyAppList/providers/AuthProvider";
+import { AppsExternalUser } from "@tonomy/tonomy-id-sdk";
+import { AuthContext } from "../../apps/providers/AuthProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import AppSwitcherIcon from "../../tonomyAppList/assets/app-switcher.png";
+import AppSwitcherIcon from "../../apps/assets/app-switcher.png";
 import AppSwitcher from "./AppSwitcher";
 import useErrorStore from "../../common/stores/errorStore";
-import Debug from "debug";
-const debug = Debug("tonomy-app-websites:accounts:pages:Login");
 
 const TopMenuBar = ({ page }) => {
-  const { signout, signin } = useContext(AuthContext);
+  const { signout, user, loading } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
   const [showSwitcher, setShowSwitcher] = useState(false);
   const [open, setOpen] = useState(false);
   const errorStore = useErrorStore();
 
+  function getAppName(): string {
+    if (page === "bankless") return "Tonomy Bankless";
+    if (page === "build") return "Tonomy Build";
+    return "Tonomy Apps";
+  }
+
+  function getAppLogo() {
+    if (page === "bankless") return BanklessLogo;
+    if (page === "build") return BuildLogo;
+    return TonomyLogo;
+  }
+
+  function getHomePath(): string {
+    if (page === "bankless") return "/bankless";
+    if (page === "build") return "/build";
+    return "/";
+  }
+
   useEffect(() => {
-    async function authentication() {
+    async function getUsername() {
       try {
-        const externalUser = await AppsExternalUser.getUser({
-          autoLogout: false,
-        });
-        debug("externalUser", externalUser);
-        if (externalUser) {
-          signin(externalUser, page);
-          const uname = await externalUser.getUsername();
-          if (!uname) throw new Error("No username found");
-          setUsername(uname.getBaseUsername());
-        } else {
-          setUsername("");
+        if (!loading && user) {
+          const username = await user.getUsername();
+          if (!username) throw new Error("No username found");
+          setUsername(username.getBaseUsername());
         }
       } catch (e) {
-        console.log("e", e);
-        if (
-          isErrorCode(e, [
-            SdkErrors.AccountNotFound,
-            SdkErrors.UserNotLoggedIn,
-            SdkErrors.AccountDoesntExist,
-          ])
-        ) {
-          setUsername("");
-        } else {
-          errorStore.setError({ error: e, expected: false });
-        }
+        errorStore.setError({ error: e, expected: false });
       }
     }
-    authentication();
-  }, []); // watch for changes
+    getUsername();
+  }, [loading, user, errorStore]);
 
   function handleLogout() {
     signout(page);
@@ -66,52 +62,42 @@ const TopMenuBar = ({ page }) => {
   async function onButtonPress() {
     let callback = "/callback";
     if (page) callback = "/callback?page=" + page;
-    ExternalUser.loginWithTonomy({
+    AppsExternalUser.loginWithTonomy({
       callbackPath: callback,
       dataRequest: { username: true },
     });
   }
 
-  function shouldShowAppSwitch(url) {
-    const urlObj = new URL(url);
-    const path = urlObj.pathname;
-
-    // Don't show if path is empty, just "/", or only contains query/hash
-    return path !== "" && path !== "/";
-  }
-
   return (
     <div className="tonomy-header">
       <div className="tonomy-title">
-        <a
-          href={window.location.origin}
+        <Link
+          to={getHomePath()}
           className="tonomy-title"
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <img
-            src={TonomyLogo}
-            alt="Tonomy Logo"
+            src={getAppLogo()}
+            alt={getAppName() + " Logo"}
             className="tonomy-logo"
             width={37}
             height={37}
           />
-          <h1 className="tonomy-main-title">Tonomy</h1>
-        </a>
+          <h1 className="tonomy-main-title">{getAppName()}</h1>
+        </Link>
       </div>
       <div className="tonomy-time-container">
-        {shouldShowAppSwitch(window.location.href) && (
-          <div className="switcher-container">
-            <img
-              src={AppSwitcherIcon}
-              alt="App Switcher"
-              className="tonomy-logo cursor-pointer"
-              width={18}
-              height={18}
-              onClick={() => setShowSwitcher(!showSwitcher)}
-            />
-            {showSwitcher && <AppSwitcher />}
-          </div>
-        )}
+        <div className="switcher-container">
+          <img
+            src={AppSwitcherIcon}
+            alt="App Switcher"
+            className="tonomy-logo cursor-pointer"
+            width={18}
+            height={18}
+            onClick={() => setShowSwitcher(!showSwitcher)}
+          />
+          {showSwitcher && <AppSwitcher />}
+        </div>
 
         {username ? (
           <div className="dropdown">

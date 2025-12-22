@@ -73,7 +73,6 @@ export default function Login() {
   // Update CSS variable dynamically
   useEffect(() => {
     if (app) {
-      console.log(app);
       updateThemeColors(app.accentColor, app.backgroundColor);
     }
   }, [status, app]);

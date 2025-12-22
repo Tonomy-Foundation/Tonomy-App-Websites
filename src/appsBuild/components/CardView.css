@@ -1,0 +1,49 @@
+.card-container {
+    width: 100%;
+}
+
+.card-header {
+    padding: 1.5rem !important;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.my-app-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.my-app-subheader {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    color: var(--gray-600);
+}
+
+.black-color {
+    color: var(--gray-900);
+    font-weight: 500;
+}
+
+/* Removed CTA button in cards */
+
+@media (max-width: 480px) {
+    .card-header {
+        padding: 1rem !important;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .my-app-logo {
+        width: 32px;
+        height: 32px;
+    }
+}

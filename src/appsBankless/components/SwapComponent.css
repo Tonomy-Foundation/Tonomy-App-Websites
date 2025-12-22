@@ -1,0 +1,169 @@
+.hint-network {
+    background: #f3f4f6;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: 4px;
+}
+
+.swap-header-info {
+    margin-bottom: 20px;
+}
+
+.swap-feature-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 8px;
+}
+
+.swap-feature-description {
+    font-size: 14px;
+    color: var(--grey-label);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.swap-box {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 19px;
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.swap-label {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: var(--grey-label)
+}
+
+.username {
+    margin-left: 5px;
+    color: var(--black);
+}
+
+.balance {
+    font-size: 13px;
+    color: var(--grey-label);
+    margin-left: auto;
+    /* This will push it to the right */
+    padding-left: 10px;
+    font-weight: 500;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Space between input and currency */
+    border-radius: 5px;
+    border: 1px solid #D2DDEC;
+    padding: 0.5rem;
+
+}
+
+.input-row input {
+    flex: 1;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+.currency {
+    color: #4b5563;
+    font-weight: bold;
+}
+
+.swap-card {
+    position: relative;
+    /* allow absolute positioning inside */
+
+}
+
+.swap-icon {
+    position: absolute;
+    top: 50%;
+    /* middle of the container */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* center the icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--black);
+    z-index: 1;
+    border-radius: 7px;
+    background-color: var(--black);
+    padding: 0.3rem;
+}
+
+.swap-icon:hover {
+    background-color: #222222;
+    border: 1px solid #222222;
+}
+
+.input-width {
+    max-width: 510px;
+}
+
+.error-text {
+    color: red;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.connect-wallet {
+    color: var(--secondary-color);
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.connect-wallet:hover {
+    color: #6A46D1
+}
+
+.info-text {
+    background: #f9fafb;
+    padding: 15px;
+    font-size: 12px;
+    color: var(--grey-label);
+    border-radius: 6px;
+    margin-top: 20px;
+    line-height: 19px;
+
+}
+
+.connect-btn {
+    margin-top: 25px;
+    color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    background-color: var(--primary);
+}
+
+.connect-btn:disabled {
+    background: #C2B8E6;
+}
+
+.tonomy-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+}
+
+
+@media only screen and (max-width: 325px) {
+    .input-width {
+        max-width: 110px;
+    }
+}

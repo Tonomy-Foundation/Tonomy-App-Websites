@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Enable Corepack before setting up Node
         run: corepack enable
 
@@ -21,4 +21,3 @@ jobs:
       - run: yarn run build
       - run: yarn run typeCheck
       - run: yarn run lint
-

@@ -1,17 +1,19 @@
 {
   "name": "tonomy-app-websites",
   "private": true,
-  "version": "1.6.0-rc.2",
+  "version": "1.7.0-development.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "universal-link-association": "yarn tsx universalLinkAssociation.ts",
-    "build": "yarn run universal-link-association && tsc && vite build",
+    "build": "yarn run universal-link-association && tsc && NODE_OPTIONS=--max-old-space-size=6144 vite build",
     "preview": "vite preview",
     "lint:ts": "eslint src",
     "lint:styles": "stylelint \"src/**/*.css\"",
     "lint": "yarn run lint:ts && yarn run lint:styles",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "yarn lint:ts --fix && yarn lint:styles --fix",
+    "lint:pretty": "npx prettier --check .",
+    "lint:pretty:fix": "npx prettier --write .",
     "typeCheck": "tsc --noEmit",
     "start:prod:accounts": "serve -s dist -l 3000 -n",
     "start:prod:demo": "serve -s dist -l 3001 -n",
@@ -28,7 +30,7 @@
     "@reown/appkit": "^1.7.19",
     "@reown/appkit-adapter-wagmi": "^1.7.19",
     "@tanstack/react-query": "^5.85.3",
-    "@tonomy/tonomy-id-sdk": "0.37.0",
+    "@tonomy/tonomy-id-sdk": "0.37.0-rc.2",
     "@wharfkit/antelope": "^1.0.8",
     "rc-highlight": "^2.5.6",
     "react": "^18.2.0",
@@ -75,7 +77,8 @@
   },
   "resolutions": {
     "jsonld": "link:./node_modules/@digitalcredentials/jsonld",
-    "@wharfkit/antelope": "1.0.10"
+    "@wharfkit/antelope": "1.0.10",
+    "ethers": "6.13.2"
   },
   "packageManager": "yarn@4.3.1",
   "engines": {

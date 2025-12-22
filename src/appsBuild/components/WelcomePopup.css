@@ -1,0 +1,85 @@
+.welcome-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.welcome-popup {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #111827;
+}
+
+.welcome-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #4b5563;
+    margin: 0 0 16px 0;
+}
+
+.welcome-text strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+.welcome-text.welcome-highlight {
+    background-color: #fef3c7;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #f59e0b;
+    font-weight: 500;
+    color: #92400e;
+}
+
+.welcome-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.welcome-button {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.welcome-button.primary {
+    background-color: #5833BC;
+    color: white;
+}
+
+.welcome-button.primary:hover {
+    background-color: #4727a0;
+}
+
+.welcome-button.secondary {
+    background-color: #f3f4f6;
+    color: #111827;
+    border: 1px solid #d1d5db;
+}
+
+.welcome-button.secondary:hover {
+    background-color: #e5e7eb;
+}

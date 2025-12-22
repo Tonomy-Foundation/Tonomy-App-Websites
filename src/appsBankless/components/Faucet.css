@@ -1,0 +1,246 @@
+/* Mobile-first responsive design - Light theme to match app */
+.faucet-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.faucet-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.faucet-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.faucet-description {
+    font-size: 0.8125rem;
+    color: var(--grey-label);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.faucet-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.faucet-recipient {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.faucet-label {
+    font-size: 0.8125rem;
+    color: var(--grey-label);
+}
+
+.faucet-username {
+    font-size: 0.8125rem;
+    color: var(--black);
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.faucet-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.faucet-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 0.875rem;
+    border: 1px solid #e5e7eb;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.faucet-input-wrapper:focus-within {
+    border-color: var(--primary);
+}
+
+.faucet-input {
+    flex: 1;
+    min-width: 100px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--black);
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.faucet-input::placeholder {
+    color: #9ca3af;
+}
+
+.faucet-token {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-left: 0.75rem;
+}
+
+.faucet-token-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.faucet-token-symbol {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--black);
+    white-space: nowrap;
+}
+
+.faucet-token-network {
+    font-size: 0.6875rem;
+    color: var(--grey-label);
+    padding: 0.125rem 0.5rem;
+    background: var(--swiper-background);
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.faucet-max-hint {
+    font-size: 0.75rem;
+    color: var(--grey-label);
+    text-align: right;
+}
+
+.faucet-error {
+    color: #ef4444;
+    font-size: 0.8125rem;
+    margin: 0;
+    text-align: center;
+}
+
+.faucet-button {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.faucet-button:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.faucet-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.faucet-button:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.faucet-info {
+    margin-top: 1.25rem;
+    padding: 0.875rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.faucet-info-text {
+    font-size: 0.8125rem;
+    color: var(--grey-label);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+    .faucet-card {
+        padding: 2rem;
+        border-radius: 12px;
+    }
+
+    .faucet-title {
+        font-size: 1.5rem;
+    }
+
+    .faucet-description {
+        font-size: 0.875rem;
+        margin-bottom: 2rem;
+    }
+
+    .faucet-form {
+        gap: 1.5rem;
+    }
+
+    .faucet-input-wrapper {
+        padding: 1rem;
+        flex-wrap: nowrap;
+    }
+
+    .faucet-input {
+        font-size: 1.25rem;
+        min-width: 120px;
+    }
+
+    .faucet-token-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .faucet-token-symbol {
+        font-size: 1rem;
+    }
+
+    .faucet-token-network {
+        font-size: 0.75rem;
+    }
+
+    .faucet-token {
+        padding-left: 1rem;
+    }
+
+    .faucet-button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .faucet-info {
+        margin-top: 1.5rem;
+        padding: 1rem;
+    }
+
+    .faucet-info-text {
+        font-size: 0.875rem;
+    }
+}

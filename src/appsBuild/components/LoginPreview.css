@@ -1,0 +1,357 @@
+.login-preview-container {
+    background-color: var(--preview-background, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Title Container - App Logo and Description */
+.preview-title-container {
+    padding: 0 2rem;
+    gap: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.preview-title-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.preview-app-logo {
+    width: 94px;
+    height: 94px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.preview-app-logo-placeholder {
+    width: 94px;
+    height: 94px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.preview-title {
+    font-size: 28px;
+    line-height: 28.7px;
+    font-weight: 700;
+    margin: 0;
+    color: inherit;
+}
+
+.preview-description {
+    letter-spacing: 0.5px;
+    font-size: 22px;
+    line-height: 22.55px;
+    font-weight: 400;
+    margin: 0;
+    color: inherit;
+}
+
+/* Detail Container - Grey background with QR and instructions */
+.preview-detail-container {
+    margin-top: 30px;
+    padding: 35px;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+}
+
+.preview-qr-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.preview-qr-sub-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.preview-qr-title {
+    font-weight: 600;
+    line-height: 24.6px;
+    letter-spacing: 0.5px;
+    font-size: 24px;
+    margin: 0;
+    color: inherit;
+}
+
+.preview-qr-description {
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    margin: 0;
+    color: inherit;
+}
+
+.preview-divider {
+    border: none;
+    border-top: 1px solid currentColor;
+    opacity: 0.2;
+    margin: 0;
+}
+
+.preview-qr-list {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    padding-left: 23px;
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    color: inherit;
+}
+
+.preview-qr-list li {
+    line-height: 20.5px;
+}
+
+.preview-qr-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-qr-image {
+    width: 240px;
+    height: 240px;
+    object-fit: contain;
+}
+
+/* Security Info */
+.preview-secure-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 16.4px;
+    text-align: left;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.preview-secure-info svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.preview-secure-info span {
+    flex: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .preview-detail-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .preview-qr-image {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .preview-content {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .preview-title-container {
+        padding: 0 1rem;
+        gap: 12px;
+    }
+
+    .preview-title {
+        font-size: 24px;
+        line-height: 24px;
+    }
+
+    .preview-description {
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .preview-app-logo,
+    .preview-app-logo-placeholder {
+        width: 70px;
+        height: 70px;
+    }
+
+    .preview-detail-container {
+        margin-top: 20px;
+        padding: 24px;
+        border-radius: 16px;
+    }
+
+    .preview-qr-title {
+        font-size: 20px;
+        line-height: 22px;
+    }
+
+    .preview-qr-description {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .preview-qr-list {
+        font-size: 16px;
+        padding-left: 20px;
+        gap: 4px;
+    }
+
+    .preview-qr-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .preview-secure-info {
+        font-size: 14px;
+        line-height: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .preview-content {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .preview-title-container {
+        padding: 0 0.5rem;
+        gap: 10px;
+    }
+
+    .preview-title {
+        font-size: 20px;
+        line-height: 22px;
+    }
+
+    .preview-description {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .preview-app-logo,
+    .preview-app-logo-placeholder {
+        width: 60px;
+        height: 60px;
+    }
+
+    .preview-detail-container {
+        margin-top: 15px;
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .preview-qr-title {
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .preview-qr-description {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .preview-qr-list {
+        font-size: 14px;
+        padding-left: 18px;
+        gap: 3px;
+    }
+
+    .preview-qr-image {
+        width: 140px;
+        height: 140px;
+    }
+
+    .preview-secure-info {
+        font-size: 12px;
+        line-height: 14px;
+        gap: 6px;
+    }
+
+    .preview-secure-info svg {
+        width: 12px;
+        height: 15px;
+    }
+}
+
+
+
+.preview-secure-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+    max-width: 400px;
+    text-align: center;
+}
+
+.preview-secure-info svg {
+    flex-shrink: 0;
+    color: var(--preview-accent, #000);
+}
+
+@media (max-width: 768px) {
+    .login-preview-container {
+        min-height: 500px;
+    }
+
+    .preview-content {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .preview-app-logo,
+    .preview-app-logo-placeholder {
+        width: 60px;
+        height: 60px;
+    }
+
+    .preview-app-name {
+        font-size: 1.25rem;
+    }
+
+    .preview-qr-placeholder {
+        width: 160px;
+        height: 160px;
+    }
+}
