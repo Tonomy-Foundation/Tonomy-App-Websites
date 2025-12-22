@@ -46,6 +46,8 @@ export type AppInfo = AppCreateInfo & {
 
 export type AppsContextType = {
   apps: AppInfo[];
+  showWelcome: boolean;
+  setShowWelcome: (show: boolean) => void;
   addApp: (info: AppCreateInfo) => Promise<AppInfo>;
   updateApp: (
     username: string,
@@ -134,6 +136,7 @@ export const AppsProvider = ({
       },
     ],
   );
+  const [showWelcome, setShowWelcome] = useState(true);
 
   const generateHexString = (length: number) => {
     try {
@@ -527,6 +530,8 @@ export const AppsProvider = ({
   const value = useMemo(
     () => ({
       apps,
+      showWelcome,
+      setShowWelcome,
       addApp,
       updateApp,
       getAppByUsername,
@@ -540,7 +545,7 @@ export const AppsProvider = ({
       removeAccountKey,
       clearAllApps,
     }),
-    [apps],
+    [apps, showWelcome],
   );
 
   return <AppsContext.Provider value={value}>{children}</AppsContext.Provider>;

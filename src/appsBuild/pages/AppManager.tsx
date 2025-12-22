@@ -8,9 +8,8 @@ import { useApps } from "../context/AppsContext";
 import { useNavigate } from "react-router-dom";
 
 export default function AppManager() {
-  const { apps, clearAllApps } = useApps();
+  const { apps, clearAllApps, showWelcome, setShowWelcome } = useApps();
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
   const navigate = useNavigate();
 
   const handleUseDummyData = () => {
