@@ -99,7 +99,7 @@ export default function AppViewer() {
         </IconButton>
       </AppsManagerHeader>
       <div className="viewer-wrapper">
-        <aside className={`viewer-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <aside className={`viewer-sidebar ${isSidebarOpen ? "open" : ""}`}>
           <div className="sidebar-header">
             <button
               className="sidebar-close"
@@ -155,7 +155,9 @@ export default function AppViewer() {
                 </div>
                 <IconButton
                   className="viewer-settings-btn"
-                  onClick={() => navigate(`/build/apps/${app.appUsername}/edit`)}
+                  onClick={() =>
+                    navigate(`/build/apps/${app.appUsername}/edit`)
+                  }
                   size="small"
                 >
                   <SettingsIcon />
@@ -226,19 +228,20 @@ export default function AppViewer() {
                 <div>
                   <h4>Danger zone</h4>
                   <p className="danger-copy">
-                    Delete this app from Tonomy Build. This requires the Basic plan and removes access from this dashboard.
+                    Delete this app from Tonomy Build. This requires the Basic
+                    plan and removes access from this dashboard.
                   </p>
                 </div>
                 {app.plan !== "basic" && (
                   <div className="danger-note">
-                    Downgrade to Basic before deleting. Deletion is blocked while Smart Contracts or Signing Keys are enabled.
+                    Downgrade to Basic before deleting. Deletion is blocked
+                    while Smart Contracts or Signing Keys are enabled.
                   </div>
                 )}
-                {deleteError && <div className="danger-error">{deleteError}</div>}
-                <button
-                  className="danger-button"
-                  onClick={handleDeleteClick}
-                >
+                {deleteError && (
+                  <div className="danger-error">{deleteError}</div>
+                )}
+                <button className="danger-button" onClick={handleDeleteClick}>
                   Delete app
                 </button>
               </div>
@@ -280,7 +283,8 @@ export default function AppViewer() {
         <div className="delete-modal">
           <h3>Delete this app?</h3>
           <p>
-            This removes the app from Tonomy Build. You can recreate it later, but any local settings in this dashboard will be lost.
+            This removes the app from Tonomy Build. You can recreate it later,
+            but any local settings in this dashboard will be lost.
           </p>
           <div className="delete-actions">
             <Button onClick={() => setShowDeleteConfirm(false)}>Cancel</Button>

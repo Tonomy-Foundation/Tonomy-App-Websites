@@ -17,9 +17,10 @@ export default function LoginSetup({ onNavigate }: LoginSetupProps) {
   const settings = getSettings();
   const isProd = isProduction();
 
-  const installCommand = activeInstallTab === "npm"
-    ? "npm install @tonomy/tonomy-id-sdk"
-    : "yarn add @tonomy/tonomy-id-sdk";
+  const installCommand =
+    activeInstallTab === "npm"
+      ? "npm install @tonomy/tonomy-id-sdk"
+      : "yarn add @tonomy/tonomy-id-sdk";
 
   const configCode = `import { ExternalUser } from '@tonomy/tonomy-id-sdk';
 
@@ -106,8 +107,16 @@ ExternalUser.setSettings({
               </pre>
             )}
           </div>
-          <button className="copy-btn" onClick={handleCopyInstall} title="Copy to clipboard">
-            {copiedInstall ? <CheckIcon fontSize="small" /> : <ContentCopyIcon fontSize="small" />}
+          <button
+            className="copy-btn"
+            onClick={handleCopyInstall}
+            title="Copy to clipboard"
+          >
+            {copiedInstall ? (
+              <CheckIcon fontSize="small" />
+            ) : (
+              <ContentCopyIcon fontSize="small" />
+            )}
           </button>
         </div>
 
@@ -148,23 +157,37 @@ ExternalUser.setSettings({
               <code>{configCode}</code>
             </pre>
           </div>
-          <button className="copy-btn" onClick={handleCopyConfig} title="Copy to clipboard">
-            {copiedConfig ? <CheckIcon fontSize="small" /> : <ContentCopyIcon fontSize="small" />}
+          <button
+            className="copy-btn"
+            onClick={handleCopyConfig}
+            title="Copy to clipboard"
+          >
+            {copiedConfig ? (
+              <CheckIcon fontSize="small" />
+            ) : (
+              <ContentCopyIcon fontSize="small" />
+            )}
           </button>
         </div>
 
         {isProd ? (
           <p className="info-note">
-            <strong>ℹ Testing:</strong> A full testing environment is available on testnet. Visit{" "}
-            <a href="https://testnet.tonomy.foundation/build" target="_blank" rel="noopener noreferrer">
+            <strong>ℹ Testing:</strong> A full testing environment is available
+            on testnet. Visit{" "}
+            <a
+              href="https://testnet.tonomy.foundation/build"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Tonomy Build Testnet
             </a>{" "}
             to test your integration before going live.
           </p>
         ) : (
           <p className="info-note">
-            <strong>ℹ Development:</strong> You can immediately test your app running on{" "}
-            <code>localhost:3000</code> connected to the Testnet network.
+            <strong>ℹ Development:</strong> You can immediately test your app
+            running on <code>localhost:3000</code> connected to the Testnet
+            network.
           </p>
         )}
       </section>

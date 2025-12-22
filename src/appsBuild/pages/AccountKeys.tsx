@@ -168,9 +168,17 @@ export default function AccountKeys() {
       <div className="keys-usage-info">
         <h4>What can you do with signing keys?</h4>
         <ul>
-          <li>Sign automated transactions from a server with your own smart contract</li>
-          <li>Interact with tokens or other on-chain contracts programmatically</li>
-          <li>Automate Tonomy Build operations via on-chain transactions (e.g., deploying contracts)</li>
+          <li>
+            Sign automated transactions from a server with your own smart
+            contract
+          </li>
+          <li>
+            Interact with tokens or other on-chain contracts programmatically
+          </li>
+          <li>
+            Automate Tonomy Build operations via on-chain transactions (e.g.,
+            deploying contracts)
+          </li>
         </ul>
       </div>
 
@@ -179,8 +187,16 @@ export default function AccountKeys() {
           <strong>⚠ Save this private key now:</strong>
           <div className="private-key-wrapper">
             <div className="private-key">{lastPrivateKey}</div>
-            <button className="copy-key-btn" onClick={handleCopyKey} title="Copy to clipboard">
-              {copiedKey ? <CheckIcon fontSize="small" /> : <ContentCopyIcon fontSize="small" />}
+            <button
+              className="copy-key-btn"
+              onClick={handleCopyKey}
+              title="Copy to clipboard"
+            >
+              {copiedKey ? (
+                <CheckIcon fontSize="small" />
+              ) : (
+                <ContentCopyIcon fontSize="small" />
+              )}
             </button>
           </div>
           <div className="alert-hint">

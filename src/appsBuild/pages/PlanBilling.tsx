@@ -93,7 +93,8 @@ export default function PlanBilling() {
               )}
               {currentPlan === "pro" && (
                 <div className="downgrade-note">
-                  Downgrading removes access to Smart Contracts, Signing Keys, and Web3 Transactions.
+                  Downgrading removes access to Smart Contracts, Signing Keys,
+                  and Web3 Transactions.
                 </div>
               )}
             </div>
@@ -164,26 +165,49 @@ export default function PlanBilling() {
               <div className="invoice-row">
                 <div className="invoice-col invoice-col-desc">Active users</div>
                 <div className="invoice-col invoice-col-qty">{activeUsers}</div>
-                <div className="invoice-col invoice-col-unit">${costPerUser.toFixed(2)}/user</div>
-                <div className="invoice-col invoice-col-total">${usersCost.toFixed(2)}</div>
+                <div className="invoice-col invoice-col-unit">
+                  ${costPerUser.toFixed(2)}/user
+                </div>
+                <div className="invoice-col invoice-col-total">
+                  ${usersCost.toFixed(2)}
+                </div>
               </div>
               {ramGB > 0 && (
                 <div className="invoice-row">
-                  <div className="invoice-col invoice-col-desc">Storage (RAM)</div>
-                  <div className="invoice-col invoice-col-qty">{ramGB.toFixed(2)} GB</div>
-                  <div className="invoice-col invoice-col-unit">${costPerGB}/GB</div>
-                  <div className="invoice-col invoice-col-total">${ramCost.toFixed(2)}</div>
+                  <div className="invoice-col invoice-col-desc">
+                    Storage (RAM)
+                  </div>
+                  <div className="invoice-col invoice-col-qty">
+                    {ramGB.toFixed(2)} GB
+                  </div>
+                  <div className="invoice-col invoice-col-unit">
+                    ${costPerGB}/GB
+                  </div>
+                  <div className="invoice-col invoice-col-total">
+                    ${ramCost.toFixed(2)}
+                  </div>
                 </div>
               )}
               <div className="invoice-total-row">
                 <div className="invoice-col invoice-col-desc"></div>
                 <div className="invoice-col invoice-col-qty"></div>
                 <div className="invoice-col invoice-col-unit">Total</div>
-                <div className="invoice-col invoice-col-total">${totalMonthlyCost.toFixed(2)}</div>
+                <div className="invoice-col invoice-col-total">
+                  ${totalMonthlyCost.toFixed(2)}
+                </div>
               </div>
             </div>
             <p className="calculator-note">
-              Plan payments are paid in TONO to the Tonomy network governance address <a target="_blank" href="https://explorer.tonomy.io/accounts/gov.tmy">gov.tmy</a>, which is democratically governed to allocate funds to contributors, operators, and projects in the Tonomy ecosystem.
+              Plan payments are paid in TONO to the Tonomy network governance
+              address{" "}
+              <a
+                target="_blank"
+                href="https://explorer.tonomy.io/accounts/gov.tmy"
+              >
+                gov.tmy
+              </a>
+              , which is democratically governed to allocate funds to
+              contributors, operators, and projects in the Tonomy ecosystem.
             </p>
           </div>
         </section>
@@ -223,10 +247,13 @@ export default function PlanBilling() {
         <div className="downgrade-modal">
           <h3>Downgrade to Basic?</h3>
           <p>
-            You will lose access to Smart Contracts, Signing Keys, and Web3 Transactions. Existing contracts and keys will be disabled.
+            You will lose access to Smart Contracts, Signing Keys, and Web3
+            Transactions. Existing contracts and keys will be disabled.
           </p>
           <div className="downgrade-actions">
-            <Button onClick={() => setShowDowngradeConfirm(false)}>Cancel</Button>
+            <Button onClick={() => setShowDowngradeConfirm(false)}>
+              Cancel
+            </Button>
             <Button
               variant="contained"
               color="error"

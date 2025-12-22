@@ -11,7 +11,9 @@ type AppsManagerHeaderProps = {
   children?: ReactNode;
 };
 
-export default function AppsManagerHeader({ children }: AppsManagerHeaderProps) {
+export default function AppsManagerHeader({
+  children,
+}: AppsManagerHeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { getAppByUsername } = useApps();

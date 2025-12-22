@@ -38,7 +38,9 @@ export default function SmartContract() {
 
   const validateFile = (file: File): boolean => {
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      setFileError(`File "${file.name}" exceeds ${MAX_FILE_SIZE_MB}MB limit. Antelope contracts must be optimized and compact.`);
+      setFileError(
+        `File "${file.name}" exceeds ${MAX_FILE_SIZE_MB}MB limit. Antelope contracts must be optimized and compact.`,
+      );
       return false;
     }
     setFileError(null);
@@ -319,9 +321,7 @@ export default function SmartContract() {
                     Sell RAM
                   </button>
                 </div>
-                <div className="ram-adjust-price">
-                  $50 per GB/month
-                </div>
+                <div className="ram-adjust-price">$50 per GB/month</div>
               </div>
             </div>
           </section>
@@ -357,17 +357,33 @@ export default function SmartContract() {
             <div className="compilation-guide">
               <h4>📚 Smart Contracts on Tonomy</h4>
               <p>
-                Smart contracts on Tonomy are written in C++ and compiled to WebAssembly (WASM) using the Antelope framework. They're designed to be low-latency, efficient, and highly scalable—perfect for high-throughput applications and 1-click transactions.
+                Smart contracts on Tonomy are written in C++ and compiled to
+                WebAssembly (WASM) using the Antelope framework. They're
+                designed to be low-latency, efficient, and highly
+                scalable—perfect for high-throughput applications and 1-click
+                transactions.
               </p>
 
               <div className="guide-links">
-                <a href="https://docs.antelope.io/docs/latest/getting-started/smart-contract-development/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://docs.antelope.io/docs/latest/getting-started/smart-contract-development/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Write smart contracts with Antelope →
                 </a>
-                <a href="https://docs.antelope.io/docs/latest/getting-started/smart-contract-development/deploy-issue-and-transfer-tokens#step-3-compile-the-contract" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://docs.antelope.io/docs/latest/getting-started/smart-contract-development/deploy-issue-and-transfer-tokens#step-3-compile-the-contract"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Compile your smart contract →
                 </a>
-                <a href="https://docs.tonomy.io/build-web4-apps/usage/smart-contracts/1-click-transactions" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://docs.tonomy.io/build-web4-apps/usage/smart-contracts/1-click-transactions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Design for 1-click transactions (optional) →
                 </a>
               </div>
@@ -409,7 +425,7 @@ export default function SmartContract() {
                       setWasmFile(file);
                     } else {
                       setWasmFile(null);
-                      e.target.value = '';
+                      e.target.value = "";
                     }
                   }}
                 />
@@ -428,7 +444,7 @@ export default function SmartContract() {
                       setAbiFile(file);
                     } else {
                       setAbiFile(null);
-                      e.target.value = '';
+                      e.target.value = "";
                     }
                   }}
                 />

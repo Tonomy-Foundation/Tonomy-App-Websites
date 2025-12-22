@@ -524,9 +524,7 @@ export const AppsProvider = ({
     return updatedApp;
   };
 
-  const removeApp = async (
-    username: string,
-  ): Promise<AppInfo | undefined> => {
+  const removeApp = async (username: string): Promise<AppInfo | undefined> => {
     const cleanUsername = username.startsWith("@")
       ? username.slice(1)
       : username;
