@@ -11,6 +11,7 @@ import {
   AppsExternalUser,
   EosioTokenContract,
   getBaseTokenContract,
+  getSettings,
 } from "@tonomy/tonomy-id-sdk";
 import Decimal from "decimal.js";
 import TModal from "../../tonomyAppList/components/TModal";
@@ -193,6 +194,7 @@ export default function Swap() {
 
       const ethersProvider = new BrowserProvider(
         walletProvider as import("ethers").Eip1193Provider,
+        getSettings().baseNetwork
       );
       const signer = await ethersProvider.getSigner();
       // Set up timeout for 100 seconds
