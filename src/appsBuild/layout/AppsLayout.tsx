@@ -1,13 +1,15 @@
 import React, { ReactNode } from "react";
-import AppsManagerHeader from "../components/AppsManagerHeader";
 import { AppsProvider } from "../context/AppsContext";
 import "./AppsLayout.css";
 
-const AppsLayout = ({ children }: { children: ReactNode }) => {
+type AppsLayoutProps = {
+  children: ReactNode;
+};
+
+const AppsLayout = ({ children }: AppsLayoutProps) => {
   return (
     <AppsProvider>
       <div className="apps-layout">
-        <AppsManagerHeader />
         <div className="apps-layout-container">{children}</div>
       </div>
     </AppsProvider>
