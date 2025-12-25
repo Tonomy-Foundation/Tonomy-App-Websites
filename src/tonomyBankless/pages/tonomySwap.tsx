@@ -18,7 +18,7 @@ import TModal from "../../tonomyAppList/components/TModal";
 import CircularIcon from "../assets/icons/circular-arrow.png";
 import InprogressIcon from "../assets/icons/inprogress.png";
 import useErrorStore from "../../common/stores/errorStore";
-import { BrowserProvider } from "ethers";
+import { BrowserProvider, Eip1193Provider } from "ethers";
 import { useAppKitEvents } from "@reown/appkit/react";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -191,12 +191,23 @@ export default function Swap() {
     if (buttonText === "Swap Assets") {
       if (!user) return;
       const appUser = new AppsExternalUser(user);
+      const provider = walletProvider as Eip1193Provider;
+
+      await provider.request({ method: "eth_requestAccounts" });
 
       const ethersProvider = new BrowserProvider(
-        walletProvider as import("ethers").Eip1193Provider,
-        getSettings().baseNetwork
+        provider,
+        getSettings().baseNetwork,
       );
+      const chainId =
+        getSettings().baseNetwork === "base" ? "0x2105" : "0x14a34"; // Base or Base sepolia
+
+      await provider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: chainId }], // Base Sepolia (84532)
+      });
       const signer = await ethersProvider.getSigner();
+
       // Set up timeout for 100 seconds
       const timeoutDuration = currentDirection === "base" ? 60000 : 100000;
       // Create a timeout that will close the modal if the operation takes too long

@@ -31,5 +31,5 @@
     "baseNetwork": "localhost",
     "baseTokenAddress": "0x56aD9925f417358640746266eF44a701622c54Ba",
     "baseRpcUrl": "https://base-sepolia.infura.io/v3/",
-    "baseMintBurnAddress": "0x56aD9925f417358640746266eF44a701622c54Ba"
+    "baseMintBurnAddress": "0x8de48baf638e4cd8dab07ef12375369cb9b841db"
 }
